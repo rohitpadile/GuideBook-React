@@ -1,0 +1,96 @@
+import React, { useState, useEffect } from 'react';
+
+// Sample data
+const colleges = [
+    { id: 1, name: 'College A', photo: 'url-to-college-a-photo', branch: 'Electrical', grade: 12, entranceExamScore: 90 },
+    { id: 2, name: 'College B', photo: 'url-to-college-b-photo', branch: 'Mechanical', grade: 11, entranceExamScore: 85 },
+    // Add more colleges as needed
+];
+
+const SelectCollege = () => {
+    const [filteredColleges, setFilteredColleges] = useState(colleges);
+    const [branchFilter, setBranchFilter] = useState('');
+    const [gradeFilter, setGradeFilter] = useState('');
+    const [scoreFilter, setScoreFilter] = useState('');
+
+    useEffect(() => {
+        filterColleges();
+    }, [branchFilter, gradeFilter, scoreFilter]);
+
+    const filterColleges = () => {
+        let filtered = colleges;
+        if (branchFilter) {
+            filtered = filtered.filter(college => college.branch.includes(branchFilter));
+        }
+        if (gradeFilter) {
+            filtered = filtered.filter(college => college.grade === parseInt(gradeFilter));
+        }
+        if (scoreFilter) {
+            filtered = filtered.filter(college => college.entranceExamScore >= parseInt(scoreFilter));
+        }
+        setFilteredColleges(filtered);
+    };
+
+    return (
+        <div>
+            <h1>Select College</h1>
+            <div>
+                <label>
+                    Branch:
+                    <input 
+                        type="text" 
+                        value={branchFilter} 
+                        onChange={(e) => setBranchFilter(e.target.value)} 
+                        placeholder="e.g., Electrical"
+                    />
+                </label>
+                <label>
+                    Grade:
+                    <input 
+                        type="number" 
+                        value={gradeFilter} 
+                        onChange={(e) => setGradeFilter(e.target.value)} 
+                        placeholder="e.g., 12"
+                    />
+                </label>
+                <label>
+                    Entrance Exam Score:
+                    <input 
+                        type="number" 
+                        value={scoreFilter} 
+                        onChange={(e) => setScoreFilter(e.target.value)} 
+                        placeholder="e.g., 90"
+                    />
+                </label>
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                {filteredColleges.map(college => (
+                    <div key={college.id} style={styles.collegeBox}>
+                        <div style={styles.image} style={{ backgroundImage: `url(${college.photo})` }} />
+                        <h2>{college.name}</h2>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+const styles = {
+    collegeBox: {
+        border: '1px solid #ccc',
+        borderRadius: '8px',
+        padding: '16px',
+        margin: '8px',
+        width: '200px',
+        textAlign: 'center',
+        position: 'relative',
+    },
+    image: {
+        height: '150px',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        borderRadius: '8px 8px 0 0',
+    }
+};
+
+export default SelectCollege;
