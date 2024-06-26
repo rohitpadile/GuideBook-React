@@ -1,38 +1,46 @@
+// src/components/SelectCollegeComponent.js
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useBranch } from './context/BranchContext';
+import { getColleges } from './src/Services/apiServiceRegular';
+import { getAllBranches } from './src/Services/apiServiceAdmin'; // Use the updated path
 
 const SelectCollegeComponent = () => {
     const [colleges, setColleges] = useState([]);
-    const [filteredColleges, setFilteredColleges] = useState([]);
-    const [branchFilter, setBranchFilter] = useState('');
+    const [branches, setBranches] = useState([]);
+    const { setSelectedBranch } = useBranch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchColleges();
+        fetchBranches();
     }, []);
-
-    useEffect(() => {
-        filterColleges();
-    }, [branchFilter]);
 
     const fetchColleges = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/colleges'); // Replace with your backend API endpoint
-            const data = await response.json();
-            setColleges(data);
-            setFilteredColleges(data);
+            const response = await getColleges();
+            setColleges(response.data);
         } catch (error) {
             console.error('Error fetching colleges:', error);
         }
     };
 
-    const filterColleges = () => {
-        let filtered = colleges;
-        if (branchFilter) {
-            filtered = filtered.filter(college => college.branch.includes(branchFilter));
+    const fetchBranches = async () => {
+        try {
+            const response = await getAllBranches();
+            setBranches(response.data);
+        } catch (error) {
+            console.error('Error fetching branches:', error);
         }
-        setFilteredColleges(filtered);
     };
 
-    const branches = [...new Set(colleges.map(college => college.branch))]; // Get unique branches
+    const handleBranchChange = (e) => {
+        setSelectedBranch(e.target.value);
+    };
+
+    const handleCollegeClick = (college) => {
+        navigate(`/select-student/${college.collegeId}`);
+    };
 
     return (
         <div>
@@ -40,19 +48,21 @@ const SelectCollegeComponent = () => {
             <div>
                 <label>
                     Branch:
-                    <select value={branchFilter} onChange={(e) => setBranchFilter(e.target.value)}>
+                    <select onChange={handleBranchChange}>
                         <option value="">Select Branch</option>
                         {branches.map(branch => (
-                            <option key={branch} value={branch}>{branch}</option>
+                            <option key={branch.branchId} value={branch.branchName}>
+                                {branch.branchName}
+                            </option>
                         ))}
                     </select>
                 </label>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {filteredColleges.map(college => (
-                    <div key={college.id} style={styles.collegeBox}>
+                {colleges.map(college => (
+                    <div key={college.collegeId} style={styles.collegeBox} onClick={() => handleCollegeClick(college)}>
                         <div style={{ ...styles.image, backgroundImage: `url(${college.photo})` }} />
-                        <h2>{college.name}</h2>
+                        <h2>{college.collegeName}</h2>
                     </div>
                 ))}
             </div>
@@ -69,6 +79,7 @@ const styles = {
         width: '200px',
         textAlign: 'center',
         position: 'relative',
+        cursor: 'pointer',
     },
     image: {
         height: '150px',
