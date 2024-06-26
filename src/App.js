@@ -1,27 +1,20 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import SelectCollege from '.Functional-Components/SelectCollege';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import SelectCollegeComponent from './Components/SelectCollegeComponent';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Welcome to Our Service</h1>
-      </header>
+    <div>
       <Router>
-        <div>
-          <Switch>
-            <Route path="/select-college" component={SelectCollege} />
-            {/* Add more routes here as needed */}
-            <Route path="/" exact>
-              <h2>Homepage</h2>
-              {/* Add content for the homepage */}
-            </Route>
-          </Switch>
-        </div>
+          {/* <HeaderComponent/> */}
+              <div className="container">
+                <Routes>  
+                  <Route path="/" element={<SelectCollegeComponent />} />
+                  <Route path="/colleges" element={<SelectCollegeComponent />} />
+                </Routes>
+              </div>
+          {/* <FooterComponent/> */}
       </Router>
     </div>
   );
