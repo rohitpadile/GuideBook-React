@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import SelectCollegeComponent from '//Components/SelectCollegeComponent';
+import SelectCollegeComponent from './Components/SelectCollegeComponent'; // Corrected path
 // import SelectStudentComponent from './Components/SelectStudentComponent';
-import { BranchProvider } from '//Context/BranchContext';
+import { BranchProvider } from './Context/BranchContext'; // Corrected path
 import './App.css';
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
           <div className="container">
             <Routes>
               <Route path="/colleges" element={<SelectCollegeComponent />} />
-              {/* <Route path="/select-student/:collegeId" element={<SelectStudentComponent />} /> */}
+              {/* <Route path="/selectStudent/:collegeId" element={<SelectStudentComponent />} /> */}
             </Routes>
           </div>
         </BranchProvider>
