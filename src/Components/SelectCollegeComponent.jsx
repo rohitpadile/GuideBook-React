@@ -7,13 +7,11 @@ import { getAllBranches } from '../Services/apiServiceAdmin';
 
 const SelectCollegeComponent = () => {
     const [colleges, setColleges] = useState([]);
-    const [branches, setBranches] = useState([]);
     const { setSelectedBranch } = useBranch();
     const navigate = useNavigate();
 
     useEffect(() => {
         fetchColleges();
-        fetchBranches();
     }, []);
 
     const fetchColleges = async () => {
@@ -25,40 +23,14 @@ const SelectCollegeComponent = () => {
         }
     };
 
-    const fetchBranches = async () => {
-        try {
-            const response = await getAllBranches();
-            setBranches(response.data);
-        } catch (error) {
-            console.error('Error fetching branches:', error);
-        }
-    };
-
-    const handleBranchChange = (e) => {
-        setSelectedBranch(e.target.value);
-    };
-
     const handleCollegeClick = (college) => {
         // navigate(`/select-student/${college.collegeId}`);
-        console.log("hello i am going to select student!");
+        console.log("Navigating to select student page with college:", college);
     };
 
     return (
         <div>
             <h1>Select College</h1>
-            <div>
-                <label>
-                    Branch:
-                    <select onChange={handleBranchChange}>
-                        <option value="">Select Branch</option>
-                        {branches.map(branch => (
-                            <option key={branch.branchId} value={branch.branchName}>
-                                {branch.branchName}
-                            </option>
-                        ))}
-                    </select>
-                </label>
-            </div>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                 {colleges.map(college => (
                     <div key={college.collegeId} style={styles.collegeBox} onClick={() => handleCollegeClick(college)}>
