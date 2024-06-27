@@ -34,7 +34,7 @@ const SelectCollegeComponent = () => {
                 {colleges.map(college => (
                     <div key={college.collegeId} className="col-md-4 mb-4">
                         <div className="card h-100 border-primary shadow-sm" onClick={() => handleCollegeClick(college)} style={{ cursor: 'pointer' }}>
-                            <img src={college.photo} className="card-img-top" alt={college.collegeName} style={{ height: '200px', objectFit: 'cover', borderRadius: '8px 8px 0 0' }} />
+                            <img src={`/${college.collegeName.toLowerCase().replace(/\s/g, '')}.jpg`} className="card-img-top" alt={college.collegeName} style={{ height: '200px', objectFit: 'cover', borderRadius: '8px 8px 0 0' }} />
                             <div className="card-body">
                                 <h5 className="card-title">{college.collegeName}</h5>
                             </div>
