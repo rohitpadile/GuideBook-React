@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBranch } from '../Context/BranchContext'; // Corrected path
 import { getColleges } from '../Services/apiServiceRegular'; // Corrected path
-import { getAllBranches } from '../Services/apiServiceAdmin';
 
 const SelectCollegeComponent = () => {
     const [colleges, setColleges] = useState([]);
@@ -23,8 +22,7 @@ const SelectCollegeComponent = () => {
     };
 
     const handleCollegeClick = (college) => {
-        // navigate(`/select-student/${college.collegeId}`);
-        console.log("Navigating to select student page with college:", college);
+        navigate(`/selectStudent/${college.collegeId}`);
     };
 
     return (

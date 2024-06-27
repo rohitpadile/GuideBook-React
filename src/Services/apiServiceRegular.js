@@ -12,4 +12,7 @@ export const getColleges = () => {
     return api.get('/colleges');
 };
 
+export const getStudents = () => {
+    return axios.get('/students');
+};
 // Add more regular user API methods as needed
