@@ -4,7 +4,7 @@ import SelectCollegeComponent from './Components/SelectCollegeComponent'; // Cor
 // import SelectStudentComponent from './Components/SelectStudentComponent';
 import { BranchProvider } from './Context/BranchContext'; // Corrected path
 import './App.css';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <div>

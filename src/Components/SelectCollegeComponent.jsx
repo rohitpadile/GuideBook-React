@@ -1,4 +1,3 @@
-// src/components/SelectCollegeComponent.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBranch } from '../Context/BranchContext'; // Corrected path
@@ -29,37 +28,22 @@ const SelectCollegeComponent = () => {
     };
 
     return (
-        <div>
-            <h1>Select College</h1>
-            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div className="container mt-4">
+            <h1 className="text-center mb-4">Select College</h1>
+            <div className="row">
                 {colleges.map(college => (
-                    <div key={college.collegeId} style={styles.collegeBox} onClick={() => handleCollegeClick(college)}>
-                        <div style={{ ...styles.image, backgroundImage: `url(${college.photo})` }} />
-                        <h2>{college.collegeName}</h2>
+                    <div key={college.collegeId} className="col-md-4 mb-4">
+                        <div className="card h-100 border-primary shadow-sm" onClick={() => handleCollegeClick(college)} style={{ cursor: 'pointer' }}>
+                            <img src={college.photo} className="card-img-top" alt={college.collegeName} style={{ height: '200px', objectFit: 'cover', borderRadius: '8px 8px 0 0' }} />
+                            <div className="card-body">
+                                <h5 className="card-title">{college.collegeName}</h5>
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div>
         </div>
     );
-};
-
-const styles = {
-    collegeBox: {
-        border: '1px solid #ccc',
-        borderRadius: '8px',
-        padding: '16px',
-        margin: '8px',
-        width: '200px',
-        textAlign: 'center',
-        position: 'relative',
-        cursor: 'pointer',
-    },
-    image: {
-        height: '150px',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        borderRadius: '8px 8px 0 0',
-    }
 };
 
 export default SelectCollegeComponent;
