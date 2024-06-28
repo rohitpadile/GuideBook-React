@@ -1,22 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getStudents } from '../Services/apiServiceRegular'; // Assuming correct path
+import {
+    getAllStudents,
+    getAllBranches,
+    getAllLanguages,
+    updateStudent as updateStudentDetails // Alias to avoid confusion with updateStudent function
+} from '../Services/apiServiceAdmin'; // Corrected path
 
 const SelectStudentComponent = () => {
     const [students, setStudents] = useState([]);
     const [filteredStudents, setFilteredStudents] = useState([]);
-    const [filter, setFilter] = useState({
-        branch: '',
-        grade: '',
-        cetPercentile: '',
-        yearOfStudy: '',
-        languages: []
-    });
+    const [filter, setFilter] = useState({ branch: '', grade: '', cetPercentile: '', yearOfStudy: '', languages: [] });
+    const [branches, setBranches] = useState([]);
+    const [languages, setLanguages] = useState([]);
     const navigate = useNavigate();
     const { collegeId } = useParams();
 
     useEffect(() => {
         fetchStudents();
+        fetchBranches();
+        fetchLanguages();
     }, []);
 
     useEffect(() => {
@@ -25,11 +28,29 @@ const SelectStudentComponent = () => {
 
     const fetchStudents = async () => {
         try {
-            const response = await getStudents(collegeId);
+            const response = await getAllStudents(); // Using getAllStudents from apiServiceAdmin
             setStudents(response.data);
             setFilteredStudents(response.data);
         } catch (error) {
             console.error('Error fetching students:', error);
+        }
+    };
+
+    const fetchBranches = async () => {
+        try {
+            const response = await getAllBranches(); // Using getAllBranches from apiServiceAdmin
+            setBranches(response.data);
+        } catch (error) {
+            console.error('Error fetching branches:', error);
+        }
+    };
+
+    const fetchLanguages = async () => {
+        try {
+            const response = await getAllLanguages(); // Using getAllLanguages from apiServiceAdmin
+            setLanguages(response.data);
+        } catch (error) {
+            console.error('Error fetching languages:', error);
         }
     };
 
@@ -40,23 +61,21 @@ const SelectStudentComponent = () => {
 
     const applyFilter = () => {
         let filtered = students;
-
         if (filter.branch) {
-            filtered = filtered.filter(student => student.branch.branchName.toLowerCase().includes(filter.branch.toLowerCase()));
+            filtered = filtered.filter(student => student.branch.branchName.includes(filter.branch));
         }
         if (filter.grade) {
-            filtered = filtered.filter(student => student.grade >= parseFloat(filter.grade));
+            filtered = filtered.filter(student => student.grade.toString().includes(filter.grade));
         }
         if (filter.cetPercentile) {
-            filtered = filtered.filter(student => student.cetPercentile >= parseFloat(filter.cetPercentile));
+            filtered = filtered.filter(student => student.cetPercentile.toString().includes(filter.cetPercentile));
         }
         if (filter.yearOfStudy) {
-            filtered = filtered.filter(student => student.yearOfStudy.toString() === filter.yearOfStudy);
+            filtered = filtered.filter(student => student.yearOfStudy === filter.yearOfStudy);
         }
         if (filter.languages.length > 0) {
             filtered = filtered.filter(student => filter.languages.every(lang => student.languages.includes(lang)));
         }
-
         setFilteredStudents(filtered);
     };
 
@@ -66,7 +85,10 @@ const SelectStudentComponent = () => {
     };
 
     const handleLanguageChange = (e) => {
-        const selectedLanguages = Array.from(e.target.selectedOptions, option => option.value);
+        const { options } = e.target;
+        const selectedLanguages = Array.from(options)
+            .filter(option => option.selected)
+            .map(option => option.value);
         setFilter(prevFilter => ({ ...prevFilter, languages: selectedLanguages }));
     };
 
@@ -84,41 +106,12 @@ const SelectStudentComponent = () => {
                             value={filter.branch}
                             onChange={handleFilterChange}
                         >
-                            <option value="">Select Branch</option>
-                            {/* Replace with actual branch options */}
-                            <option value="branch1">Branch 1</option>
-                            <option value="branch2">Branch 2</option>
-                            <option value="branch3">Branch 3</option>
+                            <option value="">All Branches</option>
+                            {branches.map(branch => (
+                                <option key={branch.branchId} value={branch.branchName}>{branch.branchName}</option>
+                            ))}
                         </select>
                     </div>
-                </div>
-                <div className="col-md-3">
-                    <div className="form-group">
-                        <label htmlFor="grade">Above Grade:</label>
-                        <input
-                            type="number"
-                            id="grade"
-                            name="grade"
-                            className="form-control"
-                            value={filter.grade}
-                            onChange={handleFilterChange}
-                        />
-                    </div>
-                </div>
-                <div className="col-md-3">
-                    <div className="form-group">
-                        <label htmlFor="cetPercentile">Above CET Percentile:</label>
-                        <input
-                            type="number"
-                            id="cetPercentile"
-                            name="cetPercentile"
-                            className="form-control"
-                            value={filter.cetPercentile}
-                            onChange={handleFilterChange}
-                        />
-                    </div>
-                </div>
-                <div className="col-md-3">
                     <div className="form-group">
                         <label htmlFor="yearOfStudy">Year of Study:</label>
                         <select
@@ -128,49 +121,45 @@ const SelectStudentComponent = () => {
                             value={filter.yearOfStudy}
                             onChange={handleFilterChange}
                         >
-                            <option value="">Select Year</option>
-                            {/* Replace with actual year options */}
-                            <option value="1">First Year</option>
-                            <option value="2">Second Year</option>
-                            <option value="3">Third Year</option>
-                            <option value="4">Fourth Year</option>
+                            <option value="">All Years</option>
+                            <option value="SY">Second Year</option>
+                            <option value="TY">Third Year</option>
+                            <option value="DSY">Final Year</option>
+                        </select>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="languages">Languages Spoken:</label>
+                        <select
+                            id="languages"
+                            name="languages"
+                            className="form-control"
+                            size="5"
+                            multiple
+                            onChange={handleLanguageChange}
+                        >
+                            {languages.map(lang => (
+                                <option key={lang.languageId} value={lang.languageName}>{lang.languageName}</option>
+                            ))}
                         </select>
                     </div>
                 </div>
-            </div>
-            <div className="form-group">
-                <label htmlFor="languages">Languages Spoken:</label>
-                <select
-                    id="languages"
-                    name="languages"
-                    className="form-control"
-                    size="5"
-                    onChange={handleLanguageChange}
-                >
-                    {/* Replace with actual language options */}
-                    <option value="english">English</option>
-                    <option value="french">French</option>
-                    <option value="german">German</option>
-                    <option value="spanish">Spanish</option>
-                </select>
-            </div>
-            <div className="row mt-4">
-                {filteredStudents.map(student => (
-                    <div key={student.studentId} className="col-md-4 mb-4">
-                        <div className="card h-100 border-primary shadow-sm" onClick={() => handleStudentClick(student)} style={{ cursor: 'pointer' }}>
-                            {/* Replace with appropriate image source */}
-                            <img src={`/${student.studentName.toLowerCase().replace(/\s/g, '')}.jpg`} className="card-img-top" alt={student.studentName} style={{ height: '200px', objectFit: 'cover', borderRadius: '8px 8px 0 0' }} />
-                            <div className="card-body">
-                                <h5 className="card-title">{student.studentName}</h5>
-                                <p className="card-text">Branch: {student.branch.branchName}</p>
-                                <p className="card-text">Grade: {student.grade}</p>
-                                <p className="card-text">CET Percentile: {student.cetPercentile}</p>
-                                <p className="card-text">Year of Study: {student.yearOfStudy}</p>
-                                <p className="card-text">Languages: {student.languages.join(', ')}</p>
+                <div className="col-md-9">
+                    <div className="row">
+                        {filteredStudents.map(student => (
+                            <div key={student.studentId} className="col-md-4 mb-4">
+                                <div className="card h-100 border-primary shadow-sm" onClick={() => handleStudentClick(student)} style={{ cursor: 'pointer' }}>
+                                    <img src={`/${student.studentName.toLowerCase().replace(/\s/g, '')}.jpg`} className="card-img-top" alt={student.studentName} style={{ height: '200px', objectFit: 'cover', borderRadius: '8px 8px 0 0' }} />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{student.studentName}</h5>
+                                        <p className="card-text">Branch: {student.branch.branchName}</p>
+                                        <p className="card-text">Grade: {student.grade}</p>
+                                        <p className="card-text">CET Percentile: {student.cetPercentile}</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        ))}
                     </div>
-                ))}
+                </div>
             </div>
         </div>
     );
