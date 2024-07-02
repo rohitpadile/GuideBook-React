@@ -1,87 +1,59 @@
-// src/services/apiServiceAdmin.js
 import axios from 'axios';
 
+const BASE_URL = 'http://localhost:8080/api/v1/admin'; // Adjust the base URL as per your backend setup
+
 const api = axios.create({
-    baseURL: 'http://localhost:8080/api/v1/admin',
-    headers: {
-        'Content-Type': 'application/json',
-    },
+  baseURL: BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 // College endpoints
-export const addCollege = (college) => {
-    return api.post('/addCollege', college);
-};
-
-export const updateCollege = (collegeId, collegeDetails) => {
-    return api.put(`/updateCollege/${collegeId}`, collegeDetails);
-};
-
-export const deleteCollege = (collegeId) => {
-    return api.delete(`/deleteCollege/${collegeId}`);
-};
-
 export const getAllColleges = () => {
-    return api.get('/colleges');
+  return api.get('/colleges');
 };
 
-export const getCollegeById = (collegeId) => {
-    return api.get(`/colleges/${collegeId}`);
+export const getFilteredStudentList = async (filters) => {
+  try {
+    const response = await api.post('/filteredStudentList', filters);
+    return response.data; // Assuming the API returns JSON data
+  } catch (error) {
+    throw new Error(`Error fetching filtered student list: ${error.message}`);
+  }
 };
 
-// Branch endpoints
-export const getAllBranches = () => {
-    return api.get('/branches');
+// Fetch all language names
+export const getAllLanguageNames = async () => {
+  try {
+    const response = await api.get('/languages');
+    return response.data.allLanguageNamesList || [];
+  } catch (error) {
+    console.error('Error fetching language names:', error);
+    return [];
+  }
 };
 
-export const addBranch = (branch) => {
-    return api.post('/addBranch', branch);
+// Fetch all student class types
+export const getAllStudentClassTypes = async () => {
+  try {
+    const response = await api.get('/studentClassTypes');
+    return response.data.allStudentClassTypeNamesList || [];
+  } catch (error) {
+    console.error('Error fetching student class types:', error);
+    return [];
+  }
 };
 
-export const updateBranch = (branchId, branchDetails) => {
-    return api.put(`/updateBranch/${branchId}`, branchDetails);
+// Fetch all branch names
+export const getAllBranchNames = async () => {
+  try {
+    const response = await api.get('/branches');
+    return response.data.allBranchNamesList || [];
+  } catch (error) {
+    console.error('Error fetching branch names:', error);
+    return [];
+  }
 };
 
-export const deleteBranch = (branchId) => {
-    return api.delete(`/deleteBranch/${branchId}`);
-};
-
-// Language endpoints
-export const getAllLanguages = () => {
-    return api.get('/languages');
-};
-
-export const addLanguage = (language) => {
-    return api.post('/addLanguage', language);
-};
-
-export const updateLanguageById = (id, language) => {
-    return api.put(`/updateLanguage/${id}`, language);
-};
-
-export const deleteLanguageById = (id) => {
-    return api.delete(`/deleteLanguage/${id}`);
-};
-
-// Student endpoints
-export const getAllStudents = () => {
-    return api.get('/students');
-};
-
-export const getStudentById = (id) => {
-    return api.get(`/students/${id}`);
-};
-
-export const addStudent = (student) => {
-    return api.post('/addStudent', student);
-};
-
-export const updateStudent = (id, student) => {
-    return api.put(`/updateStudent/${id}`, student);
-};
-
-export const deleteStudentById = (id) => {
-    return api.delete(`/deleteStudent/${id}`);
-};
-
-// Add more admin API methods as needed
+export default api;

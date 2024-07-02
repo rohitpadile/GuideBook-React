@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import SelectCollegeComponent from './Components/SelectCollegeComponent'; // Corrected path
+import SelectCollegeComponent from './Components/SelectCollegeComponent';
 import SelectStudentComponent from './Components/SelectStudentComponent';
-import { BranchProvider } from './Context/BranchContext'; // Corrected path
+import { BranchProvider } from './Context/BranchContext';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
   return (
     <div>
@@ -13,7 +14,7 @@ function App() {
           <div className="container">
             <Routes>
               <Route path="/colleges" element={<SelectCollegeComponent />} />
-              <Route path="/selectStudent/:collegeId" element={<SelectStudentComponent />} />
+              <Route path="/selectStudent/:collegeName" element={<SelectStudentComponent />} />
             </Routes>
           </div>
         </BranchProvider>

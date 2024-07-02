@@ -1,168 +1,101 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import {
-    getAllStudents,
-    getAllBranches,
-    getAllLanguages,
-    updateStudent as updateStudentDetails // Alias to avoid confusion with updateStudent function
-} from '../Services/apiServiceAdmin'; // Corrected path
+import { getAllLanguageNames, getAllStudentClassTypes, getAllBranchNames, getFilteredStudentList } from '../Services/apiServiceAdmin';
 
 const SelectStudentComponent = () => {
-    const [students, setStudents] = useState([]);
-    const [filteredStudents, setFilteredStudents] = useState([]);
-    const [filter, setFilter] = useState({ branch: '', grade: '', cetPercentile: '', yearOfStudy: '', languages: [] });
-    const [branches, setBranches] = useState([]);
-    const [languages, setLanguages] = useState([]);
-    const navigate = useNavigate();
-    const { collegeId } = useParams();
+  const { collegeName } = useParams();
+  const [branchNames, setBranchNames] = useState([]);
+  const [languageNames, setLanguageNames] = useState([]);
+  const [studentClassTypes, setStudentClassTypes] = useState([]);
+  const [minGrade, setMinGrade] = useState(0);
+  const [minCetPercentile, setMinCetPercentile] = useState(0);
+  const [selectedBranch, setSelectedBranch] = useState('');
+  const [selectedLanguage, setSelectedLanguage] = useState('');
+  const [selectedStudentClassType, setSelectedStudentClassType] = useState('');
+  const [students, setStudents] = useState([]);
 
-    useEffect(() => {
-        fetchStudents();
-        fetchBranches();
-        fetchLanguages();
-    }, []);
+  useEffect(() => {
+    fetchDropdownValues();
+  }, []);
 
-    useEffect(() => {
-        applyFilter();
-    }, [filter, students]);
+  const fetchDropdownValues = async () => {
+    try {
+      const branchNamesList = await getAllBranchNames();
+      setBranchNames(branchNamesList);
 
-    const fetchStudents = async () => {
-        try {
-            const response = await getAllStudents(); // Using getAllStudents from apiServiceAdmin
-            setStudents(response.data);
-            setFilteredStudents(response.data);
-        } catch (error) {
-            console.error('Error fetching students:', error);
-        }
-    };
+      const languageNamesList = await getAllLanguageNames();
+      setLanguageNames(languageNamesList);
 
-    const fetchBranches = async () => {
-        try {
-            const response = await getAllBranches(); // Using getAllBranches from apiServiceAdmin
-            setBranches(response.data);
-        } catch (error) {
-            console.error('Error fetching branches:', error);
-        }
-    };
+      const studentClassTypesList = await getAllStudentClassTypes();
+      setStudentClassTypes(studentClassTypesList);
+    } catch (error) {
+      console.error('Error fetching dropdown values:', error);
+    }
+  };
 
-    const fetchLanguages = async () => {
-        try {
-            const response = await getAllLanguages(); // Using getAllLanguages from apiServiceAdmin
-            setLanguages(response.data);
-        } catch (error) {
-            console.error('Error fetching languages:', error);
-        }
-    };
+  const handleFilterChange = async () => {
+    try {
+      const filters = {
+        branchName: selectedBranch,
+        minGrade: parseFloat(minGrade),
+        minCetPercentile: parseFloat(minCetPercentile),
+        studentClassType: selectedStudentClassType,
+        languageName: selectedLanguage,
+      };
 
-    const handleStudentClick = (student) => {
-        // navigate(`/student-profile/${student.studentId}`);
-        console.log("Navigating to student profile page with student:", student);
-    };
+      const response = await getFilteredStudentList(filters);
+      setStudents(response.studentNameList || []);
+    } catch (error) {
+      console.error('Error filtering students:', error);
+    }
+  };
 
-    const applyFilter = () => {
-        let filtered = students;
-        if (filter.branch) {
-            filtered = filtered.filter(student => student.branch.branchName.includes(filter.branch));
-        }
-        if (filter.grade) {
-            filtered = filtered.filter(student => student.grade.toString().includes(filter.grade));
-        }
-        if (filter.cetPercentile) {
-            filtered = filtered.filter(student => student.cetPercentile.toString().includes(filter.cetPercentile));
-        }
-        if (filter.yearOfStudy) {
-            filtered = filtered.filter(student => student.yearOfStudy === filter.yearOfStudy);
-        }
-        if (filter.languages.length > 0) {
-            filtered = filtered.filter(student => filter.languages.every(lang => student.languages.includes(lang)));
-        }
-        setFilteredStudents(filtered);
-    };
+  return (
+    <div className="student-list-container">
+      <div className="filters">
+        <label>Branch:</label>
+        <select value={selectedBranch} onChange={(e) => setSelectedBranch(e.target.value)}>
+          <option value="">Select Branch</option>
+          {branchNames.map((branch, index) => (
+            <option key={index} value={branch}>{branch}</option>
+          ))}
+        </select>
 
-    const handleFilterChange = (e) => {
-        const { name, value } = e.target;
-        setFilter(prevFilter => ({ ...prevFilter, [name]: value }));
-    };
+        <label>Language:</label>
+        <select value={selectedLanguage} onChange={(e) => setSelectedLanguage(e.target.value)}>
+          <option value="">Select Language</option>
+          {languageNames.map((language, index) => (
+            <option key={index} value={language}>{language}</option>
+          ))}
+        </select>
 
-    const handleLanguageChange = (e) => {
-        const { options } = e.target;
-        const selectedLanguages = Array.from(options)
-            .filter(option => option.selected)
-            .map(option => option.value);
-        setFilter(prevFilter => ({ ...prevFilter, languages: selectedLanguages }));
-    };
+        <label>Student Class Type:</label>
+        <select value={selectedStudentClassType} onChange={(e) => setSelectedStudentClassType(e.target.value)}>
+          <option value="">Select Class Type</option>
+          {studentClassTypes.map((classType, index) => (
+            <option key={index} value={classType}>{classType}</option>
+          ))}
+        </select>
 
-    return (
-        <div className="container mt-4">
-            <h1 className="text-center mb-4">Select Student</h1>
-            <div className="row">
-                <div className="col-md-3">
-                    <div className="form-group">
-                        <label htmlFor="branch">Branch:</label>
-                        <select
-                            id="branch"
-                            name="branch"
-                            className="form-control"
-                            value={filter.branch}
-                            onChange={handleFilterChange}
-                        >
-                            <option value="">All Branches</option>
-                            {branches.map(branch => (
-                                <option key={branch.branchId} value={branch.branchName}>{branch.branchName}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="yearOfStudy">Year of Study:</label>
-                        <select
-                            id="yearOfStudy"
-                            name="yearOfStudy"
-                            className="form-control"
-                            value={filter.yearOfStudy}
-                            onChange={handleFilterChange}
-                        >
-                            <option value="">All Years</option>
-                            <option value="SY">Second Year</option>
-                            <option value="TY">Third Year</option>
-                            <option value="DSY">Final Year</option>
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="languages">Languages Spoken:</label>
-                        <select
-                            id="languages"
-                            name="languages"
-                            className="form-control"
-                            size="5"
-                            multiple
-                            onChange={handleLanguageChange}
-                        >
-                            {languages.map(lang => (
-                                <option key={lang.languageId} value={lang.languageName}>{lang.languageName}</option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
-                <div className="col-md-9">
-                    <div className="row">
-                        {filteredStudents.map(student => (
-                            <div key={student.studentId} className="col-md-4 mb-4">
-                                <div className="card h-100 border-primary shadow-sm" onClick={() => handleStudentClick(student)} style={{ cursor: 'pointer' }}>
-                                    <img src={`/${student.studentName.toLowerCase().replace(/\s/g, '')}.jpg`} className="card-img-top" alt={student.studentName} style={{ height: '200px', objectFit: 'cover', borderRadius: '8px 8px 0 0' }} />
-                                    <div className="card-body">
-                                        <h5 className="card-title">{student.studentName}</h5>
-                                        <p className="card-text">Branch: {student.branch.branchName}</p>
-                                        <p className="card-text">Grade: {student.grade}</p>
-                                        <p className="card-text">CET Percentile: {student.cetPercentile}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+        <label>Minimum Grade:</label>
+        <input type="number" value={minGrade} onChange={(e) => setMinGrade(e.target.value)} />
+
+        <label>Minimum CET Percentile:</label>
+        <input type="number" value={minCetPercentile} onChange={(e) => setMinCetPercentile(e.target.value)} />
+
+        <button onClick={handleFilterChange}>Apply Filters</button>
+      </div>
+
+      <div className="student-circles">
+        {students.map((student, index) => (
+          <div key={index} className="student-circle">
+            <img src={student.profilePhotoUrl} alt="Student Profile" />
+            <p>{student.name}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default SelectStudentComponent;
