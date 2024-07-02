@@ -15,13 +15,13 @@ export const getAllColleges = () => {
 };
 
 export const getFilteredStudentList = async (filters) => {
-  try {
-    const response = await api.post('/filteredStudentList', filters);
-    return response.data; // Assuming the API returns JSON data
-  } catch (error) {
-    throw new Error(`Error fetching filtered student list: ${error.message}`);
-  }
-};
+    try {
+      const response = await api.post('/filteredStudentList', filters);
+      return response.data; // Assuming the API returns JSON data
+    } catch (error) {
+      throw new Error(`Error fetching filtered student list: ${error.message}`);
+    }
+  };
 
 // Fetch all language names
 export const getAllLanguageNames = async () => {
@@ -45,15 +45,18 @@ export const getAllStudentClassTypes = async () => {
   }
 };
 
-// Fetch all branch names
-export const getAllBranchNames = async () => {
-  try {
-    const response = await api.get('/branches');
-    return response.data.allBranchNamesList || [];
-  } catch (error) {
-    console.error('Error fetching branch names:', error);
-    return [];
-  }
-};
+// Fetch branches for a specific college
+export const getBranchesForCollege = async (collegeName) => {
+    try {
+      const response = await api.post('/filteredBranches', { collegeName });
+      return response.data.allBranchNamesForCollegeList || [];
+    } catch (error) {
+      console.error('Error fetching branch names for college:', error);
+      return [];
+    }
+  };
+
+
+
 
 export default api;
