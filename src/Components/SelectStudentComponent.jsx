@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getAllLanguageNames, getAllStudentClassTypes, getBranchesForCollege, getFilteredStudentList } from '../Services/apiServiceAdmin';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SelectStudentComponent = () => {
   const { collegeName } = useParams();
+  const navigate = useNavigate();
   const [branchNames, setBranchNames] = useState([]);
   const [languageNames, setLanguageNames] = useState([]);
   const [studentClassTypes, setStudentClassTypes] = useState([]);
@@ -67,6 +68,9 @@ const SelectStudentComponent = () => {
     }
   };
   
+  const handleStudentClick = (student) => {
+    navigate('/studentProfile', { state: { student } });
+  };
 
   return (
     <div className="container mt-5">
@@ -166,7 +170,7 @@ const SelectStudentComponent = () => {
               console.log('Profile Photo URL:', profilePhotoUrl); // Debugging: Log profile photo URL
               return (
                 <div key={index} className="col-md-3 mb-4">
-                  <div className="card" style={{ fontSize: '14px' }}>
+                  <div className="card" style={{ fontSize: '14px' }} onClick={() => handleStudentClick(student)}>
                     <img
                       src={profilePhotoUrl}
                       className="card-img-top"
