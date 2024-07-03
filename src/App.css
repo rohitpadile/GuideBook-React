@@ -151,3 +151,8 @@ html, body {
   background: #e2e2e2;
   transform: translateY(-2px);
 }
+.profile-photo {
+  width: 150px; /* Adjust the size as needed */
+  height: 150px; /* Adjust the size as needed */
+  object-fit: cover;
+}

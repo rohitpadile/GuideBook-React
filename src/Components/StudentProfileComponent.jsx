@@ -19,8 +19,8 @@ const StudentProfileComponent = () => {
 
   return (
     <div className="container mt-5">
-      <div className="card student-profile-card">
-        <div className="card-header student-profile-header">
+      <div className="card student-profile-card mx-auto" style={{ maxWidth: '800px' }}>
+        <div className="card-header student-profile-header d-flex justify-content-between align-items-center">
           <h4>Student Profile</h4>
           <button 
             className="btn btn-primary book-session-button"
@@ -32,10 +32,11 @@ const StudentProfileComponent = () => {
         <div className="card-body student-profile-body">
           <div className="row">
             <div className="col-md-4 text-center">
-              <img src={profilePhotoUrl} alt="Student Profile" className="img-fluid rounded-circle" />
+              <img src={profilePhotoUrl} alt="Student Profile" className="img-fluid rounded-circle mb-3" style={{ maxWidth: '150px' }} />
             </div>
             <div className="col-md-8">
-              <h5>{student.studentName}</h5>
+              <h5>Basic</h5>
+              <p>Name: {student.studentName}</p>
               <p>Branch: {student.branchName}</p>
               <p>Grade: {student.grade}</p>
               <p>CET Percentile: {student.cetPercentile}</p>
