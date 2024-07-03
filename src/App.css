@@ -36,7 +36,7 @@
     transform: rotate(360deg);
   }
 }
-
+/*  */
 /* Ensure the footer sticks to the bottom of the viewport or document */
 html, body {
   height: 100%;
@@ -58,3 +58,96 @@ html, body {
   flex-shrink: 0; /* Prevent footer from shrinking */
 }
 
+/*  */
+.student-profile-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.student-profile-header {
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+}
+
+.student-profile-header h4 {
+  margin: 0;
+}
+
+.book-session-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #ff6f61;
+  border: none;
+}
+
+.student-profile-body {
+  padding: 30px;
+}
+
+.student-profile-body h5 {
+  font-weight: bold;
+  color: #333;
+}
+
+.student-profile-body .card {
+  margin-top: 20px;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.student-profile-body .badge-primary {
+  background-color: #6e8efb;
+}
+
+.student-profile-body .badge-primary:hover {
+  background-color: #5a76e0;
+}
+
+/*  */
+.book-session-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.book-session-header {
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.book-session-header h4 {
+  margin: 0;
+}
+
+.book-session-body {
+  padding: 30px;
+  text-align: center;
+}
+
+.book-session-body h5 {
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.book-session-body .list-group-item {
+  border: none;
+  padding: 15px 20px;
+  margin: 10px 0;
+  font-size: 1.2em;
+  background: #f5f5f5;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.book-session-body .list-group-item:hover {
+  background: #e2e2e2;
+  transform: translateY(-2px);
+}
