@@ -13,9 +13,12 @@ const StudentProfileComponent = () => {
   };
 
   // Provide default values to avoid undefined errors
-  const experience = student.experience || [];
-  const projects = student.projects || [];
-  const skills = student.skills || [];
+  const studentAboutSection = student.studentAboutSection || [];
+  const studentOtherExamScoreDetails = student.studentOtherExamScoreDetails || [];
+  const studentAcademicActivity = student.studentAcademicActivity || [];
+  const studentCoCurricularActivity = student.studentCoCurricularActivity || [];
+  const studentExtraCurricularAchievements = student.studentExtraCurricularAchievements || [];
+  const studentTutoringExperience = student.studentTutoringExperience || '';
 
   return (
     <div className="container mt-5">
@@ -45,73 +48,66 @@ const StudentProfileComponent = () => {
             </div>
           </div>
 
-          {/* Education Section */}
+          {/* About Section */}
           <div className="mt-4">
-            <h5>Education</h5>
-            <div className="card mt-2">
-              <div className="card-body">
-                <h6 className="card-title">{student.collegeName}</h6>
-                <p className="card-text">Branch: {student.branchName}</p>
-                <p className="card-text">Year of Study: {student.yearOfStudy}</p>
-              </div>
-            </div>
+            <h5>About</h5>
+            <ul>
+              {studentAboutSection.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
           </div>
 
-          {/* Experience Section */}
+          {/* Coaching City */}
           <div className="mt-4">
-            <h5>Experience</h5>
-            {experience.length > 0 ? (
-              experience.map((exp, index) => (
-                <div className="card mt-2" key={index}>
-                  <div className="card-body">
-                    <h6 className="card-title">{exp.position}</h6>
-                    <p className="card-text">{exp.companyName}</p>
-                    <p className="card-text">{exp.duration}</p>
-                    <p className="card-text">{exp.description}</p>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p>No experience listed.</p>
-            )}
+            <h5>City of Coaching</h5>
+            <p>{student.studentCityOfCoaching}</p>
           </div>
 
-          {/* Projects Section */}
+          {/* Score Details */}
           <div className="mt-4">
-            <h5>Projects</h5>
-            {projects.length > 0 ? (
-              projects.map((project, index) => (
-                <div className="card mt-2" key={index}>
-                  <div className="card-body">
-                    <h6 className="card-title">{project.projectTitle}</h6>
-                    <p className="card-text">{project.description}</p>
-                    <p className="card-text">
-                      <a href={project.link} target="_blank" rel="noopener noreferrer">
-                        Project Link
-                      </a>
-                    </p>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p>No projects listed.</p>
-            )}
+            <h5>Score Details</h5>
+            <p>{student.studentScoreDetails}</p>
           </div>
 
-          {/* Skills Section */}
+          {/* Other Exam Scores */}
           <div className="mt-4">
-            <h5>Skills</h5>
-            {skills.length > 0 ? (
-              <div className="card mt-2">
-                <div className="card-body">
-                  {skills.map((skill, index) => (
-                    <span key={index} className="badge badge-primary mr-2">{skill}</span>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <p>No skills listed.</p>
-            )}
+            <h5>Other Exam Scores</h5>
+            <ul>
+              {studentOtherExamScoreDetails.map((exam, index) => (
+                <li key={index}>{exam}</li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Academic Activities */}
+          <div className="mt-4">
+            <h5>Academic Activities</h5>
+            <p>{student.studentAcademicActivity}</p>
+          </div>
+
+          {/* Co-Curricular Activities */}
+          <div className="mt-4">
+            <h5>Co-Curricular Activities</h5>
+            <p>{student.studentCoCurricularActivity}</p>
+          </div>
+
+          {/* Extra-Curricular Achievements */}
+          <div className="mt-4">
+            <h5>Extra-Curricular Achievements</h5>
+            <p>{student.studentExtraCurricularAchievements}</p>
+          </div>
+
+          {/* Tutoring Experience */}
+          <div className="mt-4">
+            <h5>Tutoring Experience</h5>
+            <p>{studentTutoringExperience}</p>
+          </div>
+
+          {/* Sessions Conducted */}
+          <div className="mt-4">
+            <h5>Sessions Conducted</h5>
+            <p>{student.studentSessionsConducted}</p>
           </div>
         </div>
       </div>
