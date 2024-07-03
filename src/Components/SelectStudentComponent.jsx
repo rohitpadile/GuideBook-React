@@ -8,7 +8,7 @@ const SelectStudentComponent = () => {
   const [branchNames, setBranchNames] = useState([]);
   const [languageNames, setLanguageNames] = useState([]);
   const [studentClassTypes, setStudentClassTypes] = useState([]);
-  const [minGrade, setMinGrade] = useState(0);
+  const [minGrade, setMinGrade] = useState('7.0'); // Set initial value as string '7.0'
   const [minCetPercentile, setMinCetPercentile] = useState(0);
   const [selectedBranch, setSelectedBranch] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState('');
@@ -53,17 +53,20 @@ const SelectStudentComponent = () => {
         studentClassType: selectedStudentClassType,
         languageName: selectedLanguage,
       };
-
-      console.log('Filters:', filters); // Debugging: Log filters
-
+  
       const response = await getFilteredStudentList(filters);
-      console.log('Response:', response); // Debugging: Log response
-
-      setStudents(response.studentNameList || []);
+      console.log('Response:', response); // Check the structure of the response
+  
+      if (response && response.length > 0) {
+        setStudents(response); // Set students state with the received data
+      } else {
+        setStudents([]); // Set students to empty array if no data received
+      }
     } catch (error) {
       console.error('Error filtering students:', error);
     }
   };
+  
 
   return (
     <div className="container mt-5">
@@ -73,8 +76,8 @@ const SelectStudentComponent = () => {
         </div>
         <div className="card-body">
           <form>
-            <div className="form-row mb-3">
-              <div className="form-group col-md-4">
+            <div className="form-row mb-3 d-flex justify-content-between align-items-center" style={{ fontSize: '0.8rem', gap: '10px' }}>
+              <div className="form-group col-md-2">
                 <label htmlFor="branch">Branch</label>
                 <select
                   id="branch"
@@ -89,7 +92,7 @@ const SelectStudentComponent = () => {
                   ))}
                 </select>
               </div>
-              <div className="form-group col-md-4">
+              <div className="form-group col-md-2">
                 <label htmlFor="language">Language</label>
                 <select
                   id="language"
@@ -104,7 +107,7 @@ const SelectStudentComponent = () => {
                   ))}
                 </select>
               </div>
-              <div className="form-group col-md-4">
+              <div className="form-group col-md-2">
                 <label htmlFor="studentClassType">Student Class Type</label>
                 <select
                   id="studentClassType"
@@ -119,19 +122,23 @@ const SelectStudentComponent = () => {
                   ))}
                 </select>
               </div>
-            </div>
-            <div className="form-row mb-3">
-              <div className="form-group col-md-6">
+              <div className="form-group col-md-2">
                 <label htmlFor="minGrade">Minimum Grade</label>
-                <input
-                  type="number"
-                  className="form-control"
+                <select
                   id="minGrade"
+                  className="form-control"
                   value={minGrade}
                   onChange={(e) => setMinGrade(e.target.value)}
-                />
+                >
+                  <option value="7.0">7.0</option>
+                  <option value="7.5">7.5</option>
+                  <option value="8.0">8.0</option>
+                  <option value="8.5">8.5</option>
+                  <option value="9.0">9.0</option>
+                  <option value="9.5">9.5</option>
+                </select>
               </div>
-              <div className="form-group col-md-6">
+              <div className="form-group col-md-2">
                 <label htmlFor="minCetPercentile">Minimum CET Percentile</label>
                 <input
                   type="number"
@@ -141,30 +148,36 @@ const SelectStudentComponent = () => {
                   onChange={(e) => setMinCetPercentile(e.target.value)}
                 />
               </div>
+              <div className="form-group col-md-2 d-flex align-items-end">
+                <button type="button" className="btn btn-primary" onClick={handleFilterChange}>
+                  Apply Filters
+                </button>
+              </div>
             </div>
-            <button type="button" className="btn btn-primary" onClick={handleFilterChange}>
-              Apply Filters
-            </button>
           </form>
         </div>
       </div>
       <div className="mt-4">
         <h5>Students</h5>
         <div className="row">
-          {students.map((student, index) => (
-            <div key={index} className="col-md-3 mb-4">
-              <div className="card">
-                <img
-                  src={student.profilePhotoUrl}
-                  className="card-img-top"
-                  alt="Student Profile"
-                />
-                <div className="card-body text-center">
-                  <h6 className="card-title">{student.name}</h6>
+          {students && students.map((student, index) => {
+            const profilePhotoUrl = `/studentProfilePhotos/${student.studentMis}.jpg`;
+            console.log('Profile Photo URL:', profilePhotoUrl); // Debugging: Log profile photo URL
+            return (
+              <div key={index} className="col-md-3 mb-4">
+                <div className="card" style={{ fontSize: '14px' }}>
+                  <img
+                    src={profilePhotoUrl}
+                    className="card-img-top"
+                    alt="Student Profile"
+                  />
+                  <div className="card-body text-center">
+                    <h6 className="card-title">{student.studentName}</h6>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

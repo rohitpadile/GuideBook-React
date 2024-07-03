@@ -2,24 +2,26 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SelectCollegeComponent from './Components/SelectCollegeComponent';
 import SelectStudentComponent from './Components/SelectStudentComponent';
+import Header from './Components/Header';
+import Footer from './Components/Footer';
 import { BranchProvider } from './Context/BranchContext';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div>
-      <Router>
+    <Router>
+      <Header />
+      <div className="container">
         <BranchProvider>
-          <div className="container">
-            <Routes>
-              <Route path="/colleges" element={<SelectCollegeComponent />} />
-              <Route path="/selectStudent/:collegeName" element={<SelectStudentComponent />} />
-            </Routes>
-          </div>
+          <Routes>
+            <Route path="/colleges" element={<SelectCollegeComponent />} />
+            <Route path="/selectStudent/:collegeName" element={<SelectStudentComponent />} />
+          </Routes>
         </BranchProvider>
-      </Router>
-    </div>
+      </div>
+      <Footer />
+    </Router>
   );
 }
 

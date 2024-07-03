@@ -15,13 +15,14 @@ export const getAllColleges = () => {
 };
 
 export const getFilteredStudentList = async (filters) => {
-    try {
-      const response = await api.post('/filteredStudentList', filters);
-      return response.data; // Assuming the API returns JSON data
-    } catch (error) {
-      throw new Error(`Error fetching filtered student list: ${error.message}`);
-    }
-  };
+  try {
+    const response = await api.post('/filteredStudentList', filters);
+    return response.data; // Assuming response.data directly contains the list of FilteredStudentDetails
+  } catch (error) {
+    throw new Error(`Error fetching filtered student list: ${error.message}`);
+  }
+};
+
 
 // Fetch all language names
 export const getAllLanguageNames = async () => {
