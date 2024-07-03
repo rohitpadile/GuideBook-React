@@ -157,29 +157,31 @@ const SelectStudentComponent = () => {
           </form>
         </div>
       </div>
-      <div className="mt-4">
-        <h5>Students</h5>
-        <div className="row">
-          {students && students.map((student, index) => {
-            const profilePhotoUrl = `/studentProfilePhotos/${student.studentMis}.jpg`;
-            console.log('Profile Photo URL:', profilePhotoUrl); // Debugging: Log profile photo URL
-            return (
-              <div key={index} className="col-md-3 mb-4">
-                <div className="card" style={{ fontSize: '14px' }}>
-                  <img
-                    src={profilePhotoUrl}
-                    className="card-img-top"
-                    alt="Student Profile"
-                  />
-                  <div className="card-body text-center">
-                    <h6 className="card-title">{student.studentName}</h6>
+      {students.length > 0 && (
+        <div className="mt-4">
+          <h5>Students</h5>
+          <div className="row">
+            {students.map((student, index) => {
+              const profilePhotoUrl = `/studentProfilePhotos/${student.studentMis}.jpg`;
+              console.log('Profile Photo URL:', profilePhotoUrl); // Debugging: Log profile photo URL
+              return (
+                <div key={index} className="col-md-3 mb-4">
+                  <div className="card" style={{ fontSize: '14px' }}>
+                    <img
+                      src={profilePhotoUrl}
+                      className="card-img-top"
+                      alt="Student Profile"
+                    />
+                    <div className="card-body text-center">
+                      <h6 className="card-title">{student.studentName}</h6>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
