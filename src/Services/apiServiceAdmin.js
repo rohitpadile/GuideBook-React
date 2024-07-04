@@ -35,6 +35,18 @@ export const getAllLanguageNames = async () => {
   }
 };
 
+// Fetch all student category names
+export const getAllStudentCategories = async () => {
+  try {
+    const response = await api.get('/studentCategory');
+    return response.data.allStudentCategoryNamesList || [];
+  } catch (error) {
+    console.error('Error fetching student categories:', error);
+    return [];
+  }
+};
+
+
 // Fetch all student class types
 export const getAllStudentClassTypes = async () => {
   try {
