@@ -68,7 +68,7 @@ const StudentProfileComponent = () => {
         </div>
         <div className="card-body student-profile-body">
           <div className="row">
-            <div className="col-md-4 text-center">
+            <div className="col-md-3 text-center">
               <img src={profilePhotoUrl} alt="Student Profile" className="img-fluid rounded-circle mb-3" style={{ maxWidth: '150px' }} />
             </div>
           </div>
