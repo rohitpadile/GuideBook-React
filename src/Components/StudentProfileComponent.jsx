@@ -67,25 +67,26 @@ const StudentProfileComponent = () => {
           </button>
         </div>
         <div className="card-body student-profile-body">
-          <div className="row">
-            <div className="col-md-3 text-center">
-              <img src={profilePhotoUrl} alt="Student Profile" className="img-fluid rounded-circle mb-3" style={{ maxWidth: '150px' }} />
-            </div>
-          </div>
-
           <div className="card mt-4 zoom-card">
-            <div className="card-body">
-              <h5>Basic Information</h5>
-              <ul>
-                <li>Name: {student.studentName}</li>
-                <li>Branch: {studentBasicDetails.branch}</li>
-                <li>Grade: {studentBasicDetails.grade}</li>
-                <li>CET Percentile: {studentBasicDetails.cetPercentile}</li>
-                <li>Class Type: {studentBasicDetails.classType}</li>
-                <li>Language: {studentBasicDetails.languagesSpoken.join(', ')}</li>
-              </ul>
+              <div className="card-body d-flex align-items-center">
+                <div className="row">
+                  <div className="col-md-9">
+                    <h5>Basic Information</h5>
+                    <ul>
+                      <li>Name: {student.studentName}</li>
+                      <li>Branch: {studentBasicDetails.branch}</li>
+                      <li>Grade: {studentBasicDetails.grade}</li>
+                      <li>CET Percentile: {studentBasicDetails.cetPercentile}</li>
+                      <li>Class Type: {studentBasicDetails.classType}</li>
+                      <li>Language: {studentBasicDetails.languagesSpoken.join(', ')}</li>
+                    </ul>
+                  </div>
+                  <div className="col-md-3 justify-content-end align-items-center"style={{ maxWidth: '300px'}}>
+                    <img src={profilePhotoUrl} alt="Student Profile" className="img-fluid rounded-circle mb-3" style={{ maxWidth: '180px'}} />
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
 
           <div className="card mt-4 zoom-card">
             <div className="card-body">
