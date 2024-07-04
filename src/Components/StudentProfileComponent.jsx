@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../App.css';
+import { getStudentProfile } from '../Services/apiServiceAdmin'; // Adjust the import path as per your file structure
 
 const StudentProfileComponent = () => {
   const location = useLocation();
@@ -8,17 +9,31 @@ const StudentProfileComponent = () => {
   const { student } = location.state || {};
   const profilePhotoUrl = `/studentProfilePhotos/${student.studentMis}.jpg`;
 
+  const [studentProfile, setStudentProfile] = useState(null);
+
+  useEffect(() => {
+    // Fetch student profile data when component mounts
+    const fetchStudentProfile = async () => {
+      try {
+        const profileData = await getStudentProfile(student.studentMis);
+        setStudentProfile(profileData);
+      } catch (error) {
+        console.error('Error fetching student profile:', error);
+      }
+    };
+
+    if (student.studentMis) {
+      fetchStudentProfile();
+    }
+  }, [student.studentMis]);
+
   const handleBookSessionClick = () => {
     navigate('/bookSession', { state: { student } });
   };
 
-  // Provide default values to avoid undefined errors
-  const studentAboutSection = student.studentAboutSection || [];
-  const studentOtherExamScoreDetails = student.studentOtherExamScoreDetails || [];
-  const studentAcademicActivity = student.studentAcademicActivity || [];
-  const studentCoCurricularActivity = student.studentCoCurricularActivity || [];
-  const studentExtraCurricularAchievements = student.studentExtraCurricularAchievements || [];
-  const studentTutoringExperience = student.studentTutoringExperience || '';
+  if (!studentProfile) {
+    return <div>Loading...</div>; // Display a loading message while fetching data
+  }
 
   return (
     <div className="container mt-5">
@@ -52,7 +67,7 @@ const StudentProfileComponent = () => {
           <div className="mt-4">
             <h5>About</h5>
             <ul>
-              {studentAboutSection.map((item, index) => (
+              {studentProfile.studentProfileAboutSection.map((item, index) => (
                 <li key={index}>{item}</li>
               ))}
             </ul>
@@ -61,20 +76,24 @@ const StudentProfileComponent = () => {
           {/* Coaching City */}
           <div className="mt-4">
             <h5>City of Coaching</h5>
-            <p>{student.studentCityOfCoaching}</p>
+            <p>{studentProfile.studentProfileCityOfCoaching.join(', ')}</p>
           </div>
 
           {/* Score Details */}
           <div className="mt-4">
             <h5>Score Details</h5>
-            <p>{student.studentScoreDetails}</p>
+            <ul>
+              {studentProfile.studentProfileExamScoreDetails.map((detail, index) => (
+                <li key={index}>{detail}</li>
+              ))}
+            </ul>
           </div>
 
           {/* Other Exam Scores */}
           <div className="mt-4">
             <h5>Other Exam Scores</h5>
             <ul>
-              {studentOtherExamScoreDetails.map((exam, index) => (
+              {studentProfile.studentProfileOtherExamScoreDetails.map((exam, index) => (
                 <li key={index}>{exam}</li>
               ))}
             </ul>
@@ -83,31 +102,43 @@ const StudentProfileComponent = () => {
           {/* Academic Activities */}
           <div className="mt-4">
             <h5>Academic Activities</h5>
-            <p>{student.studentAcademicActivity}</p>
+            <ul>
+              {studentProfile.studentProfileAcademicActivity.map((activity, index) => (
+                <li key={index}>{activity}</li>
+              ))}
+            </ul>
           </div>
 
           {/* Co-Curricular Activities */}
           <div className="mt-4">
             <h5>Co-Curricular Activities</h5>
-            <p>{student.studentCoCurricularActivity}</p>
+            <ul>
+              {studentProfile.studentProfileCoCurricularActivity.map((activity, index) => (
+                <li key={index}>{activity}</li>
+              ))}
+            </ul>
           </div>
 
           {/* Extra-Curricular Achievements */}
           <div className="mt-4">
             <h5>Extra-Curricular Achievements</h5>
-            <p>{student.studentExtraCurricularAchievements}</p>
+            <ul>
+              {studentProfile.studentProfileExtraCurricularActivity.map((achievement, index) => (
+                <li key={index}>{achievement}</li>
+              ))}
+            </ul>
           </div>
 
           {/* Tutoring Experience */}
           <div className="mt-4">
             <h5>Tutoring Experience</h5>
-            <p>{studentTutoringExperience}</p>
+            <p>{studentProfile.studentProfileTutoringExperience}</p>
           </div>
 
           {/* Sessions Conducted */}
           <div className="mt-4">
             <h5>Sessions Conducted</h5>
-            <p>{student.studentSessionsConducted}</p>
+            <p>{studentProfile.studentProfileSessionsConducted}</p>
           </div>
         </div>
       </div>

@@ -69,7 +69,16 @@ export const getBranchesForCollege = async (collegeName) => {
     }
   };
 
-
+// Fetch student profile by MIS number
+export const getStudentProfile = async (studentMIS) => {
+  try {
+    const response = await api.get(`/studentProfile/${studentMIS}`);
+    return response.data; // Assuming response.data contains the student profile object
+  } catch (error) {
+    console.error(`Error fetching student profile for MIS ${studentMIS}:`, error);
+    return null;
+  }
+};
 
 
 export default api;
