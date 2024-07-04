@@ -52,15 +52,19 @@ const StudentProfileComponent = () => {
             <div className="col-md-4 text-center">
               <img src={profilePhotoUrl} alt="Student Profile" className="img-fluid rounded-circle mb-3" style={{ maxWidth: '150px' }} />
             </div>
-            <div className="col-md-8">
-              <h5>Basic</h5>
-              <p>Name: {student.studentName}</p>
-              <p>Branch: {student.branchName}</p>
-              <p>Grade: {student.grade}</p>
-              <p>CET Percentile: {student.cetPercentile}</p>
-              <p>Class Type: {student.studentClassType}</p>
-              <p>Language: {student.languageName}</p>
-            </div>
+          </div>
+
+          {/* Basic Information */}
+          <div className="mt-4">
+            <h5>Basic Information</h5>
+            <ul>
+              <li>Name: {student.studentName}</li>
+              <li>Branch: {student.branchName}</li>
+              <li>Grade: {student.grade}</li>
+              <li>CET Percentile: {student.cetPercentile}</li>
+              <li>Class Type: {student.studentClassType}</li>
+              <li>Language: {student.languageName}</li>
+            </ul>
           </div>
 
           {/* About Section */}
@@ -68,7 +72,7 @@ const StudentProfileComponent = () => {
             <h5>About</h5>
             <ul>
               {studentProfile.studentProfileAboutSection.map((item, index) => (
-                <li key={index}>{item}</li>
+                <li key={index}>{item.about}</li>
               ))}
             </ul>
           </div>
@@ -76,7 +80,11 @@ const StudentProfileComponent = () => {
           {/* Coaching City */}
           <div className="mt-4">
             <h5>City of Coaching</h5>
-            <p>{studentProfile.studentProfileCityOfCoaching.join(', ')}</p>
+            <ul>
+              {studentProfile.studentProfileCityOfCoaching.map((item, index) => (
+                <li key={index}>{item.cityOfCoaching}</li>
+              ))}
+            </ul>
           </div>
 
           {/* Score Details */}
@@ -84,7 +92,7 @@ const StudentProfileComponent = () => {
             <h5>Score Details</h5>
             <ul>
               {studentProfile.studentProfileExamScoreDetails.map((detail, index) => (
-                <li key={index}>{detail}</li>
+                <li key={index}>{detail.scoreDetail}</li>
               ))}
             </ul>
           </div>
@@ -94,7 +102,7 @@ const StudentProfileComponent = () => {
             <h5>Other Exam Scores</h5>
             <ul>
               {studentProfile.studentProfileOtherExamScoreDetails.map((exam, index) => (
-                <li key={index}>{exam}</li>
+                <li key={index}>{exam.otherScoreDetail}</li>
               ))}
             </ul>
           </div>
@@ -104,7 +112,7 @@ const StudentProfileComponent = () => {
             <h5>Academic Activities</h5>
             <ul>
               {studentProfile.studentProfileAcademicActivity.map((activity, index) => (
-                <li key={index}>{activity}</li>
+                <li key={index}>{activity.activity}</li>
               ))}
             </ul>
           </div>
@@ -114,7 +122,7 @@ const StudentProfileComponent = () => {
             <h5>Co-Curricular Activities</h5>
             <ul>
               {studentProfile.studentProfileCoCurricularActivity.map((activity, index) => (
-                <li key={index}>{activity}</li>
+                <li key={index}>{activity.activity}</li>
               ))}
             </ul>
           </div>
@@ -124,7 +132,7 @@ const StudentProfileComponent = () => {
             <h5>Extra-Curricular Achievements</h5>
             <ul>
               {studentProfile.studentProfileExtraCurricularActivity.map((achievement, index) => (
-                <li key={index}>{achievement}</li>
+                <li key={index}>{achievement.activity}</li>
               ))}
             </ul>
           </div>
@@ -132,7 +140,23 @@ const StudentProfileComponent = () => {
           {/* Tutoring Experience */}
           <div className="mt-4">
             <h5>Tutoring Experience</h5>
-            <p>{studentProfile.studentProfileTutoringExperience}</p>
+            <ul>
+              {studentProfile.studentProfileTutoringExperience.map((experience, index) => (
+                <li key={index}>{experience.experience}</li>
+              ))}
+            </ul>
+          </div>
+
+          {/* External Links */}
+          <div className="mt-4">
+            <h5>External Links</h5>
+            <ul>
+              {studentProfile.studentProfileExternalLink.map((link, index) => (
+                <li key={index}>
+                  <a href={link.linkAddress} target="_blank" rel="noopener noreferrer">{link.linkName}</a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Sessions Conducted */}
