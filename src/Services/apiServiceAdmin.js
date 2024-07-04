@@ -80,5 +80,16 @@ export const getStudentProfile = async (studentMIS) => {
   }
 };
 
+//Fetch student basic details
+export const getStudentBasicDetails = async (studentMis) => {
+  try{
+    const response = await api.get(`/studentBasicDetails/${studentMis}`);
+    return response.data;
+  }catch(error){
+    console.error(`Error fetching student basic details for MIS ${studentMis}:`, error);
+    return null;
+  }
+}
+
 
 export default api;
