@@ -69,27 +69,48 @@ export const getBranchesForCollege = async (collegeName) => {
     }
   };
 
-// Fetch student profile by MIS number
-export const getStudentProfile = async (studentMIS) => {
+// // Fetch student profile by MIS number
+// export const getStudentProfile = async (studentMIS) => {
+//   try {
+//     const response = await api.get(`/studentProfile/${studentMIS}`);
+//     return response.data; // Assuming response.data contains the student profile object
+//   } catch (error) {
+//     console.error(`Error fetching student profile for MIS ${studentMIS}:`, error);
+//     return null;
+//   }
+// };
+
+// //Fetch student basic details
+// export const getStudentBasicDetails = async (studentMis) => {
+//   try{
+//     const response = await api.get(`/studentBasicDetails/${studentMis}`);
+//     return response.data;
+//   }catch(error){
+//     console.error(`Error fetching student basic details for MIS ${studentMis}:`, error);
+//     return null;
+//   }
+// }
+// Fetch student profile by Work Email
+export const getStudentProfile = async (studentWorkEmail) => {
   try {
-    const response = await api.get(`/studentProfile/${studentMIS}`);
+    const response = await api.get(`/studentProfile/${studentWorkEmail}`);
     return response.data; // Assuming response.data contains the student profile object
   } catch (error) {
-    console.error(`Error fetching student profile for MIS ${studentMIS}:`, error);
+    console.error(`Error fetching student profile for Work Email ${studentWorkEmail}:`, error);
     return null;
   }
 };
 
-//Fetch student basic details
-export const getStudentBasicDetails = async (studentMis) => {
-  try{
-    const response = await api.get(`/studentBasicDetails/${studentMis}`);
-    return response.data;
-  }catch(error){
-    console.error(`Error fetching student basic details for MIS ${studentMis}:`, error);
+// Fetch student basic details by Work Email
+export const getStudentBasicDetails = async (studentWorkEmail) => {
+  try {
+    const response = await api.get(`/studentBasicDetails/${studentWorkEmail}`);
+    return response.data; // Assuming response.data contains the student basic details object
+  } catch (error) {
+    console.error(`Error fetching student basic details for Work Email ${studentWorkEmail}:`, error);
     return null;
   }
-}
+};
 
 
 export default api;

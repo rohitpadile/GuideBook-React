@@ -192,7 +192,8 @@ const SelectStudentComponent = () => {
           <h5>Students</h5>
           <div className="row">
             {students.map((student, index) => {
-              const profilePhotoUrl = `/studentProfilePhotos/${student.studentMis}.jpg`;
+              // const profilePhotoUrl = `/studentProfilePhotos/${student.studentMis}.jpg`;
+              const profilePhotoUrl = `/studentProfilePhotos/${student.studentWorkEmail}.jpg`;
               console.log('Profile Photo URL:', profilePhotoUrl);
               return (
                 <div key={index} className="col-md-3 mb-4">

@@ -8,48 +8,43 @@ const StudentProfileComponent = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { student } = location.state || {};
-  const profilePhotoUrl = `/studentProfilePhotos/${student.studentMis}.jpg`;
+  // const profilePhotoUrl = `/studentProfilePhotos/${student.studentMis}.jpg`;
+  const profilePhotoUrl = `/studentProfilePhotos/${student?.studentWorkEmail}.jpg`
 
   const [studentProfile, setStudentProfile] = useState(null);
   const [studentBasicDetails, setStudentBasicDetails] = useState(null);
 
   const [showBookSession, setShowBookSession] = useState(false); // State to manage popup visibility
-  
 
   useEffect(() => {
-    // Fetch student profile data when component mounts
     const fetchStudentProfile = async () => {
       try {
-        const profileData = await getStudentProfile(student.studentMis);
+        const profileData = await getStudentProfile(student.studentWorkEmail);
         setStudentProfile(profileData);
       } catch (error) {
         console.error('Error fetching student profile:', error);
       }
     };
 
-    // Fetch student basic details when component mounts
     const fetchStudentBasicDetails = async () => {
       try {
-        const basicDetails = await getStudentBasicDetails(student.studentMis);
+        const basicDetails = await getStudentBasicDetails(student.studentWorkEmail);
         setStudentBasicDetails(basicDetails);
       } catch (error) {
         console.error('Error fetching student basic details:', error);
       }
     };
 
-    if (student.studentMis) {
+    if (student?.studentWorkEmail) {
       fetchStudentProfile();
       fetchStudentBasicDetails();
     }
-  }, [student.studentMis]);
+  }, [student?.studentWorkEmail]);
 
-  // const handleBookSessionClick = () => {
-  //   navigate('/bookSession', { state: { student } });
-  // };
   const handleBookSessionClick = () => {
     setShowBookSession(true); // Show the BookSessionComponent popup
   };
-  
+
   if (!studentProfile || !studentBasicDetails) {
     return <div>Loading...</div>; // Display a loading message while fetching data
   }
@@ -68,32 +63,32 @@ const StudentProfileComponent = () => {
         </div>
         <div className="card-body student-profile-body">
           <div className="card mt-4 zoom-card">
-              <div className="card-body d-flex align-items-center">
-                <div className="row">
-                  <div className="col-md-9">
-                    <h5>Basic Information</h5>
-                    <ul>
-                      <li>Name: {student.studentName}</li>
-                      <li>Branch: {studentBasicDetails.branch}</li>
-                      <li>Grade: {studentBasicDetails.grade}</li>
-                      <li>CET Percentile: {studentBasicDetails.cetPercentile}</li>
-                      <li>Class Type: {studentBasicDetails.classType}</li>
-                      <li>Language: {studentBasicDetails.languagesSpoken.join(', ')}</li>
-                    </ul>
-                  </div>
-                  <div className="col-md-3 justify-content-end align-items-center"style={{ maxWidth: '300px'}}>
-                    <img src={profilePhotoUrl} alt="Student Profile" className="img-fluid rounded-circle mb-3" style={{ maxWidth: '180px'}} />
-                  </div>
+            <div className="card-body d-flex align-items-center">
+              <div className="row">
+                <div className="col-md-9">
+                  <h5>Basic Information</h5>
+                  <ul>
+                    <li>Name: {student?.studentName}</li>
+                    <li>Branch: {studentBasicDetails?.branch}</li>
+                    <li>Grade: {studentBasicDetails?.grade}</li>
+                    <li>CET Percentile: {studentBasicDetails?.cetPercentile}</li>
+                    <li>Class Type: {studentBasicDetails?.classType}</li>
+                    <li>Language: {studentBasicDetails?.languagesSpoken?.join(', ')}</li>
+                  </ul>
+                </div>
+                <div className="col-md-3 justify-content-end align-items-center" style={{ maxWidth: '300px'}}>
+                  <img src={profilePhotoUrl} alt="Student Profile" className="img-fluid rounded-circle mb-3" style={{ maxWidth: '180px'}} />
                 </div>
               </div>
             </div>
+          </div>
 
           <div className="card mt-4 zoom-card">
             <div className="card-body">
               <h5>About</h5>
               <ul>
-                {studentProfile.studentProfileAboutSection.map((item, index) => (
-                  <li key={index}>{item.about}</li>
+                {studentProfile?.studentProfileAboutSection?.map((item, index) => (
+                  <li key={index}>{item?.about}</li>
                 ))}
               </ul>
             </div>
@@ -103,8 +98,8 @@ const StudentProfileComponent = () => {
             <div className="card-body">
               <h5>City of Coaching</h5>
               <ul>
-                {studentProfile.studentProfileCityOfCoaching.map((item, index) => (
-                  <li key={index}>{item.cityOfCoaching}</li>
+                {studentProfile?.studentProfileCityOfCoaching?.map((item, index) => (
+                  <li key={index}>{item?.cityOfCoaching}</li>
                 ))}
               </ul>
             </div>
@@ -114,8 +109,8 @@ const StudentProfileComponent = () => {
             <div className="card-body">
               <h5>Score Details</h5>
               <ul>
-                {studentProfile.studentProfileExamScoreDetails.map((detail, index) => (
-                  <li key={index}>{detail.scoreDetail}</li>
+                {studentProfile?.studentProfileExamScoreDetails?.map((detail, index) => (
+                  <li key={index}>{detail?.scoreDetail}</li>
                 ))}
               </ul>
             </div>
@@ -125,8 +120,8 @@ const StudentProfileComponent = () => {
             <div className="card-body">
               <h5>Other Exam Scores</h5>
               <ul>
-                {studentProfile.studentProfileOtherExamScoreDetails.map((exam, index) => (
-                  <li key={index}>{exam.otherScoreDetail}</li>
+                {studentProfile?.studentProfileOtherExamScoreDetails?.map((exam, index) => (
+                  <li key={index}>{exam?.otherScoreDetail}</li>
                 ))}
               </ul>
             </div>
@@ -136,8 +131,8 @@ const StudentProfileComponent = () => {
             <div className="card-body">
               <h5>Academic Activities</h5>
               <ul>
-                {studentProfile.studentProfileAcademicActivity.map((activity, index) => (
-                  <li key={index}>{activity.activity}</li>
+                {studentProfile?.studentProfileAcademicActivity?.map((activity, index) => (
+                  <li key={index}>{activity?.activity}</li>
                 ))}
               </ul>
             </div>
@@ -147,8 +142,8 @@ const StudentProfileComponent = () => {
             <div className="card-body">
               <h5>Co-Curricular Activities</h5>
               <ul>
-                {studentProfile.studentProfileCoCurricularActivity.map((activity, index) => (
-                  <li key={index}>{activity.activity}</li>
+                {studentProfile?.studentProfileCoCurricularActivity?.map((activity, index) => (
+                  <li key={index}>{activity?.activity}</li>
                 ))}
               </ul>
             </div>
@@ -158,8 +153,8 @@ const StudentProfileComponent = () => {
             <div className="card-body">
               <h5>Extra-Curricular Achievements</h5>
               <ul>
-                {studentProfile.studentProfileExtraCurricularActivity.map((achievement, index) => (
-                  <li key={index}>{achievement.activity}</li>
+                {studentProfile?.studentProfileExtraCurricularActivity?.map((achievement, index) => (
+                  <li key={index}>{achievement?.activity}</li>
                 ))}
               </ul>
             </div>
@@ -169,8 +164,8 @@ const StudentProfileComponent = () => {
             <div className="card-body">
               <h5>Tutoring Experience</h5>
               <ul>
-                {studentProfile.studentProfileTutoringExperience.map((experience, index) => (
-                  <li key={index}>{experience.experience}</li>
+                {studentProfile?.studentProfileTutoringExperience?.map((experience, index) => (
+                  <li key={index}>{experience?.experience}</li>
                 ))}
               </ul>
             </div>
@@ -180,15 +175,14 @@ const StudentProfileComponent = () => {
             <div className="card-body">
               <h5>External Links</h5>
               <ul>
-                {studentProfile.studentProfileExternalLink.map((link, index) => (
+                {studentProfile?.studentProfileExternalLinks?.map((link, index) => (
                   <li key={index}>
-                    <a href={link.linkAddress} target="_blank" rel="noopener noreferrer">{link.linkName}</a>
+                    <a href={link?.linkAddress} target="_blank" rel="noopener noreferrer">{link?.linkName}</a>
                   </li>
                 ))}
               </ul>
             </div>
           </div>
-
 
           {/* Display BookSessionComponent as a popup */}
           {showBookSession && (
@@ -199,11 +193,10 @@ const StudentProfileComponent = () => {
             </div>
           )}
 
-
           <div className="card mt-4 zoom-card">
             <div className="card-body">
               <h5>Sessions Conducted</h5>
-              <p>{studentProfile.studentProfileSessionsConducted}</p>
+              <p>{studentProfile?.studentProfileSessionsConducted}</p>
             </div>
           </div>
         </div>
