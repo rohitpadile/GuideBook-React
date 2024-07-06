@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getAllColleges } from '../Services/apiServiceAdmin';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getCollegesForExam } from '../Services/apiServiceAdmin';
 
 const SelectCollegeComponent = () => {
   const [colleges, setColleges] = useState([]);
   const navigate = useNavigate();
+  const { examName } = useParams(); // Assuming you're using React Router for params
 
   useEffect(() => {
     fetchColleges();
-  }, []);
+  }, [examName]); // Fetch colleges whenever examName changes
 
   const fetchColleges = async () => {
     try {
-      const response = await getAllColleges();
-      console.log('Fetched colleges:', response.data.collegeNameList);
-      setColleges(response.data.collegeNameList || []);
+      const response = await getCollegesForExam(examName);
+      console.log('Fetched colleges for exam:', response);
+      setColleges(response);
     } catch (error) {
       console.error('Error fetching colleges:', error);
     }

@@ -29,6 +29,7 @@ const SelectStudentComponent = () => {
       if (branchNamesList.length > 0) {
         setSelectedBranch(branchNamesList[0]);
       }
+      console.log(branchNames);
 
       const languageNamesList = await getAllLanguageNames();
       setLanguageNames(languageNamesList);

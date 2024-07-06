@@ -219,21 +219,22 @@ html, body {
 .nav-item {
   position: relative;
 }
-/* Styles for the dropdown menu */
+/* Dropdown menu styles */
 .dropdown-menu {
   position: absolute;
-  top: calc(100% - 1px); /* Adjusted to align with the bottom of the link */
-  left: 50%; /* Center horizontally */
-  transform: translateX(-50%); /* Adjust to center precisely */
+  top: 100%; /* Adjusted to remove the gap */
+  left: 50%;
+  transform: translateX(-50%);
   display: none;
   background-color: #343a40;
   border: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 2;
-  width: 250px; /* Adjust width as needed */
+  min-width: 200px;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 8px;
 }
+
 
 .dropdown-menu::before {
   content: '';
@@ -244,31 +245,36 @@ html, body {
   border-style: solid;
   border-color: transparent transparent #343a40 transparent; /* Match background */
 }
+/* Dropdown menu show on hover */
 .nav-item:hover .dropdown-menu {
   display: block;
 }
 
 .dropdown-item {
   color: #fff;
-  padding: 10px 20px;
+  padding: 8px 15px;
   display: block;
-  font-size: 16px; /* Adjust font size for dropdown items */
+  font-size: 16px;
 }
 
 .dropdown-item:hover {
   background-color: #495057;
 }
 
-
-/* Ensure consistent hover effect for navbar links */
+/* Navbar link hover styles */
 .nav-link {
   position: relative;
   display: inline-block;
-  padding: 10px 15px; /* Adjust padding for better click area */
-  font-size: 18px; /* Adjust font size for navbar links */
-  border-bottom: 2px solid transparent; /* Ensure initial border is transparent */
+  padding: 15px 20px;
+  font-size: 18px;
+  transition: border 0.2s ease;
 }
-/* Hover effect to show bottom border */
-.nav-link:hover {
-  border-bottom: 2px solid white; /* Thin white border on hover */
-}
+
+/* .nav-link:hover { */
+  /* border-bottom: 2px solid white; Thin white border on hover */
+/* } */
+
+/* .nav-link:hover {
+  border: 1px solid #fff;
+  border-radius: 5px;
+} */

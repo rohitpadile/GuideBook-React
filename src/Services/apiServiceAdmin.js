@@ -9,10 +9,17 @@ const api = axios.create({
   },
 });
 
-// College endpoints
-export const getAllColleges = () => {
-  return api.get('/colleges');
+// Fetch colleges for a specific exam
+export const getCollegesForExam = async (examName) => {
+  try {
+    const response = await api.get(`/collegesForExam/${examName}`);
+    return response.data.collegeNameList || [];
+  } catch (error) {
+    console.error(`Error fetching colleges for exam ${examName}:`, error);
+    return [];
+  }
 };
+
 
 export const getFilteredStudentList = async (filters) => {
   try {
@@ -113,4 +120,14 @@ export const getStudentBasicDetails = async (studentWorkEmail) => {
 };
 
 
+// Fetch entrance exams
+export const getAllEntranceExams = async () => {
+  try {
+    const response = await api.get('/entranceExams');
+    return response.data.entranceExamNameSet || [];
+  } catch (error) {
+    console.error('Error fetching entrance exams:', error);
+    return [];
+  }
+};
 export default api;
