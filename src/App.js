@@ -6,7 +6,7 @@ import StudentProfileComponent from './Components/StudentProfileComponent';
 import BookSessionComponent from './Components/BookSessionComponent';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
-import SecondaryNavbarComponent from './Components/SecondaryNavbarComponent'; // Import the updated SecondaryNavbarComponent
+import HomePageComponent from './Components/HomePageComponent'; // Import the HomePage component
 import ZoomSessionForm from './Components/ZoomSessionForm'; // Import the new ZoomSessionForm component
 import { BranchProvider } from './Context/BranchContext';
 import './App.css';
@@ -19,6 +19,8 @@ function App() {
       <div className="container">
         <BranchProvider>
           <Routes>
+            <Route path="/" element={<HomePageComponent />} /> {/* Route for the Home page */}
+            <Route path="/home" element={<HomePageComponent />} /> {/* Alternative route for the Home page */}
             <Route path="/colleges/:examName" element={<SelectCollegeComponent />} /> {/* Update path to include examName param */}
             <Route path="/selectStudent/:collegeName" element={<SelectStudentComponent />} />
             <Route path="/studentProfile" element={<StudentProfileComponent />} />
