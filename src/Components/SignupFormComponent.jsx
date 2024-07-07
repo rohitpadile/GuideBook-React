@@ -12,7 +12,11 @@ const SignupFormComponent = () => {
     clientAge: '',
     clientCollege: '',
     clientProofDoc: null,
+    password: '',
+    retypePassword: '',
   });
+
+  const [passwordMatch, setPasswordMatch] = useState(true);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -20,12 +24,20 @@ const SignupFormComponent = () => {
       ...formData,
       [name]: files ? files[0] : value,
     });
+
+    if (name === 'retypePassword') {
+      setPasswordMatch(formData.password === value);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    // Implement form submission logic here
+    if (passwordMatch) {
+      console.log(formData);
+      // Implement form submission logic here
+    } else {
+      alert('Passwords do not match!');
+    }
   };
 
   return (
@@ -139,9 +151,36 @@ const SignupFormComponent = () => {
                 />
               </div>
             </div>
+            <div className="mb-3 row">
+              <label htmlFor="password" className="col-sm-4 col-form-label">Password</label>
+              <div className="col-sm-8">
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className="mb-3 row">
+              <label htmlFor="retypePassword" className="col-sm-4 col-form-label">Retype Password</label>
+              <div className="col-sm-8">
+                <input
+                  type="password"
+                  className={`form-control ${passwordMatch ? '' : 'is-invalid'}`}
+                  id="retypePassword"
+                  name="retypePassword"
+                  value={formData.retypePassword}
+                  onChange={handleChange}
+                />
+                {!passwordMatch && <div className="invalid-feedback">Passwords do not match!</div>}
+              </div>
+            </div>
             <div className="row">
               <div className="col-sm-12 text-center">
-                <button type="submit" className="btn btn-primary w-100">Sign Up</button>
+                <button type="submit" className={`btn btn-primary w-100 ${passwordMatch ? '' : 'disabled'}`} disabled={!passwordMatch}>Sign Up</button>
               </div>
             </div>
           </form>
