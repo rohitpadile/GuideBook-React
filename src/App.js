@@ -7,6 +7,7 @@ import BookSessionComponent from './Components/BookSessionComponent';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import SecondaryNavbarComponent from './Components/SecondaryNavbarComponent'; // Import the updated SecondaryNavbarComponent
+import ZoomSessionForm from './Components/ZoomSessionForm'; // Import the new ZoomSessionForm component
 import { BranchProvider } from './Context/BranchContext';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -15,7 +16,6 @@ function App() {
   return (
     <Router>
       <Header />
-      {/* <SecondaryNavbarComponent /> Include the updated SecondaryNavbarComponent */}
       <div className="container">
         <BranchProvider>
           <Routes>
@@ -23,6 +23,7 @@ function App() {
             <Route path="/selectStudent/:collegeName" element={<SelectStudentComponent />} />
             <Route path="/studentProfile" element={<StudentProfileComponent />} />
             <Route path="/bookSession" element={<BookSessionComponent />} />
+            <Route path="/bookZoomSessionForm" element={<ZoomSessionForm />} /> {/* Add route for ZoomSessionForm */}
           </Routes>
         </BranchProvider>
       </div>

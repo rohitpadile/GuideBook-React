@@ -1,7 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../App.css';
 
 const BookSessionComponent = ({ student, onClose }) => {
+  const navigate = useNavigate();
+
+  const handleBookZoomSession = () => {
+    navigate('/bookZoomSessionForm');
+  };
+
   return (
     <div className="container mt-5">
       <div className="card book-session-card mx-auto" style={{ maxWidth: '800px' }}>
@@ -12,7 +19,10 @@ const BookSessionComponent = ({ student, onClose }) => {
         <div className="card-body book-session-body">
           <h5>{student.studentName}</h5>
           <div className="list-group mt-4">
-            <button className="list-group-item list-group-item-action btn btn-primary mb-2">
+            <button
+              className="list-group-item list-group-item-action btn btn-primary mb-2"
+              onClick={handleBookZoomSession}
+            >
               Book 1:1 Zoom Session
             </button>
             <button className="list-group-item list-group-item-action btn btn-secondary">
