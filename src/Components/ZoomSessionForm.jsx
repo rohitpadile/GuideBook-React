@@ -14,6 +14,8 @@ const ZoomSessionForm = () => {
     clientProofDoc: null,
   });
 
+  const [showConfirmation, setShowConfirmation] = useState(false);
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setFormData({
@@ -26,13 +28,19 @@ const ZoomSessionForm = () => {
     e.preventDefault();
     // Handle form submission
     console.log(formData);
+    setShowConfirmation(true);
+  };
+
+  const handleModalClose = () => {
+    setShowConfirmation(false);
+    // Optionally, reset form data here if needed
   };
 
   return (
     <div className="container mt-5">
       <div className="card book-session-card mx-auto" style={{ maxWidth: '600px' }}>
         <div className="card-header book-session-header text-center">
-          <h4>Book a Zoom Session</h4>
+          <h4>Book a 1:1 Zoom Session</h4>
         </div>
         <div className="card-body book-session-body">
           <form onSubmit={handleSubmit}>
@@ -143,6 +151,27 @@ const ZoomSessionForm = () => {
           </form>
         </div>
       </div>
+
+      {/* Modal for Confirmation */}
+      <div className={`modal fade ${showConfirmation ? 'show' : ''}`} tabIndex="-1" role="dialog" style={{ display: showConfirmation ? 'block' : 'none' }}>
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Confirmation</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={handleModalClose}>
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <p>We will right away contact <strong>{formData.clientFirstName} {formData.clientLastName}</strong>. You will be notified via Email about the Session confirmation and its timing.</p>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" onClick={handleModalClose}>Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {showConfirmation && <div className="modal-backdrop fade show"></div>}
     </div>
   );
 };
