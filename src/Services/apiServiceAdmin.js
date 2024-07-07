@@ -130,4 +130,13 @@ export const getAllEntranceExams = async () => {
     return [];
   }
 };
+
+export const signup = async (formData) => {
+  try {
+    const response = await api.post('/signup', formData);
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error signing up: ${error.message}`);
+  }
+};
 export default api;

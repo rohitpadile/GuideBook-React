@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
+import {signup} from '../Services/apiServiceAdmin'
 
 const SignupFormComponent = () => {
   const [formData, setFormData] = useState({
@@ -30,11 +31,28 @@ const SignupFormComponent = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (passwordMatch) {
-      console.log(formData);
-      // Implement form submission logic here
+      try {
+        const formDataWithProofDocPath = new FormData();
+        formDataWithProofDocPath.append('clientFirstName', formData.clientFirstName);
+        formDataWithProofDocPath.append('clientMiddleName', formData.clientMiddleName);
+        formDataWithProofDocPath.append('clientLastName', formData.clientLastName);
+        formDataWithProofDocPath.append('clientEmail', formData.clientEmail);
+        formDataWithProofDocPath.append('clientPhoneNumber', formData.clientPhoneNumber);
+        formDataWithProofDocPath.append('clientAge', formData.clientAge);
+        formDataWithProofDocPath.append('clientCollege', formData.clientCollege);
+        formDataWithProofDocPath.append('password', formData.password);
+        formDataWithProofDocPath.append('clientProofDoc', formData.clientProofDoc);
+
+        const response = await signup(formDataWithProofDocPath);
+        console.log('Signup response:', response.data);
+        // Handle success scenario (e.g., redirect to dashboard)
+      } catch (error) {
+        console.error('Signup error:', error);
+        // Handle error scenario (e.g., display error message)
+      }
     } else {
       alert('Passwords do not match!');
     }
