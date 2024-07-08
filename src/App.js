@@ -7,6 +7,7 @@ import BookSessionComponent from './Components/BookSessionComponent';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import SignupFormComponent from './Components/SignupFormComponent';
+import ProfileComponent from './Components/ProfileComponent'
 import HomePageComponent from './Components/HomePageComponent'; // Import the HomePage component
 import ZoomSessionForm from './Components/ZoomSessionForm'; // Import the new ZoomSessionForm component
 import { BranchProvider } from './Context/BranchContext';
@@ -32,6 +33,7 @@ function App() {
             {/* <Route path="/blogs/:studentId" element={<BlogListComponent />} />
             <Route path="/blogs/:studentId/:blogId" element={<BlogPageComponent />} /> */}
             <Route path="/signup" element={<SignupFormComponent/>} />
+            <Route path="/profile" element={<ProfileComponent/>} />
             <Route path="/blogs/" element={<BlogListComponent />} />
             <Route path="/blogs/page" element={<BlogPageComponent />} />
           </Routes>

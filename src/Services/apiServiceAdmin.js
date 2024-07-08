@@ -139,4 +139,16 @@ export const signup = async (formData) => {
     throw new Error(`Error signing up: ${error.message}`);
   }
 };
+
+//TO FETCH THE DATA OF THE CURRENT LOGGED IN PROFILE - SAMPLE.
+
+// - YOU NEED TO CHANGE CODE AFTER INTEGRATING SPRING SECURITY
+//DONT KNOW WHAT DTO I AM GOING TO BE FETCHING, BUT IT WILL BE EASIER TO EDIT IT LATER
+
+// Add this new method to fetch the profile data
+// export const fetchCurrentProfile = async () => {
+//   // Using a fake endpoint for now
+//   const response = await axios.get(`${API_BASE_URL}/user/profile`);
+//   return response.data;
+// };
 export default api;
