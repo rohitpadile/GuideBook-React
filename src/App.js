@@ -18,7 +18,7 @@ import BlogPageComponent from './Components/BlogPageComponent';
 import { initializeProfile } from './Services/profileService';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { CSSTransition } from 'react-transition-group';
 function App() {
   useEffect(() => {
     initializeProfile(); //initializes the profile 
@@ -30,20 +30,102 @@ function App() {
       <div className="container">
         <BranchProvider>
           <Routes>
-            <Route path="/" element={<HomePageComponent />} /> {/* Route for the Home page */}
-            <Route path="/home" element={<HomePageComponent />} /> {/* Alternative route for the Home page */}
-            <Route path="/colleges/:examName" element={<SelectCollegeComponent />} /> {/* Update path to include examName param */}
-            <Route path="/selectStudent/:collegeName" element={<SelectStudentComponent />} />
-            <Route path="/studentProfile" element={<StudentProfileComponent />} />
-            <Route path="/bookSession" element={<BookSessionComponent />} />
-            <Route path="/bookZoomSessionForm" element={<ZoomSessionForm />} /> {/* Add route for ZoomSessionForm */}
-            {/* <Route path="/blogs/:studentId" element={<BlogListComponent />} />
-            <Route path="/blogs/:studentId/:blogId" element={<BlogPageComponent />} /> */}
-            <Route path="/signup" element={<SignupFormComponent/>} />
-            <Route path="/login" element={<LoginFormComponent/>} />
-            <Route path="/profile" element={<ProfileComponent/>} />
-            <Route path="/blogs/" element={<BlogListComponent />} />
-            <Route path="/blogs/page" element={<BlogPageComponent />} />
+            <Route
+              path="/"
+              element={
+                <CSSTransition classNames="page" timeout={300} appear>
+                  <HomePageComponent />
+                </CSSTransition>
+              }
+            />
+            <Route
+              path="/home"
+              element={
+                <CSSTransition classNames="page" timeout={300}>
+                  <HomePageComponent />
+                </CSSTransition>
+              }
+            />
+            <Route
+              path="/colleges/:examName"
+              element={
+                <CSSTransition classNames="page" timeout={300}>
+                  <SelectCollegeComponent />
+                </CSSTransition>
+              }
+            />
+            <Route
+              path="/selectStudent/:collegeName"
+              element={
+                <CSSTransition classNames="page" timeout={300}>
+                  <SelectStudentComponent />
+                </CSSTransition>
+              }
+            />
+            <Route
+              path="/studentProfile"
+              element={
+                <CSSTransition classNames="page" timeout={300}>
+                  <StudentProfileComponent />
+                </CSSTransition>
+              }
+            />
+            <Route
+              path="/bookSession"
+              element={
+                <CSSTransition classNames="page" timeout={300}>
+                  <BookSessionComponent />
+                </CSSTransition>
+              }
+            />
+            <Route
+              path="/bookZoomSessionForm"
+              element={
+                <CSSTransition classNames="page" timeout={300}>
+                  <ZoomSessionForm />
+                </CSSTransition>
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <CSSTransition classNames="page" timeout={300}>
+                  <SignupFormComponent />
+                </CSSTransition>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <CSSTransition classNames="page" timeout={300}>
+                  <LoginFormComponent />
+                </CSSTransition>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <CSSTransition classNames="page" timeout={300}>
+                  <ProfileComponent />
+                </CSSTransition>
+              }
+            />
+            <Route
+              path="/blogs"
+              element={
+                <CSSTransition classNames="page" timeout={300}>
+                  <BlogListComponent />
+                </CSSTransition>
+              }
+            />
+            <Route
+              path="/blogs/page"
+              element={
+                <CSSTransition classNames="page" timeout={300}>
+                  <BlogPageComponent />
+                </CSSTransition>
+              }
+            />
           </Routes>
         </BranchProvider>
       </div>

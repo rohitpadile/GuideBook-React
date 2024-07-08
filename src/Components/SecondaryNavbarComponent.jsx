@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getCollegesForExam } from '../Services/apiServiceAdmin';
+import { getAllEntranceExams } from '../Services/apiServiceAdmin'; // Adjust import as per your actual service
 
 const SecondaryNavbarComponent = ({ showDropdown, handleMouseEnter, handleMouseLeave, handleDropdownMouseEnter, handleDropdownMouseLeave }) => {
   const [entranceExams, setEntranceExams] = useState([]);
@@ -12,15 +12,8 @@ const SecondaryNavbarComponent = ({ showDropdown, handleMouseEnter, handleMouseL
 
   const fetchEntranceExams = async () => {
     try {
-      // Mock data or fetch from API
-      const entranceExamsData = {
-        entranceExamNameSet: [
-          "MHT-CET", // Replace with actual API call
-          "Other Exam 1",
-          "Other Exam 2"
-        ]
-      };
-      setEntranceExams(entranceExamsData.entranceExamNameSet);
+      const exams = await getAllEntranceExams();
+      setEntranceExams(exams);
     } catch (error) {
       console.error('Error fetching entrance exams:', error);
     }
@@ -28,11 +21,9 @@ const SecondaryNavbarComponent = ({ showDropdown, handleMouseEnter, handleMouseL
 
   const handleExamClick = async (examName) => {
     try {
-      const colleges = await getCollegesForExam(examName);
-      console.log('Fetched colleges for exam:', colleges);
       navigate(`/colleges/${encodeURIComponent(examName)}`);
     } catch (error) {
-      console.error('Error fetching colleges for exam:', error);
+      console.error('Navigation error:', error);
     }
   };
 
@@ -47,7 +38,7 @@ const SecondaryNavbarComponent = ({ showDropdown, handleMouseEnter, handleMouseL
               onMouseLeave={handleMouseLeave}
               onClick={handleMouseEnter}
             >
-              <a className="nav-link" href="/entrance-exams" style={{ borderBottom: '2px solid transparent', padding: '5px', color: '#ffffff' }}>
+              <a className="nav-link" href="/entrance-exams" style={{ borderBottom: '2px solid transparent', padding: '5px', color: '#ffffff', fontSize: '0.9rem' }}>
                 Entrance Exams
               </a>
               {showDropdown && (
