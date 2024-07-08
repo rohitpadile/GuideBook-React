@@ -23,6 +23,19 @@ body {
 
 
  */
+@media (max-width: 768px) {
+  .signup-link {
+    display: none; /* Hide signup link on small screens */
+  }
+
+  .navbar-nav {
+    flex-direction: column; /* Stack navbar items vertically on small screens */
+  }
+
+  .dropdown-menu.show {
+    position: absolute; /* Ensure dropdown menu stays within the navbar */
+  }
+}
 
 
 
@@ -117,6 +130,7 @@ body {
 .App-link {
   color: #61dafb;
 }
+
 
 @keyframes App-logo-spin {
   from {

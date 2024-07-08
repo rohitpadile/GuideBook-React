@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SecondaryNavbar from './SecondaryNavbarComponent';
 import authUtility from '../Services/authUtility'; // Import your authentication utility
+import '../App.css';
 
 const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
