@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
+import { useParams } from 'react-router-dom';
 
 const ZoomSessionForm = () => {
+  const { studentName } = useParams(); // Get the student name from URL parameters
   const [formData, setFormData] = useState({
     clientFirstName: '',
     clientMiddleName: '',
@@ -51,6 +53,7 @@ const ZoomSessionForm = () => {
       <div className="card book-session-card mx-auto" style={{ maxWidth: '600px' }}>
         <div className="card-header book-session-header text-center">
           <h4>Book a 1:1 Zoom Session</h4>
+          <h4>{studentName}</h4> {/* Display student name */}
         </div>
         <div className="card-body book-session-body">
           <form onSubmit={handleSubmit}>

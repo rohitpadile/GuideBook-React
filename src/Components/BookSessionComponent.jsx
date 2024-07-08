@@ -6,7 +6,7 @@ const BookSessionComponent = ({ student, onClose }) => {
   const navigate = useNavigate();
 
   const handleBookZoomSession = () => {
-    navigate('/bookZoomSessionForm');
+    navigate(`/bookZoomSessionForm/${student.studentName}`);
   };
 
   return (

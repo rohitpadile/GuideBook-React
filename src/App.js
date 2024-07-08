@@ -79,7 +79,7 @@ function App() {
               }
             />
             <Route
-              path="/bookZoomSessionForm"
+              path="/bookZoomSessionForm/:studentName"
               element={
                 <CSSTransition classNames="page" timeout={300}>
                   <ZoomSessionForm />
