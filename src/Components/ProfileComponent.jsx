@@ -1,28 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
-// import { fetchCurrentProfile } from '../Services/apiServiceAdmin';
+import authUtility from '../Services/authUtility';
 
 const ProfileComponent = () => {
-  const [profileData, setProfileData] = useState({});
-  const [isStudent, setIsStudent] = useState(true);//TEMPORARILY SET THE IsStudent to true
-
-//   useEffect(() => {
-//     const getProfileData = async () => {
-//       try {
-//         const data = await fetchCurrentProfile();
-//         setProfileData(data);
-//         setIsStudent(data.studentMis !== undefined);
-//       } catch (error) {
-//         console.error('Error fetching profile data:', error);
-//       }
-//     };
-
-//     getProfileData();
-//   }, []);
-
-
- 
+    const [profileData, setProfileData] = useState({});
+  
+    useEffect(() => {
+      const profile = authUtility.getProfile();
+      if (profile) {
+        setProfileData(profile);
+      } else {
+        console.error('No profile data available');
+      }
+    }, []);
 
   return (
     <div className="container mt-5">
@@ -31,7 +22,7 @@ const ProfileComponent = () => {
           <h4>Profile</h4>
         </div>
         <div className="card-body">
-          {isStudent ? (
+          {authUtility.isStudent() ? (
             <>
               <div className="mb-3 row">
                 <label className="col-sm-4 col-form-label">Student Work Email</label>

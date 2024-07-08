@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SelectCollegeComponent from './Components/SelectCollegeComponent';
 import SelectStudentComponent from './Components/SelectStudentComponent';
@@ -13,10 +14,15 @@ import ZoomSessionForm from './Components/ZoomSessionForm'; // Import the new Zo
 import { BranchProvider } from './Context/BranchContext';
 import BlogListComponent from './Components/BlogListComponent';
 import BlogPageComponent from './Components/BlogPageComponent';
+import { initializeProfile } from './Services/profileService';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+  useEffect(() => {
+    initializeProfile(); //initializes the profile 
+  }, []);
+
   return (
     <Router>
       <Header />

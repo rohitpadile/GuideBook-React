@@ -146,9 +146,10 @@ export const signup = async (formData) => {
 //DONT KNOW WHAT DTO I AM GOING TO BE FETCHING, BUT IT WILL BE EASIER TO EDIT IT LATER
 
 // Add this new method to fetch the profile data
-// export const fetchCurrentProfile = async () => {
-//   // Using a fake endpoint for now
-//   const response = await axios.get(`${API_BASE_URL}/user/profile`);
-//   return response.data;
-// };
+export const fetchCurrentProfile = async () => {
+  // Using a fake endpoint for now
+  const response = await axios.get(`/profile`); //LOOK OVER THIS URL
+  return response.data;
+};
+
 export default api;
