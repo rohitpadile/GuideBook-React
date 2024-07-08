@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SecondaryNavbar from './SecondaryNavbarComponent';
+import authUtility from '../Services/authUtility'; // Import your authentication utility
 
 const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const profile = authUtility.getProfile();
 
   const handleMouseEnter = () => {
     setShowDropdown(true);
@@ -39,16 +41,36 @@ const Header = () => {
             GuideBook
           </Link>
           <ul className="navbar-nav ml-auto align-items-center">
-            <li className="nav-item">
-              <Link className="nav-link" to="/login" style={{ fontSize: '16px', borderBottom: '2px solid transparent', padding: '10px' }}>
-                Login
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/signup" style={{ fontSize: '16px', borderBottom: '2px solid transparent', padding: '10px' }}>
-                Signup
-              </Link>
-            </li>
+            {profile && profile.studentMis !== undefined ? ( // Check if logged-in user is a student
+              <>
+                <li className="nav-item">
+                  <span className="nav-link" style={{ fontSize: '16px', borderBottom: '2px solid transparent', padding: '10px' }}>
+                    Hi, {profile.firstName} ___ My Blogs {/* Replace with actual field name */}
+                  </span>
+                </li>
+              </>
+            ) : profile && profile.clientEmail !== undefined ? ( // Check if logged-in user is a client
+              <>
+                <li className="nav-item">
+                  <span className="nav-link" style={{ fontSize: '16px', borderBottom: '2px solid transparent', padding: '10px' }}>
+                    Hi, {profile.firstName} {/* Replace with actual field name */}
+                  </span>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login" style={{ fontSize: '16px', borderBottom: '2px solid transparent', padding: '10px' }}>
+                    Login
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/signup" style={{ fontSize: '16px', borderBottom: '2px solid transparent', padding: '10px' }}>
+                    Signup
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </nav>
