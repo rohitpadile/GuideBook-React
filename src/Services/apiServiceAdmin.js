@@ -148,17 +148,17 @@ export const signup = async (formData) => {
 // Add this new method to fetch the profile data
 export const fetchCurrentProfile = async () => {
   // Using a fake endpoint for now
-  const response = await axios.get(`/profile`); //LOOK OVER THIS URL
+  const response = await api.get(`/profile`); //LOOK OVER THIS URL
   return response.data;
 };
 
 
 export const getCollegesForClubs = async () => {
   try {
-    const response = await axios.get('/collegesForExam');
-    return response.data;
+    const response = await api.get('/collegesForExam');
+    return response.data.collegeNameList || []; // Assuming response structure is { collegeNameList: [...] }
   } catch (error) {
-    console.error('Error fetching random colleges:', error);
+    console.error('Error fetching colleges for clubs:', error);
     throw error;
   }
 };

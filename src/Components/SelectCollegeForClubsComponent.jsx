@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getCollegesForClubs } from '../Services/apiServiceAdmin'; // Adjust import as per your actual service
+import { getCollegesForClubs } from '../Services/apiServiceAdmin';
 
 const SelectCollegeForClubsComponent = () => {
-  const [colleges, setColleges] = useState([]);
-  const navigate = useNavigate();
+    const [colleges, setColleges] = useState([]);
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchColleges();
-  }, []);
-
-  const fetchColleges = async () => {
-    try {
-      const response = await getCollegesForClubs();
-      console.log('Fetched colleges for clubs:', response);
-      if (response && response.collegeNameList) {
-        setColleges(response.collegeNameList);
-      } else {
-        console.error('Unexpected response format:', response);
-      }
-    } catch (error) {
-      console.error('Error fetching colleges:', error);
-    }
-  };
+    useEffect(() => {
+        const fetchColleges = async () => {
+          try {
+            const response = await getCollegesForClubs();
+            console.log('Fetched colleges for clubs:', response);
+            setColleges(response);
+          } catch (error) {
+            console.error('Error fetching colleges in component:', error);
+          }
+        };
+      
+        fetchColleges(); // Call fetchColleges directly here
+      
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []); // Empty dependency array means it runs only once, like componentDidMount
+      
 
   const handleCollegeClick = (collegeName) => {
     navigate(`/clubs/${encodeURIComponent(collegeName)}`);
@@ -30,7 +29,7 @@ const SelectCollegeForClubsComponent = () => {
 
   return (
     <div className="container mt-4">
-      <h1 className="text-center mb-4">Select College</h1>
+      <h1 className="text-center mb-4">Welcome to College ClubsX</h1>
       <div className="row">
         {colleges.map(collegeName => (
           <div key={collegeName} className="col-md-4 mb-4">

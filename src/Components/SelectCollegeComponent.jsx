@@ -17,7 +17,7 @@ const SelectCollegeComponent = () => {
       console.log('Fetched colleges for exam:', response);
       setColleges(response);
     } catch (error) {
-      console.error('Error fetching colleges:', error);
+      console.error('Error fetching colleges IN COMPONENT:', error);
     }
   };
 
