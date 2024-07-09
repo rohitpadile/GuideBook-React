@@ -19,6 +19,7 @@ import { initializeProfile } from './Services/profileService';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CSSTransition } from 'react-transition-group';
+import SelectCollegeForClubsComponent from './Components/SelectCollegeForClubsComponent';
 function App() {
   useEffect(() => {
     initializeProfile(); //initializes the profile 
@@ -123,6 +124,15 @@ function App() {
               element={
                 <CSSTransition classNames="page" timeout={300}>
                   <BlogPageComponent />
+                </CSSTransition>
+              }
+            />
+
+            <Route
+              path="/clubs"
+              element={
+                <CSSTransition classNames="page" timeout={300}>
+                  <SelectCollegeForClubsComponent />
                 </CSSTransition>
               }
             />

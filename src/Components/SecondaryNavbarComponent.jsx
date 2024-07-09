@@ -28,7 +28,7 @@ const SecondaryNavbarComponent = ({ showDropdown, handleMouseEnter, handleMouseL
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-secondary" style={{ height: '30px', padding: '5px 0' }}>
+    <nav className="navbar navbar-expand-lg" style={{ height: '30px', padding: '5px 0', backgroundColor: '#1a1a40' }}>
       <div className="container">
         <div className="navbar-collapse">
           <ul className="navbar-nav mr-auto align-items-center">
@@ -52,6 +52,16 @@ const SecondaryNavbarComponent = ({ showDropdown, handleMouseEnter, handleMouseL
                   ))}
                 </div>
               )}
+            </li>
+            <li className="nav-item">
+              <Link to="/blogs" className="nav-link" style={{ borderBottom: '2px solid transparent', padding: '5px', color: '#ffffff', fontSize: '0.9rem' }}>
+                Blogs
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/clubs" className="nav-link" style={{ borderBottom: '2px solid transparent', padding: '5px', color: '#ffffff', fontSize: '0.9rem' }}>
+                Clubs
+              </Link>
             </li>
           </ul>
         </div>

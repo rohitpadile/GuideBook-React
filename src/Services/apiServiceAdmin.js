@@ -152,4 +152,16 @@ export const fetchCurrentProfile = async () => {
   return response.data;
 };
 
+
+export const getCollegesForClubs = async () => {
+  try {
+    const response = await axios.get('/collegesForExam');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching random colleges:', error);
+    throw error;
+  }
+};
+
+
 export default api;

@@ -38,8 +38,8 @@ const Header = () => {
       {/* Main Navbar */}
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ height: '50px' }}>
         <div className="container">
-          <Link className="navbar-brand align-self-start font-weight-bold nav-link" to="/" style={{ fontSize: '20px', borderBottom: '2px solid transparent', padding: '10px' }}>
-            GuideBook
+          <Link className="navbar-brand align-self-start font-weight-bold nav-link" to="/" style={{ fontSize: '30px', borderBottom: '2px solid transparent', padding: '10px' }}>
+            GuideBookX
           </Link>
           <ul className="navbar-nav ml-auto align-items-center">
             {profile && profile.studentMis !== undefined ? ( // Check if logged-in user is a student
