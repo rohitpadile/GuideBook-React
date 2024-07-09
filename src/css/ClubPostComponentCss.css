@@ -1,0 +1,24 @@
+.club-post {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .post-description {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .post-media {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .post-media img {
+    width: calc(33.33% - 10px); /* Adjust width as per your layout */
+    margin: 5px;
+    border-radius: 8px;
+  }
+  

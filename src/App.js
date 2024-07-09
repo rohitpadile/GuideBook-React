@@ -16,7 +16,8 @@ import { BranchProvider } from './Context/BranchContext';
 import BlogListComponent from './Components/BlogListComponent';
 import BlogPageComponent from './Components/BlogPageComponent';
 import { initializeProfile } from './Services/profileService';
-import CollegeClubListComponent from './Components/CollegeClubListComponent'
+import CollegeClubListComponent from './Components/CollegeClubListComponent';
+import ClubPageComponent from './Components/ClubPageComponent';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CSSTransition } from 'react-transition-group';
@@ -131,6 +132,7 @@ function App() {
 
             <Route path="/clubs" element={<SelectCollegeForClubsComponent />}/>
             <Route path="/clubs/:collegeName" element={<CollegeClubListComponent />} />
+            <Route path="/clubpage/:clubName" element={<ClubPageComponent />} />
           </Routes>
         </BranchProvider>
       </div>

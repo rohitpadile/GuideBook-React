@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCollegeClubsForCollege } from '../Services/apiServiceAdmin';
+import '../App.css'; // Import your custom CSS for styling
 
 const CollegeClubsListComponent = () => {
   const [clubs, setClubs] = useState([]);
@@ -22,8 +23,7 @@ const CollegeClubsListComponent = () => {
   };
 
   const handleClubClick = (clubName) => {
-    // Handle navigation to club details or other actions
-    // navigate(`/clubs/${encodeURIComponent(clubName)}`);
+    navigate(`/clubpage/${clubName}`);
   };
 
   return (
@@ -31,18 +31,18 @@ const CollegeClubsListComponent = () => {
       <h1 className="text-center mb-4">Clubs at {collegeName}</h1>
       <div className="row">
         <div className="col-md-8 offset-md-2">
-          <div className="list-group">
-            {clubs.map((clubName, index) => (
-              <button
-                key={index}
-                type="button"
-                className="list-group-item list-group-item-action"
-                onClick={() => handleClubClick(clubName)}
-              >
-                {clubName}
-              </button>
-            ))}
-          </div>
+          {clubs.map((clubName, index) => (
+            <div
+              key={index}
+              className="card mb-3 club-card"
+              onClick={() => handleClubClick(clubName)}
+            >
+              <div className="card-body">
+                <h4 className="card-title">{clubName}</h4>
+                {/* <p className="card-text">COEP</p> */}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
