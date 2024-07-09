@@ -183,4 +183,13 @@ export const getClubDetails = async (clubName) => {
     throw error;
   }
 };
+
+export const createClubPost = async (clubName, postData) => {
+  try {
+    const response = await api.post(`/createClubPost/${clubName}`, postData);
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error creating club post: ${error.message}`);
+  }
+};
 export default api;

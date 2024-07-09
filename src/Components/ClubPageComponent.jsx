@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ClubPostComponent from './ClubPostComponent';
-import { getClubDetails } from '../Services/apiServiceAdmin';
+import { getClubDetails, createClubPost } from '../Services/apiServiceAdmin';
+import CreateClubPostComponent from './CreateClubPostComponent';
+import { Button } from 'react-bootstrap'; // Assuming you are using React Bootstrap for styling
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const ClubPageComponent = () => {
   const [club, setClub] = useState(null);
+  const [showCreatePostModal, setShowCreatePostModal] = useState(false);
   const { clubName } = useParams();
 
   useEffect(() => {
@@ -18,6 +23,26 @@ const ClubPageComponent = () => {
     } catch (error) {
       console.error('Error fetching club details:', error);
     }
+  };
+
+  const handleCreatePost = async (postData) => {
+    try {
+      // Assume createClubPost is a function to send post data to backend
+      await createClubPost(clubName, postData);
+      setShowCreatePostModal(false);
+      // Refresh club details after creating post
+      fetchClubDetails();
+    } catch (error) {
+      console.error('Error creating post:', error);
+    }
+  };
+
+  const handleShowCreatePostModal = () => {
+    setShowCreatePostModal(true);
+  };
+
+  const handleCloseCreatePostModal = () => {
+    setShowCreatePostModal(false);
   };
 
   if (!club) {
@@ -38,6 +63,9 @@ const ClubPageComponent = () => {
         <p className="club-college mb-4">College: {club.collegeClubCollegeName}</p>
         <hr />
         <h2 className="club-posts-heading mt-4">Posts</h2>
+        <Button variant="primary" onClick={handleShowCreatePostModal} className="mb-3">
+          Create Post
+        </Button>
         {club.posts && club.posts.length > 0 ? (
           club.posts.map((post) => (
             <ClubPostComponent key={post.collegePostId} post={post} />
@@ -46,6 +74,11 @@ const ClubPageComponent = () => {
           <p className="no-posts">No posts available.</p>
         )}
       </div>
+      <CreateClubPostComponent
+        show={showCreatePostModal}
+        handleClose={handleCloseCreatePostModal}
+        handleCreatePost={handleCreatePost}
+      />
     </div>
   );
 };

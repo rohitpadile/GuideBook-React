@@ -21,4 +21,15 @@
     margin: 5px;
     border-radius: 8px;
   }
+  .create-post-popup {
+    position: fixed;
+    top: 20%; /* Adjust this value to move the popup lower */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    z-index: 1000;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
   
