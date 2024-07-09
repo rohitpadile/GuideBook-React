@@ -1,0 +1,40 @@
+/* styles.css */
+.card {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .card-img-top {
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .card-body {
+    text-align: center;
+  }
+  
+  .card-footer {
+    display: flex;
+    justify-content: center;
+  }
+  /* .container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  */
+  .list-group-item {
+    background-color: #f8f9fa;
+    border: 1px solid #e2e6ea;
+    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 5px;
+    
+  }
+  
+  .list-group-item h5 {
+    font-size: 1.25rem;
+    color: #0079d3;
+  }
+   

@@ -29,7 +29,7 @@ const SelectCollegeForClubsComponent = () => {
 
   return (
     <div className="container mt-4">
-      <h1 className="text-center mb-4">Welcome to College ClubsX</h1>
+      <h1 className="text-center mb-4">Welcome to ClubsX</h1>
       <div className="row">
         {colleges.map(collegeName => (
           <div key={collegeName} className="col-md-4 mb-4">

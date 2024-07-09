@@ -163,5 +163,13 @@ export const getCollegesForClubs = async () => {
   }
 };
 
-
+export const getCollegeClubsForCollege = async (collegeName) => {
+  try {
+    const response = await api.post('/collegeClubsForCollege', { collegeName });
+    return response.data.collegeClubNameList;
+  } catch (error) {
+    console.error('Error fetching college clubs in apiServiceAdmin:', error);
+    throw error;
+  }
+};
 export default api;
