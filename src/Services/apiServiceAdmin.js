@@ -172,4 +172,15 @@ export const getCollegeClubsForCollege = async (collegeName) => {
     throw error;
   }
 };
+
+
+export const getClubDetails = async (clubName) => {
+  try {
+    const response = await api.post(`/getClubPageDetails`, { collegeClubName: clubName });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching club details:', error);
+    throw error;
+  }
+};
 export default api;
