@@ -17,18 +17,26 @@ const CreateClubPostComponent = ({ show, handleClose, clubName, handleCreatePost
 
     try {
       const formData = new FormData();
-      formData.append('collegeClubName', clubName);
-      formData.append('collegeClubPostDescription', postDescription);
-
       mediaFiles.forEach((file) => {
         formData.append('mediaFiles', file);
       });
+      formData.append('collegeClubName', clubName);
 
-      const response = await axios.post('/api/createClubPost', formData, {
+      const uploadResponse = await axios.post('/api/uploadFiles', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       });
+
+      const mediaPaths = uploadResponse.data;
+
+      const requestBody = {
+        collegeClubName: clubName,
+        collegeClubPostDescription: postDescription,
+        collegeClubPostMediaPaths: mediaPaths,
+      };
+
+      const response = await axios.post('/api/createClubPost', requestBody);
 
       handleCreatePost(response.data); // Assuming response contains updated post data
     } catch (error) {

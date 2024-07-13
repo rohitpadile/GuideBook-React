@@ -1,0 +1,54 @@
+/* StudentProfileComponentCss.css */
+.student-profile-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.student-profile-header {
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+}
+
+.student-profile-header h4 {
+  margin: 0;
+}
+
+.book-session-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #ff6f61;
+  border: none;
+}
+
+.student-profile-body {
+  padding: 30px;
+}
+
+.student-profile-body h5 {
+  font-weight: bold;
+  color: #333;
+  text-align: left; /* Align text to the left */
+}
+
+.student-profile-body ul {
+  text-align: left; /* Align list items to the left */
+}
+
+.student-profile-body .card {
+  margin-top: 20px;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.student-profile-body .badge-primary {
+  background-color: #6e8efb;
+}
+
+.student-profile-body .badge-primary:hover {
+  background-color: #5a76e0;
+}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import '../App.css';
+import '../css/StudentProfileComponentCss.css';
 import { getStudentProfile, getStudentBasicDetails } from '../Services/apiServiceAdmin'; // Adjust the import path as per your file structure
 import BookSessionComponent from './BookSessionComponent'; // Import the BookSessionComponent
 

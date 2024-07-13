@@ -166,55 +166,7 @@ html, body {
   flex-shrink: 0; /* Prevent footer from shrinking */
 }
 
-/*  */
-.student-profile-card {
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
 
-.student-profile-header {
-  background: linear-gradient(135deg, #6e8efb, #a777e3);
-  color: white;
-  text-align: center;
-  padding: 20px;
-  position: relative;
-}
-
-.student-profile-header h4 {
-  margin: 0;
-}
-
-.book-session-button {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: #ff6f61;
-  border: none;
-}
-
-.student-profile-body {
-  padding: 30px;
-}
-
-.student-profile-body h5 {
-  font-weight: bold;
-  color: #333;
-}
-
-.student-profile-body .card {
-  margin-top: 20px;
-  border: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.student-profile-body .badge-primary {
-  background-color: #6e8efb;
-}
-
-.student-profile-body .badge-primary:hover {
-  background-color: #5a76e0;
-}
 
 /*  */
 .book-session-card {
@@ -260,8 +212,8 @@ html, body {
   transform: translateY(-2px);
 }
 .profile-photo {
-  width: 150px; /* Adjust the size as needed */
-  height: 150px; /* Adjust the size as needed */
+  width: 150px; 
+  height: 150px; 
   object-fit: cover;
 }
 /* FOR ZOOMING(INCREASE CARD SIZE) ONTO DETAILS SESSION */
@@ -386,3 +338,9 @@ html, body {
   border: 1px solid #fff;
   border-radius: 5px;
 } */
+
+
+
+/* //////////////////////////////////////// */
+/* WARNING */
+/* FROM NOW ONWARDS. KEEP SEPARATE CSS FILE FOR EACH COMPONENT */
