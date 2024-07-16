@@ -6,6 +6,7 @@ const SelectCollegeComponent = () => {
   const [colleges, setColleges] = useState([]);
   const navigate = useNavigate();
   const { examName } = useParams(); // Assuming you're using React Router for params
+  const REACT_APP_S3_BUCKET_URL = process.env.REACT_APP_S3_BUCKET_URL;
 
   useEffect(() => {
     fetchColleges();
@@ -32,7 +33,12 @@ const SelectCollegeComponent = () => {
         {colleges.map(collegeName => (
           <div key={collegeName} className="col-md-4 mb-4">
             <div className="card h-100 border-primary shadow-sm" onClick={() => handleCollegeClick(collegeName)} style={{ cursor: 'pointer' }}>
-              <img src={`/collegePhotos/${collegeName.toLowerCase().replace(/\s/g, '')}.jpg`} className="card-img-top" alt={collegeName} style={{ height: '200px', objectFit: 'cover', borderRadius: '8px 8px 0 0' }} />
+              <img
+                src={`${REACT_APP_S3_BUCKET_URL}/collegePhotos/${collegeName.toLowerCase().replace(/\s/g, '')}.jpg`}
+                className="card-img-top"
+                alt={collegeName}
+                style={{ height: '200px', objectFit: 'cover', borderRadius: '8px 8px 0 0' }}
+              />
               <div className="card-body">
                 <h5 className="card-title">{collegeName}</h5>
               </div>
