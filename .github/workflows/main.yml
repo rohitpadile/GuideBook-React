@@ -1,9 +1,9 @@
 name: Deploy to S3
 
 on:
-  push:
-    branches:
-      - main  # Change this to the branch you want to trigger the workflow on
+  # push:
+  #   branches:
+  #     - main  # Change this to the branch you want to trigger the workflow on
 
 jobs:
   build-and-deploy:
