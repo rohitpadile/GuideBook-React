@@ -34,7 +34,7 @@ const SelectCollegeComponent = () => {
           <div key={collegeName} className="col-md-4 mb-4">
             <div className="card h-100 border-primary shadow-sm" onClick={() => handleCollegeClick(collegeName)} style={{ cursor: 'pointer' }}>
               <img
-                src={`${REACT_APP_S3_MEDIA_BUCKET_URL}/collegePhotos/${collegeName.toLowerCase().replace(/\s/g, '')}.jpg`}
+                src={`/collegePhotos/${collegeName.toLowerCase().replace(/\s/g, '')}.jpg`}
                 className="card-img-top"
                 alt={collegeName}
                 style={{ height: '200px', objectFit: 'cover', borderRadius: '8px 8px 0 0' }}
