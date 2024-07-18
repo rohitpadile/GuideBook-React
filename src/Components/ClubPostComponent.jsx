@@ -3,10 +3,10 @@ import React from 'react';
 const ClubPostComponent = ({ post }) => {
   return (
     <div className="club-post">
-      <div className="post-description">{post.collegePostDescription}</div>
+      <div className="post-description">{post.collegeClubPostDescription}</div>
       <div className="post-media">
-        {post.collegePostMediaPaths.map((mediaPath, index) => (
-          <img key={index} src={`/collegePostPhotos/${mediaPath}`} alt={`Post ${index}`} />
+        {post.collegeClubPostMediaPaths.map((mediaPath, index) => (
+          <img key={index} src={`/collegeClubPostsMedia/${mediaPath}`} alt={`Post ${index}`} />
         ))}
       </div>
     </div>
@@ -14,3 +14,4 @@ const ClubPostComponent = ({ post }) => {
 };
 
 export default ClubPostComponent;
+

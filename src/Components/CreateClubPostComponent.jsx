@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
+import { uploadMediaFiles, createClubPost } from '../Services/apiServiceAdmin'; // Adjust the import path as necessary
 
 const CreateClubPostComponent = ({ show, handleClose, clubName, handleCreatePost }) => {
   const [postDescription, setPostDescription] = useState('');
@@ -16,29 +16,14 @@ const CreateClubPostComponent = ({ show, handleClose, clubName, handleCreatePost
     e.preventDefault();
 
     try {
-      const formData = new FormData();
-      mediaFiles.forEach((file) => {
-        formData.append('mediaFiles', file);
-      });
-      formData.append('collegeClubName', clubName);
+      // Upload media files
+      const mediaPaths = await uploadMediaFiles(mediaFiles, clubName);
 
-      const uploadResponse = await axios.post('/api/uploadFiles', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      // Create club post
+      const newPost = await createClubPost(clubName, postDescription, mediaPaths);
 
-      const mediaPaths = uploadResponse.data;
-
-      const requestBody = {
-        collegeClubName: clubName,
-        collegeClubPostDescription: postDescription,
-        collegeClubPostMediaPaths: mediaPaths,
-      };
-
-      const response = await axios.post('/api/createClubPost', requestBody);
-
-      handleCreatePost(response.data); // Assuming response contains updated post data
+      // Pass the created post to the parent component
+      handleCreatePost(newPost);
     } catch (error) {
       console.error('Error creating post:', error);
     }
