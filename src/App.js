@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+// import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SelectCollegeComponent from './Components/SelectCollegeComponent';
 import SelectStudentComponent from './Components/SelectStudentComponent';
@@ -15,13 +15,13 @@ import ZoomSessionForm from './Components/ZoomSessionForm'; // Import the new Zo
 import { BranchProvider } from './Context/BranchContext';
 import BlogListComponent from './Components/BlogListComponent';
 import BlogPageComponent from './Components/BlogPageComponent';
-import { initializeProfile } from './Services/profileService';
-import CollegeClubListComponent from './Components/CollegeClubListComponent';
-import ClubPageComponent from './Components/ClubPageComponent';
+// import { initializeProfile } from './Services/profileService';
+// import CollegeClubListComponent from './Components/CollegeClubListComponent';
+// import ClubPageComponent from './Components/ClubPageComponent';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CSSTransition } from 'react-transition-group';
-import SelectCollegeForClubsComponent from './Components/SelectCollegeForClubsComponent';
+// import SelectCollegeForClubsComponent from './Components/SelectCollegeForClubsComponent';
 function App() {
   // useEffect(() => {
   //   initializeProfile(); //initializes the profile 
@@ -130,9 +130,9 @@ function App() {
               }
             />
 
-            <Route path="/clubs" element={<SelectCollegeForClubsComponent />}/>
-            <Route path="/clubs/:collegeName" element={<CollegeClubListComponent />} />
-            <Route path="/clubpage/:clubName" element={<ClubPageComponent />} />
+            {/* <Route path="/clubs" element={<SelectCollegeForClubsComponent />}/> */}
+            {/* <Route path="/clubs/:collegeName" element={<CollegeClubListComponent />} /> */}
+            {/* <Route path="/clubpage/:clubName" element={<ClubPageComponent />} /> */}
           </Routes>
         </BranchProvider>
       </div>

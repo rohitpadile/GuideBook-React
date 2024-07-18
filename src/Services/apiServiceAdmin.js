@@ -190,46 +190,48 @@ export const getClubDetails = async (clubName) => {
 
 
 // Upload media files for a club post
-export const uploadMediaFiles = async (mediaFiles, collegeClubName) => {
-  try {
-    const formData = new FormData();
-    mediaFiles.forEach(file => {
-      formData.append('mediaFiles', file);
-    });
+// export const uploadMediaFiles = async (mediaFiles, collegeClubName) => {
+//   try {
+//     const formData = new FormData();
+//     mediaFiles.forEach(file => {
+//       formData.append('mediaFiles', file);
+//     });
 
-    const response = await api.post('/uploadCollegeClubPostMedia', formData, {
-      params: {
-        collegeClubName: collegeClubName
-      },
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+//     const response = await api.post('/uploadCollegeClubPostMedia', formData, {
+//       params: {
+//         collegeClubName: collegeClubName,
+//       },
+//       headers: {
+//         'Content-Type': 'multipart/form-data',
+//       },
+//     });
 
-    return response.data;
-  } catch (error) {
-    console.error('Error uploading media files:', error);
-    throw error;
-  }
-};
+//     return response.data;
+//   } catch (error) {
+//     console.error('Error uploading media files:', error);
+//     throw error;
+//   }
+// };
 
-// Create a new club post
-export const createClubPost = async (clubName, postDescription, mediaPaths) => {
-  try {
-    const requestBody = {
-      collegeClubName: clubName,
-      collegeClubPostDescription: postDescription,
-      collegeClubPostMediaPaths: mediaPaths,
-    };
+// // Create a new club post
+// export const createClubPost = async (clubName, postDescription, mediaPaths) => {
+//   try {
+//     const requestBody = {
+//       collegeClubName: clubName,
+//       collegeClubPostDescription: postDescription,
+//       collegeClubPostMediaPaths: mediaPaths,
+//     };
 
-    const response = await api.post('/createClubPost', requestBody);
+//     const response = await api.post('/createClubPost', requestBody);
 
-    return response.data;
-  } catch (error) {
-    console.error('Error creating club post:', error);
-    throw error;
-  }
-};
+//     return response.data;
+//   } catch (error) {
+//     console.error('Error creating club post:', error);
+//     throw error;
+//   }
+// };
+
+
 
 export default api;
 
