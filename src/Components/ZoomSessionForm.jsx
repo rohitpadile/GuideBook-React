@@ -33,7 +33,7 @@ const ZoomSessionForm = () => {
     e.preventDefault();
     if (agreeTerms) {
       try {
-        const response = await axios.post('http://localhost:8080/api/v1/admin/zoomSessionForm', formData, {
+        const response = await axios.post('http://guidebookX-alb-1586257955.ap-south-1.elb.amazonaws.com/api/v1/admin/zoomSessionForm', formData, {
           headers: {
             'Content-Type': 'application/json',
           },
