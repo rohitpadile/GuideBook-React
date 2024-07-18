@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const ZoomSessionForm = () => {
   const { studentName } = useParams(); // Get the student name from URL parameters
@@ -13,7 +14,7 @@ const ZoomSessionForm = () => {
     clientPhoneNumber: '',
     clientAge: '',
     clientCollege: '',
-    clientProofDoc: null,
+    clientProofDocLink: '',
   });
 
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -21,22 +22,29 @@ const ZoomSessionForm = () => {
   const [agreeTerms, setAgreeTerms] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: files ? files[0] : value,
+      [name]: value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (agreeTerms) { //IF CONDITION ON AGREE TERMS. THIS ONLY POP'S UP ONCE ////////
-      // Handle form submission
-      console.log(formData);
-      setShowConfirmation(true);
-      setShowTermsModal(false); // Hide terms modal if shown
+    if (agreeTerms) {
+      try {
+        const response = await axios.post('http://localhost:8080/api/v1/admin/zoomSessionForm', formData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        console.log(response.data);
+        setShowConfirmation(true);
+        setShowTermsModal(false); // Hide terms modal if shown
+      } catch (error) {
+        console.error('Error submitting the form:', error);
+      }
     } else {
-      // Show terms modal if terms are not agreed
       setShowTermsModal(true);
       setShowConfirmation(false); // Ensure confirmation modal is hidden
     }
@@ -45,7 +53,6 @@ const ZoomSessionForm = () => {
   const handleModalClose = () => {
     setShowConfirmation(false);
     setShowTermsModal(false);
-    // Optionally, reset form data here if needed
   };
 
   return (
@@ -67,6 +74,7 @@ const ZoomSessionForm = () => {
                   name="clientFirstName"
                   value={formData.clientFirstName}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -93,6 +101,7 @@ const ZoomSessionForm = () => {
                   name="clientLastName"
                   value={formData.clientLastName}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -106,6 +115,7 @@ const ZoomSessionForm = () => {
                   name="clientEmail"
                   value={formData.clientEmail}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -119,6 +129,7 @@ const ZoomSessionForm = () => {
                   name="clientPhoneNumber"
                   value={formData.clientPhoneNumber}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -132,6 +143,7 @@ const ZoomSessionForm = () => {
                   name="clientAge"
                   value={formData.clientAge}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -145,18 +157,21 @@ const ZoomSessionForm = () => {
                   name="clientCollege"
                   value={formData.clientCollege}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
             <div className="mb-3 row">
-              <label htmlFor="clientProofDoc" className="col-sm-4 col-form-label">Proof Document</label>
+              <label htmlFor="clientProofDocLink" className="col-sm-4 col-form-label">Proof Document Link</label>
               <div className="col-sm-8">
                 <input
-                  type="file"
+                  type="text"
                   className="form-control"
-                  id="clientProofDoc"
-                  name="clientProofDoc"
+                  id="clientProofDocLink"
+                  name="clientProofDocLink"
+                  value={formData.clientProofDocLink}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -176,7 +191,7 @@ const ZoomSessionForm = () => {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">Terms and Conditions</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={handleModalClose}>
+                <button type="button" className="close" aria-label="Close" onClick={handleModalClose}>
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -212,12 +227,12 @@ const ZoomSessionForm = () => {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">Confirmation</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={handleModalClose}>
+                <button type="button" className="close" aria-label="Close" onClick={handleModalClose}>
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div className="modal-body">
-                <p>We will right away contact <strong>{formData.clientFirstName} {formData.clientLastName}</strong>. You will be notified via Email about the Session confirmation and its timing.</p>
+                <p>We will contact <strong>{formData.clientFirstName} {formData.clientLastName}</strong> soon. You will be notified via email about the session confirmation and its timing.</p>
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" onClick={handleModalClose}>Close</button>
@@ -226,9 +241,6 @@ const ZoomSessionForm = () => {
           </div>
         </div>
       )}
-
-      {showTermsModal && <div className="modal-backdrop fade show"></div>}
-      {showConfirmation && <div className="modal-backdrop fade show"></div>}
     </div>
   );
 };
