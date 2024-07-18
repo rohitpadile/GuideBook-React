@@ -7,9 +7,9 @@ import StudentProfileComponent from './Components/StudentProfileComponent';
 import BookSessionComponent from './Components/BookSessionComponent';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
-import SignupFormComponent from './Components/SignupFormComponent';
-import LoginFormComponent from './Components/LoginFormComponent';
-import ProfileComponent from './Components/ProfileComponent'
+// import SignupFormComponent from './Components/SignupFormComponent';
+// import LoginFormComponent from './Components/LoginFormComponent';
+// import ProfileComponent from './Components/ProfileComponent'
 import HomePageComponent from './Components/HomePageComponent'; // Import the HomePage component
 import ZoomSessionForm from './Components/ZoomSessionForm'; // Import the new ZoomSessionForm component
 import { BranchProvider } from './Context/BranchContext';
@@ -89,30 +89,30 @@ function App() {
                 </CSSTransition>
               }
             />
-            <Route
+            {/* <Route
               path="/signup"
               element={
                 <CSSTransition classNames="page" timeout={300}>
                   <SignupFormComponent />
                 </CSSTransition>
               }
-            />
-            <Route
+            /> */}
+            {/* <Route
               path="/login"
               element={
                 <CSSTransition classNames="page" timeout={300}>
                   <LoginFormComponent />
                 </CSSTransition>
               }
-            />
-            <Route
+            /> */}
+            {/* <Route
               path="/profile"
               element={
                 <CSSTransition classNames="page" timeout={300}>
                   <ProfileComponent />
                 </CSSTransition>
               }
-            />
+            /> */}
             <Route
               path="/blogs"
               element={

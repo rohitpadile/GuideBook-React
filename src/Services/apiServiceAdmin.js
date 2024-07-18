@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://guidebookX-alb-1586257955.ap-south-1.elb.amazonaws.com/api/v1/admin/'; // Ensure the URL has the trailing slash
-// const BASE_URL = 'http://localhost:8080/api/v1/admin/'; // Ensure the URL has the trailing slash
+// const BASE_URL = 'http://guidebookX-alb-1586257955.ap-south-1.elb.amazonaws.com/api/v1/admin/'; // Ensure the URL has the trailing slash
+const BASE_URL = 'http://localhost:8080/api/v1/admin/'; // Ensure the URL has the trailing slash
 
 
 // const BASE_URL = process.env.REACT_APP_BASE_URL; // for production purpose
@@ -11,6 +11,11 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
+const API_URL = 'http://localhost:8080/api/auth';
+export const signup = async (formData) => {
+  const response = await api.post(`${API_URL}/auth/signup`, formData);
+  return response;
+};
 
 // Fetch colleges for a specific exam
 export const getCollegesForExam = async (examName) => {
@@ -134,14 +139,6 @@ export const getAllEntranceExams = async () => {
   }
 };
 
-export const signup = async (formData) => {
-  try {
-    const response = await api.post('/signup', formData);
-    return response.data;
-  } catch (error) {
-    throw new Error(`Error signing up: ${error.message}`);
-  }
-};
 
 //TO FETCH THE DATA OF THE CURRENT LOGGED IN PROFILE - SAMPLE.
 
