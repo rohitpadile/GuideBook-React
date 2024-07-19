@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
+import { sendOtp, verifyOtp, resendOtp, submitZoomSessionForm } from '../Services/zoomSessionService';
 
 const ZoomSessionForm = () => {
-  const { studentName } = useParams(); // Get the student name from URL parameters
+  const { studentName } = useParams();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     clientFirstName: '',
     clientMiddleName: '',
@@ -15,11 +17,15 @@ const ZoomSessionForm = () => {
     clientAge: '',
     clientCollege: '',
     clientProofDocLink: '',
+    clientOTP: '',
   });
 
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpVerified, setOtpVerified] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
+  const [message, setMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,24 +35,73 @@ const ZoomSessionForm = () => {
     });
   };
 
+  const handleSendOtp = async () => {
+    try {
+      const otpData = {
+        clientEmail: formData.clientEmail,
+        clientPhoneNumber: formData.clientPhoneNumber,
+      };
+      await sendOtp(otpData);
+      setOtpSent(true);
+      setMessage('OTP sent to your email and phone number.');
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+      setMessage('Failed to send OTP. Please try again.');
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    try {
+      const otpVerifyData = {
+        clientOTP: Number(formData.clientOTP), // Convert to number
+        clientEmail: formData.clientEmail,
+      };
+      const response = await verifyOtp(otpVerifyData);
+      setMessage(response.zoomSessionFormMessage);
+
+      if (response.zoomSessionFormMessage === 'OTP has been verified') {
+        setOtpVerified(true);
+      } else if (
+        response.zoomSessionFormMessage.includes('3 wrong attempts') ||
+        response.zoomSessionFormMessage.includes('Out of OTP time') ||
+        response.zoomSessionFormMessage.includes('No form found')
+      ) {
+        navigate('/studentProfile');
+      }
+    } catch (error) {
+      console.error('Error verifying OTP:', error);
+      setMessage('Failed to verify OTP. Please try again.');
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (agreeTerms) {
       try {
-        const response = await axios.post('http://guidebookX-alb-1586257955.ap-south-1.elb.amazonaws.com/api/v1/admin/zoomSessionForm', formData, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        console.log(response.data);
+        await submitZoomSessionForm(formData);
+        setMessage('Your form has been submitted and sent to the Student for review and confirmation.');
         setShowConfirmation(true);
-        setShowTermsModal(false); // Hide terms modal if shown
+        setShowTermsModal(false);
       } catch (error) {
         console.error('Error submitting the form:', error);
+        setMessage('Failed to submit the form. Please try again.');
       }
     } else {
       setShowTermsModal(true);
-      setShowConfirmation(false); // Ensure confirmation modal is hidden
+    }
+  };
+
+  const handleResendOtp = async () => {
+    try {
+      const otpData = {
+        clientEmail: formData.clientEmail,
+        clientPhoneNumber: formData.clientPhoneNumber,
+      };
+      await resendOtp(otpData);
+      setMessage('OTP resent to your email and phone number.');
+    } catch (error) {
+      console.error('Error resending OTP:', error);
+      setMessage('Failed to resend OTP. Please try again.');
     }
   };
 
@@ -60,10 +115,10 @@ const ZoomSessionForm = () => {
       <div className="card book-session-card mx-auto" style={{ maxWidth: '600px' }}>
         <div className="card-header book-session-header text-center">
           <h4>Book a 1:1 Zoom Session</h4>
-          <h4>{studentName}</h4> {/* Display student name */}
+          <h4>{studentName}</h4>
         </div>
         <div className="card-body book-session-body">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={otpVerified ? handleSubmit : (e) => e.preventDefault()}>
             <div className="mb-3 row">
               <label htmlFor="clientFirstName" className="col-sm-4 col-form-label">First Name</label>
               <div className="col-sm-8">
@@ -175,67 +230,106 @@ const ZoomSessionForm = () => {
                 />
               </div>
             </div>
+
+            {otpSent && (
+              <div className="mb-3 row">
+                <label htmlFor="clientOTP" className="col-sm-4 col-form-label">Enter OTP</label>
+                <div className="col-sm-8">
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="clientOTP"
+                    name="clientOTP"
+                    value={formData.clientOTP}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+              </div>
+            )}
+
             <div className="mb-3 row">
               <div className="col-sm-12 text-center">
-                <button type="submit" className="btn btn-primary w-100">Submit</button>
+                {!otpSent ? (
+                  <button type="button" className="btn btn-primary" onClick={handleSendOtp}>
+                    Send OTP
+                  </button>
+                ) : !otpVerified ? (
+                  <>
+                    <button type="button" className="btn btn-primary" onClick={handleVerifyOtp}>
+                      Verify OTP
+                    </button>
+                    <button type="button" className="btn btn-secondary ms-2" onClick={handleResendOtp}>
+                      Resend OTP
+                    </button>
+                  </>
+                ) : (
+                  <button type="submit" className="btn btn-primary">
+                    Submit
+                  </button>
+                )}
               </div>
             </div>
+
+            {message && (
+              <div className="mb-3 row">
+                <div className="col-sm-12 text-center">
+                  <p className="text-danger">{message}</p>
+                </div>
+              </div>
+            )}
           </form>
         </div>
       </div>
 
-      {/* Modal for Terms and Conditions */}
-      {showTermsModal && (
-        <div className="modal fade show" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
-          <div className="modal-dialog modal-dialog-centered" role="document">
+      {/* Confirmation Modal */}
+      {showConfirmation && (
+        <div className="modal fade show" style={{ display: 'block' }} role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+          <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Terms and Conditions</h5>
-                <button type="button" className="close" aria-label="Close" onClick={handleModalClose}>
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 className="modal-title" id="confirmationModalLabel">Confirmation</h5>
+                <button type="button" className="btn-close" aria-label="Close" onClick={handleModalClose}></button>
               </div>
               <div className="modal-body">
-                <h6>Terms of Service</h6>
-                <ul>
-                  <li>Session timings may vary.</li>
-                  <li>We reserve the right to cancel sessions.</li>
-                </ul>
-                <div className="form-check">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="agreeTermsCheckbox"
-                    checked={agreeTerms}
-                    onChange={() => setAgreeTerms(!agreeTerms)}
-                  />
-                  <label className="form-check-label" htmlFor="agreeTermsCheckbox">I agree to all terms and conditions</label>
-                </div>
+                Your session has been successfully booked. Thank you!
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-primary" onClick={handleSubmit}>Book Session</button>
+                <button type="button" className="btn btn-secondary" onClick={handleModalClose}>Close</button>
               </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Modal for Confirmation */}
-      {showConfirmation && (
-        <div className="modal fade show" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
-          <div className="modal-dialog modal-dialog-centered" role="document">
+      {/* Terms Modal */}
+      {showTermsModal && (
+        <div className="modal fade show" style={{ display: 'block' }} role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
+          <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Confirmation</h5>
-                <button type="button" className="close" aria-label="Close" onClick={handleModalClose}>
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 className="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+                <button type="button" className="btn-close" aria-label="Close" onClick={handleModalClose}></button>
               </div>
               <div className="modal-body">
-                <p>We will contact <strong>{formData.clientFirstName} {formData.clientLastName}</strong> soon. You will be notified via email about the session confirmation and its timing.</p>
+                <p>Please read and agree to the terms and conditions before submitting.</p>
+                <textarea className="form-control mb-3" rows="5" readOnly>
+                  Terms and Conditions content goes here.
+                </textarea>
+                <div className="form-check">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="agreeTerms"
+                    checked={agreeTerms}
+                    onChange={() => setAgreeTerms(!agreeTerms)}
+                  />
+                  <label className="form-check-label" htmlFor="agreeTerms">I agree to the terms and conditions</label>
+                </div>
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" onClick={handleModalClose}>Close</button>
+                <button type="button" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
               </div>
             </div>
           </div>
