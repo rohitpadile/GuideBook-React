@@ -34,21 +34,40 @@ const ZoomSessionForm = () => {
       const { zoomSessionFormMessage, zoomSessionFormMessageCode, zoomSessionFormId } = response.data;
       setMessage(zoomSessionFormMessage || 'OTP sent successfully.');
       setMessageCode(zoomSessionFormMessageCode); // Update message code
-      setFormId(zoomSessionFormId); // Update form ID
+      setFormId(zoomSessionFormId); // Set the form ID
     } catch (error) {
       console.error('Error sending OTP:', error);
       setMessage('Failed to send OTP. Please try again.');
     }
   };
 
-  const handleVerifyOtp = () => {
-    // Handle OTP verification
-    console.log('Verify OTP button clicked');
+  const handleVerifyOtp = async () => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/v1/admin/zoomSessionFormVerifyOTP', {
+        clientOTP: formData.otp,
+        clientEmail: formData.clientEmail,
+        zoomSessionFormId: formId,
+      });
+      const { zoomSessionFormMessage, zoomSessionFormMessageCode } = response.data;
+      setMessage(zoomSessionFormMessage);
+      setMessageCode(zoomSessionFormMessageCode);
+      if (zoomSessionFormMessageCode === 0) {
+        handleRedirect();
+      }
+    } catch (error) {
+      console.error('Error verifying OTP:', error);
+      setMessage('Failed to verify OTP. Please try again.');
+    }
   };
 
   const handleResendOtp = () => {
     // Handle OTP resend
     console.log('Resend OTP button clicked');
+  };
+
+  const handleRedirect = () => {
+    // Redirect to student profile page
+    console.log('Redirecting to student profile page');
   };
 
   return (
@@ -171,7 +190,7 @@ const ZoomSessionForm = () => {
               </div>
             </div>
 
-            {messageCode === 1 && (
+            {(messageCode === 1 || messageCode === -1) && (
               <div className="mb-3 row">
                 <label htmlFor="otp" className="col-sm-4 col-form-label">Enter OTP</label>
                 <div className="col-sm-8">
@@ -189,7 +208,7 @@ const ZoomSessionForm = () => {
 
             <div className="mb-3 row">
               <div className="col-sm-12 text-center">
-                {messageCode === 1 ? (
+                {(messageCode === 1 || messageCode === -1) ? (
                   <>
                     <button type="button" className="btn btn-primary" onClick={handleVerifyOtp}>
                       Verify OTP
