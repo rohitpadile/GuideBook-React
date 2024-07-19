@@ -13,9 +13,11 @@ const ZoomSessionForm = () => {
     clientAge: '',
     clientCollege: '',
     clientProofDocLink: '',
+    otp: '', // New state for OTP
   });
 
-  const [, setMessage] = useState('');
+  const [message, setMessage] = useState('');
+  const [messageCode, setMessageCode] = useState(null); // State for message code
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,11 +30,23 @@ const ZoomSessionForm = () => {
   const handleSendOtp = async () => {
     try {
       const response = await axios.post('http://localhost:8080/api/v1/admin/zoomSessionFormSubmit', formData);
-      setMessage(response.data.message || 'OTP sent successfully.');
+      const { zoomSessionFormMessage, zoomSessionFormMessageCode } = response.data;
+      setMessage(zoomSessionFormMessage || 'OTP sent successfully.');
+      setMessageCode(zoomSessionFormMessageCode); // Update message code
     } catch (error) {
       console.error('Error sending OTP:', error);
       setMessage('Failed to send OTP. Please try again.');
     }
+  };
+
+  const handleVerifyOtp = () => {
+    // Handle OTP verification
+    console.log('Verify OTP button clicked');
+  };
+
+  const handleResendOtp = () => {
+    // Handle OTP resend
+    console.log('Resend OTP button clicked');
   };
 
   return (
@@ -155,11 +169,38 @@ const ZoomSessionForm = () => {
               </div>
             </div>
 
+            {messageCode === 1 && (
+              <div className="mb-3 row">
+                <label htmlFor="otp" className="col-sm-4 col-form-label">Enter OTP</label>
+                <div className="col-sm-8">
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="otp"
+                    name="otp"
+                    value={formData.otp}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+            )}
+
             <div className="mb-3 row">
               <div className="col-sm-12 text-center">
-                <button type="button" className="btn btn-primary" onClick={handleSendOtp}>
-                  Send OTP
-                </button>
+                {messageCode === 1 ? (
+                  <>
+                    <button type="button" className="btn btn-primary" onClick={handleVerifyOtp}>
+                      Verify OTP
+                    </button>
+                    <button type="button" className="btn btn-secondary ms-2" onClick={handleResendOtp}>
+                      Resend OTP
+                    </button>
+                  </>
+                ) : (
+                  <button type="button" className="btn btn-primary" onClick={handleSendOtp}>
+                    Send OTP
+                  </button>
+                )}
               </div>
             </div>
           </form>
