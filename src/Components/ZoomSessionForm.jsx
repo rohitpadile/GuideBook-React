@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import axios from 'axios';
+import { Modal, Button } from 'react-bootstrap'; // Importing Modal and Button from react-bootstrap
 
 const ZoomSessionForm = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +20,7 @@ const ZoomSessionForm = () => {
   const [message, setMessage] = useState('');
   const [messageCode, setMessageCode] = useState(null); // State for message code
   const [formId, setFormId] = useState(''); // State for form ID
+  const [showTermsModal, setShowTermsModal] = useState(false); // State for showing terms modal
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,12 +77,18 @@ const ZoomSessionForm = () => {
       setMessage('Failed to resend new OTP. Please try again.');
     }
   };
-  
 
   const handleRedirect = () => {
     // Redirect to student profile page
     console.log('Redirecting to student profile page');
   };
+
+  const handleBookSession = () => {
+    // Method for handling Book Session button click
+  };
+
+  const handleShowTerms = () => setShowTermsModal(true);
+  const handleCloseTerms = () => setShowTermsModal(false);
 
   return (
     <div className="container mt-5">
@@ -220,7 +228,7 @@ const ZoomSessionForm = () => {
 
             <div className="mb-3 row">
               <div className="col-sm-12 text-center">
-                {(messageCode === 1 || messageCode === -1) ? (
+                {messageCode === 1 || messageCode === -1 ? (
                   <>
                     <button type="button" className="btn btn-primary" onClick={handleVerifyOtp}>
                       Verify OTP
@@ -229,6 +237,10 @@ const ZoomSessionForm = () => {
                       Resend OTP
                     </button>
                   </>
+                ) : messageCode === 2 ? (
+                  <button type="button" className="btn btn-primary" onClick={handleShowTerms}>
+                    Submit Form
+                  </button>
                 ) : (
                   <button type="button" className="btn btn-primary" onClick={handleSendOtp}>
                     Send OTP
@@ -241,6 +253,24 @@ const ZoomSessionForm = () => {
           {message && <div className="alert alert-info mt-3">{message}</div>}
         </div>
       </div>
+
+      <Modal show={showTermsModal} onHide={handleCloseTerms}>
+        <Modal.Header closeButton>
+          <Modal.Title>Terms and Conditions</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {/* Add terms and conditions content here */}
+          <p>1. Terms and Conditions content Terms and Conditions content Terms and Conditions content Terms and Conditions content...</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseTerms}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleBookSession}>
+            Book Session
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
