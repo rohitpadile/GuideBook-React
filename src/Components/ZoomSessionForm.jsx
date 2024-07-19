@@ -18,6 +18,7 @@ const ZoomSessionForm = () => {
 
   const [message, setMessage] = useState('');
   const [messageCode, setMessageCode] = useState(null); // State for message code
+  const [formId, setFormId] = useState(''); // State for form ID
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,9 +31,10 @@ const ZoomSessionForm = () => {
   const handleSendOtp = async () => {
     try {
       const response = await axios.post('http://localhost:8080/api/v1/admin/zoomSessionFormSubmit', formData);
-      const { zoomSessionFormMessage, zoomSessionFormMessageCode } = response.data;
+      const { zoomSessionFormMessage, zoomSessionFormMessageCode, zoomSessionFormId } = response.data;
       setMessage(zoomSessionFormMessage || 'OTP sent successfully.');
       setMessageCode(zoomSessionFormMessageCode); // Update message code
+      setFormId(zoomSessionFormId); // Update form ID
     } catch (error) {
       console.error('Error sending OTP:', error);
       setMessage('Failed to send OTP. Please try again.');
