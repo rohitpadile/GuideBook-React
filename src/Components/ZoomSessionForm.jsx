@@ -60,10 +60,22 @@ const ZoomSessionForm = () => {
     }
   };
 
-  const handleResendOtp = () => {
-    // Handle OTP resend
-    console.log('Resend OTP button clicked');
+  const handleResendOtp = async () => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/v1/admin/zoomSessionFormResendOTP', null, {
+        params: {
+          clientEmail: formData.clientEmail
+        }
+      });
+      const { zoomSessionFormMessage, zoomSessionFormMessageCode } = response.data;
+      setMessage(zoomSessionFormMessage);
+      setMessageCode(zoomSessionFormMessageCode);
+    } catch (error) {
+      console.error('Error resending new OTP:', error);
+      setMessage('Failed to resend new OTP. Please try again.');
+    }
   };
+  
 
   const handleRedirect = () => {
     // Redirect to student profile page
