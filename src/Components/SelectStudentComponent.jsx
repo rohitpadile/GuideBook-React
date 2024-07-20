@@ -17,6 +17,8 @@ const SelectStudentComponent = () => {
   const [selectedStudentClassType, setSelectedStudentClassType] = useState('');
   const [selectedStudentCategory, setSelectedStudentCategory] = useState('');
   const [students, setStudents] = useState([]);
+  //each student object contains only the name and work email(unique) of student - easy to find from the backend when required
+  //THIS STUDENT STATE IS TO BE PASSED FROM COMPONENT TO COMPONENT.
 
   useEffect(() => {
     fetchDropdownValues();

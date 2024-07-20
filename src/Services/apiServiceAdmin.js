@@ -32,6 +32,7 @@ export const getFilteredStudentList = async (filters) => {
   try {
     const response = await api.post('/filteredStudentList', filters);
     return response.data; // Assuming response.data directly contains the list of FilteredStudentDetails
+    //FilteredStudentDetails contains only the name and work email(unique) of student - easy to find from the backend when required
   } catch (error) {
     throw new Error(`Error fetching filtered student list: ${error.message}`);
   }
