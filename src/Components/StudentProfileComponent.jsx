@@ -46,7 +46,7 @@ const StudentProfileComponent = () => {
   };
 
   if (!studentProfile || !studentBasicDetails) {
-    return <div>Loading...</div>; // Display a loading message while fetching data
+    return <div>Loading...</div>; // Display a loading message while fetching data OR CUSTOM COMPANY GIF LIKE LINKEDIN FOES
   }
 
   return (

@@ -2,11 +2,14 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 
+
 const BookSessionComponent = ({ student, onClose }) => {
+  // const { student } = location.state || {};
   const navigate = useNavigate();
 
   const handleBookZoomSession = () => {
-    navigate(`/bookZoomSessionForm/${student.studentName}`);
+    // navigate(`/bookZoomSessionForm/${student.studentName}`);
+    navigate('/bookZoomSessionForm', { state: { student } });
   };
 
   return (

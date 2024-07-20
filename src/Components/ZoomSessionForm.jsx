@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom'; // Import useLocation
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import axios from 'axios';
 import { Modal, Button } from 'react-bootstrap'; // Importing Modal and Button from react-bootstrap
+// import { useParams } from 'react-router-dom'; // Importing useParams
 
 const ZoomSessionForm = () => {
+
+  // const { studentName } = useParams();
+  const location = useLocation();
+  const student = location.state?.student || {}; // Retrieve student state
+
   const [formData, setFormData] = useState({
     clientFirstName: '',
     clientMiddleName: '',
@@ -19,9 +26,10 @@ const ZoomSessionForm = () => {
 
   const [message, setMessage] = useState('');
   const [messageCode, setMessageCode] = useState(null); // State for message code
-  const [formId, setFormId] = useState(''); // State for form ID
+  const [formId, setFormId] = useState(''); // State for form UUID
   const [showTermsModal, setShowTermsModal] = useState(false); // State for showing terms modal
-
+  const [acceptTerms, setAcceptTerms] = useState(false); // State for accepting terms
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -85,16 +93,22 @@ const ZoomSessionForm = () => {
 
   const handleBookSession = () => {
     // Method for handling Book Session button click
+    console.log("Handling Final Book Session button")
   };
 
   const handleShowTerms = () => setShowTermsModal(true);
   const handleCloseTerms = () => setShowTermsModal(false);
+
+  const handleAcceptTermsChange = (e) => {
+    setAcceptTerms(e.target.checked);
+  };
 
   return (
     <div className="container mt-5">
       <div className="card book-session-card mx-auto" style={{ maxWidth: '600px' }}>
         <div className="card-header book-session-header text-center">
           <h4>Book a 1:1 Zoom Session</h4>
+          <h4>{student.studentName}</h4>
         </div>
         <div className="card-body book-session-body">
           <form>
@@ -260,7 +274,7 @@ const ZoomSessionForm = () => {
         </Modal.Header>
         <Modal.Body>
           {/* Add terms and conditions content here */}
-          <p>1. Terms and Conditions content Terms and Conditions content Terms and Conditions content Terms and Conditions content...</p>
+          <p>I accept all the Terms and Conditions </p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseTerms}>
