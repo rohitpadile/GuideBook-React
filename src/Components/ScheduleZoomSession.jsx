@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
-import '../css/ScheduleZoomSessionCss.css'; // Updated path if needed
+import '../css/ScheduleZoomSessionCss.css';
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
 
 const decryptFormId = (encryptedFormId) => {
-  const bytes = CryptoJS.AES.decrypt(encryptedFormId, '1234567890123456');
+  const bytes = CryptoJS.AES.decrypt(encryptedFormId, CryptoJS.enc.Utf8.parse('1234567890123456'), {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7,
+  });
   const originalFormId = bytes.toString(CryptoJS.enc.Utf8);
   return originalFormId;
 };
