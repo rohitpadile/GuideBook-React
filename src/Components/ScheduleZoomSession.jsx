@@ -7,7 +7,8 @@ import CryptoJS from 'crypto-js';
 import axios from 'axios';
 
 const decryptFormId = (encryptedFormId) => {
-  const bytes = CryptoJS.AES.decrypt(encryptedFormId, CryptoJS.enc.Utf8.parse('1234567890123456'), {
+  const key = CryptoJS.enc.Utf8.parse('1234567890123456'); // Ensure the key is consistent
+  const bytes = CryptoJS.AES.decrypt(encryptedFormId, key, {
     mode: CryptoJS.mode.ECB,
     padding: CryptoJS.pad.Pkcs7,
   });
@@ -25,7 +26,6 @@ const ScheduleZoomSession = () => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    // Fetch the form details
     const fetchFormDetails = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/api/v1/admin/fetchZoomSessionVerifiedFormDetailsSecret/${formId}`);
@@ -50,7 +50,6 @@ const ScheduleZoomSession = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Placeholder for form submission logic
     setMessage('Your availability has been submitted. Thank you!');
   };
 
