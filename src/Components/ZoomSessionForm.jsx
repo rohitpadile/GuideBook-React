@@ -6,6 +6,8 @@ import axios from 'axios';
 import { Modal, Button } from 'react-bootstrap'; // Importing Modal and Button from react-bootstrap
 // import { useParams } from 'react-router-dom'; // Importing useParams
 
+//TRIM THE INPUT FIELDS BEFORE SETTING TO THE STATES - REMANINING
+
 const ZoomSessionForm = () => {
   const navigate = useNavigate();
   // const { studentName } = useParams();
