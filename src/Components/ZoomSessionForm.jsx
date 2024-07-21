@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom'; // Import useLocation
+import { useParams, useNavigate, useLocation } from 'react-router-dom'; // Import useLocation
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import axios from 'axios';
@@ -7,7 +7,7 @@ import { Modal, Button } from 'react-bootstrap'; // Importing Modal and Button f
 // import { useParams } from 'react-router-dom'; // Importing useParams
 
 const ZoomSessionForm = () => {
-
+  const navigate = useNavigate();
   // const { studentName } = useParams();
   const location = useLocation();
   const student = location.state?.student || {}; // Retrieve student state
@@ -89,11 +89,24 @@ const ZoomSessionForm = () => {
   const handleRedirect = () => {
     // Redirect to student profile page
     console.log('Redirecting to student profile page');
+    navigate('/studentProfile', { state: { student } });
   };
 
-  const handleBookSession = () => {
+  const handleBookSession = async () => {
     // Method for handling Book Session button click
-    console.log("Handling Final Book Session button")
+    console.log("Handling Final Book Session button");
+    const zoomSessionConfirmationRequest = {
+      studentWorkEmail: student.studentWorkEmail,
+      zoomSessionFormId: formId,
+    };
+    try {
+      const response = await axios.post('http://localhost:8080/api/v1/admin/zoomSessionFormSuccess', zoomSessionConfirmationRequest);
+      console.log('Booking response:', response.data);
+      navigate('/zoomSessionFormSuccess', { state: { student } });
+    } catch (error) {
+      console.error('Error booking session:', error);
+      // Handle error if needed
+    }
   };
 
   const handleShowTerms = () => setShowTermsModal(true);

@@ -1,5 +1,5 @@
 // import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, RouterProvider } from 'react-router-dom';
 import SelectCollegeComponent from './Components/SelectCollegeComponent';
 import SelectStudentComponent from './Components/SelectStudentComponent';
 import StudentProfileComponent from './Components/StudentProfileComponent';
@@ -19,6 +19,7 @@ import BlogPageComponent from './Components/BlogPageComponent';
 // import ClubPageComponent from './Components/ClubPageComponent';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ZoomSessionFormSuccess from './Components/ZoomSessionFormSuccess';
 // import SelectCollegeForClubsComponent from './Components/SelectCollegeForClubsComponent';
 
 function App() {
@@ -39,7 +40,7 @@ function App() {
             <Route path="/studentProfile" element={<StudentProfileComponent />} />
             <Route path="/bookSession" element={<BookSessionComponent />} />
             <Route path="/bookZoomSessionForm" element={<ZoomSessionForm />} />
-            
+            <Route path="/zoomSessionFormSuccess" element={<ZoomSessionFormSuccess/>} />
             <Route path="/blogs" element={<BlogListComponent />} />
             <Route path="/blogs/page" element={<BlogPageComponent />} />
 
