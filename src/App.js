@@ -14,6 +14,7 @@ import ZoomSessionForm from './Components/ZoomSessionForm'; // Import the new Zo
 import { BranchProvider } from './Context/BranchContext';
 import BlogListComponent from './Components/BlogListComponent';
 import BlogPageComponent from './Components/BlogPageComponent';
+import ScheduleZoomSession from './Components/ScheduleZoomSession';
 // import { initializeProfile } from './Services/profileService';
 // import CollegeClubListComponent from './Components/CollegeClubListComponent';
 // import ClubPageComponent from './Components/ClubPageComponent';
@@ -43,7 +44,8 @@ function App() {
             <Route path="/zoomSessionFormSuccess" element={<ZoomSessionFormSuccess/>} />
             <Route path="/blogs" element={<BlogListComponent />} />
             <Route path="/blogs/page" element={<BlogPageComponent />} />
-            <Route path="/entrance-exams" element={<HomePageComponent />} />
+            <Route path="/entrance-exams" element={<HomePageComponent />} />  
+            <Route path="/schedule-zoom-session/:encryptedFormId" element={<ScheduleZoomSession />} />
 
           </Routes>
         </BranchProvider>
