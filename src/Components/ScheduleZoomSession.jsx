@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import '../css/ScheduleZoomSessionCss.css';
 import CryptoJS from 'crypto-js';
-import axios from 'axios';
 import { fetchFormDetails } from '../Services/zoomSessionService';
 
 const decryptFormId = (encryptedFormId) => {
@@ -24,6 +23,9 @@ const ScheduleZoomSession = () => {
   const [formDetails, setFormDetails] = useState(null);
   const [availability, setAvailability] = useState('');
   const [preferredTime, setPreferredTime] = useState('');
+  const [meetingId, setMeetingId] = useState('');
+  const [passcode, setPasscode] = useState('');
+  const [meetingLink, setMeetingLink] = useState('');
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -47,6 +49,18 @@ const ScheduleZoomSession = () => {
 
   const handlePreferredTimeChange = (e) => {
     setPreferredTime(e.target.value);
+  };
+
+  const handleMeetingIdChange = (e) => {
+    setMeetingId(e.target.value);
+  };
+
+  const handlePasscodeChange = (e) => {
+    setPasscode(e.target.value);
+  };
+
+  const handleMeetingLinkChange = (e) => {
+    setMeetingLink(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -88,17 +102,52 @@ const ScheduleZoomSession = () => {
                     </select>
                   </div>
                   {availability === 'yes' && (
-                    <div className="form-group schedule-zoom-session-form-group">
-                      <label htmlFor="preferredTime">Preferred Time for Session</label>
-                      <input 
-                        type="datetime-local" 
-                        id="preferredTime" 
-                        className="form-control" 
-                        value={preferredTime} 
-                        onChange={handlePreferredTimeChange}
-                        required 
-                      />
-                    </div>
+                    <>
+                      <div className="form-group schedule-zoom-session-form-group">
+                        <label htmlFor="preferredTime">Preferred Time for Session</label>
+                        <input 
+                          type="datetime-local" 
+                          id="preferredTime" 
+                          className="form-control" 
+                          value={preferredTime} 
+                          onChange={handlePreferredTimeChange}
+                          required 
+                        />
+                      </div>
+                      <div className="form-group schedule-zoom-session-form-group">
+                        <label htmlFor="meetingId">Meeting ID</label>
+                        <input 
+                          type="text" 
+                          id="meetingId" 
+                          className="form-control" 
+                          value={meetingId} 
+                          onChange={handleMeetingIdChange}
+                          required 
+                        />
+                      </div>
+                      <div className="form-group schedule-zoom-session-form-group">
+                        <label htmlFor="passcode">Passcode</label>
+                        <input 
+                          type="text" 
+                          id="passcode" 
+                          className="form-control" 
+                          value={passcode} 
+                          onChange={handlePasscodeChange}
+                          required 
+                        />
+                      </div>
+                      <div className="form-group schedule-zoom-session-form-group">
+                        <label htmlFor="meetingLink">Meeting Link</label>
+                        <input 
+                          type="text" 
+                          id="meetingLink" 
+                          className="form-control" 
+                          value={meetingLink} 
+                          onChange={handleMeetingLinkChange}
+                          required 
+                        />
+                      </div>
+                    </>
                   )}
                   <button type="submit" className="btn btn-primary schedule-zoom-session-btn">Submit</button>
                 </form>
