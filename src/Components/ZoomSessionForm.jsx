@@ -74,10 +74,8 @@ const ZoomSessionForm = () => {
 
   const handleResendOtp = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/admin/zoomSessionFormResendOTP', null, {
-        params: {
-          clientEmail: formData.clientEmail
-        }
+      const response = await axios.post('http://localhost:8080/api/v1/admin/zoomSessionFormResendOTP', {
+        zoomSessionFormId: formId 
       });
       const { zoomSessionFormMessage, zoomSessionFormMessageCode } = response.data;
       setMessage(zoomSessionFormMessage);
