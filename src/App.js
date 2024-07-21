@@ -43,6 +43,7 @@ function App() {
             <Route path="/zoomSessionFormSuccess" element={<ZoomSessionFormSuccess/>} />
             <Route path="/blogs" element={<BlogListComponent />} />
             <Route path="/blogs/page" element={<BlogPageComponent />} />
+            <Route path="/entrance-exams" element={<HomePageComponent />} />
 
           </Routes>
         </BranchProvider>
