@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import axios from 'axios';
 import { Modal, Button } from 'react-bootstrap'; // Importing Modal and Button from react-bootstrap
-// import { useParams } from 'react-router-dom'; // Importing useParams
+import { sendOtp, verifyOtp, resendOtp, bookSession } from '../Services/zoomSessionService'; // Importing the API service functions
 
 //TRIM THE INPUT FIELDS BEFORE SETTING TO THE STATES - REMANINING
 
@@ -42,11 +42,11 @@ const ZoomSessionForm = () => {
 
   const handleSendOtp = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/admin/zoomSessionFormSubmit', formData);
-      const { zoomSessionFormMessage, zoomSessionFormMessageCode, zoomSessionFormId } = response.data;
+      const data = await sendOtp(formData);
+      const { zoomSessionFormMessage, zoomSessionFormMessageCode, zoomSessionFormId } = data;
       setMessage(zoomSessionFormMessage || 'OTP sent successfully.');
-      setMessageCode(zoomSessionFormMessageCode); // Update message code
-      setFormId(zoomSessionFormId); // Set the form ID
+      setMessageCode(zoomSessionFormMessageCode);
+      setFormId(zoomSessionFormId);
     } catch (error) {
       console.error('Error sending OTP:', error);
       setMessage('Failed to send OTP. Please try again.');
@@ -55,12 +55,13 @@ const ZoomSessionForm = () => {
 
   const handleVerifyOtp = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/admin/zoomSessionFormVerifyOTP', {
+      const otpData = {
         clientOTP: formData.otp,
         clientEmail: formData.clientEmail,
         zoomSessionFormId: formId,
-      });
-      const { zoomSessionFormMessage, zoomSessionFormMessageCode } = response.data;
+      };
+      const data = await verifyOtp(otpData);
+      const { zoomSessionFormMessage, zoomSessionFormMessageCode } = data;
       setMessage(zoomSessionFormMessage);
       setMessageCode(zoomSessionFormMessageCode);
       if (zoomSessionFormMessageCode === 0) {
@@ -74,10 +75,8 @@ const ZoomSessionForm = () => {
 
   const handleResendOtp = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/admin/zoomSessionFormResendOTP', {
-        zoomSessionFormId: formId 
-      });
-      const { zoomSessionFormMessage, zoomSessionFormMessageCode } = response.data;
+      const data = await resendOtp(formId);
+      const { zoomSessionFormMessage, zoomSessionFormMessageCode } = data;
       setMessage(zoomSessionFormMessage);
       setMessageCode(zoomSessionFormMessageCode);
     } catch (error) {
@@ -87,25 +86,22 @@ const ZoomSessionForm = () => {
   };
 
   const handleRedirect = () => {
-    // Redirect to student profile page
     console.log('Redirecting to student profile page');
     navigate('/studentProfile', { state: { student } });
   };
 
   const handleBookSession = async () => {
-    // Method for handling Book Session button click
     console.log("Handling Final Book Session button");
     const zoomSessionConfirmationRequest = {
       studentWorkEmail: student.studentWorkEmail,
       zoomSessionFormId: formId,
     };
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/admin/zoomSessionFormSuccess', zoomSessionConfirmationRequest);
-      console.log('Booking response:', response.data);
+      const data = await bookSession(zoomSessionConfirmationRequest);
+      console.log('Booking response:', data);
       navigate('/zoomSessionFormSuccess', { state: { student } });
     } catch (error) {
       console.error('Error booking session:', error);
-      // Handle error if needed
     }
   };
 

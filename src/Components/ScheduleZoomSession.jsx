@@ -5,6 +5,7 @@ import '../App.css';
 import '../css/ScheduleZoomSessionCss.css';
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
+import { fetchFormDetails } from '../Services/zoomSessionService';
 
 const decryptFormId = (encryptedFormId) => {
   const key = CryptoJS.enc.Utf8.parse('1234567890123456'); // Ensure the key is consistent
@@ -26,20 +27,20 @@ const ScheduleZoomSession = () => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const fetchFormDetails = async () => {
+    const fetchDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/v1/admin/fetchZoomSessionVerifiedFormDetailsSecret/${formId}`);
-        setFormDetails(response.data);
-        if (response.data.isVerified !== 1) {
+        const data = await fetchFormDetails(formId);
+        setFormDetails(data);
+        if (data.isVerified !== 1) {
           setMessage('The form is not verified. Please discard scheduling the session. If scheduled even after warning, your account will be removed and blocked from the platform.');
         }
       } catch (error) {
         console.error('Error fetching form details:', error);
       }
     };
-    fetchFormDetails();
+    fetchDetails();
   }, [formId]);
-
+  
   const handleAvailabilityChange = (e) => {
     setAvailability(e.target.value);
   };
