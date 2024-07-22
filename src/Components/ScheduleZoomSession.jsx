@@ -7,19 +7,21 @@ import CryptoJS from 'crypto-js';
 import { fetchFormDetails } from '../Services/zoomSessionService';
 import axios from 'axios';
 
-const decryptFormId = (encryptedFormId) => {
+const decryptFormIdAndStudentWorkEmail = (encryptedFormIdAndStudentWorkEmail) => {
   const key = CryptoJS.enc.Utf8.parse('1234567890123456'); // Ensure the key is consistent
-  const bytes = CryptoJS.AES.decrypt(encryptedFormId, key, {
+  const bytes = CryptoJS.AES.decrypt(encryptedFormIdAndStudentWorkEmail, key, {
     mode: CryptoJS.mode.ECB,
     padding: CryptoJS.pad.Pkcs7,
   });
-  const originalFormId = bytes.toString(CryptoJS.enc.Utf8);
-  return originalFormId;
+  const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+  const [formId, studentWorkEmail] = decryptedData.split(':');
+  return { formId, studentWorkEmail };
 };
 
+
 const ScheduleZoomSession = () => {
-  const { encryptedFormId } = useParams();
-  const formId = decryptFormId(encryptedFormId);
+  const { encryptedFormIdAndStudentWorkEmail } = useParams();
+  const { formId, studentWorkEmail } = decryptFormIdAndStudentWorkEmail(encryptedFormIdAndStudentWorkEmail);
 
   const [formDetails, setFormDetails] = useState(null);
   const [availability, setAvailability] = useState('');
@@ -29,6 +31,7 @@ const ScheduleZoomSession = () => {
   const [meetingLink, setMeetingLink] = useState('');
   const [message, setMessage] = useState('');
   const [studentMessageToClient, setStudentMessageToClient] = useState('');
+  const [email, setEmail] = useState(studentWorkEmail); // New state for studentWorkEmail
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -81,12 +84,25 @@ const ScheduleZoomSession = () => {
       studentWorkEmail: formDetails.clientEmail, // fetched from formDetails
       ZoomSessionFormId: formId,
       isAvailable: availability === 'yes' ? 1 : 0,
-      zoomSessionTime: preferredTime,
-      zoomSessionMeetingId:  meetingId,
-      zoomSessionPasscode: passcode,
-      zoomSessionMeetingLink: meetingLink,
-      studentMessageToClient: availability === 'yes' ? undefined : messageToSend
+      zoomSessionTime: availability === 'yes' ? preferredTime : undefined,
+      zoomSessionMeetingId: availability === 'yes' ? meetingId : undefined,
+      zoomSessionPasscode: availability === 'yes' ? passcode : undefined,
+      zoomSessionMeetingLink: availability === 'yes' ? meetingLink : undefined,
+      studentMessageToClient: messageToSend
     };
+
+    //ANOTHER WAY TO SEND THIS DTO
+
+    // const confirmZoomSessionRequestFromStudent = {
+    //   studentWorkEmail: formDetails.clientEmail, // fetched from formDetails
+    //   ZoomSessionFormId: formId,
+    //   isAvailable: availability === 'yes' ? 1 : 0,
+    //   zoomSessionTime: preferredTime,
+    //   zoomSessionMeetingId:  meetingId,
+    //   zoomSessionPasscode: passcode,
+    //   zoomSessionMeetingLink: meetingLink,
+    //   studentMessageToClient: availability === 'yes' ? undefined : messageToSend
+    // };
 
     try {
       await axios.post('http://localhost:8080/api/v1/admin/confirmZoomSessionFromStudent', confirmZoomSessionRequestFromStudent);
