@@ -26,10 +26,21 @@ const decryptData = (encryptedData) => {
   return { decryptedFormId, decryptedStudentWorkEmail };
 };
 
-
 const ScheduleZoomSession = () => {
   const { encryptedFormIdAndStudentWorkEmail } = useParams();
-  const { formId, studentWorkEmail } = decryptData(encryptedFormIdAndStudentWorkEmail);
+  
+  let formId, studentWorkEmail;
+  try {
+    const decryptedData = decryptData(encryptedFormIdAndStudentWorkEmail);
+    formId = decryptedData.decryptedFormId;
+    studentWorkEmail = decryptedData.decryptedStudentWorkEmail;
+    console.log("Decrypted Form ID:", formId);
+    console.log("Decrypted Student Work Email:", studentWorkEmail);
+  } catch (error) {
+    console.error("Error decrypting data:", error);
+    formId = null;
+    studentWorkEmail = null;
+  }
 
   const [formDetails, setFormDetails] = useState(null);
   const [availability, setAvailability] = useState('');
@@ -39,21 +50,22 @@ const ScheduleZoomSession = () => {
   const [meetingLink, setMeetingLink] = useState('');
   const [message, setMessage] = useState('');
   const [studentMessageToClient, setStudentMessageToClient] = useState('');
-  const [email, setEmail] = useState(studentWorkEmail); // New state for studentWorkEmail
 
   useEffect(() => {
-    const fetchDetails = async () => {
-      try {
-        const data = await fetchFormDetails(formId);
-        setFormDetails(data);
-        if (data.isVerified !== 1) {
-          setMessage('The form is not verified. Please discard scheduling the session. If scheduled even after warning, your account will be removed and blocked from the platform.');
+    if (formId) {
+      const fetchDetails = async () => {
+        try {
+          const data = await fetchFormDetails(formId);
+          setFormDetails(data);
+          if (data.isVerified !== 1) {
+            setMessage('The form is not verified. Please discard scheduling the session. If scheduled even after warning, your account will be removed and blocked from the platform.');
+          }
+        } catch (error) {
+          console.error('Error fetching form details:', error);
         }
-      } catch (error) {
-        console.error('Error fetching form details:', error);
-      }
-    };
-    fetchDetails();
+      };
+      fetchDetails();
+    }
   }, [formId]);
 
   const handleAvailabilityChange = (e) => {
@@ -89,7 +101,7 @@ const ScheduleZoomSession = () => {
     }
 
     const confirmZoomSessionRequestFromStudent = {
-      studentWorkEmail: formDetails.clientEmail, // fetched from formDetails
+      studentWorkEmail: studentWorkEmail, // fetched from formDetails
       ZoomSessionFormId: formId,
       isAvailable: availability === 'yes' ? 1 : 0,
       zoomSessionTime: availability === 'yes' ? preferredTime : undefined,
@@ -98,19 +110,6 @@ const ScheduleZoomSession = () => {
       zoomSessionMeetingLink: availability === 'yes' ? meetingLink : undefined,
       studentMessageToClient: messageToSend
     };
-
-    //ANOTHER WAY TO SEND THIS DTO
-
-    // const confirmZoomSessionRequestFromStudent = {
-    //   studentWorkEmail: formDetails.clientEmail, // fetched from formDetails
-    //   ZoomSessionFormId: formId,
-    //   isAvailable: availability === 'yes' ? 1 : 0,
-    //   zoomSessionTime: preferredTime,
-    //   zoomSessionMeetingId:  meetingId,
-    //   zoomSessionPasscode: passcode,
-    //   zoomSessionMeetingLink: meetingLink,
-    //   studentMessageToClient: availability === 'yes' ? undefined : messageToSend
-    // };
 
     try {
       await axios.post('http://localhost:8080/api/v1/admin/confirmZoomSessionFromStudent', confirmZoomSessionRequestFromStudent);

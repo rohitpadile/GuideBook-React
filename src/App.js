@@ -45,7 +45,8 @@ function App() {
             <Route path="/blogs" element={<BlogListComponent />} />
             <Route path="/blogs/page" element={<BlogPageComponent />} />
             <Route path="/entrance-exams" element={<HomePageComponent />} />  
-            <Route path="/schedule-zoom-session/:encryptedFormId" element={<ScheduleZoomSession />} />
+            <Route path="/schedule-zoom-session/:encryptedFormIdAndStudentWorkEmail" element={<ScheduleZoomSession />} />
+
 
           </Routes>
         </BranchProvider>
