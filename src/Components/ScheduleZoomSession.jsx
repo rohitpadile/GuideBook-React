@@ -7,21 +7,29 @@ import CryptoJS from 'crypto-js';
 import { fetchFormDetails } from '../Services/zoomSessionService';
 import axios from 'axios';
 
-const decryptFormIdAndStudentWorkEmail = (encryptedFormIdAndStudentWorkEmail) => {
+const decryptData = (encryptedData) => {
   const key = CryptoJS.enc.Utf8.parse('1234567890123456'); // Ensure the key is consistent
-  const bytes = CryptoJS.AES.decrypt(encryptedFormIdAndStudentWorkEmail, key, {
+  const [encryptedFormId, encryptedStudentWorkEmail] = encryptedData.split('.');
+
+  const decryptedFormIdBytes = CryptoJS.AES.decrypt(encryptedFormId, key, {
     mode: CryptoJS.mode.ECB,
     padding: CryptoJS.pad.Pkcs7,
   });
-  const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
-  const [formId, studentWorkEmail] = decryptedData.split(':');
-  return { formId, studentWorkEmail };
+  const decryptedFormId = decryptedFormIdBytes.toString(CryptoJS.enc.Utf8);
+
+  const decryptedStudentWorkEmailBytes = CryptoJS.AES.decrypt(encryptedStudentWorkEmail, key, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7,
+  });
+  const decryptedStudentWorkEmail = decryptedStudentWorkEmailBytes.toString(CryptoJS.enc.Utf8);
+
+  return { decryptedFormId, decryptedStudentWorkEmail };
 };
 
 
 const ScheduleZoomSession = () => {
   const { encryptedFormIdAndStudentWorkEmail } = useParams();
-  const { formId, studentWorkEmail } = decryptFormIdAndStudentWorkEmail(encryptedFormIdAndStudentWorkEmail);
+  const { formId, studentWorkEmail } = decryptData(encryptedFormIdAndStudentWorkEmail);
 
   const [formDetails, setFormDetails] = useState(null);
   const [availability, setAvailability] = useState('');
