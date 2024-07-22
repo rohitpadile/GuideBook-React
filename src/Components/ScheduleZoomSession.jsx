@@ -5,6 +5,7 @@ import '../App.css';
 import '../css/ScheduleZoomSessionCss.css';
 import CryptoJS from 'crypto-js';
 import { fetchFormDetails } from '../Services/zoomSessionService';
+import axios from 'axios';
 
 const decryptFormId = (encryptedFormId) => {
   const key = CryptoJS.enc.Utf8.parse('1234567890123456'); // Ensure the key is consistent
@@ -27,6 +28,7 @@ const ScheduleZoomSession = () => {
   const [passcode, setPasscode] = useState('');
   const [meetingLink, setMeetingLink] = useState('');
   const [message, setMessage] = useState('');
+  const [studentMessageToClient, setStudentMessageToClient] = useState('');
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -42,7 +44,7 @@ const ScheduleZoomSession = () => {
     };
     fetchDetails();
   }, [formId]);
-  
+
   const handleAvailabilityChange = (e) => {
     setAvailability(e.target.value);
   };
@@ -63,9 +65,36 @@ const ScheduleZoomSession = () => {
     setMeetingLink(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleStudentMessageToClientChange = (e) => {
+    setStudentMessageToClient(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage('Your availability has been submitted. Thank you!');
+
+    let messageToSend = studentMessageToClient;
+    if (availability === 'no' && !studentMessageToClient) {
+      messageToSend = `Student did not leave a message behind. He/She must be very busy in their schedule. We are sorry you couldn't connect with ${formDetails.clientFirstName} ${formDetails.clientLastName}. Keep knocking, maybe one day someone will open the door.`;
+    }
+
+    const confirmZoomSessionRequestFromStudent = {
+      studentWorkEmail: formDetails.clientEmail, // fetched from formDetails
+      ZoomSessionFormId: formId,
+      isAvailable: availability === 'yes' ? 1 : 0,
+      zoomSessionTime: preferredTime,
+      zoomSessionMeetingId:  meetingId,
+      zoomSessionPasscode: passcode,
+      zoomSessionMeetingLink: meetingLink,
+      studentMessageToClient: availability === 'yes' ? undefined : messageToSend
+    };
+
+    try {
+      await axios.post('http://localhost:8080/api/v1/admin/confirmZoomSessionFromStudent', confirmZoomSessionRequestFromStudent);
+      setMessage('Your availability has been submitted. Thank you!');
+    } catch (error) {
+      console.error('Error submitting availability:', error);
+      setMessage('There was an error submitting your availability. Please try again.');
+    }
   };
 
   return (
@@ -148,6 +177,17 @@ const ScheduleZoomSession = () => {
                         />
                       </div>
                     </>
+                  )}
+                  {availability === 'no' && (
+                    <div className="form-group schedule-zoom-session-form-group">
+                      <label htmlFor="studentMessageToClient">Leave a message for the client</label>
+                      <textarea 
+                        id="studentMessageToClient" 
+                        className="form-control" 
+                        value={studentMessageToClient} 
+                        onChange={handleStudentMessageToClientChange}
+                      />
+                    </div>
                   )}
                   <button type="submit" className="btn btn-primary schedule-zoom-session-btn">Submit</button>
                 </form>
