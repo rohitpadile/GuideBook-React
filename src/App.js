@@ -21,6 +21,7 @@ import ScheduleZoomSession from './Components/ScheduleZoomSession';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ZoomSessionFormSuccess from './Components/ZoomSessionFormSuccess';
+import ZoomSessionFeedbackFormComponent from './Components/ZoomSessionFeedbackFormComponent';
 // import SelectCollegeForClubsComponent from './Components/SelectCollegeForClubsComponent';
 
 function App() {
@@ -46,7 +47,7 @@ function App() {
             <Route path="/blogs/page" element={<BlogPageComponent />} />
             <Route path="/entrance-exams" element={<HomePageComponent />} />  
             <Route path="/schedule-zoom-session/:encryptedFormIdAndStudentWorkEmail" element={<ScheduleZoomSession />} />
-
+            <Route path="/feedback-zoom-session/:encryptedFormIdAndStudentWorkEmail" element={<ZoomSessionFeedbackFormComponent />} />
 
           </Routes>
         </BranchProvider>
