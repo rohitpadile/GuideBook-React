@@ -50,6 +50,8 @@ const ScheduleZoomSession = () => {
   const [meetingLink, setMeetingLink] = useState('');
   const [message, setMessage] = useState('');
   const [studentMessageToClient, setStudentMessageToClient] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bookStatus, setBookStatus] = useState('');
 
   useEffect(() => {
     if (formId) {
@@ -57,8 +59,9 @@ const ScheduleZoomSession = () => {
         try {
           const data = await fetchFormDetails(formId);
           setFormDetails(data);
+          setBookStatus(data.bookStatus);
           if (data.isVerified !== 1) {
-            setMessage('The form is not verified. Please discard scheduling the session. If scheduled even after warning, your account will be removed and blocked from the platform.');
+            setMessage('The form is not verified by OTP. Please discard scheduling the session. If scheduled even after warning, your account will be removed and blocked from the platform.');
           }
         } catch (error) {
           console.error('Error fetching form details:', error);
@@ -70,6 +73,9 @@ const ScheduleZoomSession = () => {
 
   const handleAvailabilityChange = (e) => {
     setAvailability(e.target.value);
+    if (e.target.value === 'no') {
+      setStudentMessageToClient(''); // Clear the message when availability is set to 'no'
+    }
   };
 
   const handlePreferredTimeChange = (e) => {
@@ -94,31 +100,53 @@ const ScheduleZoomSession = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    let messageToSend = studentMessageToClient;
-    if (availability === 'no' && !studentMessageToClient) {
-      messageToSend = `Student did not leave a message behind. He/She must be very busy in their schedule. We are sorry you couldn't connect with ${formDetails.clientFirstName} ${formDetails.clientLastName}. Keep knocking, maybe one day someone will open the door.`;
+    setIsSubmitting(true); // Disable the submit button
+  
+    let confirmZoomSessionRequestFromStudent;
+  
+    if (availability === 'yes') {
+      confirmZoomSessionRequestFromStudent = {
+        studentWorkEmail: studentWorkEmail, // fetched from formDetails
+        ZoomSessionFormId: formId,
+        isAvailable: 1,
+        zoomSessionTime: preferredTime,
+        zoomSessionMeetingId: meetingId,
+        zoomSessionPasscode: passcode,
+        zoomSessionMeetingLink: meetingLink,
+        studentMessageToClient: studentMessageToClient
+      };
+    } else if (availability === 'no') {
+      const messageToSend = studentMessageToClient || `Student did not leave a message behind. He/She must be very busy in their schedule. We are sorry you couldn't connect with ${formDetails.clientFirstName} ${formDetails.clientLastName}. Keep knocking, maybe one day someone will open the door.`;
+      
+      confirmZoomSessionRequestFromStudent = {
+        studentWorkEmail: studentWorkEmail, // fetched from formDetails
+        ZoomSessionFormId: formId,
+        isAvailable: 0,
+        zoomSessionTime: undefined,
+        zoomSessionMeetingId: undefined,
+        zoomSessionPasscode: undefined,
+        zoomSessionMeetingLink: undefined,
+        studentMessageToClient: messageToSend
+      };
+    } else {
+      setMessage('Please select your availability status.');
+      setIsSubmitting(false); // Re-enable the submit button
+      return; // Exit the function
     }
-
-    const confirmZoomSessionRequestFromStudent = {
-      studentWorkEmail: studentWorkEmail, // fetched from formDetails
-      ZoomSessionFormId: formId,
-      isAvailable: availability === 'yes' ? 1 : 0,
-      zoomSessionTime: availability === 'yes' ? preferredTime : undefined,
-      zoomSessionMeetingId: availability === 'yes' ? meetingId : undefined,
-      zoomSessionPasscode: availability === 'yes' ? passcode : undefined,
-      zoomSessionMeetingLink: availability === 'yes' ? meetingLink : undefined,
-      studentMessageToClient: messageToSend
-    };
-
+  
     try {
+      // await axios.post('http://guidebookX-alb-1586257955.ap-south-1.elb.amazonaws.com/api/v1/admin/confirmZoomSessionFromStudent', confirmZoomSessionRequestFromStudent);
       await axios.post('http://localhost:8080/api/v1/admin/confirmZoomSessionFromStudent', confirmZoomSessionRequestFromStudent);
       setMessage('Your availability has been submitted. Thank you!');
     } catch (error) {
       console.error('Error submitting availability:', error);
-      setMessage('There was an error submitting your availability. Please try again.');
+      setMessage('There was an error submitting your availability. Check console. Please try again.');
+      setIsSubmitting(false); // Re-enable the submit button
+    } finally {
+      setMessage('Your availability has been submitted. Thank you!');
     }
   };
+  
 
   return (
     <div className="container mt-5">
@@ -134,8 +162,9 @@ const ScheduleZoomSession = () => {
                 <p><strong>Age:</strong> {formDetails.clientAge}</p>
                 <p><strong>College:</strong> {formDetails.clientCollege}</p>
                 <p><strong>Proof Document:</strong> <a href={formDetails.clientProofDocLink} target="_blank" rel="noopener noreferrer">View Document</a></p>
-                <p><strong>Verified:</strong> {formDetails.isVerified ? 'Yes' : 'No'}</p>
+                <p><strong>Verified by OTP:</strong> {formDetails.isVerified ? 'Yes' : 'No'}</p>
                 <p><strong>Created On:</strong> {new Date(formDetails.createdOn).toLocaleDateString()}</p>
+                <p><strong>Book Status:</strong> {bookStatus}</p>
               </div>
               {formDetails.isVerified === 1 ? (
                 <form onSubmit={handleSubmit}>
@@ -147,6 +176,7 @@ const ScheduleZoomSession = () => {
                       value={availability} 
                       onChange={handleAvailabilityChange}
                       required
+                      disabled={bookStatus !== 'PENDING' || isSubmitting}
                     >
                       <option value="">Select</option>
                       <option value="yes">Yes</option>
@@ -164,6 +194,7 @@ const ScheduleZoomSession = () => {
                           value={preferredTime} 
                           onChange={handlePreferredTimeChange}
                           required 
+                          disabled={bookStatus !== 'PENDING' || isSubmitting}
                         />
                       </div>
                       <div className="form-group schedule-zoom-session-form-group">
@@ -175,6 +206,7 @@ const ScheduleZoomSession = () => {
                           value={meetingId} 
                           onChange={handleMeetingIdChange}
                           required 
+                          disabled={bookStatus !== 'PENDING' || isSubmitting}
                         />
                       </div>
                       <div className="form-group schedule-zoom-session-form-group">
@@ -186,6 +218,7 @@ const ScheduleZoomSession = () => {
                           value={passcode} 
                           onChange={handlePasscodeChange}
                           required 
+                          disabled={bookStatus !== 'PENDING' || isSubmitting}
                         />
                       </div>
                       <div className="form-group schedule-zoom-session-form-group">
@@ -197,32 +230,44 @@ const ScheduleZoomSession = () => {
                           value={meetingLink} 
                           onChange={handleMeetingLinkChange}
                           required 
+                          disabled={bookStatus !== 'PENDING' || isSubmitting}
                         />
                       </div>
                     </>
                   )}
                   {availability === 'no' && (
                     <div className="form-group schedule-zoom-session-form-group">
-                      <label htmlFor="studentMessageToClient">Leave a message for the client</label>
+                      <label htmlFor="studentMessageToClient">Message to Client</label>
                       <textarea 
                         id="studentMessageToClient" 
                         className="form-control" 
                         value={studentMessageToClient} 
                         onChange={handleStudentMessageToClientChange}
+                        rows="4"
+                        required 
+                        disabled={bookStatus !== 'PENDING' || isSubmitting}
                       />
                     </div>
                   )}
-                  <button type="submit" className="btn btn-primary schedule-zoom-session-btn">Submit</button>
+                  <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                    {isSubmitting ? 'Submitting...' : 'Submit'}
+                  </button>
                 </form>
               ) : (
-                <div className="alert alert-danger">
-                  The form is not verified. Please discard scheduling the session. If scheduled even after warning, your account will be removed and blocked from the platform.
+                <div className="alert alert-danger mt-3" role="alert">
+                  {message}
                 </div>
               )}
-              {message && <div className="alert alert-success schedule-zoom-session-alert">{message}</div>}
             </>
           ) : (
-            <p>Loading form details...</p>
+            <div className="alert alert-info" role="alert">
+              Loading form details...
+            </div>
+          )}
+          {message && (
+            <div className="alert alert-info mt-3" role="alert">
+              {message}
+            </div>
           )}
         </div>
       </div>
