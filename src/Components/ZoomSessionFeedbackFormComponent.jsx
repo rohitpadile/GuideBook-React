@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useParams } from 'react-router-dom';
-import { decryptTransactionId } from '../Services/encryptionForFeedbackForm'; // Adjust the path as necessary
+import { decodeTransactionId } from '../Services/encryptionForFeedbackForm'; // Adjust the path as necessary
 
 const ZoomSessionFeedbackFormComponent = () => {
   const [overallFeedback, setOverallFeedback] = useState('');
@@ -15,17 +14,15 @@ const ZoomSessionFeedbackFormComponent = () => {
   const [transactionId, setTransactionId] = useState(null);
 
   useEffect(() => {
-      if (encryptedTransactionId) {
-          try {
-              const decodedId = decodeURIComponent(encryptedTransactionId);
-              const decryptedId = decryptTransactionId(decodedId);
-              console.log('Decrypted transaction ID:', decryptedId);
-              setTransactionId(decryptedId);
-              console.log(decryptedId);
-          } catch (error) {
-              console.error('Error decrypting transaction ID:', error);
-          }
+    if (encryptedTransactionId) {
+      try {
+        const decryptedId = decodeTransactionId(decodeURIComponent(encryptedTransactionId));
+        console.log('Decoded transaction ID:', decryptedId);
+        setTransactionId(decryptedId);
+      } catch (error) {
+        console.error('Error decoding transaction ID:', error);
       }
+    }
   }, [encryptedTransactionId]);
 
   const handleOverallFeedbackChange = (e) => {
