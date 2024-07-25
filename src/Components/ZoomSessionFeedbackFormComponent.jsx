@@ -30,7 +30,7 @@ const ZoomSessionFeedbackFormComponent = () => {
 
   useEffect(() => {
     const fetchSubmissionStatus = async () => {
-      if (transactionId) {
+      if (transactionId && isSubmitted === null) {
         try {
           const response = await axios.get(`http://localhost:8080/api/v1/admin/getSubmittionStatusForFeedbackForm/${transactionId}`);
           setIsSubmitted(response.data.isSubmitted);
@@ -42,7 +42,7 @@ const ZoomSessionFeedbackFormComponent = () => {
     };
 
     fetchSubmissionStatus();
-  }, [transactionId]);
+  }, [transactionId, isSubmitted]);
 
   const handleOverallFeedbackChange = (e) => {
     setOverallFeedback(e.target.value);
