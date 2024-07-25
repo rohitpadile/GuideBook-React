@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { decodeTransactionId } from '../Services/encryptionForFeedbackForm'; // Adjust the path as necessary
+import '../css/FeedbackFormCss.css';
 
 const ZoomSessionFeedbackFormComponent = () => {
   const [overallFeedback, setOverallFeedback] = useState('');
@@ -65,68 +66,66 @@ const ZoomSessionFeedbackFormComponent = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="card shadow-sm">
-        <div className="card-body">
-          <h2 className="card-title text-center">Zoom Session Feedback Form</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="overallFeedback">Overall Feedback</label>
-              <select
-                id="overallFeedback"
-                className="form-control"
-                value={overallFeedback}
-                onChange={handleOverallFeedbackChange}
-                required
-              >
-                <option value="">Select Feedback</option>
-                <option value="excellent">Excellent</option>
-                <option value="good">Good</option>
-                <option value="average">Average</option>
-                <option value="poor">Poor</option>
-              </select>
+    <div className="zoom-feedback-form-container">
+      <div className="zoom-feedback-form-card">
+        <h2 className="zoom-feedback-form-title">Zoom Session Feedback Form</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="zoom-feedback-form-group">
+            <label htmlFor="overallFeedback">Overall Feedback</label>
+            <select
+              id="overallFeedback"
+              className="zoom-feedback-form-control"
+              value={overallFeedback}
+              onChange={handleOverallFeedbackChange}
+              required
+            >
+              <option value="">Select Feedback</option>
+              <option value="excellent">Excellent</option>
+              <option value="good">Good</option>
+              <option value="average">Average</option>
+              <option value="poor">Poor</option>
+            </select>
+          </div>
+          <div className="zoom-feedback-form-group">
+            <label htmlFor="purposeFulfilled">Was Your Purpose Fulfilled?</label>
+            <textarea
+              id="purposeFulfilled"
+              className="zoom-feedback-form-control"
+              rows="4"
+              value={purposeFulfilled}
+              onChange={handlePurposeFulfilledChange}
+              required
+            />
+          </div>
+          <div className="zoom-feedback-form-group">
+            <label htmlFor="moreFeedbackAboutStudent">More Feedback About the Student</label>
+            <textarea
+              id="moreFeedbackAboutStudent"
+              className="zoom-feedback-form-control"
+              rows="4"
+              value={moreFeedbackAboutStudent}
+              onChange={handleMoreFeedbackAboutStudentChange}
+            />
+          </div>
+          <div className="zoom-feedback-form-group">
+            <label htmlFor="feedbackForCompany">Feedback for the Company</label>
+            <textarea
+              id="feedbackForCompany"
+              className="zoom-feedback-form-control"
+              rows="4"
+              value={feedbackForCompany}
+              onChange={handleFeedbackForCompanyChange}
+            />
+          </div>
+          <button type="submit" className="zoom-feedback-form-btn" disabled={isSubmitting}>
+            {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
+          </button>
+          {message && (
+            <div className={`zoom-feedback-form-alert ${message.includes('successfully') ? 'zoom-feedback-form-alert-success' : 'zoom-feedback-form-alert-danger'}`}>
+              {message}
             </div>
-            <div className="form-group mt-3">
-              <label htmlFor="purposeFulfilled">Was Your Purpose Fulfilled?</label>
-              <textarea
-                id="purposeFulfilled"
-                className="form-control"
-                rows="4"
-                value={purposeFulfilled}
-                onChange={handlePurposeFulfilledChange}
-                required
-              />
-            </div>
-            <div className="form-group mt-3">
-              <label htmlFor="moreFeedbackAboutStudent">More Feedback About the Student</label>
-              <textarea
-                id="moreFeedbackAboutStudent"
-                className="form-control"
-                rows="4"
-                value={moreFeedbackAboutStudent}
-                onChange={handleMoreFeedbackAboutStudentChange}
-              />
-            </div>
-            <div className="form-group mt-3">
-              <label htmlFor="feedbackForCompany">Feedback for the Company</label>
-              <textarea
-                id="feedbackForCompany"
-                className="form-control"
-                rows="4"
-                value={feedbackForCompany}
-                onChange={handleFeedbackForCompanyChange}
-              />
-            </div>
-            <button type="submit" className="btn btn-primary mt-3" disabled={isSubmitting}>
-              {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
-            </button>
-            {message && (
-              <div className={`alert mt-3 ${message.includes('successfully') ? 'alert-success' : 'alert-danger'}`}>
-                {message}
-              </div>
-            )}
-          </form>
-        </div>
+          )}
+        </form>
       </div>
     </div>
   );
