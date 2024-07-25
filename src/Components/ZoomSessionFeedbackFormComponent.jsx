@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useParams } from 'react-router-dom';
-import CryptoJS from 'crypto-js';
 import { decryptTransactionId } from '../Services/encryptionForFeedbackForm'; // Adjust the path as necessary
+
 const ZoomSessionFeedbackFormComponent = () => {
   const [overallFeedback, setOverallFeedback] = useState('');
   const [purposeFulfilled, setPurposeFulfilled] = useState('');
@@ -11,17 +11,17 @@ const ZoomSessionFeedbackFormComponent = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
 
-
   const { encryptedTransactionId } = useParams();
   const [transactionId, setTransactionId] = useState(null);
 
   useEffect(() => {
       if (encryptedTransactionId) {
           try {
-              const decryptedId = decryptTransactionId(encryptedTransactionId);
+              const decodedId = decodeURIComponent(encryptedTransactionId);
+              const decryptedId = decryptTransactionId(decodedId);
               console.log('Decrypted transaction ID:', decryptedId);
               setTransactionId(decryptedId);
-              console.log(decryptedId)
+              console.log(decryptedId);
           } catch (error) {
               console.error('Error decrypting transaction ID:', error);
           }
