@@ -113,7 +113,6 @@ const ScheduleZoomSession = () => {
         zoomSessionMeetingId: meetingId,
         zoomSessionPasscode: passcode,
         zoomSessionMeetingLink: meetingLink,
-        studentMessageToClient: studentMessageToClient
       };
     } else if (availability === 'no') {
       const messageToSend = studentMessageToClient || `Student did not leave a message behind. He/She must be very busy in their schedule. We are sorry you couldn't connect with ${formDetails.clientFirstName} ${formDetails.clientLastName}. Keep knocking, maybe one day someone will open the door.`;
@@ -122,10 +121,6 @@ const ScheduleZoomSession = () => {
         studentWorkEmail: studentWorkEmail, // fetched from formDetails
         ZoomSessionFormId: formId,
         isAvailable: 0,
-        zoomSessionTime: undefined,
-        zoomSessionMeetingId: undefined,
-        zoomSessionPasscode: undefined,
-        zoomSessionMeetingLink: undefined,
         studentMessageToClient: messageToSend
       };
     } else {

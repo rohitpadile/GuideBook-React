@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import CryptoJS from 'crypto-js';
-
+import { decryptTransactionId } from '../Services/encryptionForFeedbackForm'; // Adjust the path as necessary
 const ZoomSessionFeedbackFormComponent = () => {
   const [overallFeedback, setOverallFeedback] = useState('');
   const [purposeFulfilled, setPurposeFulfilled] = useState('');
@@ -11,24 +10,23 @@ const ZoomSessionFeedbackFormComponent = () => {
   const [feedbackForCompany, setFeedbackForCompany] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
-  const { encryptedId } = useParams();
+
+
+  const { encryptedTransactionId } = useParams();
+  const [transactionId, setTransactionId] = useState(null);
 
   useEffect(() => {
-    const decryptTransactionId = (encryptedValue) => {
-      const key = '1234567890123456';
-      const decrypted = CryptoJS.AES.decrypt(decodeURIComponent(encryptedValue), key);
-      return decrypted.toString(CryptoJS.enc.Utf8);
-    };
-
-    try {
-      const transactionId = decryptTransactionId(encryptedId);
-      // Fetch existing feedback details if needed using transactionId
-      // Example: fetchFeedbackDetails(transactionId);
-      console.log("transaction id: " + transactionId);
-    } catch (error) {
-      console.error('Error decrypting transaction ID:', error);
-    }
-  }, [encryptedId]);
+      if (encryptedTransactionId) {
+          try {
+              const decryptedId = decryptTransactionId(encryptedTransactionId);
+              console.log('Decrypted transaction ID:', decryptedId);
+              setTransactionId(decryptedId);
+              console.log(decryptedId)
+          } catch (error) {
+              console.error('Error decrypting transaction ID:', error);
+          }
+      }
+  }, [encryptedTransactionId]);
 
   const handleOverallFeedbackChange = (e) => {
     setOverallFeedback(e.target.value);
