@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { decodeTransactionId } from '../Services/encryptionForFeedbackForm'; // Adjust the path as necessary
+import axios from 'axios';
 import '../css/FeedbackFormCss.css';
 
 const ZoomSessionFeedbackFormComponent = () => {
@@ -10,6 +11,7 @@ const ZoomSessionFeedbackFormComponent = () => {
   const [feedbackForCompany, setFeedbackForCompany] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(null);
 
   const { encryptedTransactionId } = useParams();
   const [transactionId, setTransactionId] = useState(null);
@@ -25,6 +27,22 @@ const ZoomSessionFeedbackFormComponent = () => {
       }
     }
   }, [encryptedTransactionId]);
+
+  useEffect(() => {
+    const fetchSubmissionStatus = async () => {
+      if (transactionId) {
+        try {
+          const response = await axios.get(`http://localhost:8080/api/v1/admin/getSubmittionStatusForFeedbackForm/${transactionId}`);
+          setIsSubmitted(response.data.isSubmitted);
+          console.log("Submittion status: " + isSubmitted);
+        } catch (error) {
+          console.error('Error fetching submission status:', error);
+        }
+      }
+    };
+
+    fetchSubmissionStatus();
+  }, [transactionId]);
 
   const handleOverallFeedbackChange = (e) => {
     setOverallFeedback(e.target.value);
@@ -45,8 +63,10 @@ const ZoomSessionFeedbackFormComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setIsSubmitted(1);
 
     const feedbackData = {
+      zoomSessionTransactionId: transactionId,
       overallFeedback,
       purposeFulfilled,
       moreFeedbackAboutStudent,
@@ -54,12 +74,12 @@ const ZoomSessionFeedbackFormComponent = () => {
     };
 
     try {
-      // Send feedback data to the server
-      // await axios.post('http://your-api-endpoint/feedback', feedbackData);
+      await axios.post('http://localhost:8080/api/v1/admin/submitZoomSessionFeedbackForm', feedbackData);
       setMessage('Feedback submitted successfully!');
     } catch (error) {
       console.error('Error submitting feedback:', error);
       setMessage('There was an error submitting your feedback. Please try again.');
+      setIsSubmitted(null);
     } finally {
       setIsSubmitting(false);
     }
@@ -78,6 +98,7 @@ const ZoomSessionFeedbackFormComponent = () => {
               value={overallFeedback}
               onChange={handleOverallFeedbackChange}
               required
+              disabled={isSubmitted === 1}
             >
               <option value="">Select Feedback</option>
               <option value="excellent">Excellent</option>
@@ -95,6 +116,7 @@ const ZoomSessionFeedbackFormComponent = () => {
               value={purposeFulfilled}
               onChange={handlePurposeFulfilledChange}
               required
+              disabled={isSubmitted === 1}
             />
           </div>
           <div className="zoom-feedback-form-group">
@@ -105,6 +127,7 @@ const ZoomSessionFeedbackFormComponent = () => {
               rows="4"
               value={moreFeedbackAboutStudent}
               onChange={handleMoreFeedbackAboutStudentChange}
+              disabled={isSubmitted === 1}
             />
           </div>
           <div className="zoom-feedback-form-group">
@@ -115,9 +138,10 @@ const ZoomSessionFeedbackFormComponent = () => {
               rows="4"
               value={feedbackForCompany}
               onChange={handleFeedbackForCompanyChange}
+              disabled={isSubmitted === 1}
             />
           </div>
-          <button type="submit" className="zoom-feedback-form-btn" disabled={isSubmitting}>
+          <button type="submit" className="zoom-feedback-form-btn" disabled={isSubmitting || isSubmitted === 1}>
             {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
           </button>
           {message && (
