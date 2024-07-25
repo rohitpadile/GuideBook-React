@@ -1,34 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import CryptoJS from 'crypto-js';
 
 const ZoomSessionFeedbackFormComponent = () => {
-  const [feedback, setFeedback] = useState('');
-  const [rating, setRating] = useState(''); // For example: 1 to 5
-  const [additionalComments, setAdditionalComments] = useState('');
+  const [overallFeedback, setOverallFeedback] = useState('');
+  const [purposeFulfilled, setPurposeFulfilled] = useState('');
+  const [moreFeedbackAboutStudent, setMoreFeedbackAboutStudent] = useState('');
+  const [feedbackForCompany, setFeedbackForCompany] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
+  const { encryptedId } = useParams();
 
-  const handleFeedbackChange = (e) => {
-    setFeedback(e.target.value);
+  useEffect(() => {
+    const decryptTransactionId = (encryptedValue) => {
+      const key = '1234567890123456';
+      const decrypted = CryptoJS.AES.decrypt(decodeURIComponent(encryptedValue), key);
+      return decrypted.toString(CryptoJS.enc.Utf8);
+    };
+
+    try {
+      const transactionId = decryptTransactionId(encryptedId);
+      // Fetch existing feedback details if needed using transactionId
+      // Example: fetchFeedbackDetails(transactionId);
+    } catch (error) {
+      console.error('Error decrypting transaction ID:', error);
+    }
+  }, [encryptedId]);
+
+  const handleOverallFeedbackChange = (e) => {
+    setOverallFeedback(e.target.value);
   };
 
-  const handleRatingChange = (e) => {
-    setRating(e.target.value);
+  const handlePurposeFulfilledChange = (e) => {
+    setPurposeFulfilled(e.target.value);
   };
 
-  const handleAdditionalCommentsChange = (e) => {
-    setAdditionalComments(e.target.value);
+  const handleMoreFeedbackAboutStudentChange = (e) => {
+    setMoreFeedbackAboutStudent(e.target.value);
+  };
+
+  const handleFeedbackForCompanyChange = (e) => {
+    setFeedbackForCompany(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Construct request object here
     const feedbackData = {
-      feedback,
-      rating,
-      additionalComments,
+      overallFeedback,
+      purposeFulfilled,
+      moreFeedbackAboutStudent,
+      feedbackForCompany,
     };
 
     try {
@@ -50,12 +75,12 @@ const ZoomSessionFeedbackFormComponent = () => {
           <h2 className="card-title text-center">Zoom Session Feedback Form</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="feedback">Overall Feedback</label>
+              <label htmlFor="overallFeedback">Overall Feedback</label>
               <select
-                id="feedback"
+                id="overallFeedback"
                 className="form-control"
-                value={feedback}
-                onChange={handleFeedbackChange}
+                value={overallFeedback}
+                onChange={handleOverallFeedbackChange}
                 required
               >
                 <option value="">Select Feedback</option>
@@ -66,26 +91,34 @@ const ZoomSessionFeedbackFormComponent = () => {
               </select>
             </div>
             <div className="form-group mt-3">
-              <label htmlFor="rating">Rating (1 to 5)</label>
-              <input
-                type="number"
-                id="rating"
+              <label htmlFor="purposeFulfilled">Was Your Purpose Fulfilled?</label>
+              <textarea
+                id="purposeFulfilled"
                 className="form-control"
-                min="1"
-                max="5"
-                value={rating}
-                onChange={handleRatingChange}
+                rows="4"
+                value={purposeFulfilled}
+                onChange={handlePurposeFulfilledChange}
                 required
               />
             </div>
             <div className="form-group mt-3">
-              <label htmlFor="additionalComments">Additional Comments</label>
+              <label htmlFor="moreFeedbackAboutStudent">More Feedback About the Student</label>
               <textarea
-                id="additionalComments"
+                id="moreFeedbackAboutStudent"
                 className="form-control"
                 rows="4"
-                value={additionalComments}
-                onChange={handleAdditionalCommentsChange}
+                value={moreFeedbackAboutStudent}
+                onChange={handleMoreFeedbackAboutStudentChange}
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label htmlFor="feedbackForCompany">Feedback for the Company</label>
+              <textarea
+                id="feedbackForCompany"
+                className="form-control"
+                rows="4"
+                value={feedbackForCompany}
+                onChange={handleFeedbackForCompanyChange}
               />
             </div>
             <button type="submit" className="btn btn-primary mt-3" disabled={isSubmitting}>
