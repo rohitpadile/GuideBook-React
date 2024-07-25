@@ -13,7 +13,7 @@ export const sendOtp = async (formData) => {
     const response = await api.post('/zoomSessionFormSubmit', formData);
     return response.data;
   } catch (error) {
-    throw error;
+    console.log("Error in sendOtp service method: " + error);
   }
 };
 

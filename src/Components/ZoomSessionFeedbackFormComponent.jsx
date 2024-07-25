@@ -24,6 +24,7 @@ const ZoomSessionFeedbackFormComponent = () => {
       const transactionId = decryptTransactionId(encryptedId);
       // Fetch existing feedback details if needed using transactionId
       // Example: fetchFeedbackDetails(transactionId);
+      console.log("transaction id: " + transactionId);
     } catch (error) {
       console.error('Error decrypting transaction ID:', error);
     }

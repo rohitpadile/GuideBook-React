@@ -7,7 +7,7 @@ import { Modal, Button } from 'react-bootstrap'; // Importing Modal and Button f
 import { sendOtp, verifyOtp, resendOtp, bookSession } from '../Services/zoomSessionService'; // Importing the API service functions
 
 //TRIM THE INPUT FIELDS BEFORE SETTING TO THE STATES - REMANINING
-
+  
 const ZoomSessionForm = () => {
   const navigate = useNavigate();
   // const { studentName } = useParams();
@@ -43,7 +43,10 @@ const ZoomSessionForm = () => {
   const handleSendOtp = async () => {
     try {
       const data = await sendOtp(formData);
+  
+      // Ensure that data contains the expected properties
       const { zoomSessionFormMessage, zoomSessionFormMessageCode, zoomSessionFormId } = data;
+  
       setMessage(zoomSessionFormMessage || 'OTP sent successfully.');
       setMessageCode(zoomSessionFormMessageCode);
       setFormId(zoomSessionFormId);
@@ -52,6 +55,7 @@ const ZoomSessionForm = () => {
       setMessage('Failed to send OTP. Please try again.');
     }
   };
+  
 
   const handleVerifyOtp = async () => {
     try {
