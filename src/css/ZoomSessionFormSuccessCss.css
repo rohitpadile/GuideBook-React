@@ -1,11 +1,50 @@
-.celebration-gif-container {
-    margin-top: 20px;
+.zoom-session-success-container {
+  margin-top: 50px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.zoom-session-success-card {
+  width: 100%;
+  max-width: 800px; /* Increased max-width for better text fitting */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.zoom-session-success-card-body {
+  padding: 20px;
+}
+
+.zoom-session-success-card-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.zoom-session-success-card-text {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .zoom-session-success-container {
+      margin-top: 20px;
+      padding: 10px;
   }
-  
-  .celebration-gif {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    border-radius: 5px;
+
+  .zoom-session-success-card {
+      padding: 15px;
   }
-  
+
+  .zoom-session-success-card-title {
+      font-size: 20px;
+  }
+
+  .zoom-session-success-card-text {
+      font-size: 14px;
+  }
+}
