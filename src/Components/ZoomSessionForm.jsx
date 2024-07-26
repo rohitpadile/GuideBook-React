@@ -49,6 +49,7 @@ const ZoomSessionForm = () => {
   
       setMessage(zoomSessionFormMessage || 'OTP sent successfully.');
       setMessageCode(zoomSessionFormMessageCode);
+      // console.log("messageCode: " + messageCode);
       setFormId(zoomSessionFormId);
     } catch (error) {
       console.error('Error sending OTP:', error);
