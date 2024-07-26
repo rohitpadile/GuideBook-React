@@ -58,11 +58,6 @@ const SecondaryNavbarComponent = ({ showDropdown, handleMouseEnter, handleMouseL
                 Blogs
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to="/clubs" className="nav-link" style={{ borderBottom: '2px solid transparent', padding: '5px', color: '#ffffff', fontSize: '0.9rem' }}>
-                Clubs
-              </Link>
-            </li>
           </ul>
         </div>
       </div>

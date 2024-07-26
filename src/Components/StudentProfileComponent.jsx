@@ -8,12 +8,10 @@ const StudentProfileComponent = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { student } = location.state || {};
-  // const profilePhotoUrl = `/studentProfilePhotos/${student.studentMis}.jpg`;
-  const profilePhotoUrl = `/studentProfilePhotos/${student?.studentWorkEmail}.jpg`
+  const profilePhotoUrl = `/studentProfilePhotos/${student?.studentWorkEmail}.jpg`;
 
   const [studentProfile, setStudentProfile] = useState(null);
   const [studentBasicDetails, setStudentBasicDetails] = useState(null);
-
   const [showBookSession, setShowBookSession] = useState(false); // State to manage popup visibility
 
   useEffect(() => {
@@ -62,141 +60,141 @@ const StudentProfileComponent = () => {
           </button>
         </div>
         <div className="card-body student-profile-body">
-          <div className="card mt-4 zoom-card">
-            <div className="card-body d-flex align-items-center">
-              <div className="row">
-                <div className="col-md-9">
+          <div className="row">
+            <div className="col-md-4 text-center">
+              <img src={profilePhotoUrl} alt="Student Profile" className="img-fluid rounded-circle profile-photo" />
+              <h5 className="mt-3">{student?.studentName}</h5>
+              <p className="student-branch">{studentBasicDetails?.branch}</p>
+            </div>
+            <div className="col-md-8">
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
                   <h5>Basic Information</h5>
                   <ul>
-                    <li>Name: {student?.studentName}</li>
-                    <li>Branch: {studentBasicDetails?.branch}</li>
                     <li>Grade: {studentBasicDetails?.grade}</li>
                     <li>CET Percentile: {studentBasicDetails?.cetPercentile}</li>
                     <li>Class Type: {studentBasicDetails?.classType}</li>
                     <li>Language: {studentBasicDetails?.languagesSpoken?.join(', ')}</li>
                   </ul>
                 </div>
-                <div className="col-md-3 justify-content-end align-items-center" style={{ maxWidth: '300px'}}>
-                  <img src={profilePhotoUrl} alt="Student Profile" className="img-fluid rounded-circle mb-3" style={{ maxWidth: '180px'}} />
+              </div>
+
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>About</h5>
+                  <ul>
+                    {studentProfile?.studentProfileAboutSection?.map((item, index) => (
+                      <li key={index}>{item?.about}</li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <div className="card mt-4 zoom-card">
-            <div className="card-body">
-              <h5>About</h5>
-              <ul>
-                {studentProfile?.studentProfileAboutSection?.map((item, index) => (
-                  <li key={index}>{item?.about}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="card mt-4 zoom-card">
-            <div className="card-body">
-              <h5>City of Coaching</h5>
-              <ul>
-                {studentProfile?.studentProfileCityOfCoaching?.map((item, index) => (
-                  <li key={index}>{item?.cityOfCoaching}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="card mt-4 zoom-card">
-            <div className="card-body">
-              <h5>Score Details</h5>
-              <ul>
-                {studentProfile?.studentProfileExamScoreDetails?.map((detail, index) => (
-                  <li key={index}>{detail?.scoreDetail}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="card mt-4 zoom-card">
-            <div className="card-body">
-              <h5>Other Exam Scores</h5>
-              <ul>
-                {studentProfile?.studentProfileOtherExamScoreDetails?.map((exam, index) => (
-                  <li key={index}>{exam?.otherScoreDetail}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="card mt-4 zoom-card">
-            <div className="card-body">
-              <h5>Academic Activities</h5>
-              <ul>
-                {studentProfile?.studentProfileAcademicActivity?.map((activity, index) => (
-                  <li key={index}>{activity?.activity}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="card mt-4 zoom-card">
-            <div className="card-body">
-              <h5>Co-Curricular Activities</h5>
-              <ul>
-                {studentProfile?.studentProfileCoCurricularActivity?.map((activity, index) => (
-                  <li key={index}>{activity?.activity}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="card mt-4 zoom-card">
-            <div className="card-body">
-              <h5>Extra-Curricular Achievements</h5>
-              <ul>
-                {studentProfile?.studentProfileExtraCurricularActivity?.map((achievement, index) => (
-                  <li key={index}>{achievement?.activity}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="card mt-4 zoom-card">
-            <div className="card-body">
-              <h5>Tutoring Experience</h5>
-              <ul>
-                {studentProfile?.studentProfileTutoringExperience?.map((experience, index) => (
-                  <li key={index}>{experience?.experience}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="card mt-4 zoom-card">
-            <div className="card-body">
-              <h5>External Links</h5>
-              <ul>
-                {studentProfile?.studentProfileExternalLinks?.map((link, index) => (
-                  <li key={index}>
-                    <a href={link?.linkAddress} target="_blank" rel="noopener noreferrer">{link?.linkName}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Display BookSessionComponent as a popup */}
-          {showBookSession && (
-            <div className="popup-background">
-              <div className="popup">
-                <BookSessionComponent student={student} onClose={() => setShowBookSession(false)} />
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>City of Coaching</h5>
+                  <ul>
+                    {studentProfile?.studentProfileCityOfCoaching?.map((item, index) => (
+                      <li key={index}>{item?.cityOfCoaching}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
-          )}
 
-          <div className="card mt-4 zoom-card">
-            <div className="card-body">
-              <h5>Sessions Conducted</h5>
-              <p>{studentProfile?.studentProfileSessionsConducted}</p>
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>Score Details</h5>
+                  <ul>
+                    {studentProfile?.studentProfileExamScoreDetails?.map((detail, index) => (
+                      <li key={index}>{detail?.scoreDetail}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>Other Exam Scores</h5>
+                  <ul>
+                    {studentProfile?.studentProfileOtherExamScoreDetails?.map((exam, index) => (
+                      <li key={index}>{exam?.otherScoreDetail}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>Academic Activities</h5>
+                  <ul>
+                    {studentProfile?.studentProfileAcademicActivity?.map((activity, index) => (
+                      <li key={index}>{activity?.activity}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>Co-Curricular Activities</h5>
+                  <ul>
+                    {studentProfile?.studentProfileCoCurricularActivity?.map((activity, index) => (
+                      <li key={index}>{activity?.activity}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>Extra-Curricular Achievements</h5>
+                  <ul>
+                    {studentProfile?.studentProfileExtraCurricularActivity?.map((achievement, index) => (
+                      <li key={index}>{achievement?.activity}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>Tutoring Experience</h5>
+                  <ul>
+                    {studentProfile?.studentProfileTutoringExperience?.map((experience, index) => (
+                      <li key={index}>{experience?.experience}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>External Links</h5>
+                  <ul>
+                    {studentProfile?.studentProfileExternalLinks?.map((link, index) => (
+                      <li key={index}>
+                        <a href={link?.linkAddress} target="_blank" rel="noopener noreferrer">{link?.linkName}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Display BookSessionComponent as a popup */}
+              {showBookSession && (
+                <div className="popup-background">
+                  <div className="popup">
+                    <BookSessionComponent student={student} onClose={() => setShowBookSession(false)} />
+                  </div>
+                </div>
+              )}
+
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>Sessions Conducted</h5>
+                  <p>{studentProfile?.studentProfileSessionsConducted}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

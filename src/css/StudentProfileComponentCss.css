@@ -29,6 +29,10 @@
   padding: 30px;
 }
 
+.profile-photo {
+  border: 5px solid #6e8efb;
+}
+
 .student-profile-body h5 {
   font-weight: bold;
   color: #333;
@@ -50,5 +54,56 @@
 }
 
 .student-profile-body .badge-primary:hover {
-  background-color: #5a76e0;
+  background-color: #a777e3;
+}
+
+.student-profile-body .zoom-card:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s ease-in-out;
+}
+
+.student-branch {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 10px;
+  color: #6e8efb;
+  text-align: left; /* Aligns text to the left */
+}
+
+
+/* Styling the buttons */
+button {
+  background-color: #6e8efb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #a777e3;
+}
+
+/* Popup styles */
+.popup-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 600px;
 }
