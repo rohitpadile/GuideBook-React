@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { decodeTransactionId } from '../Services/encryptionForFeedbackForm'; // Adjust the path as necessary
-import axios from 'axios';
 import '../css/FeedbackFormCss.css';
-import {getSubmissionStatusForFeedbackForm} from '../Services/zoomSessionService';
+import {getSubmissionStatusForFeedbackForm, submitZoomSessionFeedbackForm} from '../Services/zoomSessionService';
 
 const ZoomSessionFeedbackFormComponent = () => {
   const [overallFeedback, setOverallFeedback] = useState('');
@@ -75,7 +74,7 @@ const ZoomSessionFeedbackFormComponent = () => {
     };
 
     try {
-      await axios.post('http://localhost:8080/api/v1/admin/submitZoomSessionFeedbackForm', feedbackData);
+      await submitZoomSessionFeedbackForm(feedbackData);
       setMessage('Feedback submitted successfully!');
     } catch (error) {
       console.error('Error submitting feedback:', error);
