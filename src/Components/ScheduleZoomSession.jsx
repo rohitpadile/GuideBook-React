@@ -136,7 +136,7 @@ const ScheduleZoomSession = () => {
       setMessage('There was an error submitting your availability. Check console. Please try again.');
       setIsSubmitting(false); // Re-enable the submit button
     } finally {
-      setIsSubmitting(false); // Ensure the submit button is re-enabled in case of success as well
+      setIsSubmitting(true); // Ensure the submit button is re-enabled in case of success as well
     }
   };
   
