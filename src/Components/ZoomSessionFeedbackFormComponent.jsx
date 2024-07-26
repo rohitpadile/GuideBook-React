@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { decodeTransactionId } from '../Services/encryptionForFeedbackForm'; // Adjust the path as necessary
 import axios from 'axios';
 import '../css/FeedbackFormCss.css';
+import {getSubmissionStatusForFeedbackForm} from '../Services/zoomSessionService';
 
 const ZoomSessionFeedbackFormComponent = () => {
   const [overallFeedback, setOverallFeedback] = useState('');
@@ -32,9 +33,9 @@ const ZoomSessionFeedbackFormComponent = () => {
     const fetchSubmissionStatus = async () => {
       if (transactionId && isSubmitted === null) {
         try {
-          const response = await axios.get(`http://localhost:8080/api/v1/admin/getSubmittionStatusForFeedbackForm/${transactionId}`);
-          setIsSubmitted(response.data.isSubmitted);
-          console.log("Submittion status: " + isSubmitted);
+          const data = await getSubmissionStatusForFeedbackForm(transactionId);
+          setIsSubmitted(data.isSubmitted);
+          console.log("Submission status: " + data.isSubmitted);
         } catch (error) {
           console.error('Error fetching submission status:', error);
         }

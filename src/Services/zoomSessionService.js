@@ -54,4 +54,21 @@ export const fetchFormDetails = async (formId) => {
   }
 };
 
+export const getSubmissionStatusForFeedbackForm = async (transactionId) => {
+  try {
+    const response = await api.get(`/getSubmittionStatusForFeedbackForm/${transactionId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching submission status:', error);
+    throw error;
+  }
+};
+export const confirmZoomSessionFromStudent = async (data) => {
+  try {
+    await api.post('/confirmZoomSessionFromStudent', data);
+  } catch (error) {
+    console.error('Error submitting availability:', error);
+    throw error;
+  }
+};
 export default api;

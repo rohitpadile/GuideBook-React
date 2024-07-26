@@ -4,8 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import '../css/ScheduleZoomSessionCss.css';
 import CryptoJS from 'crypto-js';
-import { fetchFormDetails } from '../Services/zoomSessionService';
-import axios from 'axios';
+import { fetchFormDetails, confirmZoomSessionFromStudent } from '../Services/zoomSessionService';
 
 const decryptData = (encryptedData) => {
   const key = CryptoJS.enc.Utf8.parse('1234567890123456'); // Ensure the key is consistent
@@ -101,9 +100,9 @@ const ScheduleZoomSession = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true); // Disable the submit button
-  
+
     let confirmZoomSessionRequestFromStudent;
-  
+
     if (availability === 'yes') {
       confirmZoomSessionRequestFromStudent = {
         studentWorkEmail: studentWorkEmail, // fetched from formDetails
@@ -116,7 +115,7 @@ const ScheduleZoomSession = () => {
       };
     } else if (availability === 'no') {
       const messageToSend = studentMessageToClient || `Student did not leave a message behind. He/She must be very busy in their schedule. We are sorry you couldn't connect with ${formDetails.clientFirstName} ${formDetails.clientLastName}. Keep knocking, maybe one day someone will open the door.`;
-      
+
       confirmZoomSessionRequestFromStudent = {
         studentWorkEmail: studentWorkEmail, // fetched from formDetails
         ZoomSessionFormId: formId,
@@ -128,17 +127,16 @@ const ScheduleZoomSession = () => {
       setIsSubmitting(false); // Re-enable the submit button
       return; // Exit the function
     }
-  
+
     try {
-      // await axios.post('http://guidebookX-alb-1586257955.ap-south-1.elb.amazonaws.com/api/v1/admin/confirmZoomSessionFromStudent', confirmZoomSessionRequestFromStudent);
-      await axios.post('http://localhost:8080/api/v1/admin/confirmZoomSessionFromStudent', confirmZoomSessionRequestFromStudent);
+      await confirmZoomSessionFromStudent(confirmZoomSessionRequestFromStudent);
       setMessage('Your availability has been submitted. Thank you!');
     } catch (error) {
       console.error('Error submitting availability:', error);
       setMessage('There was an error submitting your availability. Check console. Please try again.');
       setIsSubmitting(false); // Re-enable the submit button
     } finally {
-      setMessage('Your availability has been submitted. Thank you!');
+      setIsSubmitting(false); // Ensure the submit button is re-enabled in case of success as well
     }
   };
   
