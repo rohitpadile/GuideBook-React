@@ -31,7 +31,7 @@ const ZoomSessionForm = () => {
   const [formId, setFormId] = useState(''); // State for form UUID
   const [showTermsModal, setShowTermsModal] = useState(false); // State for showing terms modal
   const [acceptTerms, setAcceptTerms] = useState(false); // State for accepting terms
-  
+  const [isBooked, setIsBooked] = useState(0);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -111,6 +111,7 @@ const ZoomSessionForm = () => {
   };
 
   const handleBookSession = async () => {
+    setIsBooked(1);
     console.log("Handling Final Book Session button");
     const zoomSessionConfirmationRequest = {
       studentWorkEmail: student.studentWorkEmail,
@@ -310,14 +311,20 @@ const ZoomSessionForm = () => {
         <Modal.Body>
           {/* Add terms and conditions content here */}
           <p>By Booking this session, I accept all the Terms and Conditions of the Company. </p>
+          <p>Handle booking session carefully. Multiple clicks on Book Session might get you into block list </p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseTerms}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleBookSession}>
-            Book Session
-          </Button>
+          {isBooked === 1 ? (
+              <></> // Do nothing, render nothing
+            ) : (
+              <Button variant="primary" onClick={handleBookSession}>
+                Book Session
+              </Button>
+            )}
+
         </Modal.Footer>
       </Modal>
     </div>
