@@ -36,9 +36,10 @@ const ZoomSessionForm = () => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: value.trim(),
     });
   };
+  
 
   const handleSendOtp = async () => {
     try {
@@ -177,8 +178,12 @@ const ZoomSessionForm = () => {
                   name="clientEmail"
                   value={formData.clientEmail}
                   onChange={handleChange}
+                  
                   required
                 />
+                <small className="text-muted d-block mt-2">
+                  One Time Password will be sent to this email. The same will be verified for Zoom email.
+                </small>
               </div>
             </div>
             <div className="mb-3 row">
@@ -233,6 +238,7 @@ const ZoomSessionForm = () => {
                   name="clientProofDocLink"
                   value={formData.clientProofDocLink}
                   onChange={handleChange}
+                  placeholder="Folder - College Id, Fee Reciept, Adhar card"
                   required
                 />
               </div>
