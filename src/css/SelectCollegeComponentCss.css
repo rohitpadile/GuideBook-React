@@ -1,13 +1,8 @@
-.sc-left-col {
-  flex: 0 0 25%;
-  padding: 20px;
-  border: 1px solid #ddd;
+.sc-card {
+  background-color: #f8f9fa; /* Light background color for the card */
   border-radius: 8px;
-  position: sticky;
-  top: 10%;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1;
+  padding: 20px;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
 .sc-card-header {
@@ -29,7 +24,8 @@
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background: #ffffff;
+  background: #7878fc; /* Solid color for the entrance exam card */
+  color: #fff; /* Text color for better contrast */
   margin-bottom: 15px;
   cursor: pointer;
   text-align: left;
@@ -38,8 +34,8 @@
 }
 
 .sc-list-group-item:hover {
-  background: #f0f0f0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  background: rgb(26, 152, 255); /* Darker shade on hover */
+  box-shadow: 0 4px 8px rgba(12, 134, 200, 0.15);
 }
 
 .college-photos-container {

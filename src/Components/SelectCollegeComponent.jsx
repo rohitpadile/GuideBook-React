@@ -50,21 +50,19 @@ const SelectCollegeComponent = () => {
     <div className="container mt-4">
       <div className="row">
         <div className="col-md-4">
-          <div className="sc-left-col">
-            <div className="sc-card">
-              <h5 className="sc-card-header">Select Entrance Exam</h5>
-              <ul className="sc-list-group">
-                {entranceExams.map(examName => (
-                  <li
-                    key={examName}
-                    className="sc-list-group-item"
-                    onClick={() => handleExamClick(examName)}
-                  >
-                    {examName}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="sc-card">
+            <h5 className="sc-card-header">Select Entrance Exam</h5>
+            <ul className="sc-list-group">
+              {entranceExams.map(examName => (
+                <li
+                  key={examName}
+                  className="sc-list-group-item"
+                  onClick={() => handleExamClick(examName)}
+                >
+                  {examName}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
         <div className="col-md-8">
