@@ -311,7 +311,7 @@ const ZoomSessionForm = () => {
         <Modal.Body>
           {/* Add terms and conditions content here */}
           <p>By Booking this session, I accept all the Terms and Conditions of the Company. </p>
-          <p>Handle booking session carefully. Multiple clicks on Book Session might get you into block list </p>
+          {/* <p>Handle booking session carefully. Multiple clicks on Book Session might get you into block list </p> */}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseTerms}>
