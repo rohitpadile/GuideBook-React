@@ -20,33 +20,38 @@ const SelectStudentComponent = () => {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    fetchDropdownValues();
+    const fetchData = async () => {
+      await fetchDropdownValues();
+      await handleFilterChange(); // Apply filters after fetching dropdown values
+    };
+
+    fetchData();
   }, [collegeName]);
 
   const fetchDropdownValues = async () => {
     try {
       const branchNamesList = await getBranchesForCollege(collegeName);
-      setBranchNames(branchNamesList);
+      setBranchNames(['ALL', ...branchNamesList]);
       if (branchNamesList.length > 0) {
-        setSelectedBranch(branchNamesList[0]);
+        setSelectedBranch('ALL'); // Default to 'ALL'
       }
 
       const languageNamesList = await getAllLanguageNames();
-      setLanguageNames(languageNamesList);
+      setLanguageNames(['ALL', ...languageNamesList]);
       if (languageNamesList.length > 0) {
-        setSelectedLanguage(languageNamesList[0]);
+        setSelectedLanguage('ALL'); // Default to 'ALL'
       }
 
       const studentClassTypesList = await getAllStudentClassTypes();
-      setStudentClassTypes(studentClassTypesList);
+      setStudentClassTypes(['ALL', ...studentClassTypesList]);
       if (studentClassTypesList.length > 0) {
-        setSelectedStudentClassType(studentClassTypesList[0]);
+        setSelectedStudentClassType('ALL'); // Default to 'ALL'
       }
 
       const studentCategoriesList = await getAllStudentCategories();
-      setStudentCategories(studentCategoriesList);
+      setStudentCategories(['ALL', ...studentCategoriesList]);
       if (studentCategoriesList.length > 0) {
-        setSelectedStudentCategory(studentCategoriesList[0]);
+        setSelectedStudentCategory('ALL'); // Default to 'ALL'
       }
     } catch (error) {
       console.error('Error fetching dropdown values:', error);
@@ -57,12 +62,12 @@ const SelectStudentComponent = () => {
     try {
       const filters = {
         collegeName,
-        branchName: selectedBranch,
+        branchName: selectedBranch === 'ALL' ? '' : selectedBranch,
         minGrade: parseFloat(minGrade),
         minCetPercentile: parseFloat(minCetPercentile),
-        studentClassType: selectedStudentClassType,
-        languageName: selectedLanguage,
-        studentCategory: selectedStudentCategory,
+        studentClassType: selectedStudentClassType === 'ALL' ? '' : selectedStudentClassType,
+        languageName: selectedLanguage === 'ALL' ? '' : selectedLanguage,
+        studentCategory: selectedStudentCategory === 'ALL' ? '' : selectedStudentCategory,
       };
 
       const response = await getFilteredStudentList(filters);
@@ -156,7 +161,7 @@ const SelectStudentComponent = () => {
           </select>
         </div>
         <div className="filter-item">
-          <label htmlFor="minCetPercentile">Minimum CET Percentile</label>
+          <label htmlFor="minCetPercentile">Minimum Score</label>
           <input
             type="number"
             className="form-control"

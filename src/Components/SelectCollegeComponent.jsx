@@ -28,7 +28,8 @@ const SelectCollegeComponent = () => {
   const fetchEntranceExams = async () => {
     try {
       const exams = await getAllEntranceExams();
-      setEntranceExams(exams);
+      // Include "ALL" in the entrance exams list
+      setEntranceExams(['ALL', ...exams]);
     } catch (error) {
       console.error('Error fetching entrance exams:', error);
     }
