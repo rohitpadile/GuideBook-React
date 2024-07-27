@@ -60,7 +60,7 @@ const ScheduleZoomSession = () => {
           setFormDetails(data);
           setBookStatus(data.bookStatus);
           if (data.isVerified !== 1) {
-            setMessage('The form is not verified by OTP. Please discard scheduling the session. If scheduled even after warning, your account will be removed and blocked from the platform.');
+            setMessage('The form is not verified by OTP. For Security purposes, we do not allow to schedule this session.');
           }
         } catch (error) {
           console.error('Error fetching form details:', error);
