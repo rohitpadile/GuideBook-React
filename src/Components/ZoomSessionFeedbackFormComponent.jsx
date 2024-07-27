@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { decodeTransactionId } from '../Services/encryptionForFeedbackForm'; // Adjust the path as necessary
 import '../css/FeedbackFormCss.css';
-import {getSubmissionStatusForFeedbackForm, submitZoomSessionFeedbackForm} from '../Services/zoomSessionService';
+import { getSubmissionStatusForFeedbackForm, submitZoomSessionFeedbackForm } from '../Services/zoomSessionService';
 
 const ZoomSessionFeedbackFormComponent = () => {
   const [overallFeedback, setOverallFeedback] = useState('');
@@ -12,6 +12,7 @@ const ZoomSessionFeedbackFormComponent = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(null);
+  const [studentName, setStudentName] = useState(''); // State for student name
 
   const { encryptedTransactionId } = useParams();
   const [transactionId, setTransactionId] = useState(null);
@@ -19,9 +20,9 @@ const ZoomSessionFeedbackFormComponent = () => {
   useEffect(() => {
     if (encryptedTransactionId) {
       try {
-        const decryptedId = decodeTransactionId(decodeURIComponent(encryptedTransactionId));
-        console.log('Decoded transaction ID:', decryptedId);
-        setTransactionId(decryptedId);
+        const { uuid, studentName } = decodeTransactionId(decodeURIComponent(encryptedTransactionId));
+        setTransactionId(uuid);
+        setStudentName(studentName.replace(/\+/g, ' ')); // Replace '+' with space
       } catch (error) {
         console.error('Error decoding transaction ID:', error);
       }
@@ -89,6 +90,7 @@ const ZoomSessionFeedbackFormComponent = () => {
     <div className="zoom-feedback-form-container">
       <div className="zoom-feedback-form-card">
         <h2 className="zoom-feedback-form-title">Zoom Session Feedback Form</h2>
+        {studentName && <p className="zoom-feedback-form-student-name">Student: {studentName}</p>}
         <form onSubmit={handleSubmit}>
           <div className="zoom-feedback-form-group">
             <label htmlFor="overallFeedback">Overall Feedback</label>
