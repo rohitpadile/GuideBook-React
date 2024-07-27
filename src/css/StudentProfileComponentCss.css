@@ -1,8 +1,11 @@
 /* StudentProfileComponentCss.css */
+
 .student-profile-card {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  /* background-color: #e4effb; choice 1 */
+  background-color: #f0f5f9;
 }
 
 .student-profile-header {
@@ -35,7 +38,7 @@
 
 .student-profile-body h5 {
   font-weight: bold;
-  color: #333;
+  color: #411f1f;
   text-align: left; /* Align text to the left */
 }
 
@@ -47,6 +50,7 @@
   margin-top: 20px;
   border: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: white; /* Ensure the content cards have a white background */
 }
 
 .student-profile-body .badge-primary {
@@ -66,10 +70,9 @@
   font-size: 1rem;
   font-weight: 600;
   margin-top: 10px;
-  color: #6e8efb;
+  color: #5a0400;
   text-align: left; /* Aligns text to the left */
 }
-
 
 /* Styling the buttons */
 button {
@@ -99,11 +102,5 @@ button:hover {
   z-index: 1000;
 }
 
-/* .popup {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 600px;
-} */
+
+
