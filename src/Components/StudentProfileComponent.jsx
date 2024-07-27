@@ -3,12 +3,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import '../css/StudentProfileComponentCss.css'; //separately add css to avoid confusion
 import { getStudentProfile, getStudentBasicDetails } from '../Services/apiServiceAdmin'; // Adjust the import path as per your file structure
 import BookSessionComponent from './BookSessionComponent'; // Import the BookSessionComponent
+import { S3_PROFILE_PHOTO_BASE_URL } from '../constants/s3url'; // Import the constant
 
 const StudentProfileComponent = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { student } = location.state || {};
-  const profilePhotoUrl = `/studentProfilePhotos/${student?.studentWorkEmail}.jpg`;
+  const profilePhotoUrl = `${S3_PROFILE_PHOTO_BASE_URL}${student?.studentWorkEmail}.jpg`;
 
   const [studentProfile, setStudentProfile] = useState(null);
   const [studentBasicDetails, setStudentBasicDetails] = useState(null);

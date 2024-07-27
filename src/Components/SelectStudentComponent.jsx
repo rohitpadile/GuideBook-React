@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getAllLanguageNames, getAllStudentClassTypes, getBranchesForCollege, getFilteredStudentList, getAllStudentCategories } from '../Services/apiServiceAdmin';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/SelectStudentComponentCss.css'; // Import the CSS file
+import { S3_PROFILE_PHOTO_BASE_URL } from '../constants/s3url'; // Import the constant
 
 const SelectStudentComponent = () => {
   const { collegeName } = useParams();
@@ -181,7 +182,7 @@ const SelectStudentComponent = () => {
           <h5>Students</h5>
           <div className="row">
             {students.map((student, index) => {
-              const profilePhotoUrl = `/studentProfilePhotos/${student.studentWorkEmail}.jpg`;
+              const profilePhotoUrl = `${S3_PROFILE_PHOTO_BASE_URL}${student.studentWorkEmail}.jpg`;
               return (
                 <div key={index} className="col-md-3 mb-4">
                   <div className="card" onClick={() => handleStudentClick(student)}>

@@ -3,6 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getCollegesForExam, getAllEntranceExams } from '../Services/apiServiceAdmin';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/SelectCollegeComponentCss.css';
+import { S3_COLLEGE_PHOTO_BASE_URL } from '../constants/s3url';
+// Base URL for S3
+// const S3_COLLEGE_PHOTO_BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/collegePhotos/';
 
 const SelectCollegeComponent = () => {
   const [colleges, setColleges] = useState([]);
@@ -47,6 +50,12 @@ const SelectCollegeComponent = () => {
     navigate(`/selectStudent/${encodeURIComponent(collegeName)}`);
   };
 
+  // Function to generate S3 URL for college photos
+  const getCollegePhotoUrl = (collegeName) => {
+    const formattedName = collegeName.toLowerCase().replace(/\s/g, '');
+    return `${S3_COLLEGE_PHOTO_BASE_URL}${formattedName}.jpg`;
+  };
+
   return (
     <div className="container mt-4">
       <div className="row">
@@ -71,8 +80,13 @@ const SelectCollegeComponent = () => {
             {colleges.map(collegeName => (
               <div key={collegeName} className="college-card">
                 <div className="card h-100 border-primary shadow-sm" onClick={() => handleCollegeClick(collegeName)} style={{ cursor: 'pointer' }}>
-                  <img
+                  {/* <img
                     src={`/collegePhotos/${collegeName.toLowerCase().replace(/\s/g, '')}.jpg`}
+                    className="card-img-top"
+                    alt={collegeName}
+                  /> */}
+                  <img
+                    src={getCollegePhotoUrl(collegeName)} // Use the S3 URL
                     className="card-img-top"
                     alt={collegeName}
                   />
