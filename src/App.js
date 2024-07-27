@@ -38,6 +38,8 @@ function App() {
             <Route path="/" element={<HomePageComponent />} />
             <Route path="/home" element={<HomePageComponent />} />
             <Route path="/colleges/:examName" element={<SelectCollegeComponent />} />
+            <Route path="/colleges" element={<SelectCollegeComponent />} />
+            <Route path="/entrance-exams" element={<SelectCollegeComponent />} />
             <Route path="/selectStudent/:collegeName" element={<SelectStudentComponent />} />
             <Route path="/studentProfile" element={<StudentProfileComponent />} />
             <Route path="/bookSession" element={<BookSessionComponent />} />
@@ -45,7 +47,7 @@ function App() {
             <Route path="/zoomSessionFormSuccess" element={<ZoomSessionFormSuccess/>} />
             <Route path="/blogs" element={<BlogListComponent />} />
             <Route path="/blogs/page" element={<BlogPageComponent />} />
-            <Route path="/entrance-exams" element={<HomePageComponent />} />  
+              
             <Route path="/schedule-zoom-session/:encryptedFormIdAndStudentWorkEmail" element={<ScheduleZoomSession />} />
             <Route path="/feedback-zoom-session/:encryptedTransactionId" element={<ZoomSessionFeedbackFormComponent />} />
 

@@ -1,0 +1,60 @@
+.sc-left-col {
+  flex: 0 0 25%;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  position: sticky;
+  top: 10%;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.sc-card-header {
+  font-size: 18px;
+  font-weight: bold;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.sc-list-group {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sc-list-group-item {
+  display: block;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #ffffff;
+  margin-bottom: 15px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sc-list-group-item:hover {
+  background: #f0f0f0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.college-photos-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Adjust gap between photos as needed */
+}
+
+.college-card {
+  flex: 1 0 45%; /* Make cards take up 45% of the container width */
+  max-width: 45%; /* Limit the maximum width to 45% */
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
