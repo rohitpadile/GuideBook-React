@@ -62,9 +62,14 @@ const StudentProfileComponent = () => {
         <div className="card-body student-profile-body">
           <div className="row">
             <div className="col-md-4 text-center">
-              <img src={profilePhotoUrl} alt="Student Profile" className="img-fluid rounded-circle profile-photo" />
-              <h5 className="mt-3">{student?.studentName}</h5>
-              <p className="student-branch">{studentBasicDetails?.branch}</p>
+              <div className="student-info-card">
+                {/* Single card for profile photo, name, and branch */}
+                <div className="profile-info-card">
+                  <img src={profilePhotoUrl} alt="Student Profile" className="img-fluid rounded-circle profile-photo" />
+                  <h5 className="student-name mt-3 student-name-unique">{student?.studentName}</h5>
+                  <p className="student-branch">{studentBasicDetails?.branch}</p>
+                </div>
+              </div>
             </div>
             <div className="col-md-8">
               <div className="card mt-4 zoom-card">

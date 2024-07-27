@@ -41,10 +41,17 @@
   color: #411f1f;
   text-align: left; /* Align text to the left */
 }
+.student-name-unique { 
+  text-align: center; /* Center align the text - THIS IS NOT WORKING  */
+  margin: 0; /* Optional: Remove default margin to avoid extra spacing */
+}
+
 
 .student-profile-body ul {
   text-align: left; /* Align list items to the left */
+  list-style-type: none
 }
+
 
 .student-profile-body .card {
   margin-top: 20px;
@@ -103,4 +110,41 @@ button:hover {
 }
 
 
+.student-info-card {
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff; /* Ensure the card has a white background */
+  padding: 20px; /* Ensure padding is specified */
+  text-align: center; /* Center-align text inside the card */
+  margin-top: 20px; /* Add some margin at the top */
+}
 
+.student-info-card .card-body {
+  padding: 0; /* Remove padding inside the card body */
+}
+
+.student-info-card .student-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.student-info-card .student-branch {
+  font-size: 1rem;
+  color: #666;
+}
+
+.profile-photo {
+  display: block; /* Ensure the photo is a block element */
+  margin-left: auto;
+  margin-right: auto; /* Center the photo horizontally */
+}
+
+
+.zoom-card .card-body {
+  transition: transform 0.2s;
+  border: 2px solid #cdc2e5; /* Border color for content cards */
+  border-radius: 8px;
+  background-color: #fff;
+  margin-bottom: 0px;
+}
