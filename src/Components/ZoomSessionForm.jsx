@@ -42,21 +42,35 @@ const ZoomSessionForm = () => {
   
 
   const handleSendOtp = async () => {
+    // Check if all required fields are filled
+    if (
+      !formData.clientFirstName ||
+      !formData.clientLastName ||
+      !formData.clientEmail ||
+      !formData.clientPhoneNumber ||
+      !formData.clientAge ||
+      !formData.clientCollege ||
+      !formData.clientProofDocLink
+    ) {
+      setMessage('Please fill all required fields before sending OTP.');
+      return; // Stop execution if validation fails
+    }
+  
     try {
       const data = await sendOtp(formData);
-  
+      
       // Ensure that data contains the expected properties
       const { zoomSessionFormMessage, zoomSessionFormMessageCode, zoomSessionFormId } = data;
-  
+      
       setMessage(zoomSessionFormMessage || 'OTP sent successfully.');
       setMessageCode(zoomSessionFormMessageCode);
-      // console.log("messageCode: " + messageCode);
       setFormId(zoomSessionFormId);
     } catch (error) {
       console.error('Error sending OTP:', error);
       setMessage('Failed to send OTP. Please try again.');
     }
   };
+  
   
 
   const handleVerifyOtp = async () => {
@@ -150,6 +164,7 @@ const ZoomSessionForm = () => {
                   id="clientMiddleName"
                   name="clientMiddleName"
                   value={formData.clientMiddleName}
+                  placeholder='Optional'
                   onChange={handleChange}
                 />
               </div>
@@ -294,7 +309,7 @@ const ZoomSessionForm = () => {
         </Modal.Header>
         <Modal.Body>
           {/* Add terms and conditions content here */}
-          <p>I accept all the Terms and Conditions </p>
+          <p>By Booking this session, I accept all the Terms and Conditions of the Company. </p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseTerms}>

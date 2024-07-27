@@ -22,6 +22,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ZoomSessionFormSuccess from './Components/ZoomSessionFormSuccess';
 import ZoomSessionFeedbackFormComponent from './Components/ZoomSessionFeedbackFormComponent';
+import TermsAndConditions from './Components/TermsAndConditions';
 // import SelectCollegeForClubsComponent from './Components/SelectCollegeForClubsComponent';
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
             <Route path="/zoomSessionFormSuccess" element={<ZoomSessionFormSuccess/>} />
             <Route path="/blogs" element={<BlogListComponent />} />
             <Route path="/blogs/page" element={<BlogPageComponent />} />
+            <Route path="/termsAndConditions" element={<TermsAndConditions />} />
               
             <Route path="/schedule-zoom-session/:encryptedFormIdAndStudentWorkEmail" element={<ScheduleZoomSession />} />
             <Route path="/feedback-zoom-session/:encryptedTransactionId" element={<ZoomSessionFeedbackFormComponent />} />

@@ -1,0 +1,26 @@
+/* Footer.css */
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  .footer-left {
+    text-align: left;
+  }
+  
+  .footer-right {
+    text-align: right;
+  }
+  
+  .footer-link {
+    text-decoration: none;
+    color: #007bff; /* Adjust color as needed */
+  }
+  
+  .footer-link:hover {
+    text-decoration: underline;
+  }
+  

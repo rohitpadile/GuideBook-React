@@ -100,7 +100,16 @@ const ScheduleZoomSession = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true); // Disable the submit button
-
+///////////////////////////
+    // Check if the preferred time is before the current time
+    const currentDateTime = new Date();
+    const preferredDateTime = new Date(preferredTime);
+    if (availability === 'yes' && preferredDateTime < currentDateTime) {
+      setMessage('The preferred time cannot be before the current time.');
+      setIsSubmitting(false); // Re-enable the submit button
+      return; // Exit the function
+    }
+    //////////////////////////////////////
     let confirmZoomSessionRequestFromStudent;
 
     if (availability === 'yes') {
@@ -159,7 +168,7 @@ const ScheduleZoomSession = () => {
                 <p><strong>Created On:</strong> {new Date(formDetails.createdOn).toLocaleDateString()}</p>
                 <p><strong>Book Status:</strong> {bookStatus}</p>
               </div>
-              {formDetails.isVerified === 1 ? (
+              {formDetails.isVerified === 1 ? ( // Form is verified
                 <form onSubmit={handleSubmit}>
                   <div className="form-group schedule-zoom-session-form-group">
                     <label htmlFor="availability">Are you available?</label>
@@ -230,38 +239,29 @@ const ScheduleZoomSession = () => {
                   )}
                   {availability === 'no' && (
                     <div className="form-group schedule-zoom-session-form-group">
-                      <label htmlFor="studentMessageToClient">Message to Client</label>
-                      <textarea 
-                        id="studentMessageToClient" 
-                        className="form-control" 
-                        value={studentMessageToClient} 
+                      <label htmlFor="studentMessageToClient">Message to Client (Optional)</label>
+                      <textarea
+                        id="studentMessageToClient"
+                        className="form-control"
+                        value={studentMessageToClient}
                         onChange={handleStudentMessageToClientChange}
-                        rows="4"
-                        required 
+                        rows="3"
                         disabled={bookStatus !== 'PENDING' || isSubmitting}
-                      />
+                      ></textarea>
                     </div>
                   )}
-                  <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                  <button type="submit" className="btn btn-primary" disabled={isSubmitting || bookStatus !== 'PENDING'}>
                     {isSubmitting ? 'Submitting...' : 'Submit'}
                   </button>
                 </form>
               ) : (
-                <div className="alert alert-danger mt-3" role="alert">
-                  {message}
-                </div>
+                <p className="alert alert-danger">The form is not verified by OTP. For security purposes, we do not allow scheduling this session.</p>
               )}
             </>
           ) : (
-            <div className="alert alert-info" role="alert">
-              Loading form details...
-            </div>
+            <p>Loading form details...</p>
           )}
-          {message && (
-            <div className="alert alert-info mt-3" role="alert">
-              {message}
-            </div>
-          )}
+          {message && <div className="mt-4 alert alert-info">{message}</div>}
         </div>
       </div>
     </div>
