@@ -25,7 +25,7 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   background: #e9e9f3; /* Solid color for the entrance exam card */
-  color: #0164b4; /* Text color for better contrast */
+  color: #000000; /* Text color for better contrast */
   margin-bottom: 15px;
   cursor: pointer;
   text-align: left;
@@ -34,8 +34,8 @@
 }
 
 .sc-list-group-item:hover {
-  background: rgb(26, 152, 255); /* Darker shade on hover */
-  box-shadow: 0 4px 8px rgba(12, 134, 200, 0.15);
+  background: rgb(255, 255, 255);
+  box-shadow: 0 4px 8px rgba(19, 1, 23, 0.15);
 }
 
 .college-photos-container {

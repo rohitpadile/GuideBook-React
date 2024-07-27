@@ -1,0 +1,33 @@
+.side-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 150px; /* Adjust width as needed */
+  height: auto; /* Allow height to be dynamic */
+  background-color: #02020b;
+  color: #ffffff;
+  padding: 10px; /* Adjust padding as needed */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+  overflow: hidden; /* Hide any overflow */
+}
+
+.side-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-nav-item {
+  margin-bottom: 15px; /* Space between items */
+}
+
+.side-nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.9rem; /* Adjust font size as needed */
+  transition: color 0.3s;
+}
+
+.side-nav-link:hover {
+  color: #1a1a40;
+}

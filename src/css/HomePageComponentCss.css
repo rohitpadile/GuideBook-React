@@ -1,0 +1,114 @@
+.home-page {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .home-page-hero-section {
+    background-color: #c0cb8d;
+    color: #ffffff;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .home-page-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .home-page-btn-primary {
+    background-color: #1a1a40;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .home-page-btn-primary:hover {
+    background-color: #333;
+  }
+  
+  .home-page-services-section {
+    padding: 40px 20px;
+    background-color: #f4f4f4;
+  }
+  
+  .home-page-service-card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .home-page-service-icon {
+    font-size: 2rem;
+    margin-right: 20px;
+    color: #1a1a40;
+  }
+  
+  .home-page-service-info {
+    flex: 1;
+  }
+  
+  .home-page-testimonial-section {
+    padding: 40px 20px;
+    background-color: #ffffff;
+  }
+  
+  .home-page-testimonial-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .home-page-testimonial-text {
+    font-style: italic;
+    color: #555;
+  }
+  
+  .home-page-contact-section {
+    padding: 40px 20px;
+    background-color: #f4f4f4;
+  }
+  
+  .home-page-contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .home-page-form-group {
+    margin-bottom: 15px;
+  }
+  
+  .home-page-form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .home-page-btn-primary-submit {
+    background-color: #1a1a40;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .home-page-btn-primary-submit:hover {
+    background-color: #333;
+  }
+  

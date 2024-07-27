@@ -1,0 +1,46 @@
+.secondary-navbar-navbar {
+  background-color: #000000; /* Dark background color for the navbar */
+  padding: 0; /* No extra padding around the navbar */
+  height: 40px; /* Set a specific height for a thin navbar */
+}
+
+.secondary-navbar-navbar-collapse {
+  flex-grow: 1;
+}
+
+.secondary-navbar-navbar-nav {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto; /* Allows horizontal scrolling on small screens */
+  align-items: center; /* Center items vertically */
+  margin: 0; /* Ensure no extra margin affects layout */
+  padding: 0; /* Remove default padding */
+}
+
+.secondary-navbar-nav-item {
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.secondary-navbar-nav-link {
+  color: #ffffff; /* White text color */
+  font-size: 0.8rem; /* Reduced font size */
+  padding: 4px 8px; /* Reduced padding for a thinner look */
+  border-bottom: 2px solid transparent; /* Transparent border for consistent layout */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Ensure proper spacing and alignment */
+  cursor: pointer; /* Change cursor to pointer when hovering */
+}
+
+/* Removed hover state color change */
+.secondary-navbar-nav-link:hover {
+  color: #ffffff; /* Ensure color remains the same */
+  border-bottom: 2px solid transparent; /* Ensure border does not change */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .secondary-navbar-nav-link {
+    font-size: 0.7rem; /* Slightly smaller font size on small screens */
+    padding: 2px 4px; /* Further reduced padding for better fit on small screens */
+  }
+}

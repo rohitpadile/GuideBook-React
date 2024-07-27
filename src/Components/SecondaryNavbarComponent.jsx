@@ -1,62 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getAllEntranceExams } from '../Services/apiServiceAdmin'; // Adjust import as per your actual service
+import '../css/SecondaryNavbarComponentCss.css'; // Import your updated CSS file
 
-const SecondaryNavbarComponent = ({ showDropdown, handleMouseEnter, handleMouseLeave, handleDropdownMouseEnter, handleDropdownMouseLeave }) => {
-  const [entranceExams, setEntranceExams] = useState([]);
+const SecondaryNavbarComponent = ({ handleMouseEnter, handleMouseLeave }) => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchEntranceExams();
-  }, []);
-
-  const fetchEntranceExams = async () => {
-    try {
-      const exams = await getAllEntranceExams();
-      setEntranceExams(exams);
-    } catch (error) {
-      console.error('Error fetching entrance exams:', error);
-    }
+  const handleExamClick = () => {
+    navigate('/entrance-exams');
   };
-
-  const handleExamClick = async (examName) => {
-    try {
-      navigate(`/colleges/${encodeURIComponent(examName)}`);
-    } catch (error) {
-      console.error('Navigation error:', error);
-    }
+  const handleBlogClick = () => {
+    navigate('/blogs');
   };
 
   return (
-    <nav className="navbar navbar-expand-lg" style={{ height: '30px', padding: '5px 0', backgroundColor: '#1a1a40' }}>
+    <nav className="secondary-navbar-navbar navbar navbar-expand-lg navbar-light">
       <div className="container">
-        <div className="navbar-collapse">
-          <ul className="navbar-nav mr-auto align-items-center">
+        <div className="secondary-navbar-navbar-collapse collapse navbar-collapse">
+          <ul className="secondary-navbar-navbar-nav navbar-nav mr-auto">
             <li
-              className="nav-item"
+              className="secondary-navbar-nav-item nav-item"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              onClick={handleMouseEnter}
+              onClick={handleExamClick}
             >
-              <a className="nav-link" href="/entrance-exams" style={{ borderBottom: '2px solid transparent', padding: '5px', color: '#ffffff', fontSize: '0.9rem' }}>
+              <span className="secondary-navbar-nav-link nav-link">
                 Entrance Exams
-              </a>
-              {showDropdown && (
-                <div
-                  className="dropdown-menu show"
-                  onMouseEnter={handleDropdownMouseEnter}
-                  onMouseLeave={handleDropdownMouseLeave}
-                >
-                  {entranceExams.map(exam => (
-                    <a key={exam} className="dropdown-item" onClick={() => handleExamClick(exam)} style={{ cursor: 'pointer' }}>{exam}</a>
-                  ))}
-                </div>
-              )}
+              </span>
             </li>
-            <li className="nav-item">
-              <Link to="/blogs" className="nav-link" style={{ borderBottom: '2px solid transparent', padding: '5px', color: '#ffffff', fontSize: '0.9rem' }}>
+            <li
+              className="secondary-navbar-nav-item nav-item"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onClick={handleBlogClick}
+            >
+              <span className="secondary-navbar-nav-link nav-link">
                 Blogs
-              </Link>
+              </span>
             </li>
           </ul>
         </div>
