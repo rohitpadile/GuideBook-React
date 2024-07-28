@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SecondaryNavbar from './SecondaryNavbarComponent';
-import '../App.css';
+import '../css/HeaderCss.css'; // Updated CSS file path
 
 const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate(); // Hook for navigation
 
   const handleMouseEnter = () => {
     setShowDropdown(true);
@@ -27,14 +28,24 @@ const Header = () => {
     }, 200);
   };
 
+  const handleAboutUs = () => {
+    navigate('/aboutUs');
+  };
+
+
+
   return (
     <>
       {/* Main Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ height: '50px' }}>
+      <nav className="header-navbar navbar-expand-lg">
         <div className="container">
-          <Link className="navbar-brand align-self-start font-weight-bold nav-link" to="/" style={{ fontSize: '30px', borderBottom: '2px solid transparent', padding: '10px' }}>
-            GuideBookX
+          <Link className="header-navbar-brand" to="/">
+            GuidebookX
           </Link>
+          <div className="header-links">
+            <span className="header-link" onClick={handleAboutUs}>About Us</span>
+            {/* <span className="header-link" onClick={handleBlogClick}>Blogs</span> */}
+          </div>
         </div>
       </nav>
 

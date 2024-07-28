@@ -1,14 +1,16 @@
-.secondary-navbar-navbar {
-  background-color: #000000; /* Dark background color for the navbar */
+/* SecondaryNavbarComponentCss.css */
+
+.secondary-navbar {
+  background-color: #0f0027; /* Dark background color for the navbar */
   padding: 0; /* No extra padding around the navbar */
   height: 40px; /* Set a specific height for a thin navbar */
 }
 
-.secondary-navbar-navbar-collapse {
+.secondary-navbar-collapse {
   flex-grow: 1;
 }
 
-.secondary-navbar-navbar-nav {
+.secondary-navbar-nav {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto; /* Allows horizontal scrolling on small screens */

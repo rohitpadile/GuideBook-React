@@ -30,7 +30,7 @@ function App() {
   // useEffect(() => {
   //   initializeProfile(); //initializes the profile 
   // }, []);
-
+  
   return (
     <Router>
       <Header />

@@ -8,15 +8,16 @@ const SecondaryNavbarComponent = ({ handleMouseEnter, handleMouseLeave }) => {
   const handleExamClick = () => {
     navigate('/entrance-exams');
   };
+
   const handleBlogClick = () => {
     navigate('/blogs');
   };
 
   return (
-    <nav className="secondary-navbar-navbar navbar navbar-expand-lg navbar-light">
+    <nav className="secondary-navbar navbar navbar-expand-lg navbar-light">
       <div className="container">
-        <div className="secondary-navbar-navbar-collapse collapse navbar-collapse">
-          <ul className="secondary-navbar-navbar-nav navbar-nav mr-auto">
+        <div className="secondary-navbar-collapse collapse navbar-collapse">
+          <ul className="secondary-navbar-nav navbar-nav mr-auto">
             <li
               className="secondary-navbar-nav-item nav-item"
               onMouseEnter={handleMouseEnter}

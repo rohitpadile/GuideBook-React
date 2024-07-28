@@ -1,0 +1,60 @@
+/* HeaderCss.css */
+
+.header-navbar {
+  height: 50px;
+  background-color: #000; /* Black background */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-navbar-brand {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  color: #fff; /* White text color */
+  font-size: 28px;
+  font-weight: 500; /* Less bold */
+  text-decoration: none;
+}
+
+.header-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.header-link {
+  cursor: pointer;
+  color: #fff; /* White text color */
+  font-size: 16px;
+  font-weight: 500; /* Less bold */
+  text-decoration: none;
+  padding: 10px;
+  border-bottom: 2px solid transparent;
+}
+
+.header-link:hover {
+  border-bottom: 2px solid #fff; /* White border on hover */
+}
+
+/* Ensure elements are contained within the header when resized */
+.header-navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px; /* Adjust as needed */
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+@media (max-width: 768px) {
+  .header-links {
+    gap: 10px;
+  }
+
+  .header-link {
+    font-size: 14px;
+  }
+}

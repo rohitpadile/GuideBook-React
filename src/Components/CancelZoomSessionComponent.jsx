@@ -29,8 +29,8 @@ const CancelZoomSessionComponent = () => {
     const encryptedData = location.pathname.split('/').pop();
     const { zoomSessionFormId, studentWorkEmail } = decrypt(encryptedData);
 
-    console.log('Form ID:', zoomSessionFormId);
-    console.log('Student Work Email:', studentWorkEmail);
+    // console.log('Form ID:', zoomSessionFormId);
+    // console.log('Student Work Email:', studentWorkEmail);
 
     if (zoomSessionFormId && studentWorkEmail) {
       setIsCancelDisabled(true);
