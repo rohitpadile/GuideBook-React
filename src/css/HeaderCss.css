@@ -5,7 +5,7 @@
   background-color: #000; /* Black background */
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
 .header-navbar-brand {
@@ -22,7 +22,7 @@
   display: flex;
   gap: 20px;
   align-items: center;
-  margin-right: -70px; /* Adjust this value as needed */
+  margin-right: -0px; /* Adjust this value as needed */
 }
 
 .header-link {
@@ -47,7 +47,7 @@
   width: 100%;
   max-width: 1200px; /* Adjust as needed */
   /* margin: 0 auto; */
-  margin-left: 105px;
+  margin-left: 110px;
   padding: 0 15px;
 }
 

@@ -30,9 +30,9 @@ const Header = () => {
           <Link className="header-navbar-brand" to="/">
             GuidebookX
           </Link>
-          <div className="header-links">
+          {/* <div className="header-links">
             <span className="header-link" onClick={handleAboutUs}>About Us</span>
-          </div>
+          </div> */}
         </div>
       </nav>
 

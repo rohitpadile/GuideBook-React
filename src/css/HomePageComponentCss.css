@@ -12,3 +12,21 @@
   font-size: 1.2rem;
   color: #555;
 }
+
+.get-started-button {
+  margin-top: 20px;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  margin-bottom: 50px;
+}
+
+.get-started-button:hover {
+  background-color: #0056b3;
+}
+
