@@ -18,7 +18,8 @@
   justify-content: flex-end; /* Align items to the right */
   margin: 0; /* Ensure no extra margin affects layout */
   padding: 0; /* Remove default padding */
-  margin-left: -11px;
+  margin-left: -px;
+  /* IMPORTANT */
 }
 
 .secondary-navbar-nav-item {
