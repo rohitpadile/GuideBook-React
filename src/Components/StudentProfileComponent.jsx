@@ -81,6 +81,7 @@ const StudentProfileComponent = () => {
                     <li>CET Percentile: {studentBasicDetails?.cetPercentile}</li>
                     <li>Class Type: {studentBasicDetails?.classType}</li>
                     <li>Language: {studentBasicDetails?.languagesSpoken?.join(', ')}</li>
+                    <li>Category: {studentBasicDetails?.category}</li>
                   </ul>
                 </div>
               </div>
@@ -131,16 +132,16 @@ const StudentProfileComponent = () => {
 
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
-                  <h5>Academic Activities</h5>
+                  <h5>Activity and Achievements</h5>
                   <ul>
-                    {studentProfile?.studentProfileAcademicActivity?.map((activity, index) => (
+                    {studentProfile?.studentProfileActivityAndAchievements?.map((activity, index) => (
                       <li key={index}>{activity?.activity}</li>
                     ))}
                   </ul>
                 </div>
               </div>
 
-              <div className="card mt-4 zoom-card">
+              {/* <div className="card mt-4 zoom-card">
                 <div className="card-body">
                   <h5>Co-Curricular Activities</h5>
                   <ul>
@@ -160,18 +161,21 @@ const StudentProfileComponent = () => {
                     ))}
                   </ul>
                 </div>
-              </div>
-
+              </div> */}
+{/* CREATE AN IF ELSE HERE - IF PRESENT THEN ONLY DISPLAY */}
+              {studentProfile?.studentProfileTutoringExperience ? 
               <div className="card mt-4 zoom-card">
-                <div className="card-body">
-                  <h5>Tutoring Experience</h5>
-                  <ul>
-                    {studentProfile?.studentProfileTutoringExperience?.map((experience, index) => (
-                      <li key={index}>{experience?.experience}</li>
-                    ))}
-                  </ul>
-                </div>
+              <div className="card-body">
+                <h5>Tutoring Experience</h5>
+                <ul>
+                  {studentProfile?.studentProfileTutoringExperience?.map((experience, index) => (
+                    <li key={index}>{experience?.experience}</li>
+                  ))}
+                </ul>
               </div>
+            </div> : <></>
+              }
+              
 
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
