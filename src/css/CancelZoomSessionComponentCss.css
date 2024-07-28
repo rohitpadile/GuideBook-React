@@ -1,0 +1,26 @@
+.cancel-zoom-session-component-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffffff;
+  }
+  
+  .cancel-zoom-session-component-card {
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+  }
+  
+  .cancel-zoom-session-component-card-body {
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .cancel-zoom-session-component-card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  

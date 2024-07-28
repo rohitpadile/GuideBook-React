@@ -148,3 +148,17 @@ button:hover {
   background-color: #fff;
   margin-bottom: 0px;
 }
+
+
+/* css for sessions conducted */
+.sessions-conducted {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.big-number {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/*  */

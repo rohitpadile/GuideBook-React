@@ -44,6 +44,27 @@ export const bookSession = async (confirmationRequest) => {
   }
 };
 
+export const cancelZoomSession = async (payload) => {
+  try {
+    const response = await api.post('/cancelZoomSessionFromClient', payload);
+    return response.data;
+  } catch (error) {
+    console.error('Error cancelling session:', error);
+    throw error;
+  }
+};
+
+
+export const checkCancellationStatus = async (formId) => {
+  try {
+    const response = await api.post('/cancelZoomSessionCheckStatus', { formId });
+    return response.data;
+  } catch (error) {
+    console.error('Failed to check cancellation status:', error);
+    return { status: 0 }; // Default to not cancelled if there's an error
+  }
+};
+
 
 export const fetchFormDetails = async (formId) => {
   try {
@@ -80,5 +101,7 @@ export const submitZoomSessionFeedbackForm = async (data) => {
     throw error;
   }
 };
+
+
 
 export default api;

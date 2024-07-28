@@ -120,9 +120,10 @@ const ZoomSessionForm = () => {
     try {
       const data = await bookSession(zoomSessionConfirmationRequest);
       console.log('Booking response:', data);
-      navigate('/zoomSessionFormSuccess', { state: { student } });
+      navigate('/zoomSessionFormSuccess', { state: { student, formId } });
     } catch (error) {
       console.error('Error booking session:', error);
+      
     }
   };
 

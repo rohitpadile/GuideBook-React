@@ -6,7 +6,7 @@ import '../css/ZoomSessionFormSuccessCss.css'; // Import the new CSS file
 const ZoomSessionFormSuccess = () => {
   const location = useLocation();
   const student = location.state?.student || {};
-
+  
   return (
     <div className="zoom-session-success-container">
       <div className="card zoom-session-success-card">

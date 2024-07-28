@@ -70,6 +70,11 @@ const StudentProfileComponent = () => {
                   <h5 className="student-name mt-3 student-name-unique">{student?.studentName}</h5>
                   <p className="student-branch">{studentBasicDetails?.branch}</p>
                 </div>
+                {/* Sessions conducted number below the small card */}
+                <div className="sessions-conducted mt-4">
+                  <h5>Sessions Conducted</h5>
+                  <p className="big-number">{studentProfile?.studentProfileSessionsConducted}</p>
+                </div>
               </div>
             </div>
             <div className="col-md-8">
@@ -77,11 +82,12 @@ const StudentProfileComponent = () => {
                 <div className="card-body">
                   <h5>Basic Information</h5>
                   <ul>
-                    <li>Grade: {studentBasicDetails?.grade}</li>
-                    <li>CET Percentile: {studentBasicDetails?.cetPercentile}</li>
+                    <li>Grade:      {studentBasicDetails?.grade}</li>
+                    <li>Exam Score: {studentBasicDetails?.cetPercentile}</li>
                     <li>Class Type: {studentBasicDetails?.classType}</li>
-                    <li>Language: {studentBasicDetails?.languagesSpoken?.join(', ')}</li>
-                    <li>Category: {studentBasicDetails?.category}</li>
+                    <li>Language:   {studentBasicDetails?.languagesSpoken?.join(', ')}</li>
+                    <li>Category:   {studentBasicDetails?.category}</li>
+                    <li>College:    {studentBasicDetails?.college}</li>
                   </ul>
                 </div>
               </div>
@@ -199,12 +205,10 @@ const StudentProfileComponent = () => {
                 </div>
               )}
 
-              <div className="card mt-4 zoom-card">
-                <div className="card-body">
-                  <h5>Sessions Conducted</h5>
-                  <p>{studentProfile?.studentProfileSessionsConducted}</p>
-                </div>
-              </div>
+            {/* <div className="text-center mt-4">
+              <h5>Sessions Conducted</h5>
+              <p style={{ fontSize: '2em', fontWeight: 'bold' }}>{studentProfile?.studentProfileSessionsConducted}</p>
+            </div> */}
             </div>
           </div>
         </div>
