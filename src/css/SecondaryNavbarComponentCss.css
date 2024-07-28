@@ -13,12 +13,14 @@
 .secondary-navbar-nav {
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: auto; /* Allows horizontal scrolling on small screens */
-  align-items: center; /* Center items vertically */
+  overflow-x: auto;
+   /* Allows horizontal scrolling on small screens */
+  align-items: center; 
+  /* Center items vertically */
   justify-content: flex-end; /* Align items to the right */
   margin: 0; /* Ensure no extra margin affects layout */
   padding: 0; /* Remove default padding */
-  margin-left: -px;
+  margin-left: -2px;
   /* IMPORTANT */
 }
 
