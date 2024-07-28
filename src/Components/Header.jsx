@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import SecondaryNavbar from './SecondaryNavbarComponent';
+import SecondaryNavbarComponent from './SecondaryNavbarComponent';
 import '../css/HeaderCss.css'; // Updated CSS file path
 
 const Header = () => {
@@ -18,21 +18,9 @@ const Header = () => {
     clearTimeout();
   };
 
-  const handleDropdownMouseEnter = () => {
-    clearTimeout();
-  };
-
-  const handleDropdownMouseLeave = () => {
-    setTimeout(() => {
-      setShowDropdown(false);
-    }, 200);
-  };
-
   const handleAboutUs = () => {
     navigate('/aboutUs');
   };
-
-
 
   return (
     <>
@@ -44,18 +32,14 @@ const Header = () => {
           </Link>
           <div className="header-links">
             <span className="header-link" onClick={handleAboutUs}>About Us</span>
-            {/* <span className="header-link" onClick={handleBlogClick}>Blogs</span> */}
           </div>
         </div>
       </nav>
 
       {/* Secondary Navbar */}
-      <SecondaryNavbar
-        showDropdown={showDropdown}
+      <SecondaryNavbarComponent
         handleMouseEnter={handleMouseEnter}
         handleMouseLeave={handleMouseLeave}
-        handleDropdownMouseEnter={handleDropdownMouseEnter}
-        handleDropdownMouseLeave={handleDropdownMouseLeave}
       />
     </>
   );

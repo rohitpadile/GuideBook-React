@@ -8,9 +8,11 @@
   
   .cancel-zoom-session-component-card {
     max-width: 600px;
-    margin: 0 auto;
+    margin-top: -200px;
     border: 1px solid #dee2e6;
     border-radius: 0.25rem;
+    border: 1px solid #6f64ef;
+    background: #f7f7f7;
   }
   
   .cancel-zoom-session-component-card-body {

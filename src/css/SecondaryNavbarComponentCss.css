@@ -15,8 +15,10 @@
   flex-wrap: nowrap;
   overflow-x: auto; /* Allows horizontal scrolling on small screens */
   align-items: center; /* Center items vertically */
+  justify-content: flex-end; /* Align items to the right */
   margin: 0; /* Ensure no extra margin affects layout */
   padding: 0; /* Remove default padding */
+  margin-left: -11px;
 }
 
 .secondary-navbar-nav-item {
@@ -33,7 +35,6 @@
   cursor: pointer; /* Change cursor to pointer when hovering */
 }
 
-/* Removed hover state color change */
 .secondary-navbar-nav-link:hover {
   color: #ffffff; /* Ensure color remains the same */
   border-bottom: 2px solid transparent; /* Ensure border does not change */

@@ -1,5 +1,5 @@
 .sc-card {
-  background-color: #f8f9fa; /* Light background color for the card */
+  background-color: #ffffff; /* Light background color for the card */
   border-radius: 8px;
   padding: 20px;
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
@@ -9,7 +9,7 @@
   font-size: 18px;
   font-weight: bold;
   padding-bottom: 10px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #000000;
   margin-bottom: 10px;
 }
 
@@ -22,7 +22,7 @@
 .sc-list-group-item {
   display: block;
   padding: 15px;
-  border: 1px solid #ddd;
+  border: 1px solid #6f64ef;
   border-radius: 8px;
   background: #e9e9f3; /* Solid color for the entrance exam card */
   color: #000000; /* Text color for better contrast */
@@ -41,7 +41,8 @@
 .college-photos-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* Adjust gap between photos as needed */
+  gap: 40px; /* Adjust gap between photos as needed */
+  margin-top: 51px;
 }
 
 .college-card {
