@@ -255,7 +255,7 @@ const ZoomSessionForm = () => {
                   name="clientProofDocLink"
                   value={formData.clientProofDocLink}
                   onChange={handleChange}
-                  placeholder="Folder - College Id, Fee Reciept, Adhar card"
+                  placeholder="Valid Proof Link"
                   required
                 />
               </div>
