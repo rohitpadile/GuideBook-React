@@ -24,8 +24,10 @@ import ZoomSessionFormSuccess from './Components/ZoomSessionFormSuccess';
 import ZoomSessionFeedbackFormComponent from './Components/ZoomSessionFeedbackFormComponent';
 import TermsAndConditions from './Components/TermsAndConditions';
 import CancelZoomSessionComponent from './Components/CancelZoomSessionComponent';
-// import SelectCollegeForClubsComponent from './Components/SelectCollegeForClubsComponent';
+import TRStudentApplicationForm from './Components/teamRecruiters/TRStudentApplicationForm';
 
+// FOR TEAM RECRUITERS
+// import TRStudentDetailsComponent from './Components/teamRecruiters/TRStudentDetailsComponent';
 function App() {
   // useEffect(() => {
   //   initializeProfile(); //initializes the profile 
@@ -55,6 +57,8 @@ function App() {
             <Route path="/schedule-zoom-session/:encryptedFormIdAndStudentWorkEmail" element={<ScheduleZoomSession />} />
             <Route path="/feedback-zoom-session/:encryptedTransactionId" element={<ZoomSessionFeedbackFormComponent />} />
 
+            {/* ROUTES FOR TEAM RECRUITERS */}
+            <Route path="/TRStudentApplicationForm" element={<TRStudentApplicationForm />} />
           </Routes>
         </BranchProvider>
       </div>
