@@ -27,10 +27,6 @@ import CancelZoomSessionComponent from './Components/CancelZoomSessionComponent'
 import TRStudentApplicationForm from './Components/teamRecruiters/TRStudentApplicationForm';
 import TRUpdateStudentApplicationForm from './Components/teamRecruiters/TRUpdateStudentApplicationForm';
 
-import { UserProvider } from './Context/UserContext';
-import TRLogin from './Components/teamRecruiters/TRLogin';
-import PrivateRoute from './Components/teamRecruiters/PrivateRoute';
-
 // FOR TEAM RECRUITERS
 // import TRStudentDetailsComponent from './Components/teamRecruiters/TRStudentDetailsComponent';
 function App() {
@@ -66,9 +62,6 @@ function App() {
             <Route path="/TRStudentApplicationForm" element={<TRStudentApplicationForm />} />
             <Route path="/TRUpdateStudentApplicationForm" element={<TRUpdateStudentApplicationForm />} />
             
-            {/* <Route path="/login" element={<TRLogin />} />
-            <PrivateRoute path="/TRStudentApplicationForm" component={TRStudentApplicationForm} />
-            <PrivateRoute path="/TRUpdateStudentApplicationForm" component={TRUpdateStudentApplicationForm} /> */}
           </Routes>
         </BranchProvider>
       </div>
