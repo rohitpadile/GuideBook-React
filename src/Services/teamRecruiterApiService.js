@@ -107,6 +107,13 @@ export const updateStudent = async (studentDetails) => {
     }
   };
   
-
+  // export const loginTRUser = async (loginRequest) => {
+  //   try {
+  //     const response = await api.post('loginTrUser', loginRequest);
+  //     return response.data;
+  //   } catch (error) {
+  //     throw new Error('Login failed');
+  //   }
+  // };
 
   export default api;
