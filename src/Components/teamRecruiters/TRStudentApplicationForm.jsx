@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate} from 'react-router-dom';
 import {
   addStudent,
   getAllBranches,
@@ -23,6 +24,7 @@ const TRStudentApplicationForm = () => {
     studentCategoryName: '',
     studentLanguageNames: []
   });
+  const navigate = useNavigate();
 
   const [branches, setBranches] = useState([]);
   const [colleges, setColleges] = useState([]);
@@ -53,6 +55,14 @@ const TRStudentApplicationForm = () => {
 
     fetchData();
   }, []);
+
+  const navigateToUpdateForm = async () => {
+    try {
+      navigate(`/TRUpdateStudentApplicationForm`);
+    } catch (error) {
+      console.error('Navigation error:', error);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -104,6 +114,7 @@ const TRStudentApplicationForm = () => {
       const response = await addStudent(studentDetails);
       alert('Student details submitted successfully');
       setLastSavedStudent(studentDetails);
+      // AGAIN MAKING THE FIELDS GO EMPTY
       setStudentDetails({
         studentName: '',
         studentMis: '',
@@ -126,7 +137,11 @@ const TRStudentApplicationForm = () => {
 
   return (
     <div className="student-application-form">
-      <h2>Student Application Form</h2>
+      <div className="header">
+        <h2>Student Application Form</h2>
+        <button className="update-student-button" onClick={navigateToUpdateForm}>
+          Update Student</button>
+      </div>
       <div className="form-container">
         <form onSubmit={handleSubmit} className="application-form">
           <div className="form-group">

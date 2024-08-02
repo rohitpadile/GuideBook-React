@@ -68,5 +68,23 @@ export const addStudent = async (studentDetails) => {
       throw new Error(`Error fetching student class types: ${error.message}`);
     }
   };
+
+export const getStudentBasicDetails = async (workEmail) => {
+  try {
+    const response = await api.get(`/studentBasicDetails/${workEmail}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateStudent = async (studentDetails) => {
+  try {
+    const response = await api.post('/updateStudent', studentDetails);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
   
   export default api;
