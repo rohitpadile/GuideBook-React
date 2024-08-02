@@ -20,6 +20,9 @@ const CancelZoomSessionComponent = () => {
         if (response.status === 1) {
           setIsCancelDisabled(true);
           setMessage('This session has already been cancelled.');
+        } else if(response.status == 2){
+          setIsCancelDisabled(true);
+          setMessage('This session has completed.');
         }
       });
     }

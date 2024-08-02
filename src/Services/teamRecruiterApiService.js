@@ -87,4 +87,26 @@ export const updateStudent = async (studentDetails) => {
   }
 };
   
+
+  export const deactivateStudent = async (studentDetails) => {
+    try {
+      const response = await api.post('/deactivateStudent', studentDetails);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+
+  export const activateStudent = async (studentDetails) => {
+    try {
+      const response = await api.post('/activateStudent', studentDetails);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+  
+
+
   export default api;

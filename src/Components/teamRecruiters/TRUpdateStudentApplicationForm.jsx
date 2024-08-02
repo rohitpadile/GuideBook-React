@@ -6,7 +6,9 @@ import {
   getAllStudentCategories,
   getAllStudentClassTypes,
   getStudentBasicDetails,
-  updateStudent
+  updateStudent,
+  deactivateStudent,
+  activateStudent
 } from '../../Services/teamRecruiterApiService';
 import '../../css/TR/TRStudentApplicationFormCss.css';
 
@@ -60,7 +62,7 @@ const TRUpdateStudentApplicationForm = () => {
     const { name, value } = e.target;
     setStudentDetails(prevDetails => ({
       ...prevDetails,
-      [name]: value
+      [name]: value || '' // Ensure value is never null
     }));
   };
 
@@ -104,7 +106,28 @@ const TRUpdateStudentApplicationForm = () => {
     }
   };
 
-  
+  const handleDeactivate = async () => {
+    try {
+      await deactivateStudent({ studentWorkEmail: studentDetails.studentWorkEmail });
+      alert('Student deactivated successfully');
+      setIsStudentFound(false);
+    } catch (error) {
+      console.error('Error deactivating student:', error);
+      alert('Failed to deactivate student');
+    }
+  };
+
+  const handleActivate = async () => {
+    try {
+      await activateStudent({ studentWorkEmail: studentDetails.studentWorkEmail });
+      alert('Student activated successfully');
+      setIsStudentFound(false);
+    } catch (error) {
+      console.error('Error activating student:', error);
+      alert('Failed to activate student');
+    }
+  };
+
   const isFormValid = () => {
     const {
       studentName,
@@ -142,7 +165,7 @@ const TRUpdateStudentApplicationForm = () => {
             <input
               type="email"
               name="studentWorkEmail"
-              value={studentDetails.studentWorkEmail}
+              value={studentDetails.studentWorkEmail || ''} // Ensure value is never null
               onChange={handleChange}
               required
             />
@@ -158,7 +181,7 @@ const TRUpdateStudentApplicationForm = () => {
               <input
                 type="text"
                 name="studentName"
-                value={studentDetails.studentName}
+                value={studentDetails.studentName || ''} // Ensure value is never null
                 onChange={handleChange}
                 required
               />
@@ -168,7 +191,7 @@ const TRUpdateStudentApplicationForm = () => {
               <input
                 type="number"
                 name="studentMis"
-                value={studentDetails.studentMis}
+                value={studentDetails.studentMis || ''} // Ensure value is never null
                 onChange={handleChange}
                 required
               />
@@ -178,7 +201,7 @@ const TRUpdateStudentApplicationForm = () => {
               <input
                 type="email"
                 name="studentPublicEmail"
-                value={studentDetails.studentPublicEmail}
+                value={studentDetails.studentPublicEmail || ''} // Ensure value is never null
                 onChange={handleChange}
               />
             </div>
@@ -186,7 +209,7 @@ const TRUpdateStudentApplicationForm = () => {
               <label>College:</label>
               <select
                 name="studentCollegeName"
-                value={studentDetails.studentCollegeName}
+                value={studentDetails.studentCollegeName || ''} // Ensure value is never null
                 onChange={handleChange}
                 required
               >
@@ -202,7 +225,7 @@ const TRUpdateStudentApplicationForm = () => {
               <label>Branch:</label>
               <select
                 name="studentBranchName"
-                value={studentDetails.studentBranchName}
+                value={studentDetails.studentBranchName || ''} // Ensure value is never null
                 onChange={handleChange}
                 required
               >
@@ -220,7 +243,7 @@ const TRUpdateStudentApplicationForm = () => {
                 type="number"
                 step="0.01"
                 name="studentCetPercentile"
-                value={studentDetails.studentCetPercentile}
+                value={studentDetails.studentCetPercentile || ''} // Ensure value is never null
                 onChange={handleChange}
                 required
               />
@@ -231,7 +254,7 @@ const TRUpdateStudentApplicationForm = () => {
                 type="number"
                 step="0.01"
                 name="studentGrade"
-                value={studentDetails.studentGrade}
+                value={studentDetails.studentGrade || ''} // Ensure value is never null
                 onChange={handleChange}
                 required
               />
@@ -240,7 +263,7 @@ const TRUpdateStudentApplicationForm = () => {
               <label>Class Type:</label>
               <select
                 name="studentClassType"
-                value={studentDetails.studentClassType}
+                value={studentDetails.studentClassType || ''} // Ensure value is never null
                 onChange={handleChange}
                 required
               >
@@ -256,7 +279,7 @@ const TRUpdateStudentApplicationForm = () => {
               <label>Category:</label>
               <select
                 name="studentCategoryName"
-                value={studentDetails.studentCategoryName}
+                value={studentDetails.studentCategoryName || ''} // Ensure value is never null
                 onChange={handleChange}
                 required
               >
@@ -269,11 +292,11 @@ const TRUpdateStudentApplicationForm = () => {
               </select>
             </div>
             <div className="form-group">
-              <label>Languages Spoken:</label>
+              <label>Languages:</label>
               <select
                 multiple
                 name="studentLanguageNames"
-                value={studentDetails.studentLanguageNames}
+                value={studentDetails.studentLanguageNames || []} // Ensure value is never null
                 onChange={handleLanguagesChange}
                 required
               >
@@ -286,6 +309,22 @@ const TRUpdateStudentApplicationForm = () => {
             </div>
             <button type="submit" className="submit-button" disabled={isSubmitting}>
               {isSubmitting ? 'Updating...' : 'Update'}
+            </button>
+            <button
+              type="button"
+              className="deactivate-button"
+              onClick={handleDeactivate}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Deactivating...' : 'Deactivate'}
+            </button>
+            <button
+              type="button"
+              className="activate-button"
+              onClick={handleActivate}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Activating...' : 'Activate'}
             </button>
           </form>
         )}
