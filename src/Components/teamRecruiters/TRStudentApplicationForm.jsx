@@ -202,7 +202,7 @@ const TRStudentApplicationForm = () => {
     );
   }
 
-  return (
+  return (//original component code
     <div className="student-application-form">
       <div className="header">
         <h2>Student Application Form</h2>
