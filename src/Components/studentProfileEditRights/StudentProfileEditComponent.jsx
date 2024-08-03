@@ -12,7 +12,6 @@ const StudentProfileEditComponent = () => {
   const [studentProfile, setStudentProfile] = useState(null);
   const [studentBasicDetails, setStudentBasicDetails] = useState(null);
   const [editMode, setEditMode] = useState({
-    basicInfo: false,
     about: false,
     cityOfCoaching: false,
     scoreDetails: false,
@@ -23,7 +22,6 @@ const StudentProfileEditComponent = () => {
   });
 
   const [formValues, setFormValues] = useState({
-    basicInfo: {},
     about: [],
     cityOfCoaching: [],
     scoreDetails: [],
@@ -44,14 +42,13 @@ const StudentProfileEditComponent = () => {
         const profileData = await getStudentProfile(decryptedEmail);
         setStudentProfile(profileData);
         setFormValues({
-          basicInfo: profileData.basicInfo || {},
-          about: profileData.aboutSection || [],
-          cityOfCoaching: profileData.cityOfCoaching || [],
-          scoreDetails: profileData.examScoreDetails || [],
-          otherExamScores: profileData.otherExamScoreDetails || [],
-          activityAndAchievements: profileData.activityAndAchievements || [],
-          tutoringExperience: profileData.tutoringExperience || [],
-          externalLinks: profileData.externalLinks || [],
+          about: profileData.studentProfileAboutSection || [],
+          cityOfCoaching: profileData.studentProfileCityOfCoaching || [],
+          scoreDetails: profileData.studentProfileExamScoreDetails || [],
+          otherExamScores: profileData.studentProfileOtherExamScoreDetails || [],
+          activityAndAchievements: profileData.studentProfileActivityAndAchievements || [],
+          tutoringExperience: profileData.studentProfileTutoringExperience || [],
+          externalLinks: profileData.studentProfileExternalLinks || [],
         });
 
         const basicDetails = await getStudentBasicDetails(decryptedEmail);
@@ -78,7 +75,7 @@ const StudentProfileEditComponent = () => {
     setFormValues((prevValues) => {
       const updatedSection = [...prevValues[section]];
       if (typeof index === 'number') {
-        updatedSection[index][name] = value;
+        updatedSection[index] = value;
       } else {
         updatedSection[name] = value;
       }
@@ -92,7 +89,6 @@ const StudentProfileEditComponent = () => {
   const handleSave = async (section) => {
     try {
       const updateRequest = {
-        studentPublicEmail: formValues.basicInfo.studentPublicEmail,
         studentProfileAboutSection: formValues.about,
         studentProfileCityOfCoaching: formValues.cityOfCoaching,
         studentProfileExamScoreDetails: formValues.scoreDetails,
@@ -118,6 +114,7 @@ const StudentProfileEditComponent = () => {
   }
 
   const profilePhotoUrl = `${S3_PROFILE_PHOTO_BASE_URL}${studentWorkEmail}.jpg`;
+
   return (
     <div className="container mt-5">
       <div className="card student-profile-card mx-auto" style={{ maxWidth: '800px' }}>
@@ -140,265 +137,246 @@ const StudentProfileEditComponent = () => {
               </div>
             </div>
             <div className="col-md-8">
-            {/* Basic Information Section */}
-            <div className="card mt-4 zoom-card">
-              <div className="card-body">
-                <h5>Basic Information</h5>
-                {editMode.basicInfo ? (
-                  <div>
-                    <ul>
-                      <li>
-                        Grade: <input type="text" name="grade" value={formValues.basicInfo.grade || ''} onChange={(e) => handleInputChange('basicInfo', null, e)} />
-                      </li>
-                      <li>
-                        Exam Score: <input type="text" name="cetPercentile" value={formValues.basicInfo.cetPercentile || ''} onChange={(e) => handleInputChange('basicInfo', null, e)} />
-                      </li>
-                      <li>
-                        Class Type: <input type="text" name="classType" value={formValues.basicInfo.classType || ''} onChange={(e) => handleInputChange('basicInfo', null, e)} />
-                      </li>
-                      <li>
-                        Language: <input type="text" name="languagesSpoken" value={formValues.basicInfo.languagesSpoken?.join(', ') || ''} onChange={(e) => handleInputChange('basicInfo', null, e)} />
-                      </li>
-                      <li>
-                        Category: <input type="text" name="category" value={formValues.basicInfo.category || ''} onChange={(e) => handleInputChange('basicInfo', null, e)} />
-                      </li>
-                      <li>
-                        College: <input type="text" name="college" value={formValues.basicInfo.college || ''} onChange={(e) => handleInputChange('basicInfo', null, e)} />
-                      </li>
-                    </ul>
-                    <button onClick={() => handleSave('basicInfo')}>Save</button>
-                  </div>
-                ) : (
-                  <div>
-                    <ul>
-                      <li>Grade: {formValues.basicInfo.grade || studentBasicDetails?.grade}</li>
-                      <li>Exam Score: {formValues.basicInfo.cetPercentile || studentBasicDetails?.cetPercentile}</li>
-                      <li>Class Type: {formValues.basicInfo.classType || studentBasicDetails?.classType}</li>
-                      <li>Language: {formValues.basicInfo.languagesSpoken?.join(', ') || studentBasicDetails?.languagesSpoken?.join(', ')}</li>
-                      <li>Category: {formValues.basicInfo.category || studentBasicDetails?.category}</li>
-                      <li>College: {formValues.basicInfo.college || studentBasicDetails?.college}</li>
-                    </ul>
-                    <button onClick={() => handleEditToggle('basicInfo')}>Edit</button>
-                  </div>
-                )}
+              {/* Basic Information Section */}
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>Basic Information</h5>
+                  <ul>
+                    <li>Grade: {studentBasicDetails?.grade}</li>
+                    <li>Exam Score: {studentBasicDetails?.cetPercentile}</li>
+                    <li>Class Type: {studentBasicDetails?.classType}</li>
+                    <li>Language: {studentBasicDetails?.languagesSpoken?.join(', ')}</li>
+                    <li>Category: {studentBasicDetails?.category}</li>
+                    <li>College: {studentBasicDetails?.college}</li>
+                  </ul>
+                </div>
               </div>
-            </div>
 
-            {/* About Section */}
-            <div className="card mt-4 zoom-card">
-              <div className="card-body">
-                <h5>About Section</h5>
-                {editMode.about ? (
-                  <div>
-                    <textarea
-                      name="about"
-                      value={formValues.about.join('\n') || ''}
-                      onChange={(e) => handleInputChange('about', null, e)}
-                      rows={5}
-                    />
-                    <button onClick={() => handleSave('about')}>Save</button>
-                  </div>
-                ) : (
-                  <div>
-                    <p>{formValues.about.join('\n') || studentProfile?.studentProfileAboutSection.join('\n')}</p>
-                    <button onClick={() => handleEditToggle('about')}>Edit</button>
-                  </div>
-                )}
+              {/* About Section */}
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>About</h5>
+                  {editMode.about ? (
+                    <div>
+                      <ul>
+                        {formValues.about.map((item, index) => (
+                          <li key={index}>
+                            <input
+                              type="text"
+                              value={item || ''}
+                              onChange={(e) => handleInputChange('about', index, e)}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                      <button onClick={() => handleSave('about')}>Save</button>
+                    </div>
+                  ) : (
+                    <div>
+                      <ul>
+                        {formValues.about.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ul>
+                      <button onClick={() => handleEditToggle('about')}>Edit</button>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
 
-            {/* City of Coaching Section */}
-            <div className="card mt-4 zoom-card">
-              <div className="card-body">
-                <h5>City of Coaching</h5>
-                {editMode.cityOfCoaching ? (
-                  <div>
-                    <input
-                      type="text"
-                      name="cityOfCoaching"
-                      value={formValues.cityOfCoaching.join(', ') || ''}
-                      onChange={(e) => handleInputChange('cityOfCoaching', null, e)}
-                    />
-                    <button onClick={() => handleSave('cityOfCoaching')}>Save</button>
-                  </div>
-                ) : (
-                  <div>
-                    <p>{formValues.cityOfCoaching.join(', ') || studentProfile?.studentProfileCityOfCoaching.join(', ')}</p>
-                    <button onClick={() => handleEditToggle('cityOfCoaching')}>Edit</button>
-                  </div>
-                )}
+              {/* City of Coaching Section */}
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>City of Coaching</h5>
+                  {editMode.cityOfCoaching ? (
+                    <div>
+                      <ul>
+                        {formValues.cityOfCoaching.map((item, index) => (
+                          <li key={index}>
+                            <input
+                              type="text"
+                              value={item || ''}
+                              onChange={(e) => handleInputChange('cityOfCoaching', index, e)}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                      <button onClick={() => handleSave('cityOfCoaching')}>Save</button>
+                    </div>
+                  ) : (
+                    <div>
+                      <ul>
+                        {formValues.cityOfCoaching.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ul>
+                      <button onClick={() => handleEditToggle('cityOfCoaching')}>Edit</button>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
 
-            {/* Score Details Section */}
-            <div className="card mt-4 zoom-card">
-              <div className="card-body">
-                <h5>Score Details</h5>
-                {editMode.scoreDetails ? (
-                  <div>
-                    {formValues.scoreDetails.map((detail, index) => (
-                      <div key={index}>
-                        <input
-                          type="text"
-                          name="score"
-                          value={detail.score || ''}
-                          onChange={(e) => handleInputChange('scoreDetails', index, e)}
-                        />
-                        <input
-                          type="text"
-                          name="examName"
-                          value={detail.examName || ''}
-                          onChange={(e) => handleInputChange('scoreDetails', index, e)}
-                        />
-                        <button onClick={() => handleSave('scoreDetails')}>Save</button>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div>
-                    {formValues.scoreDetails.map((detail, index) => (
-                      <div key={index}>
-                        <p>Score: {detail.score}</p>
-                        <p>Exam Name: {detail.examName}</p>
-                      </div>
-                    ))}
-                    <button onClick={() => handleEditToggle('scoreDetails')}>Edit</button>
-                  </div>
-                )}
+              {/* Score Details Section */}
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>Score Details</h5>
+                  {editMode.scoreDetails ? (
+                    <div>
+                      <ul>
+                        {formValues.scoreDetails.map((item, index) => (
+                          <li key={index}>
+                            <input
+                              type="text"
+                              value={item || ''}
+                              onChange={(e) => handleInputChange('scoreDetails', index, e)}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                      <button onClick={() => handleSave('scoreDetails')}>Save</button>
+                    </div>
+                  ) : (
+                    <div>
+                      <ul>
+                        {formValues.scoreDetails.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ul>
+                      <button onClick={() => handleEditToggle('scoreDetails')}>Edit</button>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
 
-            {/* Other Exam Scores Section */}
-            <div className="card mt-4 zoom-card">
-              <div className="card-body">
-                <h5>Other Exam Scores</h5>
-                {editMode.otherExamScores ? (
-                  <div>
-                    {formValues.otherExamScores.map((score, index) => (
-                      <div key={index}>
-                        <input
-                          type="text"
-                          name="score"
-                          value={score.score || ''}
-                          onChange={(e) => handleInputChange('otherExamScores', index, e)}
-                        />
-                        <input
-                          type="text"
-                          name="examName"
-                          value={score.examName || ''}
-                          onChange={(e) => handleInputChange('otherExamScores', index, e)}
-                        />
-                        <button onClick={() => handleSave('otherExamScores')}>Save</button>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div>
-                    {formValues.otherExamScores.map((score, index) => (
-                      <div key={index}>
-                        <p>Score: {score.score}</p>
-                        <p>Exam Name: {score.examName}</p>
-                      </div>
-                    ))}
-                    <button onClick={() => handleEditToggle('otherExamScores')}>Edit</button>
-                  </div>
-                )}
+              {/* Other Exam Scores Section */}
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>Other Exam Scores</h5>
+                  {editMode.otherExamScores ? (
+                    <div>
+                      <ul>
+                        {formValues.otherExamScores.map((item, index) => (
+                          <li key={index}>
+                            <input
+                              type="text"
+                              value={item || ''}
+                              onChange={(e) => handleInputChange('otherExamScores', index, e)}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                      <button onClick={() => handleSave('otherExamScores')}>Save</button>
+                    </div>
+                  ) : (
+                    <div>
+                      <ul>
+                        {formValues.otherExamScores.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ul>
+                      <button onClick={() => handleEditToggle('otherExamScores')}>Edit</button>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
 
-            {/* Activity and Achievements Section */}
-            <div className="card mt-4 zoom-card">
-              <div className="card-body">
-                <h5>Activity and Achievements</h5>
-                {editMode.activityAndAchievements ? (
-                  <div>
-                    {formValues.activityAndAchievements.map((activity, index) => (
-                      <div key={index}>
-                        <textarea
-                          name="activity"
-                          value={activity || ''}
-                          onChange={(e) => handleInputChange('activityAndAchievements', index, e)}
-                          rows={3}
-                        />
-                        <button onClick={() => handleSave('activityAndAchievements')}>Save</button>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div>
-                    {formValues.activityAndAchievements.map((activity, index) => (
-                      <div key={index}>
-                        <p>{activity}</p>
-                      </div>
-                    ))}
-                    <button onClick={() => handleEditToggle('activityAndAchievements')}>Edit</button>
-                  </div>
-                )}
+              {/* Activity and Achievements Section */}
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>Activity and Achievements</h5>
+                  {editMode.activityAndAchievements ? (
+                    <div>
+                      <ul>
+                        {formValues.activityAndAchievements.map((item, index) => (
+                          <li key={index}>
+                            <input
+                              type="text"
+                              value={item || ''}
+                              onChange={(e) => handleInputChange('activityAndAchievements', index, e)}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                      <button onClick={() => handleSave('activityAndAchievements')}>Save</button>
+                    </div>
+                  ) : (
+                    <div>
+                      <ul>
+                        {formValues.activityAndAchievements.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ul>
+                      <button onClick={() => handleEditToggle('activityAndAchievements')}>Edit</button>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
 
-            {/* Tutoring Experience Section */}
-            <div className="card mt-4 zoom-card">
-              <div className="card-body">
-                <h5>Tutoring Experience</h5>
-                {editMode.tutoringExperience ? (
-                  <div>
-                    {formValues.tutoringExperience.map((experience, index) => (
-                      <div key={index}>
-                        <textarea
-                          name="experience"
-                          value={experience || ''}
-                          onChange={(e) => handleInputChange('tutoringExperience', index, e)}
-                          rows={3}
-                        />
-                        <button onClick={() => handleSave('tutoringExperience')}>Save</button>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div>
-                    {formValues.tutoringExperience.map((experience, index) => (
-                      <div key={index}>
-                        <p>{experience}</p>
-                      </div>
-                    ))}
-                    <button onClick={() => handleEditToggle('tutoringExperience')}>Edit</button>
-                  </div>
-                )}
+              {/* Tutoring Experience Section */}
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>Tutoring Experience</h5>
+                  {editMode.tutoringExperience ? (
+                    <div>
+                      <ul>
+                        {formValues.tutoringExperience.map((item, index) => (
+                          <li key={index}>
+                            <input
+                              type="text"
+                              value={item || ''}
+                              onChange={(e) => handleInputChange('tutoringExperience', index, e)}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                      <button onClick={() => handleSave('tutoringExperience')}>Save</button>
+                    </div>
+                  ) : (
+                    <div>
+                      <ul>
+                        {formValues.tutoringExperience.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ul>
+                      <button onClick={() => handleEditToggle('tutoringExperience')}>Edit</button>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
 
-            {/* External Links Section */}
-            <div className="card mt-4 zoom-card">
-              <div className="card-body">
-                <h5>External Links</h5>
-                {editMode.externalLinks ? (
-                  <div>
-                    {formValues.externalLinks.map((link, index) => (
-                      <div key={index}>
-                        <input
-                          type="text"
-                          name="link"
-                          value={link || ''}
-                          onChange={(e) => handleInputChange('externalLinks', index, e)}
-                        />
-                        <button onClick={() => handleSave('externalLinks')}>Save</button>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div>
-                    {formValues.externalLinks.map((link, index) => (
-                      <div key={index}>
-                        <a href={link} target="_blank" rel="noopener noreferrer">{link}</a>
-                      </div>
-                    ))}
-                    <button onClick={() => handleEditToggle('externalLinks')}>Edit</button>
-                  </div>
-                )}
+              {/* External Links Section */}
+              <div className="card mt-4 zoom-card">
+                <div className="card-body">
+                  <h5>External Links</h5>
+                  {editMode.externalLinks ? (
+                    <div>
+                      <ul>
+                        {formValues.externalLinks.map((item, index) => (
+                          <li key={index}>
+                            <input
+                              type="text"
+                              value={item || ''}
+                              onChange={(e) => handleInputChange('externalLinks', index, e)}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                      <button onClick={() => handleSave('externalLinks')}>Save</button>
+                    </div>
+                  ) : (
+                    <div>
+                      <ul>
+                        {formValues.externalLinks.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ul>
+                      <button onClick={() => handleEditToggle('externalLinks')}>Edit</button>
+                    </div>
+                  )}
+                </div>
               </div>
+
             </div>
-          </div>
           </div>
         </div>
       </div>
