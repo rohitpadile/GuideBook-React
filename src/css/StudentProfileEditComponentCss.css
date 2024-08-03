@@ -162,3 +162,19 @@
     font-weight: bold;
   }
   
+  .button-group {
+    display: flex;
+    gap: 10px; /* Adds space between buttons */
+    margin-top: 10px; /* Adds space above the button group */
+    justify-content: flex-start; /* Align buttons to the left */
+  }
+
+  .remove-button-group {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Styling for individual fields within a list */
+.individual-fields-group {
+  width: 100%;
+}

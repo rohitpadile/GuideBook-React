@@ -137,7 +137,7 @@ const StudentProfileEditComponent = () => {
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
                   <h5>Basic Information</h5>
-                  <ul>
+                  <ul className="list-unstyled">
                     <li>Grade: {studentBasicDetails?.grade}</li>
                     <li>Exam Score: {studentBasicDetails?.cetPercentile}</li>
                     <li>Class Type: {studentBasicDetails?.classType}</li>
@@ -147,135 +147,166 @@ const StudentProfileEditComponent = () => {
                   </ul>
                 </div>
               </div>
-
+  
               {/* About Section */}
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
                   <h5>About</h5>
-                  <ul>
+                  <ul className="list-unstyled">
                     {formValues.about.map((item, index) => (
-                      <li key={index}>
+                      <li key={index} className="d-flex align-items-center mb-2">
                         <input
+                          className="individual-fields-group form-control me-2"
                           type="text"
                           value={item}
                           onChange={(e) => handleInputChange('about', index, e)}
                         />
-                        <button onClick={() => handleRemoveItem('about', index)}>Remove</button>
+                        <div className="remove-button-group">
+                          <button className="btn btn-danger" onClick={() => handleRemoveItem('about', index)}>Remove</button>
+                        </div>
                       </li>
                     ))}
                   </ul>
-                  <button onClick={() => handleAddItem('about')}>Add</button>
+                  <div className="button-group">
+                    <button className="btn btn-primary" onClick={() => handleAddItem('about')}>Add</button>
+                  </div>
                 </div>
               </div>
-
+  
               {/* City of Coaching Section */}
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
                   <h5>City of Coaching</h5>
-                  <ul>
+                  <ul className="list-unstyled">
                     {formValues.cityOfCoaching.map((item, index) => (
-                      <li key={index}>
+                      <li key={index} className="d-flex align-items-center mb-2">
                         <input
+                          className="individual-fields-group form-control me-2"
                           type="text"
                           value={item}
                           onChange={(e) => handleInputChange('cityOfCoaching', index, e)}
                         />
-                        <button onClick={() => handleRemoveItem('cityOfCoaching', index)}>Remove</button>
+                        <div className="remove-button-group">
+                          <button className="btn btn-danger" onClick={() => handleRemoveItem('cityOfCoaching', index)}>Remove</button>
+                        </div>
                       </li>
                     ))}
                   </ul>
-                  <button onClick={() => handleAddItem('cityOfCoaching')}>Add</button>
+                  <div className="button-group">
+                    <button className="btn btn-primary" onClick={() => handleAddItem('cityOfCoaching')}>Add</button>
+                  </div>
                 </div>
               </div>
-
+  
               {/* Score Details Section */}
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
                   <h5>Score Details</h5>
-                  <ul>
+                  <ul className="list-unstyled">
                     {formValues.scoreDetails.map((item, index) => (
-                      <li key={index}>
+                      <li key={index} className="d-flex align-items-center mb-2">
                         <input
+                          className="individual-fields-group form-control me-2"
                           type="text"
                           value={item}
                           onChange={(e) => handleInputChange('scoreDetails', index, e)}
                         />
-                        <button onClick={() => handleRemoveItem('scoreDetails', index)}>Remove</button>
+                        <div className="remove-button-group">
+                          <button className="btn btn-danger" onClick={() => handleRemoveItem('scoreDetails', index)}>Remove</button>
+                        </div>
                       </li>
                     ))}
                   </ul>
-                  <button onClick={() => handleAddItem('scoreDetails')}>Add</button>
+                  <div className="button-group">
+                    <button className="btn btn-primary" onClick={() => handleAddItem('scoreDetails')}>Add</button>
+                  </div>
                 </div>
               </div>
-
+  
               {/* Other Exam Scores Section */}
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
                   <h5>Other Exam Scores</h5>
-                  <ul>
+                  <ul className="list-unstyled">
                     {formValues.otherExamScores.map((item, index) => (
-                      <li key={index}>
+                      <li key={index} className="d-flex align-items-center mb-2">
                         <input
+                          className="individual-fields-group form-control me-2"
                           type="text"
                           value={item}
                           onChange={(e) => handleInputChange('otherExamScores', index, e)}
                         />
-                        <button onClick={() => handleRemoveItem('otherExamScores', index)}>Remove</button>
+                        <div className="remove-button-group">
+                          <button className="btn btn-danger" onClick={() => handleRemoveItem('otherExamScores', index)}>Remove</button>
+                        </div>
                       </li>
                     ))}
                   </ul>
-                  <button onClick={() => handleAddItem('otherExamScores')}>Add</button>
+                  <div className="button-group">
+                    <button className="btn btn-primary" onClick={() => handleAddItem('otherExamScores')}>Add</button>
+                  </div>
                 </div>
               </div>
-
+  
               {/* Activity and Achievements Section */}
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
                   <h5>Activity and Achievements</h5>
-                  <ul>
+                  <ul className="list-unstyled">
                     {formValues.activityAndAchievements.map((item, index) => (
-                      <li key={index}>
+                      <li key={index} className="d-flex align-items-center mb-2">
                         <input
+                          className="individual-fields-group form-control me-2"
                           type="text"
                           value={item}
                           onChange={(e) => handleInputChange('activityAndAchievements', index, e)}
                         />
-                        <button onClick={() => handleRemoveItem('activityAndAchievements', index)}>Remove</button>
+                        <div className="remove-button-group">
+                          <button className="btn btn-danger" onClick={() => handleRemoveItem('activityAndAchievements', index)}>Remove</button>
+                        </div>
                       </li>
                     ))}
                   </ul>
-                  <button onClick={() => handleAddItem('activityAndAchievements')}>Add</button>
+                  <div className="button-group">
+                    <button className="btn btn-primary" onClick={() => handleAddItem('activityAndAchievements')}>Add</button>
+                  </div>
                 </div>
               </div>
-
+  
               {/* Tutoring Experience Section */}
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
                   <h5>Tutoring Experience</h5>
-                  <ul>
+                  <ul className="list-unstyled">
                     {formValues.tutoringExperience.map((item, index) => (
-                      <li key={index}>
+                      <li key={index} className="d-flex align-items-center mb-2">
                         <input
+                          className="individual-fields-group form-control me-2"
                           type="text"
                           value={item}
                           onChange={(e) => handleInputChange('tutoringExperience', index, e)}
                         />
-                        <button onClick={() => handleRemoveItem('tutoringExperience', index)}>Remove</button>
+                        <div className="remove-button-group">
+                          <button className="btn btn-danger" onClick={() => handleRemoveItem('tutoringExperience', index)}>Remove</button>
+                        </div>
                       </li>
                     ))}
                   </ul>
-                  <button onClick={() => handleAddItem('tutoringExperience')}>Add</button>
+                  <div className="button-group">
+                    <button className="btn btn-primary" onClick={() => handleAddItem('tutoringExperience')}>Add</button>
+                  </div>
                 </div>
               </div>
-
+  
               {/* External Links Section */}
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
                   <h5>External Links</h5>
-                  <ul>
+                  <ul className="list-unstyled">
                     {formValues.externalLinks.map((item, index) => (
-                      <li key={index}>
+                      <li key={index} className="d-flex align-items-center mb-2">
                         <input
+                          className="individual-fields-group form-control me-2"
                           type="text"
                           name="linkName"
                           value={item.linkName}
@@ -283,20 +314,25 @@ const StudentProfileEditComponent = () => {
                           placeholder="Link Name"
                         />
                         <input
+                          className="individual-fields-group form-control me-2"
                           type="text"
                           name="linkAddress"
                           value={item.linkAddress}
                           onChange={(e) => handleInputChange('externalLinks', index, e)}
                           placeholder="Link Address"
                         />
-                        <button onClick={() => handleRemoveItem('externalLinks', index)}>Remove</button>
+                        <div className="remove-button-group">
+                          <button className="btn btn-danger" onClick={() => handleRemoveItem('externalLinks', index)}>Remove</button>
+                        </div>
                       </li>
                     ))}
                   </ul>
-                  <button onClick={() => handleAddItem('externalLinks')}>Add</button>
+                  <div className="button-group">
+                    <button className="btn btn-primary" onClick={() => handleAddItem('externalLinks')}>Add</button>
+                  </div>
                 </div>
               </div>
-
+  
               <button className="btn btn-primary mt-4" onClick={handleSave}>Save</button>
             </div>
           </div>
@@ -304,6 +340,7 @@ const StudentProfileEditComponent = () => {
       </div>
     </div>
   );
+  
 };
 
 export default StudentProfileEditComponent;
