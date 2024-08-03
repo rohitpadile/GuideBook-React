@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../../css/StudentProfileComponentCss.css'; // Import CSS
-import { getStudentProfile, getStudentBasicDetails, updateStudentProfile } from '../../Services/apiServiceAdmin'; // Adjust the import path as per your file structure
+import { getStudentProfile, getStudentBasicDetails, updateStudentProfile } from '../../Services/apiServiceAdmin'; // Adjust import path as necessary
 import { S3_PROFILE_PHOTO_BASE_URL } from '../../constants/s3url'; // Import the constant
+import { decrypt } from '../../Services/encryptionForStudentProfileEdit'; // Ensure proper import
 
 const StudentProfileEditComponent = () => {
   const location = useLocation();
-  const { student } = location.state || {};
-  const profilePhotoUrl = `${S3_PROFILE_PHOTO_BASE_URL}${student?.studentWorkEmail}.jpg`;
-
+  const encryptedEmail = location.pathname.split('/').pop();
+  const [studentWorkEmail, setStudentWorkEmail] = useState('');
   const [studentProfile, setStudentProfile] = useState(null);
   const [studentBasicDetails, setStudentBasicDetails] = useState(null);
   const [editMode, setEditMode] = useState({
@@ -34,9 +34,14 @@ const StudentProfileEditComponent = () => {
   });
 
   useEffect(() => {
-    const fetchStudentProfile = async () => {
+    const fetchStudentData = async () => {
       try {
-        const profileData = await getStudentProfile(student.studentWorkEmail);
+        // Decrypt the email
+        const decryptedEmail = decrypt(encryptedEmail);
+        setStudentWorkEmail(decryptedEmail);
+
+        // Fetch student profile and basic details
+        const profileData = await getStudentProfile(decryptedEmail);
         setStudentProfile(profileData);
         setFormValues({
           basicInfo: profileData.basicInfo || {},
@@ -48,25 +53,18 @@ const StudentProfileEditComponent = () => {
           tutoringExperience: profileData.tutoringExperience || [],
           externalLinks: profileData.externalLinks || [],
         });
-      } catch (error) {
-        console.error('Error fetching student profile:', error);
-      }
-    };
 
-    const fetchStudentBasicDetails = async () => {
-      try {
-        const basicDetails = await getStudentBasicDetails(student.studentWorkEmail);
+        const basicDetails = await getStudentBasicDetails(decryptedEmail);
         setStudentBasicDetails(basicDetails);
       } catch (error) {
-        console.error('Error fetching student basic details:', error);
+        console.error('Error fetching student data:', error);
       }
     };
 
-    if (student?.studentWorkEmail) {
-      fetchStudentProfile();
-      fetchStudentBasicDetails();
+    if (encryptedEmail) {
+      fetchStudentData();
     }
-  }, [student?.studentWorkEmail]);
+  }, [encryptedEmail]);
 
   const handleEditToggle = (section) => {
     setEditMode((prevMode) => ({
@@ -93,10 +91,17 @@ const StudentProfileEditComponent = () => {
 
   const handleSave = async (section) => {
     try {
-      await updateStudentProfile(student.studentWorkEmail, {
-        ...studentProfile,
-        [section]: formValues[section],
-      });
+      const updateRequest = {
+        studentPublicEmail: formValues.basicInfo.studentPublicEmail,
+        studentProfileAboutSection: formValues.about,
+        studentProfileCityOfCoaching: formValues.cityOfCoaching,
+        studentProfileExamScoreDetails: formValues.scoreDetails,
+        studentProfileOtherExamScoreDetails: formValues.otherExamScores,
+        studentProfileActivityAndAchievements: formValues.activityAndAchievements,
+        studentProfileTutoringExperience: formValues.tutoringExperience,
+        studentProfileExternalLinks: formValues.externalLinks,
+      };
+      await updateStudentProfile(studentWorkEmail, updateRequest);
       setEditMode((prevMode) => ({
         ...prevMode,
         [section]: false,
@@ -104,12 +109,15 @@ const StudentProfileEditComponent = () => {
       alert('Profile updated successfully');
     } catch (error) {
       console.error('Error updating profile:', error);
+      alert('Error updating profile');
     }
   };
 
-//   if (!studentProfile || !studentBasicDetails) {
-//     return <div>Loading...</div>; // Display a loading message while fetching data OR CUSTOM COMPANY GIF LIKE LINKEDIN FOES
-//   }
+  if (!studentProfile || !studentBasicDetails) {
+    return <div>Loading...</div>; // Display a loading message while fetching data
+  }
+
+  const profilePhotoUrl = `${S3_PROFILE_PHOTO_BASE_URL}${studentWorkEmail}.jpg`;
 
   return (
     <div className="container mt-5">
