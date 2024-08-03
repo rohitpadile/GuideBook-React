@@ -59,8 +59,8 @@ function App() {
             <Route path="/feedback-zoom-session/:encryptedTransactionId" element={<ZoomSessionFeedbackFormComponent />} />
 
             {/* ROUTES FOR TEAM RECRUITERS */}
-            <Route path="/TRStudentApplicationForm:encyptedUserName" element={<TRStudentApplicationForm />} />
-            <Route path="/TRUpdateStudentApplicationForm:encyptedUserName" element={<TRUpdateStudentApplicationForm />} />
+            <Route path="/TRStudentApplicationForm/:encryptedUserName" element={<TRStudentApplicationForm />} />
+            <Route path="/TRUpdateStudentApplicationForm/iuawgerciwpynuaceop8rynaco8perynaso8cynsozdfhbo;isdhfjdsfcsdopynuaceop8rynaco8perynaso8cynsozdfhbo;isdhfjdsfsdosdfofdsjsdndnnvmk" element={<TRUpdateStudentApplicationForm />} />
             
           </Routes>
         </BranchProvider>

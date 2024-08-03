@@ -12,10 +12,11 @@ import {
   trLogin
 } from '../../Services/teamRecruiterApiService';
 import '../../css/TR/TRStudentApplicationFormCss.css';
-import { useParams } from 'react-router-dom';
 
 const TRUpdateStudentApplicationForm = () => {
-  const { encryptedUserName } = useParams();
+
+  const location = useLocation(); // Get location
+  const { TRUserFirstName, TRUserLastName, password } = location.state || {}; // Retrieve state
   
   const [studentDetails, setStudentDetails] = useState({
     studentName: '',
@@ -39,10 +40,7 @@ const TRUpdateStudentApplicationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [isStudentFound, setIsStudentFound] = useState(false);
-  const [TRUserFirstName, setTRUserFirstName] = useState('');
-  const [TRUserLastName, setTRUserLastName] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loginMessage, setLoginMessage] = useState(''); // State for login message
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,33 +62,25 @@ const TRUpdateStudentApplicationForm = () => {
     };
 
     fetchData();
-  }, []);
 
-  useEffect(() => {
-    const checkLogin = async () => {
+    const login = async () => {
       try {
-        const loginRequest = {
-          trUserFirstName: TRUserFirstName,
-          trUserLastName: TRUserLastName,
-          trUserPassword: password
-        };
-
-        const response = await trLogin(loginRequest);
-
+        const response = await trLogin({
+          trUserFirstName: TRUserFirstName || '',
+          trUserLastName: TRUserLastName || '',
+          trUserPassword: password || ''
+        });
         if (response.status === 200) {
-          setIsLoggedIn(true);
+          setLoginMessage('Login successful');
         } else {
-          alert('Invalid login credentials');
+          setLoginMessage('Access Failed');
         }
       } catch (error) {
-        console.error('Login error:', error);
-        alert('Login failed');
+        setLoginMessage('Access Failed');
       }
     };
 
-    if (TRUserFirstName && TRUserLastName && password) {
-      checkLogin();
-    }
+    login();
   }, [TRUserFirstName, TRUserLastName, password]);
 
   const handleChange = (e) => {
@@ -153,7 +143,7 @@ const TRUpdateStudentApplicationForm = () => {
     e.preventDefault();
     setIsSearching(true);
     try {
-      const response = await getStudentBasicDetails(encryptedUserName);
+      const response = await getStudentBasicDetails({ studentWorkEmail});
       if (response) {
         setStudentDetails(response);
         setIsStudentFound(true);
@@ -171,7 +161,7 @@ const TRUpdateStudentApplicationForm = () => {
   const handleDeactivate = async (e) => {
     e.preventDefault();
     try {
-      const response = await deactivateStudent(encryptedUserName);
+      const response = await deactivateStudent({ studentWorkEmail});
       if (response.status === 200) {
         alert('Student account deactivated successfully');
       } else {
@@ -185,7 +175,7 @@ const TRUpdateStudentApplicationForm = () => {
   const handleActivate = async (e) => {
     e.preventDefault();
     try {
-      const response = await activateStudent(encryptedUserName);
+      const response = await activateStudent({studentWorkEmail});
       if (response.status === 200) {
         alert('Student account activated successfully');
       } else {
@@ -195,66 +185,6 @@ const TRUpdateStudentApplicationForm = () => {
       console.error('Error activating student:', error);
     }
   };
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const loginRequest = {
-        trUserFirstName: TRUserFirstName,
-        trUserLastName: TRUserLastName,
-        trUserPassword: password
-      };
-
-      const response = await trLogin(loginRequest);
-
-      if (response.status === 200) {
-        setIsLoggedIn(true);
-      } else {
-        alert('Invalid login credentials');
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      alert('Login failed');
-    }
-  };
-
-  if (!isLoggedIn) {
-    return (
-      <div className="login-form">
-        <h2>Login</h2>
-        <form onSubmit={handleLogin}>
-          <div className="form-group">
-            <label>First Name:</label>
-            <input
-              type="text"
-              value={TRUserFirstName}
-              onChange={(e) => setTRUserFirstName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>Last Name:</label>
-            <input
-              type="text"
-              value={TRUserLastName}
-              onChange={(e) => setTRUserLastName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>Password:</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit">Login</button>
-        </form>
-      </div>
-    );
-  }
 
   return (//original component code
     <div className="student-application-form">

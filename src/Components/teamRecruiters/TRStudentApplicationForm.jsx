@@ -65,11 +65,18 @@ const TRStudentApplicationForm = () => {
 
   const navigateToUpdateForm = () => {
     try {
-      navigate(`/TRUpdateStudentApplicationForm/${encryptedUserName}`);
+      navigate('/TRUpdateStudentApplicationForm', {
+        state: {
+          TRUserFirstName,
+          TRUserLastName,
+          password
+        }
+      });
     } catch (error) {
       console.error('Navigation error:', error);
     }
   };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
