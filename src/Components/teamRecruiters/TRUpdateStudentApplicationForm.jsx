@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLocation } from 'react';
 import {
   getAllBranches,
   getAllColleges,
@@ -143,7 +143,7 @@ const TRUpdateStudentApplicationForm = () => {
     e.preventDefault();
     setIsSearching(true);
     try {
-      const response = await getStudentBasicDetails({ studentWorkEmail});
+      const response = await getStudentBasicDetails(studentDetails.studentWorkEmail);
       if (response) {
         setStudentDetails(response);
         setIsStudentFound(true);
@@ -161,7 +161,7 @@ const TRUpdateStudentApplicationForm = () => {
   const handleDeactivate = async (e) => {
     e.preventDefault();
     try {
-      const response = await deactivateStudent({ studentWorkEmail});
+      const response = await deactivateStudent({ studentWorkEmail: studentDetails.studentWorkEmail });
       if (response.status === 200) {
         alert('Student account deactivated successfully');
       } else {
@@ -175,7 +175,7 @@ const TRUpdateStudentApplicationForm = () => {
   const handleActivate = async (e) => {
     e.preventDefault();
     try {
-      const response = await activateStudent({studentWorkEmail});
+      const response = await activateStudent({ studentWorkEmail: studentDetails.studentWorkEmail });
       if (response.status === 200) {
         alert('Student account activated successfully');
       } else {
