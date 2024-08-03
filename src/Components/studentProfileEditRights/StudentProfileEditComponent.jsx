@@ -11,44 +11,32 @@ const StudentProfileEditComponent = () => {
   const [studentWorkEmail, setStudentWorkEmail] = useState('');
   const [studentProfile, setStudentProfile] = useState(null);
   const [studentBasicDetails, setStudentBasicDetails] = useState(null);
-  const [editMode, setEditMode] = useState({
-    about: false,
-    cityOfCoaching: false,
-    scoreDetails: false,
-    otherExamScores: false,
-    activityAndAchievements: false,
-    tutoringExperience: false,
-    externalLinks: false,
-  });
-
   const [formValues, setFormValues] = useState({
-    about: [],
-    cityOfCoaching: [],
-    scoreDetails: [],
-    otherExamScores: [],
-    activityAndAchievements: [],
-    tutoringExperience: [],
-    externalLinks: [],
+    about: [''],
+    cityOfCoaching: [''],
+    scoreDetails: [''],
+    otherExamScores: [''],
+    activityAndAchievements: [''],
+    tutoringExperience: [''],
+    externalLinks: [{ linkName: '', linkAddress: '' }],
   });
 
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
-        // Decrypt the email
         const decryptedEmail = decrypt(encryptedEmail);
         setStudentWorkEmail(decryptedEmail);
 
-        // Fetch student profile and basic details
         const profileData = await getStudentProfile(decryptedEmail);
         setStudentProfile(profileData);
         setFormValues({
-          about: profileData.studentProfileAboutSection || [],
-          cityOfCoaching: profileData.studentProfileCityOfCoaching || [],
-          scoreDetails: profileData.studentProfileExamScoreDetails || [],
-          otherExamScores: profileData.studentProfileOtherExamScoreDetails || [],
-          activityAndAchievements: profileData.studentProfileActivityAndAchievements || [],
-          tutoringExperience: profileData.studentProfileTutoringExperience || [],
-          externalLinks: profileData.studentProfileExternalLinks || [],
+          about: profileData.studentProfileAboutSection.map(item => item.about) || [''],
+          cityOfCoaching: profileData.studentProfileCityOfCoaching.map(item => item.cityOfCoaching) || [''],
+          scoreDetails: profileData.studentProfileExamScoreDetails.map(item => item.scoreDetail) || [''],
+          otherExamScores: profileData.studentProfileOtherExamScoreDetails.map(item => item.otherScoreDetail) || [''],
+          activityAndAchievements: profileData.studentProfileActivityAndAchievements.map(item => item.activity) || [''],
+          tutoringExperience: profileData.studentProfileTutoringExperience.map(item => item.experience) || [''],
+          externalLinks: profileData.studentProfileExternalLinks.map(item => ({ linkName: item.linkName, linkAddress: item.linkAddress })) || [{ linkName: '', linkAddress: '' }],
         });
 
         const basicDetails = await getStudentBasicDetails(decryptedEmail);
@@ -63,21 +51,14 @@ const StudentProfileEditComponent = () => {
     }
   }, [encryptedEmail]);
 
-  const handleEditToggle = (section) => {
-    setEditMode((prevMode) => ({
-      ...prevMode,
-      [section]: !prevMode[section],
-    }));
-  };
-
   const handleInputChange = (section, index, event) => {
     const { name, value } = event.target;
-    setFormValues((prevValues) => {
+    setFormValues(prevValues => {
       const updatedSection = [...prevValues[section]];
-      if (typeof index === 'number') {
-        updatedSection[index] = value;
+      if (section === 'externalLinks') {
+        updatedSection[index] = { ...updatedSection[index], [name]: value };
       } else {
-        updatedSection[name] = value;
+        updatedSection[index] = value;
       }
       return {
         ...prevValues,
@@ -86,22 +67,37 @@ const StudentProfileEditComponent = () => {
     });
   };
 
-  const handleSave = async (section) => {
+  const handleAddItem = (section) => {
+    setFormValues(prevValues => ({
+      ...prevValues,
+      [section]: section === 'externalLinks'
+        ? [...prevValues[section], { linkName: '', linkAddress: '' }]
+        : [...prevValues[section], '']
+    }));
+  };
+
+  const handleRemoveItem = (section, index) => {
+    setFormValues(prevValues => {
+      const updatedSection = prevValues[section].filter((_, i) => i !== index);
+      return {
+        ...prevValues,
+        [section]: updatedSection,
+      };
+    });
+  };
+
+  const handleSave = async () => {
     try {
       const updateRequest = {
-        studentProfileAboutSection: formValues.about,
-        studentProfileCityOfCoaching: formValues.cityOfCoaching,
-        studentProfileExamScoreDetails: formValues.scoreDetails,
-        studentProfileOtherExamScoreDetails: formValues.otherExamScores,
-        studentProfileActivityAndAchievements: formValues.activityAndAchievements,
-        studentProfileTutoringExperience: formValues.tutoringExperience,
-        studentProfileExternalLinks: formValues.externalLinks,
+        studentProfileAboutSection: formValues.about.map(item => ({ about: item })),
+        studentProfileCityOfCoaching: formValues.cityOfCoaching.map(item => ({ cityOfCoaching: item })),
+        studentProfileExamScoreDetails: formValues.scoreDetails.map(item => ({ scoreDetail: item })),
+        studentProfileOtherExamScoreDetails: formValues.otherExamScores.map(item => ({ otherScoreDetail: item })),
+        studentProfileActivityAndAchievements: formValues.activityAndAchievements.map(item => ({ activity: item })),
+        studentProfileTutoringExperience: formValues.tutoringExperience.map(item => ({ experience: item })),
+        studentProfileExternalLinks: formValues.externalLinks.map(item => ({ linkName: item.linkName, linkAddress: item.linkAddress })),
       };
       await updateStudentProfile(studentWorkEmail, updateRequest);
-      setEditMode((prevMode) => ({
-        ...prevMode,
-        [section]: false,
-      }));
       alert('Profile updated successfully');
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -156,31 +152,19 @@ const StudentProfileEditComponent = () => {
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
                   <h5>About</h5>
-                  {editMode.about ? (
-                    <div>
-                      <ul>
-                        {formValues.about.map((item, index) => (
-                          <li key={index}>
-                            <input
-                              type="text"
-                              value={item || ''}
-                              onChange={(e) => handleInputChange('about', index, e)}
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                      <button onClick={() => handleSave('about')}>Save</button>
-                    </div>
-                  ) : (
-                    <div>
-                      <ul>
-                        {formValues.about.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ul>
-                      <button onClick={() => handleEditToggle('about')}>Edit</button>
-                    </div>
-                  )}
+                  <ul>
+                    {formValues.about.map((item, index) => (
+                      <li key={index}>
+                        <input
+                          type="text"
+                          value={item}
+                          onChange={(e) => handleInputChange('about', index, e)}
+                        />
+                        <button onClick={() => handleRemoveItem('about', index)}>Remove</button>
+                      </li>
+                    ))}
+                  </ul>
+                  <button onClick={() => handleAddItem('about')}>Add</button>
                 </div>
               </div>
 
@@ -188,31 +172,19 @@ const StudentProfileEditComponent = () => {
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
                   <h5>City of Coaching</h5>
-                  {editMode.cityOfCoaching ? (
-                    <div>
-                      <ul>
-                        {formValues.cityOfCoaching.map((item, index) => (
-                          <li key={index}>
-                            <input
-                              type="text"
-                              value={item || ''}
-                              onChange={(e) => handleInputChange('cityOfCoaching', index, e)}
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                      <button onClick={() => handleSave('cityOfCoaching')}>Save</button>
-                    </div>
-                  ) : (
-                    <div>
-                      <ul>
-                        {formValues.cityOfCoaching.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ul>
-                      <button onClick={() => handleEditToggle('cityOfCoaching')}>Edit</button>
-                    </div>
-                  )}
+                  <ul>
+                    {formValues.cityOfCoaching.map((item, index) => (
+                      <li key={index}>
+                        <input
+                          type="text"
+                          value={item}
+                          onChange={(e) => handleInputChange('cityOfCoaching', index, e)}
+                        />
+                        <button onClick={() => handleRemoveItem('cityOfCoaching', index)}>Remove</button>
+                      </li>
+                    ))}
+                  </ul>
+                  <button onClick={() => handleAddItem('cityOfCoaching')}>Add</button>
                 </div>
               </div>
 
@@ -220,31 +192,19 @@ const StudentProfileEditComponent = () => {
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
                   <h5>Score Details</h5>
-                  {editMode.scoreDetails ? (
-                    <div>
-                      <ul>
-                        {formValues.scoreDetails.map((item, index) => (
-                          <li key={index}>
-                            <input
-                              type="text"
-                              value={item || ''}
-                              onChange={(e) => handleInputChange('scoreDetails', index, e)}
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                      <button onClick={() => handleSave('scoreDetails')}>Save</button>
-                    </div>
-                  ) : (
-                    <div>
-                      <ul>
-                        {formValues.scoreDetails.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ul>
-                      <button onClick={() => handleEditToggle('scoreDetails')}>Edit</button>
-                    </div>
-                  )}
+                  <ul>
+                    {formValues.scoreDetails.map((item, index) => (
+                      <li key={index}>
+                        <input
+                          type="text"
+                          value={item}
+                          onChange={(e) => handleInputChange('scoreDetails', index, e)}
+                        />
+                        <button onClick={() => handleRemoveItem('scoreDetails', index)}>Remove</button>
+                      </li>
+                    ))}
+                  </ul>
+                  <button onClick={() => handleAddItem('scoreDetails')}>Add</button>
                 </div>
               </div>
 
@@ -252,31 +212,19 @@ const StudentProfileEditComponent = () => {
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
                   <h5>Other Exam Scores</h5>
-                  {editMode.otherExamScores ? (
-                    <div>
-                      <ul>
-                        {formValues.otherExamScores.map((item, index) => (
-                          <li key={index}>
-                            <input
-                              type="text"
-                              value={item || ''}
-                              onChange={(e) => handleInputChange('otherExamScores', index, e)}
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                      <button onClick={() => handleSave('otherExamScores')}>Save</button>
-                    </div>
-                  ) : (
-                    <div>
-                      <ul>
-                        {formValues.otherExamScores.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ul>
-                      <button onClick={() => handleEditToggle('otherExamScores')}>Edit</button>
-                    </div>
-                  )}
+                  <ul>
+                    {formValues.otherExamScores.map((item, index) => (
+                      <li key={index}>
+                        <input
+                          type="text"
+                          value={item}
+                          onChange={(e) => handleInputChange('otherExamScores', index, e)}
+                        />
+                        <button onClick={() => handleRemoveItem('otherExamScores', index)}>Remove</button>
+                      </li>
+                    ))}
+                  </ul>
+                  <button onClick={() => handleAddItem('otherExamScores')}>Add</button>
                 </div>
               </div>
 
@@ -284,31 +232,19 @@ const StudentProfileEditComponent = () => {
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
                   <h5>Activity and Achievements</h5>
-                  {editMode.activityAndAchievements ? (
-                    <div>
-                      <ul>
-                        {formValues.activityAndAchievements.map((item, index) => (
-                          <li key={index}>
-                            <input
-                              type="text"
-                              value={item || ''}
-                              onChange={(e) => handleInputChange('activityAndAchievements', index, e)}
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                      <button onClick={() => handleSave('activityAndAchievements')}>Save</button>
-                    </div>
-                  ) : (
-                    <div>
-                      <ul>
-                        {formValues.activityAndAchievements.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ul>
-                      <button onClick={() => handleEditToggle('activityAndAchievements')}>Edit</button>
-                    </div>
-                  )}
+                  <ul>
+                    {formValues.activityAndAchievements.map((item, index) => (
+                      <li key={index}>
+                        <input
+                          type="text"
+                          value={item}
+                          onChange={(e) => handleInputChange('activityAndAchievements', index, e)}
+                        />
+                        <button onClick={() => handleRemoveItem('activityAndAchievements', index)}>Remove</button>
+                      </li>
+                    ))}
+                  </ul>
+                  <button onClick={() => handleAddItem('activityAndAchievements')}>Add</button>
                 </div>
               </div>
 
@@ -316,31 +252,19 @@ const StudentProfileEditComponent = () => {
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
                   <h5>Tutoring Experience</h5>
-                  {editMode.tutoringExperience ? (
-                    <div>
-                      <ul>
-                        {formValues.tutoringExperience.map((item, index) => (
-                          <li key={index}>
-                            <input
-                              type="text"
-                              value={item || ''}
-                              onChange={(e) => handleInputChange('tutoringExperience', index, e)}
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                      <button onClick={() => handleSave('tutoringExperience')}>Save</button>
-                    </div>
-                  ) : (
-                    <div>
-                      <ul>
-                        {formValues.tutoringExperience.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ul>
-                      <button onClick={() => handleEditToggle('tutoringExperience')}>Edit</button>
-                    </div>
-                  )}
+                  <ul>
+                    {formValues.tutoringExperience.map((item, index) => (
+                      <li key={index}>
+                        <input
+                          type="text"
+                          value={item}
+                          onChange={(e) => handleInputChange('tutoringExperience', index, e)}
+                        />
+                        <button onClick={() => handleRemoveItem('tutoringExperience', index)}>Remove</button>
+                      </li>
+                    ))}
+                  </ul>
+                  <button onClick={() => handleAddItem('tutoringExperience')}>Add</button>
                 </div>
               </div>
 
@@ -348,34 +272,32 @@ const StudentProfileEditComponent = () => {
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
                   <h5>External Links</h5>
-                  {editMode.externalLinks ? (
-                    <div>
-                      <ul>
-                        {formValues.externalLinks.map((item, index) => (
-                          <li key={index}>
-                            <input
-                              type="text"
-                              value={item || ''}
-                              onChange={(e) => handleInputChange('externalLinks', index, e)}
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                      <button onClick={() => handleSave('externalLinks')}>Save</button>
-                    </div>
-                  ) : (
-                    <div>
-                      <ul>
-                        {formValues.externalLinks.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ul>
-                      <button onClick={() => handleEditToggle('externalLinks')}>Edit</button>
-                    </div>
-                  )}
+                  <ul>
+                    {formValues.externalLinks.map((item, index) => (
+                      <li key={index}>
+                        <input
+                          type="text"
+                          name="linkName"
+                          value={item.linkName}
+                          onChange={(e) => handleInputChange('externalLinks', index, e)}
+                          placeholder="Link Name"
+                        />
+                        <input
+                          type="text"
+                          name="linkAddress"
+                          value={item.linkAddress}
+                          onChange={(e) => handleInputChange('externalLinks', index, e)}
+                          placeholder="Link Address"
+                        />
+                        <button onClick={() => handleRemoveItem('externalLinks', index)}>Remove</button>
+                      </li>
+                    ))}
+                  </ul>
+                  <button onClick={() => handleAddItem('externalLinks')}>Add</button>
                 </div>
               </div>
 
+              <button className="btn btn-primary mt-4" onClick={handleSave}>Save</button>
             </div>
           </div>
         </div>
