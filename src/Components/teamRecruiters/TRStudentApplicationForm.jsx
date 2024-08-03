@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   addStudent,
   getAllBranches,
@@ -30,9 +30,9 @@ const TRStudentApplicationForm = () => {
   const [TRUserLastName, setTRUserLastName] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const navigate = useNavigate();
-  const { encryptedUserName } = useParams(); // Get encryptedUserName from URL params
+  const location = useLocation();
+  
   const [branches, setBranches] = useState([]);
   const [colleges, setColleges] = useState([]);
   const [languages, setLanguages] = useState([]);
@@ -63,6 +63,13 @@ const TRStudentApplicationForm = () => {
     fetchData();
   }, []);
 
+  const handleRetrieveCredentials = () => {
+    const state = location.state || {};
+    setTRUserFirstName(state.TRUserFirstName || '');
+    setTRUserLastName(state.TRUserLastName || '');
+    setPassword(state.password || '');
+  };
+
   const navigateToUpdateForm = () => {
     try {
       navigate('/TRUpdateStudentApplicationForm', {
@@ -76,7 +83,6 @@ const TRStudentApplicationForm = () => {
       console.error('Navigation error:', error);
     }
   };
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -148,7 +154,6 @@ const TRStudentApplicationForm = () => {
     }
   };
 
-
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -204,6 +209,9 @@ const TRStudentApplicationForm = () => {
             />
           </div>
           <button type="submit">Login</button>
+          <button type="button" onClick={handleRetrieveCredentials}>
+            Retrieve Credentials
+          </button>
         </form>
       </div>
     );

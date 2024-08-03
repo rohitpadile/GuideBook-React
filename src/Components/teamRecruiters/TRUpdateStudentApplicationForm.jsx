@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLocation } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   getAllBranches,
   getAllColleges,
@@ -11,13 +11,14 @@ import {
   activateStudent,
   trLogin
 } from '../../Services/teamRecruiterApiService';
+import { useLocation, useNavigate } from 'react-router-dom';
 import '../../css/TR/TRStudentApplicationFormCss.css';
 
 const TRUpdateStudentApplicationForm = () => {
-
   const location = useLocation(); // Get location
+  const navigate = useNavigate();
   const { TRUserFirstName, TRUserLastName, password } = location.state || {}; // Retrieve state
-  
+
   const [studentDetails, setStudentDetails] = useState({
     studentName: '',
     studentMis: '',
@@ -40,7 +41,8 @@ const TRUpdateStudentApplicationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [isStudentFound, setIsStudentFound] = useState(false);
-  const [loginMessage, setLoginMessage] = useState(''); // State for login message
+  const [loginMessage, setLoginMessage] = useState('');
+  const [loginCode, setLoginCode] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -72,11 +74,14 @@ const TRUpdateStudentApplicationForm = () => {
         });
         if (response.status === 200) {
           setLoginMessage('Login successful');
+          setLoginCode(1);
         } else {
           setLoginMessage('Access Failed');
+          setLoginCode(0);
         }
       } catch (error) {
         setLoginMessage('Access Failed');
+        setLoginCode(0);
       }
     };
 
@@ -87,7 +92,7 @@ const TRUpdateStudentApplicationForm = () => {
     const { name, value } = e.target;
     setStudentDetails(prevDetails => ({
       ...prevDetails,
-      [name]: value
+      [name]: value || '' // Ensure value is never null
     }));
   };
 
@@ -97,6 +102,60 @@ const TRUpdateStudentApplicationForm = () => {
       ...prevDetails,
       studentLanguageNames: selectedLanguages
     }));
+  };
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    setIsSearching(true);
+    try {
+      const studentData = await getStudentBasicDetails(studentDetails.studentWorkEmail);
+      setStudentDetails(prevDetails => ({
+        ...prevDetails,
+        ...studentData
+      }));
+      setIsStudentFound(true);
+    } catch (error) {
+      console.error('Error fetching student details:', error);
+      alert('Student not found or error occurred');
+      setIsStudentFound(false);
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      const response = await updateStudent(studentDetails);
+      alert('Student details updated successfully');
+    } catch (error) {
+      console.error('Error updating student details:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleDeactivate = async () => {
+    try {
+      await deactivateStudent({ studentWorkEmail: studentDetails.studentWorkEmail });
+      alert('Student deactivated successfully');
+      setIsStudentFound(false);
+    } catch (error) {
+      console.error('Error deactivating student:', error);
+      alert('Failed to deactivate student');
+    }
+  };
+
+  const handleActivate = async () => {
+    try {
+      await activateStudent({ studentWorkEmail: studentDetails.studentWorkEmail });
+      alert('Student activated successfully');
+      setIsStudentFound(false);
+    } catch (error) {
+      console.error('Error activating student:', error);
+      alert('Failed to activate student');
+    }
   };
 
   const isFormValid = () => {
@@ -125,70 +184,29 @@ const TRUpdateStudentApplicationForm = () => {
       studentLanguageNames.length > 0
     );
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  
+    const navigateToStudentForm = () => {
     try {
-      const response = await updateStudent(studentDetails);
-      alert('Student details updated successfully');
+      navigate('/TRStudentApplicationForm', {
+        state: {
+          TRUserFirstName,
+          TRUserLastName,
+          password
+        }
+      });
     } catch (error) {
-      console.error('Error updating student details:', error);
-    } finally {
-      setIsSubmitting(false);
+      console.error('Navigation error:', error);
     }
   };
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    setIsSearching(true);
-    try {
-      const response = await getStudentBasicDetails(studentDetails.studentWorkEmail);
-      if (response) {
-        setStudentDetails(response);
-        setIsStudentFound(true);
-      } else {
-        alert('Student not found');
-        setIsStudentFound(false);
-      }
-    } catch (error) {
-      console.error('Error fetching student details:', error);
-    } finally {
-      setIsSearching(false);
-    }
-  };
+  if (loginCode !== 1) {
+    return <p>{loginMessage}</p>;
+  }
 
-  const handleDeactivate = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await deactivateStudent({ studentWorkEmail: studentDetails.studentWorkEmail });
-      if (response.status === 200) {
-        alert('Student account deactivated successfully');
-      } else {
-        alert('Failed to deactivate student account');
-      }
-    } catch (error) {
-      console.error('Error deactivating student:', error);
-    }
-  };
-
-  const handleActivate = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await activateStudent({ studentWorkEmail: studentDetails.studentWorkEmail });
-      if (response.status === 200) {
-        alert('Student account activated successfully');
-      } else {
-        alert('Failed to activate student account');
-      }
-    } catch (error) {
-      console.error('Error activating student:', error);
-    }
-  };
-
-  return (//original component code
+  return (//return component code
     <div className="student-application-form">
       <h2>Update Student Application Form</h2>
+      <button onClick={navigateToStudentForm}>Go to Student Application Form</button>
       <div className="form-container">
         <form onSubmit={handleSearch} className="search-form">
           <div className="form-group">
