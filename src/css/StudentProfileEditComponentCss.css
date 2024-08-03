@@ -1,0 +1,165 @@
+/* StudentProfileEditComponentCss.css */
+
+.student-profile-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    /* background-color: #e4effb; choice 1 */
+    background-color: #f0f5f9;
+    margin-bottom: 50px;
+  }
+  
+  .student-profile-header {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+  }
+  
+  .student-profile-header h4 {
+    margin: 0;
+  }
+  
+  .book-session-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #ff6f61;
+    border: none;
+  }
+  
+  .student-profile-body {
+    padding: 30px;
+  }
+  
+  .profile-photo {
+    border: 3px solid #6e8efb;
+  }
+  
+  .student-profile-body h5 {
+    font-weight: bold;
+    color: #411f1f;
+    text-align: left; /* Align text to the left */
+  }
+  .student-name-unique { 
+    text-align: center; /* Center align the text - THIS IS NOT WORKING  */
+    margin: 0; /* Optional: Remove default margin to avoid extra spacing */
+  }
+  
+  
+  .student-profile-body ul {
+    text-align: left; /* Align list items to the left */
+    list-style-type: none
+  }
+  
+  
+  .student-profile-body .card {
+    margin-top: 20px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: white; /* Ensure the content cards have a white background */
+  }
+  
+  .student-profile-body .badge-primary {
+    background-color: #6e8efb;
+  }
+  
+  .student-profile-body .badge-primary:hover {
+    background-color: #a777e3;
+  }
+  
+  .student-profile-body .zoom-card:hover {
+    transform: scale(1.02);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .student-branch {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 10px;
+    color: #5a0400;
+    text-align: left; /* Aligns text to the left */
+  }
+  
+  /* Styling the buttons */
+  button {
+    background-color: #6e8efb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #a777e3;
+  }
+  
+  /* Popup styles */
+  .popup-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  
+  .student-info-card {
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* Ensure the card has a white background */
+    padding: 20px; /* Ensure padding is specified */
+    text-align: center; /* Center-align text inside the card */
+    margin-top: 20px; /* Add some margin at the top */
+  }
+  
+  .student-info-card .card-body {
+    padding: 0; /* Remove padding inside the card body */
+  }
+  
+  .student-info-card .student-name {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .student-info-card .student-branch {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .profile-photo {
+    display: block; /* Ensure the photo is a block element */
+    margin-left: auto;
+    margin-right: auto; /* Center the photo horizontally */
+  }
+  
+  
+  .zoom-card .card-body {
+    transition: transform 0.2s;
+    border: 2px solid #cdc2e5; /* Border color for content cards */
+    border-radius: 8px;
+    background-color: #fff;
+    margin-bottom: 0px;
+  }
+  
+  
+  /* css for sessions conducted */
+  .sessions-conducted {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .big-number {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  /*  */

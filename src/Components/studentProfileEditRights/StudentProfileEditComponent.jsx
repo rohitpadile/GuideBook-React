@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import '../../css/StudentProfileComponentCss.css'; // Import CSS
+import '../../css/StudentProfileEditComponentCss.css'; // Import CSS
 import { getStudentProfile, getStudentBasicDetails, updateStudentProfile } from '../../Services/apiServiceAdmin'; // Adjust import path as necessary
 import { S3_PROFILE_PHOTO_BASE_URL } from '../../constants/s3url'; // Import the constant
 import { decrypt } from '../../Services/encryptionForStudentProfileEdit'; // Ensure proper import
