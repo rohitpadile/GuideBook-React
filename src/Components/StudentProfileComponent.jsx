@@ -146,28 +146,6 @@ const StudentProfileComponent = () => {
                   </ul>
                 </div>
               </div>
-
-              {/* <div className="card mt-4 zoom-card">
-                <div className="card-body">
-                  <h5>Co-Curricular Activities</h5>
-                  <ul>
-                    {studentProfile?.studentProfileCoCurricularActivity?.map((activity, index) => (
-                      <li key={index}>{activity?.activity}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="card mt-4 zoom-card">
-                <div className="card-body">
-                  <h5>Extra-Curricular Achievements</h5>
-                  <ul>
-                    {studentProfile?.studentProfileExtraCurricularActivity?.map((achievement, index) => (
-                      <li key={index}>{achievement?.activity}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div> */}
 {/* CREATE AN IF ELSE HERE - IF PRESENT THEN ONLY DISPLAY */}
               {studentProfile?.studentProfileTutoringExperience ? 
               <div className="card mt-4 zoom-card">
@@ -181,8 +159,6 @@ const StudentProfileComponent = () => {
               </div>
             </div> : <></>
               }
-              
-
               <div className="card mt-4 zoom-card">
                 <div className="card-body">
                   <h5>External Links</h5>

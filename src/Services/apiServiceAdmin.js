@@ -228,6 +228,22 @@ export const getClubDetails = async (clubName) => {
 // };
 
 
+export const updateStudentProfile = async (studentProfileId, updatedProfile) => {
+  try {
+    const response = await api.put(`/studentProfile/${studentProfileId}`, {
+      name: 'studentProfileId',
+      value: studentProfileId,
+      fields: updatedProfile.map((field) => ({
+        name: field.name,
+        value: field.value,
+      })),
+    });
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating student profile ${studentProfileId}:`, error);
+    throw error;
+  }
+};
 
 export default api;
 

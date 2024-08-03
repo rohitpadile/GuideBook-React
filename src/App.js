@@ -26,7 +26,7 @@ import TermsAndConditions from './Components/TermsAndConditions';
 import CancelZoomSessionComponent from './Components/CancelZoomSessionComponent';
 import TRStudentApplicationForm from './Components/teamRecruiters/TRStudentApplicationForm';
 import TRUpdateStudentApplicationForm from './Components/teamRecruiters/TRUpdateStudentApplicationForm';
-
+import StudentProfileEditComponent from './Components/studentProfileEditRights/StudentProfileEditComponent';
 // FOR TEAM RECRUITERS
 // import TRStudentDetailsComponent from './Components/teamRecruiters/TRStudentDetailsComponent';
 function App() {
@@ -61,7 +61,7 @@ function App() {
             {/* ROUTES FOR TEAM RECRUITERS */}
             <Route path="/TRStudentApplicationForm" element={<TRStudentApplicationForm />} />
             <Route path="/TRUpdateStudentApplicationForm" element={<TRUpdateStudentApplicationForm />} />
-            
+            <Route path="/StudentProfileEdit/:encryptedStudentWorkEmail" element={<StudentProfileEditComponent />} />
           </Routes>
         </BranchProvider>
       </div>
