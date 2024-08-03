@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   addStudent,
   getAllBranches,
   getAllColleges,
   getAllLanguages,
   getAllStudentCategories,
-  getAllStudentClassTypes
+  getAllStudentClassTypes,
+  trLogin 
 } from '../../Services/teamRecruiterApiService';
 import '../../css/TR/TRStudentApplicationFormCss.css';
 
@@ -24,8 +25,14 @@ const TRStudentApplicationForm = () => {
     studentCategoryName: '',
     studentLanguageNames: []
   });
-  const navigate = useNavigate();
 
+  const [TRUserFirstName, setTRUserFirstName] = useState('');
+  const [TRUserLastName, setTRUserLastName] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const navigate = useNavigate();
+  const { encryptedUserName } = useParams(); // Get encryptedUserName from URL params
   const [branches, setBranches] = useState([]);
   const [colleges, setColleges] = useState([]);
   const [languages, setLanguages] = useState([]);
@@ -56,9 +63,9 @@ const TRStudentApplicationForm = () => {
     fetchData();
   }, []);
 
-  const navigateToUpdateForm = async () => {
+  const navigateToUpdateForm = () => {
     try {
-      navigate(`/TRUpdateStudentApplicationForm`);
+      navigate(`/TRUpdateStudentApplicationForm/${encryptedUserName}`);
     } catch (error) {
       console.error('Navigation error:', error);
     }
@@ -114,7 +121,6 @@ const TRStudentApplicationForm = () => {
       const response = await addStudent(studentDetails);
       alert('Student details submitted successfully');
       setLastSavedStudent(studentDetails);
-      // AGAIN MAKING THE FIELDS GO EMPTY
       setStudentDetails({
         studentName: '',
         studentMis: '',
@@ -135,12 +141,74 @@ const TRStudentApplicationForm = () => {
     }
   };
 
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const loginRequest = {
+        trUserFirstName: TRUserFirstName,
+        trUserLastName: TRUserLastName,
+        trUserPassword: password
+      };
+
+      const response = await trLogin(loginRequest);
+
+      if (response.status === 200) {
+        setIsLoggedIn(true);
+      } else {
+        alert('Invalid login credentials');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('Login failed');
+    }
+  };
+
+  if (!isLoggedIn) {
+    return (
+      <div className="login-form">
+        <h2>Login</h2>
+        <form onSubmit={handleLogin}>
+          <div className="form-group">
+            <label>First Name:</label>
+            <input
+              type="text"
+              value={TRUserFirstName}
+              onChange={(e) => setTRUserFirstName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Last Name:</label>
+            <input
+              type="text"
+              value={TRUserLastName}
+              onChange={(e) => setTRUserLastName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Password:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    );
+  }
+
   return (
     <div className="student-application-form">
       <div className="header">
         <h2>Student Application Form</h2>
         <button className="update-student-button" onClick={navigateToUpdateForm}>
-          Update Student</button>
+          Update Student
+        </button>
       </div>
       <div className="form-container">
         <form onSubmit={handleSubmit} className="application-form">
