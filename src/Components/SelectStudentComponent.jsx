@@ -144,7 +144,7 @@ const SelectStudentComponent = () => {
               </option>
             ))}
           </select>
-        </div>
+        </div> 
         <div className="filter-item">
           <label htmlFor="minGrade">Minimum Grade</label>
           <select
