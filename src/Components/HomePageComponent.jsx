@@ -3,10 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import { Carousel, Button } from 'react-bootstrap'; // Import the Carousel component
 import '../css/HomePageComponentCss.css'; // Import the updated CSS file
 import { useNavigate } from 'react-router-dom';
-// Define the constant for the base URL
 
 const HomePageComponent = () => {
-
   const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
   const navigate = useNavigate();
 
@@ -32,6 +30,12 @@ const HomePageComponent = () => {
         <Button variant="primary" className="get-started-button" onClick={handleGetStartedClick}>
           Get Started
         </Button>
+        <p className="or-separator">OR</p>
+        <p className="mentor-apply-link">
+          <a href="" target="_blank" rel="noopener noreferrer">
+            Apply For Student Mentor
+          </a>
+        </p>
       </div>
     </div>
   );

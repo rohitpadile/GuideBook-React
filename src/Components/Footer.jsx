@@ -8,7 +8,7 @@ const Footer = () => {
         <div>
           <span className="text-muted">Copyright © 2024, GuidebookX</span>
           <br />
-          <span>Founded by COEP Student</span>
+          <span>Founded & CEO: Rohit Padile</span>
         </div>
         <div className="small-links">
           <Link to="/termsAndConditions" className="text-decoration-none">

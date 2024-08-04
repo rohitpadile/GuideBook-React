@@ -9,7 +9,7 @@ const TermsAndConditions = () => {
         <div className="col-12 col-md-8 col-lg-6">
           <div className="terms-card card p-4">
             <h1 className="terms-card-title card-title text-center mb-3">Terms and Conditions</h1>
-            <div className="terms-card-body card-body">
+            {/* <div className="terms-card-body card-body">
               <h3 className="terms-heading">Introduction</h3>
               <p className="terms-paragraph">
                 Welcome to our website. These terms and conditions outline the rules and regulations for the use of our website.
@@ -37,7 +37,7 @@ const TermsAndConditions = () => {
               <p className="terms-paragraph">
                 If you have any questions about these Terms, please contact us.
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

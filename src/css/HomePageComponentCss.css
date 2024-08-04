@@ -1,6 +1,7 @@
 .carousel-caption-below {
   text-align: center;
   margin-top: 20px;
+  margin-bottom: 50px;
 }
 
 .carousel-caption-below h3 {
@@ -23,10 +24,33 @@
   color: white;
   text-transform: uppercase;
   transition: background-color 0.3s ease;
-  margin-bottom: 50px;
 }
 
 .get-started-button:hover {
   background-color: #0056b3;
 }
 
+.or-separator {
+  margin: 20px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #555;
+}
+
+.mentor-apply-link {
+  font-size: 1.5rem; /* Increased font size */
+  font-weight: bold; /* Made the text bold */
+}
+
+.mentor-apply-link a {
+  color: #007bff;
+  text-decoration: none; /* Removed underline */
+  border-bottom: 2px solid transparent; /* Added bottom border */
+  transition: all 0.3s ease; /* Added transition for smooth effect */
+}
+
+.mentor-apply-link a:hover {
+  color: #0056b3;
+  border-bottom: 2px solid #0056b3; /* Changed bottom border on hover */
+  text-decoration: none; /* Ensured no underline on hover */
+}
