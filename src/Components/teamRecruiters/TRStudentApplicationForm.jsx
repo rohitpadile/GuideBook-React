@@ -22,7 +22,7 @@ const TRStudentApplicationForm = () => {
     studentCetPercentile: '',
     studentGrade: '',
     studentClassType: '',
-    studentCategoryName: '',
+    studentCategoryName: 'ALL', // Set default value to 'ALL'
     studentLanguageNames: []
   });
 
@@ -130,8 +130,15 @@ const TRStudentApplicationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    // Convert "ALL" to null for backend submission
+    const formattedStudentDetails = {
+      ...studentDetails,
+      studentCategoryName: studentDetails.studentCategoryName === 'ALL' ? null : studentDetails.studentCategoryName
+    };
+
     try {
-      const response = await addStudent(studentDetails);
+      const response = await addStudent(formattedStudentDetails);
       alert('Student details submitted successfully');
       setLastSavedStudent(studentDetails);
       setStudentDetails({
@@ -144,7 +151,7 @@ const TRStudentApplicationForm = () => {
         studentCetPercentile: '',
         studentGrade: '',
         studentClassType: '',
-        studentCategoryName: '',
+        studentCategoryName: 'ALL', // Reset to default value
         studentLanguageNames: []
       });
     } catch (error) {
@@ -281,7 +288,7 @@ const TRStudentApplicationForm = () => {
           <div className="form-group">
             <label>Category:</label>
             <select name="studentCategoryName" value={studentDetails.studentCategoryName} onChange={handleChange} required>
-              <option value="">Select Category</option>
+              <option value="ALL">All</option>
               {studentCategories.map(category => (
                 <option key={category} value={category}>{category}</option>
               ))}

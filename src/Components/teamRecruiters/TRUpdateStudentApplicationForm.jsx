@@ -29,7 +29,7 @@ const TRUpdateStudentApplicationForm = () => {
     studentCetPercentile: '',
     studentGrade: '',
     studentClassType: '',
-    studentCategoryName: '',
+    studentCategoryName: 'ALL', // Default value
     studentLanguageNames: []
   });
 
@@ -92,9 +92,10 @@ const TRUpdateStudentApplicationForm = () => {
     const { name, value } = e.target;
     setStudentDetails(prevDetails => ({
       ...prevDetails,
-      [name]: value || '' // Ensure value is never null
+      [name]: value === 'ALL' ? null : value // Convert 'ALL' to null
     }));
   };
+  
 
   const handleLanguagesChange = (e) => {
     const selectedLanguages = Array.from(e.target.selectedOptions, option => option.value);
@@ -127,7 +128,11 @@ const TRUpdateStudentApplicationForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await updateStudent(studentDetails);
+      const processedDetails = {
+        ...studentDetails,
+        studentCategoryName: studentDetails.studentCategoryName === 'ALL' ? null : studentDetails.studentCategoryName
+      };
+      const response = await updateStudent(processedDetails);
       alert('Student details updated successfully');
     } catch (error) {
       console.error('Error updating student details:', error);
@@ -135,6 +140,7 @@ const TRUpdateStudentApplicationForm = () => {
       setIsSubmitting(false);
     }
   };
+  
 
   const handleDeactivate = async () => {
     try {
@@ -332,7 +338,7 @@ const TRUpdateStudentApplicationForm = () => {
                 onChange={handleChange}
                 required
               >
-                <option value="">Select Category</option>
+                <option value="ALL">ALL</option>
                 {studentCategories.map((category) => (
                   <option key={category} value={category}>
                     {category}
