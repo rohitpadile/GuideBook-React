@@ -10,9 +10,15 @@ const Footer = () => {
           <br />
           <span>Founded by COEP Student</span>
         </div>
-        <div>
+        <div className="small-links">
           <Link to="/termsAndConditions" className="text-decoration-none">
             Terms and Conditions
+          </Link>
+          <Link to="/helpDesk" className="text-decoration-none mx-3">
+            HelpDesk
+          </Link>
+          <Link to="/feedback" className="text-decoration-none">
+            Feedback
           </Link>
         </div>
       </div>
