@@ -1,0 +1,25 @@
+.helpdesk-container {
+    margin-top: 50px;
+  }
+  
+  .helpdesk-card {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .helpdesk-card-title {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  
+  .helpdesk-card-subtitle {
+    font-size: 1.25em;
+    font-weight: normal;
+  }
+  
+  .helpdesk-info {
+    font-size: 1em;
+    font-weight: normal;
+  }
+  

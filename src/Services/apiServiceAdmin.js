@@ -239,6 +239,17 @@ export const updateStudentProfile = async (studentWorkEmail, updateRequest) => {
   }
 };
 
+// Add company feedback
+export const addCompanyFeedback = async (feedback) => {
+  try {
+    const response = await api.post('/addCompanyFeedback', feedback);
+    return response;
+  } catch (error) {
+    console.error('Error submitting company feedback:', error);
+    throw error;
+  }
+};
+
 export default api;
 
 

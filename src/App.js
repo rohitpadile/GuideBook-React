@@ -27,6 +27,8 @@ import CancelZoomSessionComponent from './Components/CancelZoomSessionComponent'
 import TRStudentApplicationForm from './Components/teamRecruiters/TRStudentApplicationForm';
 import TRUpdateStudentApplicationForm from './Components/teamRecruiters/TRUpdateStudentApplicationForm';
 import StudentProfileEditComponent from './Components/studentProfileEditRights/StudentProfileEditComponent';
+import CompanyFeedbackFormComponent from './Components/CompanyFeedbackFormComponent';
+import HelpdeskComponent from './Components/HelpdeskComponent'
 // FOR TEAM RECRUITERS
 // import TRStudentDetailsComponent from './Components/teamRecruiters/TRStudentDetailsComponent';
 function App() {
@@ -57,8 +59,8 @@ function App() {
               
             <Route path="/schedule-zoom-session/:encryptedFormIdAndStudentWorkEmail" element={<ScheduleZoomSession />} />
             <Route path="/feedback-zoom-session/:encryptedTransactionId" element={<ZoomSessionFeedbackFormComponent />} />
-            {/* <Route path="/helpDesk" component={HelpDesk} />
-            <Route path="/feedback" component={Feedback} /> */}
+            <Route path="/feedback" element={<CompanyFeedbackFormComponent />} />
+            <Route path="/helpdesk" element={<HelpdeskComponent />} />
             {/* ROUTES FOR TEAM RECRUITERS */}
             <Route path="/TRStudentApplicationForm" element={<TRStudentApplicationForm />} />
             <Route path="/TRUpdateStudentApplicationForm" element={<TRUpdateStudentApplicationForm />} />
