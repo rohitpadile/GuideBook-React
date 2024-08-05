@@ -22,6 +22,7 @@ const TermsAndConditions = () => {
                 <li className="list-group-item">Students may or may not be available depending on their academic, co-curricular, and extra-curricular schedule. They may schedule the meeting as per their available timing or reject the session with a small message if they are busy anytime soon.</li>
                 <li className="list-group-item">Mentors will verify that you are a college student by seeing the proof you provided. Then only will they schedule a session so that their time is not wasted.</li>
                 <li className="list-group-item">You can only book one session at a time. After that, you will not be allowed to book another session for a certain period.</li>
+                <li className="list-group-item">Student Mentor will verify the email in the form and the email you are joining the zoom meeting. Join the meeting with the same email.</li>
                 <li className="list-group-item">After a session has been scheduled, the company takes no responsibilities for how the meeting will go. It will depend upon how seriously the mentor guides you.</li>
               </ul>
               
