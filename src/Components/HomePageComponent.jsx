@@ -32,10 +32,9 @@ const HomePageComponent = () => {
         </Button>
         <p className="or-separator">OR</p>
         <p className="mentor-apply-link">
-          {/* <a href="" target="_blank" rel="noopener noreferrer">
-            Apply For Student Mentor
-          </a> */}
-          <button>Apply For Student Mentor</button>
+        <a href="https://forms.gle/nXcJj9qbZaUBYSVy8" target="_blank" rel="noopener noreferrer">
+          Apply For Student Mentor
+        </a>
         </p>
       </div>
     </div>
