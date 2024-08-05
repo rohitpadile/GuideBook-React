@@ -86,7 +86,7 @@ const StudentProfileComponent = () => {
                     <li>Exam Score: {studentBasicDetails?.cetPercentile}</li>
                     <li>Class Type: {studentBasicDetails?.classType}</li>
                     <li>Language:   {studentBasicDetails?.languagesSpoken?.join(', ')}</li>
-                    <li>Category:   {studentBasicDetails?.category}</li>
+                    {/* <li>Category:   {studentBasicDetails?.category}</li> */}
                     <li>College:    {studentBasicDetails?.college}</li>
                   </ul>
                 </div>
