@@ -7,37 +7,28 @@ const TermsAndConditions = () => {
     <div className="terms-container mt-5">
       <div className="row justify-content-center">
         <div className="col-12 col-md-8 col-lg-6">
-          <div className="terms-card card p-4">
+          <div className="terms-card card shadow-lg p-4">
             <h1 className="terms-card-title card-title text-center mb-3">Terms and Conditions</h1>
-            {/* <div className="terms-card-body card-body">
-              <h3 className="terms-heading">Introduction</h3>
+            <div className="terms-card-body card-body">
+              {/* <h3 className="terms-heading">Introduction</h3>
               <p className="terms-paragraph">
                 Welcome to our website. These terms and conditions outline the rules and regulations for the use of our website.
+              </p> */}
+              <h3 className="terms-heading">Session Booking</h3>
+              <ul className="terms-paragraph list-group list-group-flush">
+                <li className="list-group-item">Clients (Students) will book a Zoom Session with the Student Mentor by filling the Form on the Book Session button on each Student Profile.</li>
+                <li className="list-group-item">Student Mentors, according to their availability in their academic schedule, will schedule the Zoom meeting or cancel the Zoom meeting.</li>
+                <li className="list-group-item">An email will be sent to both the mentor and student about the confirmation of the session on their provided emails.</li>
+                <li className="list-group-item">Students may or may not be available depending on their academic, co-curricular, and extra-curricular schedule. They may schedule the meeting as per their available timing or reject the session with a small message if they are busy anytime soon.</li>
+                <li className="list-group-item">Mentors will verify that you are a college student by seeing the proof you provided. Then only will they schedule a session so that their time is not wasted.</li>
+                <li className="list-group-item">You can only book one session at a time. After that, you will not be allowed to book another session for a certain period.</li>
+                <li className="list-group-item">After a session has been scheduled, the company takes no responsibilities for how the meeting will go. It will depend upon how seriously the mentor guides you.</li>
+              </ul>
+              
+              <p className="terms-paragraph mt-3">
+                If you have any questions about these Terms, please contact us at HelpDesk.
               </p>
-              <h3 className="terms-heading">Intellectual Property Rights</h3>
-              <p className="terms-paragraph">
-                Other than the content you own, under these Terms, we own all rights to the intellectual property and materials contained in this Website.
-              </p>
-              <h3 className="terms-heading">Restrictions</h3>
-              <p className="terms-paragraph">
-                You are specifically restricted from all of the following: publishing any Website material in any other media, selling, sublicensing and/or otherwise commercializing any Website material, using this Website in any way that is or may be damaging to this Website.
-              </p>
-              <h3 className="terms-heading">Your Content</h3>
-              <p className="terms-paragraph">
-                In these Website Standard Terms and Conditions, “Your Content” shall mean any audio, video text, images or other material you choose to display on this Website.
-              </p>
-              <h3 className="terms-heading">Limitation of Liability</h3>
-              <p className="terms-paragraph">
-                In no event shall we, nor any of our officers, directors and employees, be held liable for anything arising out of or in any way connected with your use of this Website whether such liability is under contract.
-              </p>
-              <h3 className="terms-heading">Governing Law & Jurisdiction</h3>
-              <p className="terms-paragraph">
-                These Terms will be governed by and interpreted in accordance with the laws of the state/country in which our company is located, and you submit to the non-exclusive jurisdiction of the state and federal courts located in that state/country for the resolution of any disputes.
-              </p>
-              <p className="terms-paragraph">
-                If you have any questions about these Terms, please contact us.
-              </p>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>

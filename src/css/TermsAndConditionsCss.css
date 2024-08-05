@@ -3,11 +3,13 @@
     margin-top: 5rem;
     font-family: 'Roboto', sans-serif; /* Change the font to a documentation style font */
     margin-bottom: 50px;
+    
   }
   
   .terms-card {
     padding: 2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
   }
   
   .terms-card-title {
