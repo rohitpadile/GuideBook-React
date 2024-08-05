@@ -5,7 +5,6 @@
   background-color: #000; /* Black background */
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
 }
 
 .header-navbar-brand {
@@ -22,7 +21,7 @@
   display: flex;
   gap: 20px;
   align-items: center;
-  margin-right: -0px; /* Adjust this value as needed */
+  margin-right: 0; /* Adjust this value as needed */
 }
 
 .header-link {
@@ -46,7 +45,6 @@
   align-items: center;
   width: 100%;
   max-width: 1200px; /* Adjust as needed */
-  /* margin: 0 auto; */
   margin-left: 110px;
   padding: 0 15px;
 }
@@ -66,3 +64,44 @@
   height: auto;
 }
 
+.header-logo-text {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: middle;
+  font-size: 1.5rem;
+  font-weight: lighter;
+  color: #fff; /* White text color */
+}
+
+/* New styles */
+.secondary-navbar {
+  background-color: #111; /* Close to black color */
+  padding: 0px 0; /* Reduced padding for thinner navbar */
+}
+
+.secondary-navbar-nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.secondary-navbar-nav-item {
+  margin-right: 20px;
+}
+
+.secondary-navbar-nav-link {
+  color: #fff; /* White text color */
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.secondary-navbar-nav-link:hover {
+  text-decoration: underline;
+}
+.secondary-navbar-nav-link:hover {
+  color: #fff; /* Maintain white text color on hover */
+  text-decoration: none; /* Ensure no underline or other decoration on hover */
+  /* You can add more styles here if needed, but leaving it empty will keep the default appearance */
+}

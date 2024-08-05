@@ -32,7 +32,7 @@ const HomePageComponent = () => {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src={`${BASE_URL}logonameblack.jpg`}
+            src={`${BASE_URL}logonameblack1.jpg`}
             alt="Invite Poster"
           />
         </Carousel.Item>

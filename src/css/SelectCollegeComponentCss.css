@@ -3,6 +3,7 @@
   border-radius: 8px;
   padding: 20px;
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  
 }
 
 .sc-card-header {
@@ -43,6 +44,7 @@
   flex-wrap: wrap;
   gap: 40px; /* Adjust gap between photos as needed */
   margin-top: 51px;
+  margin-bottom: 50px;
 }
 
 .college-card {

@@ -29,6 +29,7 @@ import TRUpdateStudentApplicationForm from './Components/teamRecruiters/TRUpdate
 import StudentProfileEditComponent from './Components/studentProfileEditRights/StudentProfileEditComponent';
 import CompanyFeedbackFormComponent from './Components/CompanyFeedbackFormComponent';
 import HelpdeskComponent from './Components/HelpdeskComponent'
+import AboutUs from './Components/AboutUs'
 // FOR TEAM RECRUITERS
 // import TRStudentDetailsComponent from './Components/teamRecruiters/TRStudentDetailsComponent';
 function App() {
@@ -65,6 +66,7 @@ function App() {
             <Route path="/TRStudentApplicationForm" element={<TRStudentApplicationForm />} />
             <Route path="/TRUpdateStudentApplicationForm" element={<TRUpdateStudentApplicationForm />} />
             <Route path="/StudentProfileEdit/:encryptedStudentWorkEmail" element={<StudentProfileEditComponent />} />
+            <Route path="/aboutUs" element={<AboutUs />} />
           </Routes>
         </BranchProvider>
       </div>
