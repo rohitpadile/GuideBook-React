@@ -5,7 +5,7 @@ import '../css/HomePageComponentCss.css'; // Import the updated CSS file
 import { useNavigate } from 'react-router-dom';
 
 const HomePageComponent = () => {
-  const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
+  // const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
   const navigate = useNavigate();
 
   const handleGetStartedClick = () => {
