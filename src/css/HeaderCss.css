@@ -60,3 +60,9 @@
     font-size: 14px;
   }
 }
+
+.header-logo {
+  max-width: 55px;
+  height: auto;
+}
+
