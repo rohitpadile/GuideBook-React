@@ -16,11 +16,11 @@ const HomePageComponent = () => {
     <div className="home-page">
       <Carousel>
         <Carousel.Item>
-          <img
+          {/* <img
             className="d-block w-100"
             src={`${BASE_URL}invitePoster.jpg`}
             alt="Invite Poster"
-          />
+          /> */}
         </Carousel.Item>
         {/* Add more Carousel.Items here if needed */}
       </Carousel>
