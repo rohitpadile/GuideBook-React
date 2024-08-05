@@ -17,7 +17,7 @@ const HomePageComponent = () => {
       
       <div className="carousel-caption-below">
         <h3>Welcome to GuideBookX</h3>
-        <p>The Ultimate platform for college students to interact and take the insights</p>
+        <p>Ultimate platform for college students to interact and take the insights</p>
         <Button variant="primary" className="get-started-button" onClick={handleGetStartedClick}>
           Get Started
         </Button>
