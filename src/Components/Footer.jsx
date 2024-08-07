@@ -6,7 +6,8 @@ const Footer = () => {
     <footer className="footer mt-auto py-3 bg-light">
       <div className="container d-flex justify-content-between align-items-center">
         <div>
-          <span className="text-muted">Copyright © 2024, GuidebookX</span>
+          {/* <span className="text-muted">Copyright © 2024, GuidebookX</span> */}
+          <span className="text-muted">Startup by COEP Students</span>
           <br />
           {/* <span>Founded by COEP Student</span> */}
         </div>

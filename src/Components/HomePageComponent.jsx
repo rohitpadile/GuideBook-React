@@ -16,7 +16,7 @@ const HomePageComponent = () => {
     <div className="home-page">
       
       <div className="carousel-caption-below">
-        <h3>Welcome to GuideBookX</h3>
+        <h3>Welcome to GuidebookX</h3>
         <p>Ultimate platform for college students to interact and take the insights</p>
         <Button variant="primary" className="get-started-button" onClick={handleGetStartedClick}>
           Get Started
