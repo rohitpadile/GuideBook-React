@@ -33,8 +33,8 @@ const ScheduleZoomSession = () => {
     const decryptedData = decryptData(encryptedFormIdAndStudentWorkEmail);
     formId = decryptedData.decryptedFormId;
     studentWorkEmail = decryptedData.decryptedStudentWorkEmail;
-    console.log("Decrypted Form ID:", formId);
-    console.log("Decrypted Student Work Email:", studentWorkEmail);
+    // console.log("Decrypted Form ID:", formId);
+    // console.log("Decrypted Student Work Email:", studentWorkEmail);
   } catch (error) {
     console.error("Error decrypting data:", error);
     formId = null;

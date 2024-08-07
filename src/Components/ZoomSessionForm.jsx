@@ -66,7 +66,7 @@ const ZoomSessionForm = () => {
       setMessageCode(zoomSessionFormMessageCode);
       setFormId(zoomSessionFormId);
     } catch (error) {
-      console.error('Error sending OTP:', error);
+      // console.error('Error sending OTP:', error);
       setMessage('Failed to send OTP. Please try again.');
     }
   };
@@ -88,7 +88,7 @@ const ZoomSessionForm = () => {
         handleRedirect();
       }
     } catch (error) {
-      console.error('Error verifying OTP:', error);
+      // console.error('Error verifying OTP:', error);
       setMessage('Failed to verify OTP. Please try again.');
     }
   };
@@ -100,26 +100,26 @@ const ZoomSessionForm = () => {
       setMessage(zoomSessionFormMessage);
       setMessageCode(zoomSessionFormMessageCode);
     } catch (error) {
-      console.error('Error resending new OTP:', error);
+      // console.error('Error resending new OTP:', error);
       setMessage('Failed to resend new OTP. Please try again.');
     }
   };
 
   const handleRedirect = () => {
-    console.log('Redirecting to student profile page');
+    // console.log('Redirecting to student profile page');
     navigate('/studentProfile', { state: { student } });
   };
 
   const handleBookSession = async () => {
     setIsBooked(1);
-    console.log("Handling Final Book Session button");
+    // console.log("Handling Final Book Session button");
     const zoomSessionConfirmationRequest = {
       studentWorkEmail: student.studentWorkEmail,
       zoomSessionFormId: formId,
     };
     try {
       const data = await bookSession(zoomSessionConfirmationRequest);
-      console.log('Booking response:', data);
+      // console.log('Booking response:', data);
       navigate('/zoomSessionFormSuccess', { state: { student, formId } });
     } catch (error) {
       console.error('Error booking session:', error);

@@ -24,7 +24,8 @@ const ZoomSessionFeedbackFormComponent = () => {
         setTransactionId(uuid);
         setStudentName(studentName.replace(/\+/g, ' ')); // Replace '+' with space
       } catch (error) {
-        console.error('Error decoding transaction ID:', error);
+        // console.error('Error decoding transaction ID:', error);
+        console.log("");
       }
     }
   }, [encryptedTransactionId]);
@@ -35,7 +36,7 @@ const ZoomSessionFeedbackFormComponent = () => {
         try {
           const data = await getSubmissionStatusForFeedbackForm(transactionId);
           setIsSubmitted(data.isSubmitted);
-          console.log("Submission status: " + data.isSubmitted);
+          // console.log("Submission status: " + data.isSubmitted);
         } catch (error) {
           console.error('Error fetching submission status:', error);
         }
@@ -78,7 +79,7 @@ const ZoomSessionFeedbackFormComponent = () => {
       await submitZoomSessionFeedbackForm(feedbackData);
       setMessage('Feedback submitted successfully!');
     } catch (error) {
-      console.error('Error submitting feedback:', error);
+      // console.error('Error submitting feedback:', error);
       setMessage('There was an error submitting your feedback. Please try again.');
       setIsSubmitted(null);
     } finally {

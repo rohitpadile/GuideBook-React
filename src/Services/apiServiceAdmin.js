@@ -67,7 +67,7 @@ export const getAllStudentClassTypes = async () => {
     const response = await api.get('/studentClassTypes');
     return response.data.allStudentClassTypeNamesList || [];
   } catch (error) {
-    console.error('Error fetching student class types:', error);
+    console.error('Error fetching student year of study:', error);
     return [];
   }
 };
@@ -110,7 +110,8 @@ export const getStudentProfile = async (studentWorkEmail) => {
     const response = await api.get(`/studentProfile/${studentWorkEmail}`);
     return response.data; // Assuming response.data contains the student profile object
   } catch (error) {
-    console.error(`Error fetching student profile for Work Email ${studentWorkEmail}:`, error);
+    // console.error(`Error fetching student profile for Work Email ${studentWorkEmail}:`, error);
+    console.log("");
     return null;
   }
 };
@@ -121,7 +122,8 @@ export const getStudentBasicDetails = async (studentWorkEmail) => {
     const response = await api.get(`/studentBasicDetails/${studentWorkEmail}`);
     return response.data; // Assuming response.data contains the student basic details object
   } catch (error) {
-    console.error(`Error fetching student basic details for Work Email ${studentWorkEmail}:`, error);
+    // console.error(`Error fetching student basic details for Work Email ${studentWorkEmail}:`, error);
+    console.log("");
     return null;
   }
 };
@@ -234,7 +236,8 @@ export const updateStudentProfile = async (studentWorkEmail, updateRequest) => {
     const response = await api.put(`/updateStudentProfile/${studentWorkEmail}`, updateRequest);
     return response.data;
   } catch (error) {
-    console.error(`Error updating student profile ${studentWorkEmail}:`, error);
+    // console.error(`Error updating student profile ${studentWorkEmail}:`, error);
+    console.log("");
     throw error;
   }
 };
