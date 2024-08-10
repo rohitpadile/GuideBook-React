@@ -2,18 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/HeaderCss.css';
 import auth from '../auth';
+import axios from 'axios';
 
-const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
 
 const Header = () => {
+  const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
+  const API_BASE_URL = 'http://localhost:8080';
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const response = await fetch('/api/v1/user/check-login', { credentials: 'include' });
-        if (response.ok) {
+        const token = auth.getToken();
+        const response = await axios.get(`${API_BASE_URL}/api/v1/user/check-login`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+          withCredentials: true,
+        });
+        if (response.status === 200) {
           setIsLoggedIn(true);
         } else {
           setIsLoggedIn(false);
@@ -29,19 +37,20 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      // Make a request to the backend to handle any server-side logout logic if needed
-      await fetch('http://localhost:8080/api/v1/user/logout', { method: 'POST', credentials: 'include' });
+      const token = auth.getToken();
+      await axios.post(`${API_BASE_URL}/api/v1/user/logout`, {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        withCredentials: true,
+      });
       
-      // Remove token and authorization header on the client side
-      auth.removeToken();
-      
-      // Redirect to the home page or login page
+      auth.removeToken(); // Remove token and header
       navigate('/');
     } catch (error) {
       console.error('Error logging out:', error);
     }
   };
-  
 
   return (
     <>
