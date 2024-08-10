@@ -1,22 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import '../css/HeaderCss.css'; // Updated CSS file path
+import '../css/HeaderCss.css';
 
 const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
 
 const Header = () => {
-  const navigate = useNavigate(); // Hook for navigation
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
-  const handleAboutUs = () => {
-    navigate('/aboutUs');
-  };
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const response = await fetch('/api/v1/user/check-login', { credentials: 'include' });
+        if (response.ok) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        console.error('Error checking login status:', error);
+        setIsLoggedIn(false);
+      }
+    };
 
-  const handleExamClick = () => {
-    navigate('/entrance-exams');
-  };
+    checkLoginStatus();
+  }, []);
 
-  const handleBlogClick = () => {
-    navigate('/blogs');
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/v1/user/logout', { method: 'POST', credentials: 'include' });
+      setIsLoggedIn(false);
+      navigate('/');
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
   };
 
   return (
@@ -29,9 +46,14 @@ const Header = () => {
             <div className="header-logo-text">GuidebookX</div>
           </Link>
           <div className="header-links">
-            {/* <span className="header-link" onClick={handleAboutUs}>About Us</span> */}
-            <Link to="/login" className="header-link">Login</Link>
-            <Link to="/signup" className="header-link">Signup</Link>
+            {isLoggedIn ? (
+              <span className="header-link" onClick={handleLogout}>Account</span>
+            ) : (
+              <>
+                <Link to="/login" className="header-link">Login</Link>
+                <Link to="/signup" className="header-link">Signup</Link>
+              </>
+            )}
           </div>
         </div>
       </nav>
@@ -40,21 +62,11 @@ const Header = () => {
       <nav className="secondary-navbar navbar-expand-lg">
         <div className="container">
           <ul className="secondary-navbar-nav navbar-nav mr-auto">
-            <li
-              className="secondary-navbar-nav-item nav-item"
-              onClick={handleExamClick}
-            >
-              <span className="secondary-navbar-nav-link nav-link">
-                Entrance Exams
-              </span>
+            <li className="secondary-navbar-nav-item nav-item" onClick={() => navigate('/entrance-exams')}>
+              <span className="secondary-navbar-nav-link nav-link">Entrance Exams</span>
             </li>
-            <li
-              className="secondary-navbar-nav-item nav-item"
-              onClick={handleBlogClick}
-            >
-              <span className="secondary-navbar-nav-link nav-link">
-                Blogs
-              </span>
+            <li className="secondary-navbar-nav-item nav-item" onClick={() => navigate('/blogs')}>
+              <span className="secondary-navbar-nav-link nav-link">Blogs</span>
             </li>
           </ul>
         </div>

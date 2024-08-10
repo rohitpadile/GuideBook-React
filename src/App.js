@@ -37,9 +37,6 @@ import Login from './Components/Login';
 // FOR TEAM RECRUITERS
 // import TRStudentDetailsComponent from './Components/teamRecruiters/TRStudentDetailsComponent';
 function App() {
-  // useEffect(() => {
-  //   initializeProfile(); //initializes the profile 
-  // }, []);
   
   return (
     <Router>

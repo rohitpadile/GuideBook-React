@@ -11,12 +11,13 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8080/login", {
+      const response = await axios.post("http://localhost:8080/api/v1/user/login", {
         username: username,
         password: password,
       });
 
       auth.setToken(response.data); // Assuming the JWT is returned in the response body
+      auth.setAuthHeader();
       navigate("/home"); // Redirect to home page after successful login
     } catch (error) {
       console.error("There was an error logging in!", error);
