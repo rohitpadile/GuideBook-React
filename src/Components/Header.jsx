@@ -30,6 +30,8 @@ const Header = () => {
     try {
       await fetch('/api/v1/user/logout', { method: 'POST', credentials: 'include' });
       setIsLoggedIn(false);
+      // Clear token from localStorage or cookies
+      localStorage.removeItem('token'); // Adjust if using cookies
       navigate('/');
     } catch (error) {
       console.error('Error logging out:', error);
@@ -47,7 +49,10 @@ const Header = () => {
           </Link>
           <div className="header-links">
             {isLoggedIn ? (
-              <span className="header-link" onClick={handleLogout}>Account</span>
+              <div>
+                <span className="header-link" onClick={() => navigate('/account')}>Account</span>
+                <span className="header-link" onClick={handleLogout}>Logout</span>
+              </div>
             ) : (
               <>
                 <Link to="/login" className="header-link">Login</Link>
