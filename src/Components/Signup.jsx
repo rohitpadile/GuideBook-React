@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "../css/SignupCss.css"; // Import the CSS file
-
 function Signup() {
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,8 +45,22 @@ function Signup() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    // Add signup logic here
+    try {
+      await axios.post("http://localhost:8080/api/v1/user/signup", {
+        username: userEmail,
+        password: password,
+      });
+      toast.success("Signup successful! Redirecting to login page...");
+      setIsOtpVerified(false); // Reset state if needed
+      setTimeout(() => {
+        navigate("/login"); // Redirect to login page after 3 seconds
+      }, 3000); // 3000 milliseconds = 3 seconds
+    } catch (error) {
+      console.error("There was an error signing up!", error);
+      toast.error("Signup failed. Please try again.");
+    }
   };
+  
 
   return (
     <div className="signup-container">

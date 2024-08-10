@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import auth from "../auth";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "../css/LoginCss.css"; // Import the CSS file
 
 function Login() {
@@ -19,10 +21,14 @@ function Login() {
 
       auth.setToken(response.data);
       auth.setAuthHeader();
-      navigate("/home");
-      window.location.reload();
+      toast.success("Login successful! Redirecting to home...");
+      setTimeout(() => {
+        navigate("/home");
+        window.location.reload();
+      }, 1000); // Redirect after 3 seconds
     } catch (error) {
       console.error("There was an error logging in!", error);
+      toast.error("Login failed. Please check your credentials and try again.");
     }
   };
 
@@ -55,15 +61,16 @@ function Login() {
             Login
           </button>
           <div className="text-center mt-3">
-          <button
-            className="btn btn-link"
-            onClick={() => navigate("/signup")}
-          >
-            Signup
-          </button>
-        </div>
+            <button
+              className="btn btn-link"
+              onClick={() => navigate("/signup")}
+            >
+              Signup
+            </button>
+          </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 }
