@@ -31,7 +31,6 @@ import CompanyFeedbackFormComponent from './Components/CompanyFeedbackFormCompon
 import HelpdeskComponent from './Components/HelpdeskComponent'
 import AboutUs from './Components/AboutUs'
 import auth from './auth';
-
 import Signup from './Components/Signup';
 import Login from './Components/Login';
 // FOR TEAM RECRUITERS
