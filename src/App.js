@@ -30,6 +30,10 @@ import StudentProfileEditComponent from './Components/studentProfileEditRights/S
 import CompanyFeedbackFormComponent from './Components/CompanyFeedbackFormComponent';
 import HelpdeskComponent from './Components/HelpdeskComponent'
 import AboutUs from './Components/AboutUs'
+import auth from './auth';
+
+import Signup from './Components/Signup';
+import Login from './Components/Login';
 // FOR TEAM RECRUITERS
 // import TRStudentDetailsComponent from './Components/teamRecruiters/TRStudentDetailsComponent';
 function App() {
@@ -67,6 +71,11 @@ function App() {
             <Route path="/TRUpdateStudentApplicationForm" element={<TRUpdateStudentApplicationForm />} />
             <Route path="/StudentProfileEdit/:encryptedStudentWorkEmail" element={<StudentProfileEditComponent />} />
             <Route path="/aboutUs" element={<AboutUs />} />
+
+            {/* <Route path="/" element={<Navigate to="/login" />} /> */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            {/* <Route path="/home" element={isLoggedIn() ? <Home /> : <Navigate to="/login" />} /> */}
           </Routes>
         </BranchProvider>
       </div>
