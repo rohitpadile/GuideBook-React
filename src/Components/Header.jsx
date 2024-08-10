@@ -30,8 +30,8 @@ const Header = () => {
           </Link>
           <div className="header-links">
             {/* <span className="header-link" onClick={handleAboutUs}>About Us</span> */}
-            <Link to="/login" className="header-link">Login</Link>
-            <Link to="/signup" className="header-link">Signup</Link>
+            {/* <Link to="/login" className="header-link">Login</Link>
+            <Link to="/signup" className="header-link">Signup</Link> */}
           </div>
         </div>
       </nav>
