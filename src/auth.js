@@ -9,6 +9,7 @@ const auth = {
   },
   removeToken: () => {
     localStorage.removeItem('token');
+    axios.defaults.headers.common['Authorization'] = ''; // Remove the Authorization header
   },
   isLoggedIn: () => {
     return !!auth.getToken();

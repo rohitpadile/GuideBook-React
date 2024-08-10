@@ -17,6 +17,7 @@ function Login() {
       });
 
       auth.setToken(response.data); // Assuming the JWT is returned in the response body
+      console.log(response.data);
       auth.setAuthHeader();
       navigate("/home"); // Redirect to home page after successful login
     } catch (error) {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/HeaderCss.css';
+import auth from '../auth';
 
 const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
 
@@ -28,15 +29,19 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch('/api/v1/user/logout', { method: 'POST', credentials: 'include' });
-      setIsLoggedIn(false);
-      // Clear token from localStorage or cookies
-      localStorage.removeItem('token'); // Adjust if using cookies
+      // Make a request to the backend to handle any server-side logout logic if needed
+      await fetch('http://localhost:8080/api/v1/user/logout', { method: 'POST', credentials: 'include' });
+      
+      // Remove token and authorization header on the client side
+      auth.removeToken();
+      
+      // Redirect to the home page or login page
       navigate('/');
     } catch (error) {
       console.error('Error logging out:', error);
     }
   };
+  
 
   return (
     <>
