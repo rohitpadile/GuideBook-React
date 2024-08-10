@@ -72,7 +72,7 @@ const Header = () => {
             {isLoggedIn ? (
               <div>
                 <span className="header-link" onClick={() => navigate('/profile')}>Profile</span>
-                {/* <span className="header-link" onClick={handleLogout}>Logout</span> */}
+                <span className="header-link" onClick={handleLogout}>Logout</span>
               </div>
             ) : (
               <>
