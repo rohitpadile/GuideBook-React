@@ -70,20 +70,26 @@ const ProfileAccount = () => {
       {accountType === 'student' ? (
         <div className="profile-account-student">
           <h2 className="profile-account-title">Student Mentor Profile</h2>
+          <p className="profile-account-info"><strong>Student Name:</strong> {profileData.studentName}</p>
           <p className="profile-account-info"><strong>Email:</strong> {profileData.studentMentorAccountWorkEmail}</p>
-          <p className="profile-account-info">
-            <strong>Monthly Subscription:</strong>{' '}
-            {profileData.studentMentorAccountSubscription_Monthly === 1 ? 'Active' : 'Inactive'}
-          </p>
+          <p className="profile-account-info"><strong>College:</strong> {profileData.college}</p>
+          
+        
           <p className="profile-account-info"><strong>Branch:</strong> {profileData.branch}</p>
           <p className="profile-account-info"><strong>Exam Score:</strong> {profileData.examScore}</p>
           <p className="profile-account-info"><strong>Grade:</strong> {profileData.grade}</p>
           <p className="profile-account-info"><strong>Year of Study:</strong> {profileData.yearOfStudy}</p>
           <p className="profile-account-info"><strong>Languages Spoken:</strong> {profileData.languagesSpoken.join(', ')}</p>
           <p className="profile-account-info"><strong>Public Email:</strong> {profileData.publicEmail}</p>
-          <p className="profile-account-info"><strong>College:</strong> {profileData.college}</p>
-          <p className="profile-account-info"><strong>Student Name:</strong> {profileData.studentName}</p>
-          <a className="profile-account-edit-link" href={profileData.editStudentProfileLink}>Edit Profile</a>
+          <p className="profile-account-info"><strong>Sessions Conducted:</strong> {profileData.studentProfileSessionsConducted}</p>
+          <h2 className="profile-account-title">Subscription Plans</h2>
+          
+          <p className="profile-account-info">
+            <strong>Monthly Subscription:</strong>{' '}
+            {profileData.studentMentorAccountSubscription_Monthly === 1 ? 'Active' : 'Inactive'}
+          </p>
+          
+          <a className="profile-account-edit-link" href={profileData.editStudentProfileLink}>Edit Public Profile</a>
         </div>
       ) : (
         <div className="profile-account-client">
