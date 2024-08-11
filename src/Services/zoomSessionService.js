@@ -1,10 +1,12 @@
 import axios from 'axios';
+import auth from '../auth';
 // const BASE_URL = 'https://guidebookx.com/api/v1/admin/';
 // const BASE_URL = 'https://guidebookX-alb-1586257955.ap-south-1.elb.amazonaws.com/api/v1/admin/'; // Ensure the URL has the trailing slash
 // const BASE_URL = 'http://guidebookX-alb-1586257955.ap-south-1.elb.amazonaws.com/api/v1/admin/'; // Ensure the URL has the trailing slash
 const BASE_URL = 'http://localhost:8080/api/v1/admin/'; // Ensure the URL has the trailing slash
 // const BASE_URL = "https://www.guidebookx.com/api/v1/admin";
 // const BASE_URL = "https://api.guidebookx.com/api/v1/admin/";
+
 const api = axios.create({
   baseURL: BASE_URL,
   headers: {
@@ -12,15 +14,22 @@ const api = axios.create({
   },
 });
 
-export const sendOtp = async (formData) => {
+export const sendOtp = async (formData, token) => {
   try {
-    const response = await api.post('/zoomSessionFormSubmit', formData);
+    const token = auth.getToken();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    
+    const response = await api.post('/zoomSessionFormSubmit', formData, config);
     return response.data;
   } catch (error) {
-    // console.log("Error in sendOtp service method: " + error);
-    console.log("Error sending otp");
+    console.log("Error sending OTP:", error);
   }
 };
+
 
 export const verifyOtp = async (otpData) => {
   try {

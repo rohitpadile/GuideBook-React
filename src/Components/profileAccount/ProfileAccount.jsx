@@ -36,6 +36,7 @@ const ProfileAccount = () => {
             config
           );
           setProfileData(studentResponse.data);
+          setEditData(studentResponse.data); // Initialize editData with the fetched profile data
         } else if (accountType === 2) {
           setAccountType('client');
           const clientResponse = await axios.post(
@@ -70,11 +71,12 @@ const ProfileAccount = () => {
         },
       };
 
-      const response = await axios.post(
-        'http://localhost:8080/api/v1/user/editClientAccountDetails',
-        editData,
-        config
-      );
+      const endpoint =
+        accountType === 'student'
+          ? 'http://localhost:8080/api/v1/user/editStudentMentorAccountDetails'
+          : 'http://localhost:8080/api/v1/user/editClientAccountDetails';
+
+      const response = await axios.post(endpoint, editData, config);
 
       if (response.status === 202) {
         setProfileData(editData); // Update the displayed profile data with the edited data
@@ -126,16 +128,87 @@ const ProfileAccount = () => {
             {profileData.studentMentorAccountSubscription_Monthly === 1 ? 'Active' : 'Inactive'}
           </p>
           <h2 className="profile-account-title">Client Profile</h2>
-            <p className="profile-account-info"><strong>First Name:</strong> {profileData.clientFirstName}</p>
-            <p className="profile-account-info"><strong>Middle Name:</strong> {profileData.clientMiddleName}</p>
-            <p className="profile-account-info"><strong>Last Name:</strong> {profileData.clientLastName}</p>
-            <p className="profile-account-info"><strong>Phone Number:</strong> {profileData.clientPhoneNumber}</p>
-            <p className="profile-account-info"><strong>Age:</strong> {profileData.clientAge}</p>
-            <p className="profile-account-info"><strong>College:</strong> {profileData.clientCollege}</p>
-            <p className="profile-account-info"><strong>Valid Proof:</strong> {profileData.clientValidProof}</p>
-            <p className="profile-account-info"><strong>Zoom Email:</strong> {profileData.clientZoomEmail}</p>
-            {/* <button className="profile-account-edit-link" onClick={handleEdit}>Edit Profile</button> */}
-            
+          {editMode ? (
+            <>
+              <input
+                className="profile-account-edit-input"
+                type="text"
+                name="clientFirstName"
+                value={editData.clientFirstName}
+                onChange={handleChange}
+                placeholder="First Name"
+              />
+              <input
+                className="profile-account-edit-input"
+                type="text"
+                name="clientMiddleName"
+                value={editData.clientMiddleName}
+                onChange={handleChange}
+                placeholder="Middle Name"
+              />
+              <input
+                className="profile-account-edit-input"
+                type="text"
+                name="clientLastName"
+                value={editData.clientLastName}
+                onChange={handleChange}
+                placeholder="Last Name"
+              />
+              <input
+                className="profile-account-edit-input"
+                type="text"
+                name="clientPhoneNumber"
+                value={editData.clientPhoneNumber}
+                onChange={handleChange}
+                placeholder="Phone Number"
+              />
+              <input
+                className="profile-account-edit-input"
+                type="number"
+                name="clientAge"
+                value={editData.clientAge}
+                onChange={handleChange}
+                placeholder="Age"
+              />
+              <input
+                className="profile-account-edit-input"
+                type="text"
+                name="clientCollege"
+                value={editData.clientCollege}
+                onChange={handleChange}
+                placeholder="College"
+              />
+              <input
+                className="profile-account-edit-input"
+                type="text"
+                name="clientValidProof"
+                value={editData.clientValidProof}
+                onChange={handleChange}
+                placeholder="Valid Proof"
+              />
+              <input
+                className="profile-account-edit-input"
+                type="email"
+                name="clientZoomEmail"
+                value={editData.clientZoomEmail}
+                onChange={handleChange}
+                placeholder="Zoom Email"
+              />
+              <button className="profile-account-edit-link" onClick={handleSave}>Save Profile</button>
+            </>
+          ) : (
+            <>
+              <p className="profile-account-info"><strong>First Name:</strong> {profileData.clientFirstName}</p>
+              <p className="profile-account-info"><strong>Middle Name:</strong> {profileData.clientMiddleName}</p>
+              <p className="profile-account-info"><strong>Last Name:</strong> {profileData.clientLastName}</p>
+              <p className="profile-account-info"><strong>Phone Number:</strong> {profileData.clientPhoneNumber}</p>
+              <p className="profile-account-info"><strong>Age:</strong> {profileData.clientAge}</p>
+              <p className="profile-account-info"><strong>College:</strong> {profileData.college}</p>
+              <p className="profile-account-info"><strong>Valid Proof:</strong> {profileData.clientValidProof}</p>
+              <p className="profile-account-info"><strong>Zoom Email:</strong> {profileData.clientZoomEmail}</p>
+              <button className="profile-account-edit-link" onClick={handleEdit}>Edit Profile</button>
+            </>
+          )}
           <h2 className="profile-account-title">Session Count</h2>
           <p className="profile-account-info"><strong>Zoom Sessions Attended:</strong> {profileData.studentMentorAccountZoomSessionCount}</p>
           <p className="profile-account-info"><strong>Offline Sessions Attended:</strong> {profileData.studentMentorAccountOfflineSessionCount}</p>
@@ -144,13 +217,7 @@ const ProfileAccount = () => {
         </div>
       ) : (
         <div className="profile-account-client">
-          <h2 className="profile-account-title">Profile</h2>
-          <p className="profile-account-info"><strong>Email:</strong> {profileData.clientAccountEmail}</p>
-          
-          <p className="profile-account-info">
-            <strong>Monthly Subscription:</strong>{' '}
-            {profileData.clientAccountSubscription_Monthly === 1 ? 'Active' : 'Inactive'}
-          </p>
+          <h2 className="profile-account-title">Client Profile</h2>
           {editMode ? (
             <>
               <input
@@ -235,7 +302,6 @@ const ProfileAccount = () => {
           <h2 className="profile-account-title">Session Count</h2>
           <p className="profile-account-info"><strong>Zoom Sessions Attended:</strong> {profileData.clientAccountZoomSessionCount}</p>
           <p className="profile-account-info"><strong>Offline Sessions Attended:</strong> {profileData.clientAccountOfflineSessionCount}</p>
-          
         </div>
       )}
     </div>
