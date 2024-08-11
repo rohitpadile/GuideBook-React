@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import auth from '../../auth'; // Assuming auth.js is in the parent directory
+import '../../css/profileAccount/ProfileAccountCss.css'; // Importing the CSS file
 
 const ProfileAccount = () => {
   const [accountType, setAccountType] = useState(null); // 'student', 'client', or 'none'
@@ -9,8 +10,7 @@ const ProfileAccount = () => {
   useEffect(() => {
     const fetchAccountTypeAndProfileData = async () => {
       try {
-        // Set the auth token in the headers
-        const token = auth.getToken(); // Assuming this method retrieves the stored token
+        const token = auth.getToken();
 
         const config = {
           headers: {
@@ -18,7 +18,6 @@ const ProfileAccount = () => {
           },
         };
 
-        // Send request to check the account type
         const accountTypeResponse = await axios.post(
           'http://localhost:8080/api/v1/user/checkUserEmailAccountType',
           {},
@@ -28,7 +27,6 @@ const ProfileAccount = () => {
         const { accountType } = accountTypeResponse.data;
 
         if (accountType === 1) {
-          // Student Mentor account
           setAccountType('student');
           const studentResponse = await axios.post(
             'http://localhost:8080/api/v1/user/getStudentMentorProfileAccountDetails',
@@ -37,7 +35,6 @@ const ProfileAccount = () => {
           );
           setProfileData(studentResponse.data);
         } else if (accountType === 2) {
-          // Client account
           setAccountType('client');
           const clientResponse = await axios.post(
             'http://localhost:8080/api/v1/user/getClientProfileAccountDetails',
@@ -46,7 +43,6 @@ const ProfileAccount = () => {
           );
           setProfileData(clientResponse.data);
         } else {
-          // No account found
           setAccountType('none');
         }
       } catch (error) {
@@ -58,53 +54,47 @@ const ProfileAccount = () => {
   }, []);
 
   if (accountType === null) {
-    return <div>Loading...</div>;
+    return <div className="profile-account-loading">Loading...</div>;
   }
 
   if (accountType === 'none') {
-    return <div>No profile data available for this account.</div>;
+    return <div className="profile-account-no-data">No profile data available for this account.</div>;
   }
 
   if (!profileData) {
-    return <div>Loading profile data...</div>;
+    return <div className="profile-account-loading">Loading profile data...</div>;
   }
 
   return (
     <div className="profile-account">
       {accountType === 'student' ? (
-        <div>
-          <h2>Student Mentor Profile</h2>
-          <p>Email: {profileData.studentMentorAccountWorkEmail}</p>
-          <p>
-            Monthly Subscription:{' '}
-            {profileData.studentMentorAccountSubscription_Monthly === 1
-              ? 'Active'
-              : 'Inactive'}
+        <div className="profile-account-student">
+          <h2 className="profile-account-title">Student Mentor Profile</h2>
+          <p className="profile-account-info"><strong>Email:</strong> {profileData.studentMentorAccountWorkEmail}</p>
+          <p className="profile-account-info">
+            <strong>Monthly Subscription:</strong>{' '}
+            {profileData.studentMentorAccountSubscription_Monthly === 1 ? 'Active' : 'Inactive'}
           </p>
-          <p>Branch: {profileData.branch}</p>
-          <p>Exam Score: {profileData.examScore}</p>
-          <p>Grade: {profileData.grade}</p>
-          <p>Year of Study: {profileData.yearOfStudy}</p>
-          <p>Languages Spoken: {profileData.languagesSpoken.join(', ')}</p>
-          <p>Public Email: {profileData.publicEmail}</p>
-          <p>College: {profileData.college}</p>
-          <p>Student Name: {profileData.studentName}</p>
-          <a href={profileData.editStudentProfileLink}>Edit Profile</a>
-          {/* Add more student-specific details here */}
+          <p className="profile-account-info"><strong>Branch:</strong> {profileData.branch}</p>
+          <p className="profile-account-info"><strong>Exam Score:</strong> {profileData.examScore}</p>
+          <p className="profile-account-info"><strong>Grade:</strong> {profileData.grade}</p>
+          <p className="profile-account-info"><strong>Year of Study:</strong> {profileData.yearOfStudy}</p>
+          <p className="profile-account-info"><strong>Languages Spoken:</strong> {profileData.languagesSpoken.join(', ')}</p>
+          <p className="profile-account-info"><strong>Public Email:</strong> {profileData.publicEmail}</p>
+          <p className="profile-account-info"><strong>College:</strong> {profileData.college}</p>
+          <p className="profile-account-info"><strong>Student Name:</strong> {profileData.studentName}</p>
+          <a className="profile-account-edit-link" href={profileData.editStudentProfileLink}>Edit Profile</a>
         </div>
       ) : (
-        <div>
-          <h2>Client Profile</h2>
-          <p>Email: {profileData.clientAccountEmail}</p>
-          <p>Zoom Sessions: {profileData.clientAccountZoomSessionCount}</p>
-          <p>Offline Sessions: {profileData.clientAccountOfflineSessionCount}</p>
-          <p>
-            Monthly Subscription:{' '}
-            {profileData.clientAccountSubscription_Monthly === 1
-              ? 'Active'
-              : 'Inactive'}
+        <div className="profile-account-client">
+          <h2 className="profile-account-title">Client Profile</h2>
+          <p className="profile-account-info"><strong>Email:</strong> {profileData.clientAccountEmail}</p>
+          <p className="profile-account-info"><strong>Zoom Sessions:</strong> {profileData.clientAccountZoomSessionCount}</p>
+          <p className="profile-account-info"><strong>Offline Sessions:</strong> {profileData.clientAccountOfflineSessionCount}</p>
+          <p className="profile-account-info">
+            <strong>Monthly Subscription:</strong>{' '}
+            {profileData.clientAccountSubscription_Monthly === 1 ? 'Active' : 'Inactive'}
           </p>
-          {/* Add more client-specific details here */}
         </div>
       )}
     </div>
