@@ -65,3 +65,22 @@
   font-size: 20px;
   margin: 50px 0;
 }
+
+.profile-account-edit-input {
+  display: block;
+  width: calc(100% - 22px);
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.profile-account-edit-input::placeholder {
+  color: #888;
+}
+
+.profile-account-edit-input:focus {
+  border-color: #007bff;
+  outline: none;
+}

@@ -6,6 +6,8 @@ import '../../css/profileAccount/ProfileAccountCss.css'; // Importing the CSS fi
 const ProfileAccount = () => {
   const [accountType, setAccountType] = useState(null); // 'student', 'client', or 'none'
   const [profileData, setProfileData] = useState(null);
+  const [editMode, setEditMode] = useState(false); // For toggling edit mode
+  const [editData, setEditData] = useState({}); // For holding the edited data
 
   useEffect(() => {
     const fetchAccountTypeAndProfileData = async () => {
@@ -42,6 +44,7 @@ const ProfileAccount = () => {
             config
           );
           setProfileData(clientResponse.data);
+          setEditData(clientResponse.data); // Initialize editData with the fetched profile data
         } else {
           setAccountType('none');
         }
@@ -54,7 +57,40 @@ const ProfileAccount = () => {
   }, []);
 
   const handleEdit = () => {
-    // Add your edit logic here
+    setEditMode(true);
+  };
+
+  const handleSave = async () => {
+    try {
+      const token = auth.getToken();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await axios.post(
+        'http://localhost:8080/api/v1/user/editClientAccountDetails',
+        editData,
+        config
+      );
+
+      if (response.status === 202) {
+        setProfileData(editData); // Update the displayed profile data with the edited data
+        setEditMode(false); // Exit edit mode
+      }
+    } catch (error) {
+      console.error('There was an error saving the profile data!', error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   if (accountType === null) {
@@ -95,21 +131,96 @@ const ProfileAccount = () => {
         <div className="profile-account-client">
           <h2 className="profile-account-title">Client Profile</h2>
           <p className="profile-account-info"><strong>Email:</strong> {profileData.clientAccountEmail}</p>
-          <p className="profile-account-info"><strong>Zoom Sessions:</strong> {profileData.clientAccountZoomSessionCount}</p>
-          <p className="profile-account-info"><strong>Offline Sessions:</strong> {profileData.clientAccountOfflineSessionCount}</p>
+          
           <p className="profile-account-info">
             <strong>Monthly Subscription:</strong>{' '}
             {profileData.clientAccountSubscription_Monthly === 1 ? 'Active' : 'Inactive'}
           </p>
-          <p className="profile-account-info"><strong>First Name:</strong> {profileData.clientFirstName}</p>
-          <p className="profile-account-info"><strong>Middle Name:</strong> {profileData.clientMiddleName}</p>
-          <p className="profile-account-info"><strong>Last Name:</strong> {profileData.clientLastName}</p>
-          <p className="profile-account-info"><strong>Phone Number:</strong> {profileData.clientPhoneNumber}</p>
-          <p className="profile-account-info"><strong>Age:</strong> {profileData.clientAge}</p>
-          <p className="profile-account-info"><strong>College:</strong> {profileData.clientCollege}</p>
-          <p className="profile-account-info"><strong>Valid Proof:</strong> {profileData.clientValidProof}</p>
-          <p className="profile-account-info"><strong>Zoom Email:</strong> {profileData.clientZoomEmail}</p>
-          <button className="profile-account-edit-button" onClick={handleEdit}>Edit Profile</button>
+          {editMode ? (
+            <>
+              <input
+                className="profile-account-edit-input"
+                type="text"
+                name="clientFirstName"
+                value={editData.clientFirstName}
+                onChange={handleChange}
+                placeholder="First Name"
+              />
+              <input
+                className="profile-account-edit-input"
+                type="text"
+                name="clientMiddleName"
+                value={editData.clientMiddleName}
+                onChange={handleChange}
+                placeholder="Middle Name"
+              />
+              <input
+                className="profile-account-edit-input"
+                type="text"
+                name="clientLastName"
+                value={editData.clientLastName}
+                onChange={handleChange}
+                placeholder="Last Name"
+              />
+              <input
+                className="profile-account-edit-input"
+                type="text"
+                name="clientPhoneNumber"
+                value={editData.clientPhoneNumber}
+                onChange={handleChange}
+                placeholder="Phone Number"
+              />
+              <input
+                className="profile-account-edit-input"
+                type="number"
+                name="clientAge"
+                value={editData.clientAge}
+                onChange={handleChange}
+                placeholder="Age"
+              />
+              <input
+                className="profile-account-edit-input"
+                type="text"
+                name="clientCollege"
+                value={editData.clientCollege}
+                onChange={handleChange}
+                placeholder="College"
+              />
+              <input
+                className="profile-account-edit-input"
+                type="text"
+                name="clientValidProof"
+                value={editData.clientValidProof}
+                onChange={handleChange}
+                placeholder="Valid Proof"
+              />
+              <input
+                className="profile-account-edit-input"
+                type="email"
+                name="clientZoomEmail"
+                value={editData.clientZoomEmail}
+                onChange={handleChange}
+                placeholder="Zoom Email"
+              />
+              <button className="profile-account-edit-link" onClick={handleSave}>Save Profile</button>
+            </>
+          ) : (
+            <>
+              <p className="profile-account-info"><strong>First Name:</strong> {profileData.clientFirstName}</p>
+              <p className="profile-account-info"><strong>Middle Name:</strong> {profileData.clientMiddleName}</p>
+              <p className="profile-account-info"><strong>Last Name:</strong> {profileData.clientLastName}</p>
+              <p className="profile-account-info"><strong>Phone Number:</strong> {profileData.clientPhoneNumber}</p>
+              <p className="profile-account-info"><strong>Age:</strong> {profileData.clientAge}</p>
+              <p className="profile-account-info"><strong>College:</strong> {profileData.clientCollege}</p>
+              <p className="profile-account-info"><strong>Valid Proof:</strong> {profileData.clientValidProof}</p>
+              <p className="profile-account-info"><strong>Zoom Email:</strong> {profileData.clientZoomEmail}</p>
+              <button className="profile-account-edit-link" onClick={handleEdit}>Edit Profile</button>
+            </>
+          )}
+          <h2 className="profile-account-title">Session Count</h2>
+          <p className="profile-account-info"><strong>Zoom Sessions:</strong> {profileData.clientAccountZoomSessionCount}</p>
+          <p className="profile-account-info"><strong>Offline Sessions:</strong> {profileData.clientAccountOfflineSessionCount}</p>
+          
         </div>
       )}
     </div>
