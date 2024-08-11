@@ -5,6 +5,7 @@ import '../App.css';
 import axios from 'axios';
 import { Modal, Button } from 'react-bootstrap'; // Importing Modal and Button from react-bootstrap
 import { sendOtp, verifyOtp, resendOtp, bookSession, getClientAccountDetails  } from '../Services/zoomSessionService'; // Importing the API service functions
+import {checkLoginStatus} from '../Services/userAccountApiService';
 import auth from '../auth';
 //TRIM THE INPUT FIELDS BEFORE SETTING TO THE STATES - REMANINING
   
@@ -44,6 +45,19 @@ const ZoomSessionForm = () => {
 
   const handleSendOtp = async () => {
     // Check if all required fields are filled
+    try {
+      const token = auth.getToken();
+      if (token) {
+        const isLoggedInStatus = await checkLoginStatus(token);
+      } else {
+        setMessage('Please Login in.');
+        navigate('/login');
+      }
+    } catch (error) {
+      setMessage('Please Login in.');
+      navigate('/login');
+    }
+
     if (
       !formData.clientFirstName ||
       !formData.clientLastName ||
