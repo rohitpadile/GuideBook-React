@@ -125,7 +125,17 @@ const ProfileAccount = () => {
             <strong>Monthly Subscription:</strong>{' '}
             {profileData.studentMentorAccountSubscription_Monthly === 1 ? 'Active' : 'Inactive'}
           </p>
-
+          <h2 className="profile-account-title">Client Profile</h2>
+            <p className="profile-account-info"><strong>First Name:</strong> {profileData.clientFirstName}</p>
+            <p className="profile-account-info"><strong>Middle Name:</strong> {profileData.clientMiddleName}</p>
+            <p className="profile-account-info"><strong>Last Name:</strong> {profileData.clientLastName}</p>
+            <p className="profile-account-info"><strong>Phone Number:</strong> {profileData.clientPhoneNumber}</p>
+            <p className="profile-account-info"><strong>Age:</strong> {profileData.clientAge}</p>
+            <p className="profile-account-info"><strong>College:</strong> {profileData.clientCollege}</p>
+            <p className="profile-account-info"><strong>Valid Proof:</strong> {profileData.clientValidProof}</p>
+            <p className="profile-account-info"><strong>Zoom Email:</strong> {profileData.clientZoomEmail}</p>
+            {/* <button className="profile-account-edit-link" onClick={handleEdit}>Edit Profile</button> */}
+            
           <h2 className="profile-account-title">Session Count</h2>
           <p className="profile-account-info"><strong>Zoom Sessions Attended:</strong> {profileData.studentMentorAccountZoomSessionCount}</p>
           <p className="profile-account-info"><strong>Offline Sessions Attended:</strong> {profileData.studentMentorAccountOfflineSessionCount}</p>
