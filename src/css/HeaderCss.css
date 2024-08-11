@@ -45,7 +45,8 @@
   align-items: center;
   width: 100%;
   max-width: 1200px; /* Adjust as needed */
-  margin-left: 110px;
+  /* margin-left: 110px; */
+  margin: auto;
   padding: 0 15px;
 }
 
@@ -77,6 +78,7 @@
 .secondary-navbar {
   background-color: #111; /* Close to black color */
   padding: 0px 0; /* Reduced padding for thinner navbar */
+  display: flex;
 }
 
 .secondary-navbar-nav {
@@ -84,6 +86,8 @@
   padding: 0;
   list-style: none;
   display: flex;
+  /* margin-left: 60px; */
+  justify-content: center; 
 }
 
 .secondary-navbar-nav-item {
@@ -104,4 +108,36 @@
   color: #fff; /* Maintain white text color on hover */
   text-decoration: none; /* Ensure no underline or other decoration on hover */
   /* You can add more styles here if needed, but leaving it empty will keep the default appearance */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header-navbar .container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 15px;
+  }
+
+  .header-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .header-link {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .header-logo-text {
+    font-size: 1.2rem;
+  }
+
+  .secondary-navbar-nav {
+    flex-direction: column;
+  }
+
+  .secondary-navbar-nav-item {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 }

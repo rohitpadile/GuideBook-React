@@ -34,7 +34,7 @@ function Login() {
         <h2 className="text-center mb-4">Login</h2>
         <form onSubmit={handleLogin}>
           <div className="form-group">
-            <label>Username</label>
+            <label>Email</label>
             <input
               type="text"
               className="form-control"
