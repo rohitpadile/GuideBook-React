@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../Services/userAccountApiService";
 import auth from "../auth";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,18 +14,14 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8080/api/v1/user/login", {
-        username: username,
-        password: password,
-      });
-
+      const response = await loginUser(username, password);
       auth.setToken(response.data);
       auth.setAuthHeader();
       toast.success("Login successful! Redirecting to home...");
       setTimeout(() => {
         navigate("/home");
         window.location.reload();
-      }, 1000); // Redirect after 3 seconds
+      }, 1000); // Redirect after 1 second
     } catch (error) {
       console.error("There was an error logging in!", error);
       toast.error("Login failed. Please check your credentials and try again.");

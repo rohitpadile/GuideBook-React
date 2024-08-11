@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { getAccountTypeAndProfileData, editProfileData } from '../../Services/userAccountApiService';
 import auth from '../../auth'; // Assuming auth.js is in the parent directory
 import '../../css/profileAccount/ProfileAccountCss.css'; // Importing the CSS file
 
@@ -10,51 +10,24 @@ const ProfileAccount = () => {
   const [editData, setEditData] = useState({}); // For holding the edited data
 
   useEffect(() => {
-    const fetchAccountTypeAndProfileData = async () => {
+    const fetchAccountData = async () => {
       try {
         const token = auth.getToken();
-
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-
-        const accountTypeResponse = await axios.post(
-          'http://localhost:8080/api/v1/user/checkUserEmailAccountType',
-          {},
-          config
-        );
-
-        const { accountType } = accountTypeResponse.data;
-
-        if (accountType === 1) {
-          setAccountType('student');
-          const studentResponse = await axios.post(
-            'http://localhost:8080/api/v1/user/getStudentMentorProfileAccountDetails',
-            {},
-            config
-          );
-          setProfileData(studentResponse.data);
-          setEditData(studentResponse.data); // Initialize editData with the fetched profile data
-        } else if (accountType === 2) {
-          setAccountType('client');
-          const clientResponse = await axios.post(
-            'http://localhost:8080/api/v1/user/getClientProfileAccountDetails',
-            {},
-            config
-          );
-          setProfileData(clientResponse.data);
-          setEditData(clientResponse.data); // Initialize editData with the fetched profile data
-        } else {
+        const { accountType, profileData } = await getAccountTypeAndProfileData(token);
+        
+        if (accountType === 'none') {
           setAccountType('none');
+        } else {
+          setAccountType(accountType);
+          setProfileData(profileData);
+          setEditData(profileData); // Initialize editData with the fetched profile data
         }
       } catch (error) {
         console.error('There was an error fetching the profile data!', error);
       }
     };
 
-    fetchAccountTypeAndProfileData();
+    fetchAccountData();
   }, []);
 
   const handleEdit = () => {
@@ -64,21 +37,9 @@ const ProfileAccount = () => {
   const handleSave = async () => {
     try {
       const token = auth.getToken();
+      const isSaved = await editProfileData(token, accountType, editData);
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-
-      const endpoint =
-        accountType === 'student'
-          ? 'http://localhost:8080/api/v1/user/editStudentMentorAccountDetails'
-          : 'http://localhost:8080/api/v1/user/editClientAccountDetails';
-
-      const response = await axios.post(endpoint, editData, config);
-
-      if (response.status === 202) {
+      if (isSaved) {
         setProfileData(editData); // Update the displayed profile data with the edited data
         setEditMode(false); // Exit edit mode
       }

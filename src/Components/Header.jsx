@@ -1,33 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { checkLoginStatus, logoutUser } from '../Services/userAccountApiService';
 import '../css/HeaderCss.css';
 import auth from '../auth';
-import axios from 'axios';
 
 const Header = () => {
   const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
-  const API_BASE_URL = 'http://localhost:8080';
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkLoginStatus = async () => {
+    const fetchLoginStatus = async () => {
       try {
         const token = auth.getToken();
         if (token) {
-          const response = await axios.get(`${API_BASE_URL}/api/v1/user/check-login`, {
-            headers: {
-              'Authorization': `Bearer ${token}`,
-            },
-            withCredentials: true,
-          });
-          if (response.status === 200) {
-            setIsLoggedIn(true);
-            // window.location.reload(); 
-            
-          } else {
-            setIsLoggedIn(false);
-          }
+          const isLoggedInStatus = await checkLoginStatus(token);
+          setIsLoggedIn(isLoggedInStatus);
         } else {
           setIsLoggedIn(false);
         }
@@ -37,19 +25,13 @@ const Header = () => {
       }
     };
 
-    checkLoginStatus();
+    fetchLoginStatus();
   }, [isLoggedIn]);
 
   const handleLogout = async () => {
     try {
       const token = auth.getToken();
-      await axios.post(`${API_BASE_URL}/api/v1/user/logout`, {}, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-        withCredentials: true,
-      });
-
+      await logoutUser(token);
       auth.removeToken(); // Remove token and header
       setIsLoggedIn(false); // Update the state immediately after logout
       navigate('/');

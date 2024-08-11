@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { sendOtpToSignupEmail, verifySignupOtp, signupUser } from "../Services/userAccountApiService";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "../css/SignupCss.css"; // Import the CSS file
@@ -36,9 +36,7 @@ function Signup() {
       return;
     }
     try {
-      await axios.post("http://localhost:8080/api/v1/user/sendOtpToSignupEmail", {
-        userEmail: userEmail,
-      });
+      await sendOtpToSignupEmail(userEmail);
       toast.success("OTP sent successfully!");
       setOtpSent(true);
       setIsDisabled(true);
@@ -51,10 +49,7 @@ function Signup() {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8080/api/v1/user/verifySignupOtp", {
-        userEmail: userEmail,
-        signupOtp: otp,
-      });
+      await verifySignupOtp(userEmail, otp);
       toast.success("OTP verified successfully!");
       setIsOtpVerified(true);
     } catch (error) {
@@ -70,10 +65,7 @@ function Signup() {
       return;
     }
     try {
-      await axios.post("http://localhost:8080/api/v1/user/signup", {
-        username: userEmail,
-        password: password,
-      });
+      await signupUser(userEmail, password);
       toast.success("Signup successful! Redirecting to login page...");
       setIsOtpVerified(false); // Reset state if needed
       setTimeout(() => {
