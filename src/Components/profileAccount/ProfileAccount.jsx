@@ -53,6 +53,10 @@ const ProfileAccount = () => {
     fetchAccountTypeAndProfileData();
   }, []);
 
+  const handleEdit = () => {
+    // Add your edit logic here
+  };
+
   if (accountType === null) {
     return <div className="profile-account-loading">Loading...</div>;
   }
@@ -73,8 +77,6 @@ const ProfileAccount = () => {
           <p className="profile-account-info"><strong>Student Name:</strong> {profileData.studentName}</p>
           <p className="profile-account-info"><strong>Email:</strong> {profileData.studentMentorAccountWorkEmail}</p>
           <p className="profile-account-info"><strong>College:</strong> {profileData.college}</p>
-          
-        
           <p className="profile-account-info"><strong>Branch:</strong> {profileData.branch}</p>
           <p className="profile-account-info"><strong>Exam Score:</strong> {profileData.examScore}</p>
           <p className="profile-account-info"><strong>Grade:</strong> {profileData.grade}</p>
@@ -83,17 +85,15 @@ const ProfileAccount = () => {
           <p className="profile-account-info"><strong>Public Email:</strong> {profileData.publicEmail}</p>
           <p className="profile-account-info"><strong>Sessions Conducted:</strong> {profileData.studentProfileSessionsConducted}</p>
           <h2 className="profile-account-title">Subscription Plans</h2>
-          
           <p className="profile-account-info">
             <strong>Monthly Subscription:</strong>{' '}
             {profileData.studentMentorAccountSubscription_Monthly === 1 ? 'Active' : 'Inactive'}
           </p>
-          
           <a className="profile-account-edit-link" href={profileData.editStudentProfileLink}>Edit Public Profile</a>
         </div>
       ) : (
         <div className="profile-account-client">
-          <h2 className="profile-account-title">Profile</h2>
+          <h2 className="profile-account-title">Client Profile</h2>
           <p className="profile-account-info"><strong>Email:</strong> {profileData.clientAccountEmail}</p>
           <p className="profile-account-info"><strong>Zoom Sessions:</strong> {profileData.clientAccountZoomSessionCount}</p>
           <p className="profile-account-info"><strong>Offline Sessions:</strong> {profileData.clientAccountOfflineSessionCount}</p>
@@ -101,6 +101,15 @@ const ProfileAccount = () => {
             <strong>Monthly Subscription:</strong>{' '}
             {profileData.clientAccountSubscription_Monthly === 1 ? 'Active' : 'Inactive'}
           </p>
+          <p className="profile-account-info"><strong>First Name:</strong> {profileData.clientFirstName}</p>
+          <p className="profile-account-info"><strong>Middle Name:</strong> {profileData.clientMiddleName}</p>
+          <p className="profile-account-info"><strong>Last Name:</strong> {profileData.clientLastName}</p>
+          <p className="profile-account-info"><strong>Phone Number:</strong> {profileData.clientPhoneNumber}</p>
+          <p className="profile-account-info"><strong>Age:</strong> {profileData.clientAge}</p>
+          <p className="profile-account-info"><strong>College:</strong> {profileData.clientCollege}</p>
+          <p className="profile-account-info"><strong>Valid Proof:</strong> {profileData.clientValidProof}</p>
+          <p className="profile-account-info"><strong>Zoom Email:</strong> {profileData.clientZoomEmail}</p>
+          <button className="profile-account-edit-button" onClick={handleEdit}>Edit Profile</button>
         </div>
       )}
     </div>
