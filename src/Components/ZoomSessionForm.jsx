@@ -4,8 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import axios from 'axios';
 import { Modal, Button } from 'react-bootstrap'; // Importing Modal and Button from react-bootstrap
-import { sendOtp, verifyOtp, resendOtp, bookSession } from '../Services/zoomSessionService'; // Importing the API service functions
-
+import { sendOtp, verifyOtp, resendOtp, bookSession, getClientAccountDetails  } from '../Services/zoomSessionService'; // Importing the API service functions
+import auth from '../auth';
 //TRIM THE INPUT FIELDS BEFORE SETTING TO THE STATES - REMANINING
   
 const ZoomSessionForm = () => {
@@ -32,6 +32,7 @@ const ZoomSessionForm = () => {
   const [showTermsModal, setShowTermsModal] = useState(false); // State for showing terms modal
   const [acceptTerms, setAcceptTerms] = useState(false); // State for accepting terms
   const [isBooked, setIsBooked] = useState(0);
+  const [isDataFilled, setIsDataFilled] = useState(false); // State to manage button disable
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -132,6 +133,34 @@ const ZoomSessionForm = () => {
 
   const handleAcceptTermsChange = (e) => {
     setAcceptTerms(e.target.checked);
+  };
+
+  const handleFillMyData = async () => {
+    try {
+      // Retrieve the token using your authentication service
+      const token = auth.getToken(); // Replace this with your actual token retrieval logic
+  
+      // Call the API service to get client account details
+      const data = await getClientAccountDetails(token);
+      // console.log(data.clientZoomEmail);
+      // Update the form data with the response
+      setFormData({
+        clientFirstName: data.clientFirstName || '',
+        clientMiddleName: data.clientMiddleName || '',
+        clientLastName: data.clientLastName || '',
+        clientEmail: data.clientZoomEmail || '',
+        clientPhoneNumber: data.clientPhoneNumber || '',
+        clientAge: data.clientAge || '',
+        clientCollege: data.clientCollege || '',
+        clientProofDocLink: data.clientValidProof || '',
+        otp: '',
+      });
+  
+      // Disable the button after filling the data
+      setIsDataFilled(true);
+    } catch (error) {
+      setMessage('Failed to fetch client details. Please try again.');
+    }
   };
 
   return (
@@ -276,6 +305,14 @@ const ZoomSessionForm = () => {
                 </div>
               </div>
             )}
+{/* FILLING THE DATA FROM ACCOUNT */}
+            <div className="mb-3 row">
+              <div className="col-sm-12 text-center">
+                <button type="button" className="btn btn-secondary" onClick={handleFillMyData} disabled={isDataFilled}>
+                  Fill My Data
+                </button>
+              </div>
+            </div>
 
             <div className="mb-3 row">
               <div className="col-sm-12 text-center">

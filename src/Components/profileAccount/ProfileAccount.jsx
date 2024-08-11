@@ -125,11 +125,16 @@ const ProfileAccount = () => {
             <strong>Monthly Subscription:</strong>{' '}
             {profileData.studentMentorAccountSubscription_Monthly === 1 ? 'Active' : 'Inactive'}
           </p>
+
+          <h2 className="profile-account-title">Session Count</h2>
+          <p className="profile-account-info"><strong>Zoom Sessions Attended:</strong> {profileData.studentMentorAccountZoomSessionCount}</p>
+          <p className="profile-account-info"><strong>Offline Sessions Attended:</strong> {profileData.studentMentorAccountOfflineSessionCount}</p>
+          
           <a className="profile-account-edit-link" href={profileData.editStudentProfileLink}>Edit Public Profile</a>
         </div>
       ) : (
         <div className="profile-account-client">
-          <h2 className="profile-account-title">Client Profile</h2>
+          <h2 className="profile-account-title">Profile</h2>
           <p className="profile-account-info"><strong>Email:</strong> {profileData.clientAccountEmail}</p>
           
           <p className="profile-account-info">
@@ -218,8 +223,8 @@ const ProfileAccount = () => {
             </>
           )}
           <h2 className="profile-account-title">Session Count</h2>
-          <p className="profile-account-info"><strong>Zoom Sessions:</strong> {profileData.clientAccountZoomSessionCount}</p>
-          <p className="profile-account-info"><strong>Offline Sessions:</strong> {profileData.clientAccountOfflineSessionCount}</p>
+          <p className="profile-account-info"><strong>Zoom Sessions Attended:</strong> {profileData.clientAccountZoomSessionCount}</p>
+          <p className="profile-account-info"><strong>Offline Sessions Attended:</strong> {profileData.clientAccountOfflineSessionCount}</p>
           
         </div>
       )}
