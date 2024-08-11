@@ -1,43 +1,67 @@
+/* General Container Styling */
 .profile-account {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f7f9fc;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .profile-account-title {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .profile-account-info {
-    font-size: 16px;
-    color: #555;
-    margin: 10px 0;
-  }
-  
-  .profile-account-edit-link {
-    display: block;
-    margin-top: 20px;
-    text-align: center;
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .profile-account-edit-link:hover {
-    text-decoration: underline;
-  }
-  
-  .profile-account-loading,
-  .profile-account-no-data {
-    text-align: center;
-    color: #777;
-    font-size: 18px;
-    margin: 40px 0;
-  }
-  
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.profile-account:hover {
+  transform: translateY(-5px);
+}
+
+/* Title Styling */
+.profile-account-title {
+  font-size: 28px;
+  color: #1a1a1a;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 600;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 10px;
+}
+
+/* Profile Info Styling */
+.profile-account-info {
+  font-size: 18px;
+  color: #444444;
+  margin: 12px 0;
+  line-height: 1.6;
+}
+
+.profile-account-info strong {
+  color: #007bff;
+}
+
+/* Edit Profile Link Styling */
+.profile-account-edit-link {
+  display: block;
+  margin-top: 25px;
+  text-align: center;
+  color: #ffffff;
+  background-color: #007bff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.profile-account-edit-link:hover {
+  background-color: #0056b3;
+  text-decoration: none;
+}
+
+/* Loading and No Data Styling */
+.profile-account-loading,
+.profile-account-no-data {
+  text-align: center;
+  color: #888888;
+  font-size: 20px;
+  margin: 50px 0;
+}
