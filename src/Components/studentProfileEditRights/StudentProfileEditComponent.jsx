@@ -6,6 +6,7 @@ import { S3_PROFILE_PHOTO_BASE_URL } from '../../constants/s3url'; // Import the
 import { decrypt } from '../../Services/encryptionForStudentProfileEdit'; // Ensure proper import
 
 const StudentProfileEditComponent = () => {
+  const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
   const location = useLocation();
   const encryptedEmail = location.pathname.split('/').pop();
   const [studentWorkEmail, setStudentWorkEmail] = useState('');
@@ -106,7 +107,7 @@ const StudentProfileEditComponent = () => {
   };
 
   if (!studentProfile || !studentBasicDetails) {
-    return <div>Loading...</div>; // Display a loading message while fetching data
+    return <img src={`${BASE_URL}logoblack.jpg`} alt="GuidebookX" className="loading-logo" />
   }
 
   const profilePhotoUrl = `${S3_PROFILE_PHOTO_BASE_URL}${studentWorkEmail}.jpg`;

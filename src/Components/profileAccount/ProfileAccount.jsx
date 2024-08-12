@@ -4,6 +4,7 @@ import auth from '../../auth'; // Assuming auth.js is in the parent directory
 import '../../css/profileAccount/ProfileAccountCss.css'; // Importing the CSS file
 import { useNavigate } from 'react-router-dom';
 const ProfileAccount = () => {
+  const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
   const [accountType, setAccountType] = useState(null); // 'student', 'client', or 'none'
   const [profileData, setProfileData] = useState(null);
   const [editMode, setEditMode] = useState(false); // For toggling edit mode
@@ -60,7 +61,8 @@ const ProfileAccount = () => {
   };
 
   if (accountType === null) {
-    return <div className="profile-account-loading">Loading...</div>;
+    // return <div className="profile-account-loading">Loading...</div>;
+    return <img src={`${BASE_URL}logoblack.jpg`} alt="GuidebookX" className="loading-logo" />
   }
 
   if (accountType === 'none') {
@@ -68,7 +70,8 @@ const ProfileAccount = () => {
   }
 
   if (!profileData) {
-    return <div className="profile-account-loading">Loading profile data...</div>;
+    // return <div className="profile-account-loading">Loading profile data...</div>;
+    return <img src={`${BASE_URL}logoblack.jpg`} alt="GuidebookX" className="loading-logo" />
   }
 
   return (

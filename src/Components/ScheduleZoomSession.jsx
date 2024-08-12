@@ -27,7 +27,7 @@ const decryptData = (encryptedData) => {
 
 const ScheduleZoomSession = () => {
   const { encryptedFormIdAndStudentWorkEmail } = useParams();
-  
+  const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
   let formId, studentWorkEmail;
   try {
     const decryptedData = decryptData(encryptedFormIdAndStudentWorkEmail);
@@ -259,7 +259,7 @@ const ScheduleZoomSession = () => {
               )}
             </>
           ) : (
-            <p>Loading form details...</p>
+              <img src={`${BASE_URL}logoblack.jpg`} alt="GuidebookX" className="loading-logo" />
           )}
           {message && <div className="mt-4 alert alert-info">{message}</div>}
         </div>
