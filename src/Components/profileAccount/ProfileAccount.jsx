@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { getAccountTypeAndProfileData, editProfileData } from '../../Services/userAccountApiService';
 import auth from '../../auth'; // Assuming auth.js is in the parent directory
 import '../../css/profileAccount/ProfileAccountCss.css'; // Importing the CSS file
-
+import { useNavigate } from 'react-router-dom';
 const ProfileAccount = () => {
   const [accountType, setAccountType] = useState(null); // 'student', 'client', or 'none'
   const [profileData, setProfileData] = useState(null);
   const [editMode, setEditMode] = useState(false); // For toggling edit mode
   const [editData, setEditData] = useState({}); // For holding the edited data
-
+  const navigate = useNavigate();
   useEffect(() => {
+    
     const fetchAccountData = async () => {
       try {
         const token = auth.getToken();
@@ -33,7 +34,9 @@ const ProfileAccount = () => {
   const handleEdit = () => {
     setEditMode(true);
   };
-
+  const handleAddSubscription = () => {
+    navigate("/profile");
+  };
   const handleSave = async () => {
     try {
       const token = auth.getToken();
@@ -87,6 +90,10 @@ const ProfileAccount = () => {
           <p className="profile-account-info">
             <strong>Monthly Subscription:</strong>{' '}
             {profileData.studentMentorAccountSubscription_Monthly === 1 ? 'Active' : 'Inactive'}
+            <div>
+            {/* SUBSCRIPTION BUTTON*/}
+            <button className="profile-account-subscription-link" onClick={handleAddSubscription}>Add Subscription</button>
+        </div>
           </p>
           <h2 className="profile-account-title">Client Profile</h2>
           {editMode ? (
