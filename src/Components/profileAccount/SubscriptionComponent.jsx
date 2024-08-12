@@ -1,12 +1,89 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../css/profileAccount/SubscriptionComponentCss.css';
 
 const SubscriptionComponent = () => {
     const [selectedPlan, setSelectedPlan] = useState(null);
-
+    const [amount, setAmount] = useState(null);
+    const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
+    
     const handleSelectPlan = (plan) => {
         setSelectedPlan(plan);
+        // Send a request to backend to get the value of the selected plan
+        // And set that amount to state amount
     };
+    // const paymentStart = () => {
+    //     console.log("payment started")
+    //     console.log(amount);
+    //     if(amount == null || amount === ""){
+    //         alert("Error fetching subscription amount from the servers. Please try later")
+    //         return;
+    //     }
+
+    //     //Send a request to the server to create order
+    //     try {
+    //         // const response = await createOrder(amount); //createOrder import from js file for user api service
+    //         //send a data object in the format {amount : amount}
+
+    //         //data:JSON.stringify({amount : amount, info:'order_request'})
+    //         //contentType: 'application/json',
+    //         // type:'POST'
+    //         // dataType: 'json',
+            
+    //         if(response.status === "created"){ 
+    //             //check first in the latest version, if the status is "created" only after creating an order
+    //             // open payment form
+
+    //             // Ask chatgpt how to integrate this script
+    //             // <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    //             let options={
+    //                 "key": "YOUR_KEY_ID", //Make a separate file for Key Id and import here and '${key_id}'
+    //                 "amount": response.amount,
+    //                 "currency":'INR',
+    //                 "name":'GuidebookX',
+    //                 "description":'Donation',
+    //                 "image":`${BASE_URL}logoblack.jpg`,
+    //                 "order_id": response.id,
+    //                 "handler": function (response) {
+    //                     console.log(response.razorpay_payment_id);
+    //                     console.log(response.razorpay_order_id);
+    //                     console.log(response.razorpay_signature);
+    //                     console.log('payment successfull')
+    //                     alert("congrats !! Payment successfull !!")
+    //                     //You can use sweet alert CDN - see the video to get the site link to copy the code
+    //                 },
+    //                 "prefill": {
+    //                     "name": "",
+    //                     "email": "",
+    //                     "contact": ""
+    //                 },
+    //                 "notes": {
+    //                     "address": "GuidebookX"
+    //                 },
+    //                 "theme": {
+    //                     "color": "#3399cc"
+    //                 }
+    //             };
+
+    //             //Initiate payment
+    //             let rzp = new Razorpay(options);
+    //             rzp.on('payment.failed', function (response){
+    //                 console.log(response.error.code);
+    //                 console.log(response.error.description);
+    //                 console.log(response.error.source);
+    //                 console.log(response.error.step);
+    //                 console.log(response.error.reason);
+    //                 console.log(response.error.metadata.order_id);
+    //                 console.log(response.error.metadata.payment_id);
+    //                 alert("Oops payment failed.")
+    //             });
+    //             rzp.open(); //This opens the razor pay form
+    //         }
+    //       } catch (error) {
+    //         console.error('Error creating order');
+    //       }
+
+    // };
 
     const handleCheckout = () => {
         // Logic to send request to backend for the selected plan
@@ -35,7 +112,7 @@ const SubscriptionComponent = () => {
             </div>
             <button 
                 className={`checkout-button ${selectedPlan ? 'active' : ''}`} 
-                onClick={handleCheckout} 
+                // onClick={paymentStart} 
                 disabled={!selectedPlan}
             >
                 Checkout
