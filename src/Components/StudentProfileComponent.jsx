@@ -6,6 +6,7 @@ import BookSessionComponent from './BookSessionComponent'; // Import the BookSes
 import { S3_PROFILE_PHOTO_BASE_URL } from '../constants/s3url'; // Import the constant
 
 const StudentProfileComponent = () => {
+  const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
   const location = useLocation();
   const navigate = useNavigate();
   const { student } = location.state || {};
@@ -45,7 +46,7 @@ const StudentProfileComponent = () => {
   };
 
   if (!studentProfile || !studentBasicDetails) {
-    return <div>Loading...</div>; // Display a loading message while fetching data OR CUSTOM COMPANY GIF LIKE LINKEDIN FOES
+    return <img src={`${BASE_URL}logoblack.jpg`} alt="GuidebookX" className="loading-logo" />; // Display a loading message while fetching data OR CUSTOM COMPANY GIF LIKE LINKEDIN FOES
   }
 
   return (

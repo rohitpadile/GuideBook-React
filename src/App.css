@@ -2,31 +2,33 @@
 @import url('./css/CollegeClubListComponentCss.css');
 @import url('./css/ClubPageComponentCss.css');
 @import url('./css/ClubPostComponentCss.css');
-/* App.css */
-/* @import './theme.css'; */
-/* 
-body {
-  font-family: var(--font-family);
-  background-color: var(--light-color);
-  color: var(--dark-color);
-  margin: 0;
-  padding: 0;
+
+.loading-logo {
+  display: block;
+  margin: 230px auto;
+  width: 150px; /* Adjust the size as needed */
+  height: auto;
+  opacity: 0.8;
+  animation: pulse 1.5s infinite;
+  filter: grayscale(100%);
+  
 }
 
-.container {
-  padding: var(--padding);
+@keyframes pulse {
+  0% {
+      opacity: 0.8;
+      transform: scale(1);
+  }
+  50% {
+      opacity: 1;
+      transform: scale(1.05);
+  }
+  100% {
+      opacity: 0.8;
+      transform: scale(1);
+  }
 }
 
-.card {
-  border-radius: var(--border-radius);
-}
-
-.btn {
-  border-radius: var(--border-radius);
-}
-
-
- */
 @media (max-width: 768px) {
   .signup-link {
     display: none; /* Hide signup link on small screens */
