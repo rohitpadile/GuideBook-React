@@ -34,6 +34,7 @@ import auth from './auth';
 import Signup from './Components/Signup';
 import Login from './Components/Login';
 import ProfileAccount from './Components/profileAccount/ProfileAccount';
+import SubscriptionComponent from './Components/profileAccount/SubscriptionComponent';
 // FOR TEAM RECRUITERS
 // import TRStudentDetailsComponent from './Components/teamRecruiters/TRStudentDetailsComponent';
 function App() {
@@ -74,6 +75,8 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             {/* <Route path="/home" element={isLoggedIn() ? <Home /> : <Navigate to="/login" />} /> */}
             <Route path="/profile" element={<ProfileAccount />} />
+            {/* SubscriptionComponent */}
+            <Route path="/subscription" element={<SubscriptionComponent />} />
           </Routes>
         </BranchProvider>
       </div>

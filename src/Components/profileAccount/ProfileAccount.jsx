@@ -35,7 +35,7 @@ const ProfileAccount = () => {
     setEditMode(true);
   };
   const handleAddSubscription = () => {
-    navigate("/profile");
+    navigate("/subscription");
   };
   const handleSave = async () => {
     try {

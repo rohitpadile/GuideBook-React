@@ -15,7 +15,7 @@ const SubscriptionComponent = () => {
 
     return (
         <div className="subscription-container">
-            <h2>Select Your Subscription Plan</h2>
+            <h2>Subscription Plan</h2>
             <div className="subscription-cards">
                 <div 
                     className={`subscription-card ${selectedPlan === 'monthly' ? 'selected' : ''}`} 
