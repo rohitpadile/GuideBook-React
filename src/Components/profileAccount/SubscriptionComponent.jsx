@@ -49,8 +49,14 @@ const SubscriptionComponent = () => {
     //                     console.log(response.razorpay_order_id);
     //                     console.log(response.razorpay_signature);
     //                     console.log('payment successfull')
-    //                     alert("congrats !! Payment successfull !!")
+    //                     
     //                     //You can use sweet alert CDN - see the video to get the site link to copy the code
+
+    //                     update payment on server - create a method for it
+    //                     you can pass properties - response.razorpay_payment_id and response.razorpay_order_id and status "paid"
+    //                     activate the monthly subscription
+    //                     In this separate method create try catch and display alert("congrats !! Payment successfull !!")
+    //                     or if some errors happens write "Your payment is successfull but we could not capture it on server. We will contact as ASAP and activate your subscription" 
     //                 },
     //                 "prefill": {
     //                     "name": "",
