@@ -95,7 +95,7 @@ const ProfileAccount = () => {
             {profileData.studentMentorAccountSubscription_Monthly === 1 ? 'Active' : 'Inactive'}
             <div>
             {/* SUBSCRIPTION BUTTON*/}
-            <button className="profile-account-subscription-link" onClick={handleAddSubscription}>Add Subscription</button>
+            {/* <button className="profile-account-subscription-link" onClick={handleAddSubscription}>Add Subscription</button> */}
         </div>
           </p>
           <h2 className="profile-account-title">Client Profile</h2>
@@ -183,7 +183,7 @@ const ProfileAccount = () => {
           <h2 className="profile-account-title">Session Count</h2>
           <p className="profile-account-info"><strong>Zoom Sessions Attended:</strong> {profileData.studentMentorAccountZoomSessionCount}</p>
           <p className="profile-account-info"><strong>Offline Sessions Attended:</strong> {profileData.studentMentorAccountOfflineSessionCount}</p>
-          
+          <p>Some of you are not able to edit their public profiles. We will fix that soon</p>
           <a className="profile-account-edit-link" href={profileData.editStudentProfileLink}>Edit Public Profile</a>
         </div>
       ) : (
