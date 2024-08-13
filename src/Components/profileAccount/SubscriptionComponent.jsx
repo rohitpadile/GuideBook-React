@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../../css/profileAccount/SubscriptionComponentCss.css';
 import { createOrder } from '../../Services/userAccountApiService'; // Update the path as necessary
-import Razorpay from 'razorpay';
+// import Razorpay from 'razorpay';
 
 // import '../../checkout'
 const SubscriptionComponent = () => {
