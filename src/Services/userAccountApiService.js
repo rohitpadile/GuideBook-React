@@ -16,17 +16,33 @@ const api = axios.create({
   withCredentials: true
 });
 
-export const createOrder = async (amount) => {
+export const createOrder = async (subscriptionOrder, token) => {
   try {
-      const response = await api.post('createOrder', {
-          amount: amount
-      });
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await api.post('createOrder', subscriptionOrder, config);
       return response.data;
   } catch (error) {
       console.error("Error creating order", error);
       throw error;
   }
 };
+export const getSubscriptionAmount = async (subscriptionPlan) => {
+  try {
+      const response = await api.post('getSubscriptionAmount', subscriptionPlan);
+      return response.data; // Return the entire response data
+  } catch (error) {
+      console.error("Error getting subscription amount", error);
+      throw error;
+  }
+};
+
+
+
 
 export const getAccountTypeAndProfileData = async (token) => {
     try {

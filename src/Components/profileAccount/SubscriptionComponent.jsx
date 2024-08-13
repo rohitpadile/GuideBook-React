@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import '../../css/profileAccount/SubscriptionComponentCss.css';
-import { createOrder } from '../../Services/userAccountApiService'; // Update the path as necessary
+import { createOrder, getSubscriptionAmount } from '../../Services/userAccountApiService'; // Update the path as necessary
 import Razorpay from 'razorpay';
+import { RAZORPAY_KEY_ID } from '../../Services/razorpayUtil';
+import auth from '../../auth';
 
-// import '../../checkout'
 const SubscriptionComponent = () => {
     const [selectedPlan, setSelectedPlan] = useState(null);
     const [amount, setAmount] = useState(null);
@@ -20,70 +21,97 @@ const SubscriptionComponent = () => {
         };
     }, []);
 
-    const handleSelectPlan = (plan) => {
+    const handleSelectPlan = async (plan) => {
         setSelectedPlan(plan);
-        // Send a request to backend to get the value of the selected plan
-        // And set that amount to state amount
+        console.log("Selected plan:", plan); // Should print "monthly"
+        try {
+            const subscriptionPlan = { subscriptionPlan: plan }; // Pass the selected plan directly
+            const response = await getSubscriptionAmount(subscriptionPlan); // Await the response
+            console.log("API Response:", response); // Log the full response to inspect its structure
+            if (response && response.subAmount) {
+                setAmount(response.subAmount); // Set the amount in state
+                console.log("Subscription Amount:", response.subAmount);
+            } else {
+                console.error("subAmount is undefined or missing in the response");
+            }
+        } catch (error) {
+            console.log("Cannot get subscription amount at handleSelectPlan method", error);
+        }
     };
 
     const paymentStart = async () => {
-        console.log("payment started");
+        const token = auth.getToken();
+        console.log("Payment started");
         console.log(amount);
+    
         if (amount == null || amount === "") {
             alert("Error fetching subscription amount from the servers. Please try later.");
             return;
         }
-
+    
         try {
-            const response = await createOrder(amount);
-
-            if (response.status === "created") {
-                let options = {
-                    "key": "YOUR_KEY_ID", // Replace with your actual key ID
-                    "amount": response.amount,
-                    "currency": 'INR',
-                    "name": 'GuidebookX',
-                    "description": 'Donation',
-                    "image": `${BASE_URL}logoblack.jpg`,
-                    "order_id": response.id,
-                    "handler": function (response) {
-                        console.log(response.razorpay_payment_id);
-                        console.log(response.razorpay_order_id);
-                        console.log(response.razorpay_signature);
-                        console.log('Payment successful');
-
-                        // Update payment status on server, etc.
-                    },
-                    "prefill": {
-                        "name": "",
-                        "email": "",
-                        "contact": ""
-                    },
-                    "notes": {
-                        "address": "GuidebookX"
-                    },
-                    "theme": {
-                        "color": "#3399cc"
-                    }
-                };
-
-                let rzp = new Razorpay(options);
-                rzp.on('payment.failed', function (response) {
-                    console.log(response.error.code);
-                    console.log(response.error.description);
-                    console.log(response.error.source);
-                    console.log(response.error.step);
-                    console.log(response.error.reason);
-                    console.log(response.error.metadata.order_id);
-                    console.log(response.error.metadata.payment_id);
-                    alert("Oops, payment failed.");
-                });
-                rzp.open();
+            const subscriptionOrder = { subscriptionPlan: selectedPlan };
+            const response = await createOrder(subscriptionOrder, token);
+            console.log("Order creation response:", response); // Log the entire response
+    
+            // Check the structure of response.data
+            if (response && response.data) {
+                const { status, amount, id } = response.data;
+                console.log("Response data:", response.data); // Log the data to check its structure
+    
+                if (status === "created") {
+                    let options = {
+                        key: RAZORPAY_KEY_ID,
+                        amount: amount, // Ensure the amount is in paise
+                        currency: 'INR',
+                        name: 'GuidebookX',
+                        description: 'Activating subscription plan',
+                        image: `${BASE_URL}logoblack.jpg`,
+                        order_id: id, // Use the order ID from the response
+                        handler: function (response) {
+                            console.log(response.razorpay_payment_id);
+                            console.log(response.razorpay_order_id);
+                            console.log(response.razorpay_signature);
+                            console.log('Payment successful');
+    
+                            // Update payment status on server, etc.
+                        },
+                        prefill: {
+                            name: "",
+                            email: "",
+                            contact: ""
+                        },
+                        notes: {
+                            address: "GuidebookX"
+                        },
+                        theme: {
+                            color: "#3399cc"
+                        }
+                    };
+    
+                    var rzp = new Razorpay(options);
+                    rzp.on('payment.failed', function (response) {
+                        console.log(response.error.code);
+                        console.log(response.error.description);
+                        console.log(response.error.source);
+                        console.log(response.error.step);
+                        console.log(response.error.reason);
+                        console.log(response.error.metadata.order_id);
+                        console.log(response.error.metadata.payment_id);
+                        alert("Oops, payment failed.");
+                    });
+                    rzp.open();
+                } else {
+                    console.error("Order creation failed or status is not 'created'");
+                }
+            } else {
+                console.error("Response or response.data is undefined");
             }
         } catch (error) {
             console.error('Error creating order', error);
         }
     };
+    
 
     return (
         <div className="subscription-container">
@@ -106,17 +134,19 @@ const SubscriptionComponent = () => {
                 </div>
             </div>
             <button 
+                id="rzp-button1" 
                 className={`checkout-button ${selectedPlan ? 'active' : ''}`} 
                 onClick={paymentStart} 
                 disabled={!selectedPlan}
             >
-                Checkout
+                Pay with Razorpay
             </button>
         </div>
     );
 };
 
 export default SubscriptionComponent;
+
 
 
 
