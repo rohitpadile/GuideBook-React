@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import '../../css/profileAccount/SubscriptionComponentCss.css';
 import { createOrder } from '../../Services/userAccountApiService'; // Update the path as necessary
-import Razorpay from 'razorpay';
+// import Razorpay from 'razorpay';
 
 // import '../../checkout'
 const SubscriptionComponent = () => {
     const [selectedPlan, setSelectedPlan] = useState(null);
     const [amount, setAmount] = useState(null);
     const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
-    
+    const Razorpay = require('razorpay');
     useEffect(() => {
         const script = document.createElement('script');
         script.src = 'https://checkout.razorpay.com/v1/checkout.js';
