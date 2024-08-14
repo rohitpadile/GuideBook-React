@@ -106,6 +106,20 @@ export const getAccountTypeAndProfileData = async (token) => {
     }
   };
   
+  export const checkLoginAndSubscriptionStatus = async (token) => {
+    try {
+      const response = await api.get('checkLoginAndSubscription', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+  
+      return response.status === 200;
+    } catch (error) {
+      console.error('Error checking login status:', error);
+    }
+  };
+
   export const checkLoginStatus = async (token) => {
     try {
       const response = await api.get('check-login', {
@@ -117,7 +131,7 @@ export const getAccountTypeAndProfileData = async (token) => {
       return response.status === 200;
     } catch (error) {
       console.error('Error checking login status:', error);
-      return false;
+      // return false;
     }
   };
   
