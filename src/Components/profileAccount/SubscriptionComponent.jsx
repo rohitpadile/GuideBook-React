@@ -54,7 +54,7 @@ const SubscriptionComponent = () => {
             console.log("Order creation response:", response); // Log the entire response
     
             // Check the structure of response.data
-            if (response && response.data) {
+            if ( response) {
                 const { status, amount, id } = response.data;
                 console.log("Response data:", response.data); // Log the data to check its structure
     
