@@ -24,7 +24,7 @@ export const createOrder = async (subscriptionOrder, token) => {
         },
       };
 
-      const response = await api.post('createOrder', subscriptionOrder, config);
+      const response = await api.post('createSubscriptionOrder', subscriptionOrder, config);
       return response.data;
   } catch (error) {
       console.error("Error creating order", error);

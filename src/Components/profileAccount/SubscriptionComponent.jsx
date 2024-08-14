@@ -20,6 +20,7 @@ const SubscriptionComponent = () => {
         };
     }, []);
 
+    //method to set plan
     const handleSelectPlan = async (plan) => {
         setSelectedPlan(plan);
         try {

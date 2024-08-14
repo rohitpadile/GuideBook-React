@@ -93,11 +93,12 @@ const ProfileAccount = () => {
           <p className="profile-account-info">
             <strong>Monthly Subscription:</strong>{' '}
             {profileData.studentMentorAccountSubscription_Monthly === 1 ? 'Active' : 'Inactive'}
-            <div>
+          </p>
+          <div>
             {/* SUBSCRIPTION BUTTON*/}
             <button className="profile-account-subscription-link" onClick={handleAddSubscription}>Add Subscription</button>
-        </div>
-          </p>
+          </div>
+          
           <h2 className="profile-account-title">Client Profile</h2>
           {editMode ? (
             <>
