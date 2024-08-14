@@ -53,7 +53,6 @@ const SubscriptionComponent = () => {
             const response = await createOrder(subscriptionOrder, token);
             console.log("Order creation response:", response); // Log the entire response
     
-            // Adjusted destructuring based on the provided backend response structure
             if (response && response.id && response.amount) {
                 const { status, amount, id } = response;
                 console.log("Response data:", response); // Log the data to check its structure
@@ -72,7 +71,6 @@ const SubscriptionComponent = () => {
                             console.log(response.razorpay_order_id);
                             console.log(response.razorpay_signature);
                             console.log('Payment successful');
-    
                             // Update payment status on server, etc.
                         },
                         prefill: {
@@ -110,6 +108,7 @@ const SubscriptionComponent = () => {
             console.error('Error creating order', error);
         }
     };
+    
     
     
 
