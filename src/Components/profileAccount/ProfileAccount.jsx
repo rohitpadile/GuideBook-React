@@ -95,7 +95,7 @@ const ProfileAccount = () => {
             {profileData.studentMentorAccountSubscription_Monthly === 1 ? 'Active' : 'Inactive'}
             <div>
             {/* SUBSCRIPTION BUTTON*/}
-            {/* <button className="profile-account-subscription-link" onClick={handleAddSubscription}>Add Subscription</button> */}
+            <button className="profile-account-subscription-link" onClick={handleAddSubscription}>Add Subscription</button>
         </div>
           </p>
           <h2 className="profile-account-title">Client Profile</h2>
