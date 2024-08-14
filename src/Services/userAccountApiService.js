@@ -41,6 +41,23 @@ export const getSubscriptionAmount = async (subscriptionPlan) => {
   }
 };
 
+export const activateSubscription = async (paymentDetails, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await api.post('activateSubscription', paymentDetails, config);
+    return response.data;
+  } catch (error) {
+    console.error("Error sending payment success", error);
+    throw error;
+  }
+};
+
+
 export const getAccountTypeAndProfileData = async (token) => {
     try {
       const config = {
