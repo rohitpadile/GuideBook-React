@@ -53,10 +53,10 @@ const SubscriptionComponent = () => {
             const response = await createOrder(subscriptionOrder, token);
             console.log("Order creation response:", response); // Log the entire response
     
-            // Check the structure of response.data
-            if ( response) {
-                const { status, amount, id } = response.data;
-                console.log("Response data:", response.data); // Log the data to check its structure
+            // Adjusted destructuring based on the provided backend response structure
+            if (response && response.id && response.amount) {
+                const { status, amount, id } = response;
+                console.log("Response data:", response); // Log the data to check its structure
     
                 if (status === "created") {
                     let options = {
@@ -110,6 +110,7 @@ const SubscriptionComponent = () => {
             console.error('Error creating order', error);
         }
     };
+    
     
 
     return (
