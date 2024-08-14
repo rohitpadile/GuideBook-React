@@ -8,7 +8,7 @@ const SubscriptionComponent = () => {
     const [selectedPlan, setSelectedPlan] = useState(null);
     const [amount, setAmount] = useState(null);
     const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
-    const Razorpay = require('razorpay');
+    // const Razorpay = require('razorpay');
     useEffect(() => {
         const script = document.createElement('script');
         script.src = 'https://checkout.razorpay.com/v1/checkout.js';
@@ -67,7 +67,7 @@ const SubscriptionComponent = () => {
                     }
                 };
 
-                let rzp = new Razorpay(options);
+                let rzp = new window.Razorpay(options);
                 rzp.on('payment.failed', function (response) {
                     console.log(response.error.code);
                     console.log(response.error.description);
