@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import '../../css/profileAccount/SubscriptionComponentCss.css';
-import { createOrder, getSubscriptionAmount, activateSubscription } from '../../Services/userAccountApiService'; // Update the path as necessary
+import { createOrder, getSubscriptionAmount, activateSubscription } from '../../Services/userAccountApiService';
 import { RAZORPAY_KEY_ID } from '../../Services/razorpayUtil';
 import auth from '../../auth';
+import Swal from 'sweetalert2';
 
 const SubscriptionComponent = () => {
     const [selectedPlan, setSelectedPlan] = useState(null);
@@ -20,7 +21,6 @@ const SubscriptionComponent = () => {
         };
     }, []);
 
-    //method to set plan
     const handleSelectPlan = async (plan) => {
         setSelectedPlan(plan);
         try {
@@ -39,7 +39,7 @@ const SubscriptionComponent = () => {
     const paymentStart = async () => {
         const token = auth.getToken();
         if (amount == null || amount === "") {
-            alert("Error fetching subscription amount from the servers. Please try later.");
+            Swal.fire('Error', 'Error fetching subscription amount from the servers. Please try later.', 'error');
             return;
         }
 
@@ -58,22 +58,19 @@ const SubscriptionComponent = () => {
                         name: 'GuidebookX',
                         description: 'Activating subscription plan',
                         image: `${BASE_URL}logoblack.jpg`,
-                        order_id: id, // Use the order ID from the response
+                        order_id: id,
                         handler: async function (response) {
                             try {
-                                // Prepare payment success details
                                 const paymentDetails = {
                                     subscriptionPaymentId: response.razorpay_payment_id,
                                     subPlan: selectedPlan,
                                     subscriptionRzpOrderId: response.razorpay_order_id
                                 };
-                        
-                                // Send payment success details to backend
                                 await activateSubscription(paymentDetails, token);
-                                alert('Payment successful. Your subscription is activated!');
+                                Swal.fire('Success', 'Payment successful. Your subscription is activated!', 'success');
                             } catch (error) {
                                 console.error('Error sending payment success', error);
-                                alert('Payment was successful, but we could not capture your details. We will contact you soon.');
+                                Swal.fire('Success', 'Payment was successful, but we could not capture your details. We will contact you soon.', 'warning');
                             }
                         },
                         prefill: {
@@ -98,7 +95,7 @@ const SubscriptionComponent = () => {
                         console.log(response.error.reason);
                         console.log(response.error.metadata.order_id);
                         console.log(response.error.metadata.payment_id);
-                        alert("Oops, payment failed.");
+                        Swal.fire('Error', 'Oops, payment failed.', 'error');
                     });
                     rzp.open();
                 } else {
