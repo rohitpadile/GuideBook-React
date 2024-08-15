@@ -82,7 +82,7 @@ function App() {
             <Route path="/subscription" element={<SubscriptionComponent />} />
             <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
             <Route path="/cancellationRefundPolicy" element={<CancellationRefundPolicy />} />
-            <Route path="/confirmZoomSession" element={<PaymentPageComponent />} />
+            <Route path="/confirmZoomSession/:transactionId" element={<PaymentPageComponent />} />
           </Routes>
         </BranchProvider>
       </div>

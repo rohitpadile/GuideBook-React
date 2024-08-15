@@ -150,138 +150,139 @@ const ScheduleZoomSession = () => {
   };
   
 
-return (
-  <div className="container mt-5">
-    <div className="card schedule-zoom-session-card">
-      <div className="card-body">
-        <h1 className="schedule-zoom-session-card-title text-center">Schedule Your Zoom Session</h1>
-        {formDetails ? (
-          <>
-            <div className="mb-4">
-              <p><strong>Client Name:</strong> {formDetails.clientFirstName} {formDetails.clientMiddleName} {formDetails.clientLastName}</p>
-              <p><strong>Email:</strong> {formDetails.clientEmail}</p>
-              <p><strong>Phone Number:</strong> {formDetails.clientPhoneNumber}</p>
-              <p><strong>Age:</strong> {formDetails.clientAge}</p>
-              <p><strong>College:</strong> {formDetails.clientCollege}</p>
-              <p><strong>Proof Document:</strong> <a href={formDetails.clientProofDocLink} target="_blank" rel="noopener noreferrer">View Document</a></p>
-              <p><strong>Verified by OTP:</strong> {formDetails.isVerified ? 'Yes' : 'No'}</p>
-              <p><strong>Created On:</strong> {new Date(formDetails.createdOn).toLocaleDateString()}</p>
-              <p><strong>Book Status:</strong> {formDetails.bookStatus}</p>
-
-              {/* New field */}
-              <p><strong>Session Duration:</strong> {formDetails.zoomSessionDurationInMin} minutes</p>
-            </div>
-
-            {/* Card for goals and expectations */}
-            <div className="card mt-4 schedule-goals-expectations-card">
-              <div className="card-body">
-                {/* <h5 className="card-title">Client Goals and Expectations</h5> */}
-                <div className="schedule-goals-expectations-content">
-                  <p><strong>Client Goals:</strong> <br/>{formDetails.zoomSessionClientGoals || 'N/A'}</p>
-                  <p><strong>Client Expectations:</strong> <br/>{formDetails.zoomSessionClientExpectations || 'N/A'}</p>
+  return (
+    <div className="container mt-5">
+      <div className="card schedule-zoom-session-card">
+        <div className="card-body">
+          <h1 className="schedule-zoom-session-card-title text-center">Schedule Your Zoom Session</h1>
+          {formDetails ? (
+            <>
+              <div className="mb-4">
+                <p><strong>Client Name:</strong> {formDetails.clientFirstName} {formDetails.clientMiddleName} {formDetails.clientLastName}</p>
+                <p><strong>Email:</strong> {formDetails.clientEmail}</p>
+                <p><strong>Phone Number:</strong> {formDetails.clientPhoneNumber}</p>
+                <p><strong>Age:</strong> {formDetails.clientAge}</p>
+                <p><strong>College:</strong> {formDetails.clientCollege}</p>
+                <p><strong>Proof Document:</strong> <a href={formDetails.clientProofDocLink} target="_blank" rel="noopener noreferrer">View Document</a></p>
+                <p><strong>Verified by OTP:</strong> {formDetails.isVerified ? 'Yes' : 'No'}</p>
+                <p><strong>Created On:</strong> {new Date(formDetails.createdOn).toLocaleDateString()}</p>
+                <p><strong>Book Status:</strong> {formDetails.bookStatus}</p>
+  
+                {/* New field */}
+                <p><strong>Session Duration:</strong> {formDetails.zoomSessionDurationInMin} minutes</p>
+              </div>
+  
+              {/* Card for goals and expectations */}
+              <div className="card mt-4 schedule-goals-expectations-card">
+                <div className="card-body">
+                  {/* <h5 className="card-title">Client Goals and Expectations</h5> */}
+                  <div className="schedule-goals-expectations-content">
+                    <p><strong>Client Goals:</strong> <br/>{formDetails.zoomSessionClientGoals || 'N/A'}</p>
+                    <p><strong>Client Expectations:</strong> <br/>{formDetails.zoomSessionClientExpectations || 'N/A'}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-
-
-            {formDetails.isVerified === 1 ? ( // Form is verified
-              <form onSubmit={handleSubmit}>
-                <div className="form-group schedule-zoom-session-form-group">
-                  <label htmlFor="availability">Are you available?</label>
-                  <select 
-                    id="availability" 
-                    className="form-control" 
-                    value={availability} 
-                    onChange={handleAvailabilityChange}
-                    required
-                    disabled={bookStatus !== 'PENDING' || isSubmitting}
-                  >
-                    <option value="">Select</option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                  </select>
-                </div>
-                {availability === 'yes' && (
-                  <>
-                    <div className="form-group schedule-zoom-session-form-group">
-                      <label htmlFor="preferredTime">Preferred Time for Session</label>
-                      <input 
-                        type="datetime-local" 
-                        id="preferredTime" 
-                        className="form-control" 
-                        value={preferredTime} 
-                        onChange={handlePreferredTimeChange}
-                        required 
-                        disabled={bookStatus !== 'PENDING' || isSubmitting}
-                      />
-                    </div>
-                    <div className="form-group schedule-zoom-session-form-group">
-                      <label htmlFor="meetingId">Meeting ID</label>
-                      <input 
-                        type="text" 
-                        id="meetingId" 
-                        className="form-control" 
-                        value={meetingId} 
-                        onChange={handleMeetingIdChange}
-                        required 
-                        disabled={bookStatus !== 'PENDING' || isSubmitting}
-                      />
-                    </div>
-                    <div className="form-group schedule-zoom-session-form-group">
-                      <label htmlFor="passcode">Passcode</label>
-                      <input 
-                        type="text" 
-                        id="passcode" 
-                        className="form-control" 
-                        value={passcode} 
-                        onChange={handlePasscodeChange}
-                        required 
-                        disabled={bookStatus !== 'PENDING' || isSubmitting}
-                      />
-                    </div>
-                    <div className="form-group schedule-zoom-session-form-group">
-                      <label htmlFor="meetingLink">Meeting Link</label>
-                      <input 
-                        type="text" 
-                        id="meetingLink" 
-                        className="form-control" 
-                        value={meetingLink} 
-                        onChange={handleMeetingLinkChange}
-                        required 
-                        disabled={bookStatus !== 'PENDING' || isSubmitting}
-                      />
-                    </div>
-                  </>
-                )}
-                {availability === 'no' && (
+  
+  
+              {formDetails.isVerified === 1 ? ( // Form is verified
+                <form onSubmit={handleSubmit}>
                   <div className="form-group schedule-zoom-session-form-group">
-                    <label htmlFor="studentMessageToClient">Message to Client (Optional)</label>
-                    <textarea
-                      id="studentMessageToClient"
-                      className="form-control"
-                      value={studentMessageToClient}
-                      onChange={handleStudentMessageToClientChange}
-                      rows="3"
+                    <label htmlFor="availability">Are you available?</label>
+                    <select 
+                      id="availability" 
+                      className="form-control" 
+                      value={availability} 
+                      onChange={handleAvailabilityChange}
+                      required
                       disabled={bookStatus !== 'PENDING' || isSubmitting}
-                    ></textarea>
+                    >
+                      <option value="">Select</option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
                   </div>
-                )}
-                <button type="submit" className="btn btn-primary" disabled={isSubmitting || bookStatus !== 'PENDING'}>
-                  {isSubmitting ? 'Submitting...' : 'Submit'}
-                </button>
-              </form>
-            ) : (
-              <p className="alert alert-danger">The form is not verified by OTP. For security purposes, we do not allow scheduling this session.</p>
-            )}
-          </>
-        ) : (
-          <img src={`${BASE_URL}logoblack.jpg`} alt="GuidebookX" className="loading-logo" />
-        )}
-        {message && <div className="mt-4 alert alert-info">{message}</div>}
+                  {availability === 'yes' && (
+                    <>
+                      <div className="form-group schedule-zoom-session-form-group">
+                        <label htmlFor="preferredTime">Preferred Time for Session</label>
+                        <input 
+                          type="datetime-local" 
+                          id="preferredTime" 
+                          className="form-control" 
+                          value={preferredTime} 
+                          onChange={handlePreferredTimeChange}
+                          required 
+                          disabled={bookStatus !== 'PENDING' || isSubmitting}
+                        />
+                      </div>
+                      <div className="form-group schedule-zoom-session-form-group">
+                        <label htmlFor="meetingId">Meeting ID</label>
+                        <input 
+                          type="text" 
+                          id="meetingId" 
+                          className="form-control" 
+                          value={meetingId} 
+                          onChange={handleMeetingIdChange}
+                          required 
+                          disabled={bookStatus !== 'PENDING' || isSubmitting}
+                        />
+                      </div>
+                      <div className="form-group schedule-zoom-session-form-group">
+                        <label htmlFor="passcode">Passcode</label>
+                        <input 
+                          type="text" 
+                          id="passcode" 
+                          className="form-control" 
+                          value={passcode} 
+                          onChange={handlePasscodeChange}
+                          required 
+                          disabled={bookStatus !== 'PENDING' || isSubmitting}
+                        />
+                      </div>
+                      <div className="form-group schedule-zoom-session-form-group">
+                        <label htmlFor="meetingLink">Meeting Link</label>
+                        <input 
+                          type="text" 
+                          id="meetingLink" 
+                          className="form-control" 
+                          value={meetingLink} 
+                          onChange={handleMeetingLinkChange}
+                          required 
+                          disabled={bookStatus !== 'PENDING' || isSubmitting}
+                        />
+                      </div>
+                    </>
+                  )}
+                  {availability === 'no' && (
+                    <div className="form-group schedule-zoom-session-form-group">
+                      <label htmlFor="studentMessageToClient">Message to Client (Optional)</label>
+                      <textarea
+                        id="studentMessageToClient"
+                        className="form-control"
+                        value={studentMessageToClient}
+                        onChange={handleStudentMessageToClientChange}
+                        rows="3"
+                        disabled={bookStatus !== 'PENDING' || isSubmitting}
+                      ></textarea>
+                    </div>
+                  )}
+                  <button type="submit" className="btn btn-primary" disabled={isSubmitting || bookStatus !== 'PENDING'}>
+                    {isSubmitting ? 'Submitting...' : 'Submit'}
+                  </button>
+                </form>
+              ) : (
+                <p className="alert alert-danger">The form is not verified by OTP. For security purposes, we do not allow scheduling this session.</p>
+              )}
+            </>
+          ) : (
+            <img src={`${BASE_URL}logoblack.jpg`} alt="GuidebookX" className="loading-logo" />
+          )}
+          {message && <div className="mt-4 alert alert-info">{message}</div>}
+        </div>
       </div>
     </div>
-  </div>
-);
-}
-
-export default ScheduleZoomSession;
+  );
+  }
+  
+  export default ScheduleZoomSession;
+  
