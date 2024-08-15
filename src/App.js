@@ -35,6 +35,8 @@ import Signup from './Components/Signup';
 import Login from './Components/Login';
 import ProfileAccount from './Components/profileAccount/ProfileAccount';
 import SubscriptionComponent from './Components/profileAccount/SubscriptionComponent';
+import PrivacyPolicy from './Components/company/PrivacyPolicy';
+import CancellationRefundPolicy from './Components/company/CancellationRefundPolicy';
 // FOR TEAM RECRUITERS
 // import TRStudentDetailsComponent from './Components/teamRecruiters/TRStudentDetailsComponent';
 function App() {
@@ -77,6 +79,8 @@ function App() {
             <Route path="/profile" element={<ProfileAccount />} />
             {/* SubscriptionComponent */}
             <Route path="/subscription" element={<SubscriptionComponent />} />
+            <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
+            <Route path="/cancellationRefundPolicy" element={<CancellationRefundPolicy />} />
           </Routes>
         </BranchProvider>
       </div>

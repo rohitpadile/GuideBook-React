@@ -26,7 +26,7 @@ const AboutUs = () => {
     {
       name: 'Ajay Sayanna Karhade',
       role: 'Operations',
-      imageUrl: 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/personicon.jpg',
+      imageUrl: 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/team/ajay.guidebookx@gmail.com.jpg',
     },
     {
       name: 'Ayush Shailesh Agrawal',

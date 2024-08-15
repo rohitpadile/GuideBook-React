@@ -350,3 +350,8 @@ html, body {
 /* //////////////////////////////////////// */
 /* WARNING */
 /* FROM NOW ONWARDS. KEEP SEPARATE CSS FILE FOR EACH COMPONENT */
+
+.footer-shaded {
+  background: linear-gradient(to bottom, #ffffff, #f1f1f1); /* Gradient from white to a slightly darker shade */
+  color: #6c757d; /* Text color */
+}
