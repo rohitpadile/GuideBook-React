@@ -4,22 +4,47 @@ import '../css/AboutUsCss.css'; // Create and import your CSS file
 const AboutUs = () => {
   const teamMembers = [
     {
-      name: 'Your Name',
+      name: 'Rohit Padile',
       role: 'Founder & CEO',
-      imageUrl: 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/team/your-photo.jpg',
-      description: 'Brief description about you.',
+      imageUrl: 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/team/rohitp22.elec@coeptech.ac.in.jpg',
+      // description: 'Brief description about you.',
     },
     {
-      name: 'Team Member 1',
-      role: 'CTO',
-      imageUrl: 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/team/member1-photo.jpg',
-      description: 'Brief description about team member 1.',
+      name: 'Bhavesh Manoj Kapure',
+      role: 'Operations',
+      imageUrl: 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/team/bhavesh.guidebookx@gmail.com.jpg',
+      // description: 'Brief description about team member 1.',
     },
     {
-      name: 'Team Member 2',
-      role: 'Lead Developer',
-      imageUrl: 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/team/member2-photo.jpg',
-      description: 'Brief description about team member 2.',
+      name: 'Chetan Pathade',
+      role: 'Operations',
+      imageUrl: 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/team/chetan.guidebookx@gmail.com.jpg',
+      // description: 'Brief description about team member 2.',
+    },
+    {
+      name: 'Vishwambhar Laxmikant Joshi',
+      role: 'Operations',
+      imageUrl: 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/team/vishwambhar.guidebookx@gmail.com.jpg',
+      // description: 'Brief description about team member 2.',
+    },
+    {
+      name: 'Ajay Sayanna Karhade',
+      role: 'Operations',
+      // imageUrl: 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/team/ajay.guidebookx@gmail.com.jpg',
+      imageUrl: 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/personicon.jpg',
+      // description: 'Brief description about team member 2.',
+    },
+    {
+      name: 'Ayush Shailesh Agrawal',
+      role: 'Operations',
+      imageUrl: 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/team/ayush.guidebookx@gmail.com.jpg',
+      // description: 'Brief description about team member 2.',
+    },
+    {
+      name: 'Rohan Dinesh Ghuge',
+      role: 'Operations',
+      imageUrl: 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/team/rohan.guidebookx@gmail.com.jpg',
+      // description: 'Brief description about team member 2.',
     },
     // Add more team members as needed
   ];

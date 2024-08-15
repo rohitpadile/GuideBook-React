@@ -5,7 +5,7 @@ import '../App.css';
 import axios from 'axios';
 import { Modal, Button } from 'react-bootstrap'; // Importing Modal and Button from react-bootstrap
 import { sendOtp, verifyOtp, resendOtp, bookSession, getClientAccountDetails  } from '../Services/zoomSessionService'; // Importing the API service functions
-import {checkLoginAndSubscriptionStatus} from '../Services/userAccountApiService';
+import {checkLoginAndSubscriptionStatus, checkLoginStatus} from '../Services/userAccountApiService';
 import auth from '../auth';
 //TRIM THE INPUT FIELDS BEFORE SETTING TO THE STATES - REMANINING
   
@@ -48,7 +48,8 @@ const ZoomSessionForm = () => {
     try {
       const token = auth.getToken();
       if (token) {
-        const loginAndSubscriptionStatus = await checkLoginAndSubscriptionStatus(token);
+        const loginAndSubscriptionStatus = await checkLoginStatus(token); 
+        //Later change this to checkLoginAndSubscriptionStatus() to check subscription also
         if(!loginAndSubscriptionStatus){
           setMessage('Subscription Inactive');
           return;

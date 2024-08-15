@@ -135,7 +135,7 @@ const SubscriptionComponent = () => {
                 onClick={paymentStart} 
                 disabled={!selectedPlan}
             >
-                Pay with Razorpay
+                Checkout
             </button>
         </div>
     );

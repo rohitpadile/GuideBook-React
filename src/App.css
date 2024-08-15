@@ -169,23 +169,7 @@ html, body {
   padding-bottom: 6rem;
 }
 
-.footer {
-  flex-shrink: 0; /* Prevent footer from shrinking */
-}
-/* .footer { */
-  /* background-color: #f8f9fa; Light background color */
-  /* color: #6c757d; Text color */
-  /* padding: 1rem 0; Padding */
-  /* width: 100%; */
-/* } */
 
-.footer {
-  background-color: #f8f9fa; /* Light background color */
-  color: #6c757d; /* Text color */
-  padding: 1rem 0; /* Padding */
-  width: 100%;
-  margin-top: 2rem; /* Increase the space above the footer */
-}
 
 
 

@@ -12,6 +12,12 @@ const HelpdeskComponent = () => {
             <h4 className="helpdesk-card-subtitle card-title text-center mb-4">Need Assistance?</h4>
             <p className="helpdesk-info text-center">
               Send an email to <a href="mailto:helpguidebookx@gmail.com">helpguidebookx@gmail.com</a>
+              <br/><br/>
+              <p>
+                For queries related to mentorship registration DM<br/>
+                Bhavesh Kapure: 7038334230<br/>
+                Ajay Karhade: 9699567046
+              </p>
             </p>
           </div>
         </div>
