@@ -37,4 +37,41 @@
     margin-top: 20px;
     font-size: 1rem;
   }
-  
+  /* ScheduleGoalsExpectations.css */
+
+/* Card styling */
+.schedule-goals-expectations-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+/* Title styling */
+.schedule-goals-expectations-card .card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Content styling */
+.schedule-goals-expectations-content {
+  font-size: 1rem;
+  color: #555;
+}
+
+.schedule-goals-expectations-content p {
+  margin-bottom: 15px;
+}
+
+.schedule-goals-expectations-content a {
+  color: #6f64ef;
+  text-decoration: none;
+}
+
+.schedule-goals-expectations-content a:hover {
+  text-decoration: underline;
+}
