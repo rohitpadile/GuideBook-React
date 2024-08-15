@@ -29,10 +29,10 @@ const SubscriptionComponent = () => {
             if (response && response.subAmount) {
                 setAmount(response.subAmount);
             } else {
-                console.error("subAmount is undefined or missing in the response");
+                // console.error("subAmount is undefined or missing in the response");
             }
         } catch (error) {
-            console.log("Cannot get subscription amount at handleSelectPlan method", error);
+            // console.log("Cannot get subscription amount at handleSelectPlan method", error);
         }
     };
 
@@ -69,7 +69,7 @@ const SubscriptionComponent = () => {
                                 await activateSubscription(paymentDetails, token);
                                 Swal.fire('Success', 'Payment successful. Your subscription is activated!', 'success');
                             } catch (error) {
-                                console.error('Error sending payment success', error);
+                                // console.error('Error sending payment success', error);
                                 Swal.fire('Success', 'Payment was successful, but we could not capture your details. We will contact you soon.', 'warning');
                             }
                         },
@@ -88,24 +88,24 @@ const SubscriptionComponent = () => {
 
                     var rzp = new window.Razorpay(options);
                     rzp.on('payment.failed', function (response) {
-                        console.log(response.error.code);
-                        console.log(response.error.description);
-                        console.log(response.error.source);
-                        console.log(response.error.step);
-                        console.log(response.error.reason);
-                        console.log(response.error.metadata.order_id);
-                        console.log(response.error.metadata.payment_id);
+                        // console.log(response.error.code);
+                        // console.log(response.error.description);
+                        // console.log(response.error.source);
+                        // console.log(response.error.step);
+                        // console.log(response.error.reason);
+                        // console.log(response.error.metadata.order_id);
+                        // console.log(response.error.metadata.payment_id);
                         Swal.fire('Error', 'Oops, payment failed.', 'error');
                     });
                     rzp.open();
                 } else {
-                    console.error("Order creation failed or status is not 'created'");
+                    // console.error("Order creation failed or status is not 'created'");
                 }
             } else {
-                console.error("Response or response.data is undefined");
+                // console.error("Response or response.data is undefined");
             }
         } catch (error) {
-            console.error('Error creating order', error);
+            // console.error('Error creating order', error);
         }
     };
 

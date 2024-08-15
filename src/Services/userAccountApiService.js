@@ -27,7 +27,7 @@ export const createOrder = async (subscriptionOrder, token) => {
       const response = await api.post('createSubscriptionOrder', subscriptionOrder, config);
       return response.data;
   } catch (error) {
-      console.error("Error creating order", error);
+      // console.error("Error creating order", error);
       throw error;
   }
 };
@@ -36,7 +36,7 @@ export const getSubscriptionAmount = async (subscriptionPlan) => {
       const response = await api.post('getSubscriptionAmount', subscriptionPlan);
       return response.data; // Return the entire response data
   } catch (error) {
-      console.error("Error getting subscription amount", error);
+      // console.error("Error getting subscription amount", error);
       throw error;
   }
 };
@@ -52,7 +52,7 @@ export const activateSubscription = async (paymentDetails, token) => {
     const response = await api.post('activateSubscription', paymentDetails, config);
     return response.data;
   } catch (error) {
-    console.error("Error sending payment success", error);
+    // console.error("Error sending payment success", error);
     throw error;
   }
 };
