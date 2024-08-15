@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAccountTypeAndProfileData, editProfileData } from '../../Services/userAccountApiService';
+import { getAccountTypeAndProfileData, editProfileData, checkDummyAccount } from '../../Services/userAccountApiService';
 import auth from '../../auth'; // Assuming auth.js is in the parent directory
 import '../../css/profileAccount/ProfileAccountCss.css'; // Importing the CSS file
 import { useNavigate } from 'react-router-dom';
@@ -9,9 +9,10 @@ const ProfileAccount = () => {
   const [profileData, setProfileData] = useState(null);
   const [editMode, setEditMode] = useState(false); // For toggling edit mode
   const [editData, setEditData] = useState({}); // For holding the edited data
+  const [dummyAcc, setDummyAcc] = useState(null);
   const navigate = useNavigate();
+
   useEffect(() => {
-    
     const fetchAccountData = async () => {
       try {
         const token = auth.getToken();
@@ -28,9 +29,30 @@ const ProfileAccount = () => {
         console.error('There was an error fetching the profile data!', error);
       }
     };
+    // Method to check if the account is dummy or not
+    const checkDummyAccountStatus = async () => {
+      try {
+        const token = auth.getToken();
+        const response = await checkDummyAccount(token);
+        // console.log('Check Dummy Account Response:', response); // Add this to see the API response
+        if (response === true || response === 'true') {
+          setDummyAcc(1);
+        } else {
+          setDummyAcc(0);
+        }
+        
+      } catch (error) {
+        setDummyAcc(0);
+        // console.error('Account not a dummy account!', error);
+      }
+    };
+    
 
     fetchAccountData();
+    checkDummyAccountStatus();
   }, []);
+
+  
 
   const handleEdit = () => {
     setEditMode(true);
@@ -96,7 +118,10 @@ const ProfileAccount = () => {
           </p>
           <div>
             {/* SUBSCRIPTION BUTTON*/}
-            {/* <button className="profile-account-subscription-link" onClick={handleAddSubscription}>Add Subscription</button> */}
+            {dummyAcc === 1 ? (
+              <button className="profile-account-subscription-link" onClick={handleAddSubscription}>Add Subscription</button>
+            ) : <></>}
+            
           </div>
           
           <h2 className="profile-account-title">Client Profile</h2>
@@ -278,7 +303,12 @@ const ProfileAccount = () => {
               </p>
               <div>
                 {/* SUBSCRIPTION BUTTON*/}
-                {/* <button className="profile-account-subscription-link" onClick={handleAddSubscription}>Add Subscription</button> */}
+                {/* SUBSCRIPTION BUTTON*/}
+                {dummyAcc === 1 && (
+                  <button className="profile-account-subscription-link" onClick={handleAddSubscription}>Add Subscription</button>
+                )}
+
+                
               </div>
             </>
           )}

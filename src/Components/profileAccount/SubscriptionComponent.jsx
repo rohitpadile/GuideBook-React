@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../../css/profileAccount/SubscriptionComponentCss.css';
-import { createOrder, getSubscriptionAmount, activateSubscription } from '../../Services/userAccountApiService';
+import { createOrder, getSubscriptionAmount, activateSubscription,checkDummyAccount } from '../../Services/userAccountApiService';
 import { RAZORPAY_KEY_ID } from '../../Services/razorpayUtil';
 import auth from '../../auth';
 import Swal from 'sweetalert2';
@@ -9,6 +9,7 @@ const SubscriptionComponent = () => {
     const [selectedPlan, setSelectedPlan] = useState(null);
     const [amount, setAmount] = useState(null);
     const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
+    const [dummyAcc, setDummyAcc] = useState(null);
 
     useEffect(() => {
         const script = document.createElement('script');
@@ -21,6 +22,26 @@ const SubscriptionComponent = () => {
         };
     }, []);
 
+    useEffect(() => {
+        const checkDummyAccountStatus = async () => {
+            try {
+                const token = auth.getToken();
+                const response = await checkDummyAccount(token);
+                // console.log('Check Dummy Account Response:', response); // Add this to see the API response
+                if (response === true || response === 'true') {
+                setDummyAcc(1);
+                } else {
+                setDummyAcc(0);
+                }
+                
+            } catch (error) {
+                setDummyAcc(0);
+                // console.error('Account not a dummy account!', error);
+            }
+        };
+        checkDummyAccountStatus();
+    });
+
     const handleSelectPlan = async (plan) => {
         setSelectedPlan(plan);
         try {
@@ -29,10 +50,11 @@ const SubscriptionComponent = () => {
             if (response && response.subAmount) {
                 setAmount(response.subAmount);
             } else {
-                // console.error("subAmount is undefined or missing in the response");
+                console.error("subAmount is undefined or missing in the response");
             }
         } catch (error) {
-            // console.log("Cannot get subscription amount at handleSelectPlan method", error);
+            // console.log("Cannot get subscription amount.", error);
+            // throw error;
         }
     };
 
@@ -88,7 +110,7 @@ const SubscriptionComponent = () => {
 
                     var rzp = new window.Razorpay(options);
                     rzp.on('payment.failed', function (response) {
-                        // console.log(response.error.code);
+                        console.log(response.error.code);
                         // console.log(response.error.description);
                         // console.log(response.error.source);
                         // console.log(response.error.step);
@@ -99,13 +121,15 @@ const SubscriptionComponent = () => {
                     });
                     rzp.open();
                 } else {
-                    // console.error("Order creation failed or status is not 'created'");
+                    console.error("Order creation failed or status is not 'created'");
                 }
             } else {
-                // console.error("Response or response.data is undefined");
+                console.error("Response or response.data is undefined");
             }
         } catch (error) {
-            // console.error('Error creating order', error);
+            console.error('Error creating order', error);
+            Swal.fire('Error', 'Subscription already active or you did not login', 'error');
+            // throw error;
         }
     };
 
@@ -129,14 +153,17 @@ const SubscriptionComponent = () => {
                     <p>Not Available</p>
                 </div>
             </div>
-            <button 
-                id="rzp-button1" 
-                className={`checkout-button ${selectedPlan ? 'active' : ''}`} 
-                onClick={paymentStart} 
-                disabled={!selectedPlan}
-            >
-                Checkout
-            </button>
+            {dummyAcc === 1 && (
+                <button 
+                    id="rzp-button1" 
+                    className={`checkout-button ${selectedPlan ? 'active' : ''}`} 
+                    onClick={paymentStart} 
+                    disabled={!selectedPlan}
+                >
+                    Checkout
+                </button>
+            )}
+            
         </div>
     );
 };

@@ -31,6 +31,27 @@ export const createOrder = async (subscriptionOrder, token) => {
       throw error;
   }
 };
+
+// Method to check if the account is dummy or not
+export const checkDummyAccount = async (token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    // Replace this with your actual endpoint for checking dummy accounts
+    const response = await api.get('/checkDummyAccount', config);
+
+    // If the response is 200 OK, return true
+    return response.status === 200;
+  } catch (error) {
+    // If an error occurs, it's assumed the account is dummy or not valid
+    // console.log("");
+  }
+};
+
 export const getSubscriptionAmount = async (subscriptionPlan) => {
   try {
       const response = await api.post('getSubscriptionAmount', subscriptionPlan);
