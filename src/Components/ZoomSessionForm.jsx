@@ -25,6 +25,9 @@ const ZoomSessionForm = () => {
     clientCollege: '',
     clientProofDocLink: '',
     otp: '', // New state for OTP
+    zoomSessionClientGoals: '',
+    zoomSessionClientExpectations: '',
+    zoomSessionDurationInMin: '15',
   });
 
   const [message, setMessage] = useState('');
@@ -38,10 +41,15 @@ const ZoomSessionForm = () => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value.trim(),
+      [name]: value, // Removed .trim()
     });
   };
   
+  const handleDurationSelect = (duration) => {
+    setFormData({ ...formData, zoomSessionDurationInMin: duration });
+    console.log(duration);
+    console.log(formData);
+  };
 
   const handleSendOtp = async () => {
     // Check if all required fields are filled
@@ -70,13 +78,16 @@ const ZoomSessionForm = () => {
       !formData.clientPhoneNumber ||
       !formData.clientAge ||
       !formData.clientCollege ||
-      !formData.clientProofDocLink
+      !formData.clientProofDocLink ||
+      !formData.zoomSessionDurationInMin
     ) {
       setMessage('Please fill all required fields before sending OTP.');
       return; // Stop execution if validation fails
     }
   
     try {
+      console.log(formData);
+
       const data = await sendOtp(formData);
       
       // Ensure that data contains the expected properties
@@ -173,6 +184,7 @@ const ZoomSessionForm = () => {
         clientCollege: data.clientCollege || '',
         clientProofDocLink: data.clientValidProof || '',
         otp: '',
+        zoomSessionDurationInMin: '15', // Ensure default value
       });
   
       // Disable the button after filling the data
@@ -191,6 +203,7 @@ const ZoomSessionForm = () => {
         </div>
         <div className="card-body book-session-body">
           <form>
+    {/* PRIMARY FIELDS START */}
             <div className="mb-3 row">
               <label htmlFor="clientFirstName" className="col-sm-4 col-form-label">First Name</label>
               <div className="col-sm-8">
@@ -308,7 +321,62 @@ const ZoomSessionForm = () => {
                 />
               </div>
             </div>
+{/* NEW FIELDS */}
+            <div className="mb-3 row">
+              <label htmlFor="goals" className="col-sm-4 col-form-label">Goals (Optional)</label>
+              <div className="col-sm-8">
+                <textarea
+                  className="form-control"
+                  id="goals"
+                  name="zoomSessionClientGoals"
+                  value={formData.zoomSessionClientGoals}
+                  onChange={handleChange}
+                  placeholder="Enter your goals"
+                  rows="3" // You can adjust the rows to increase/decrease the height of the textarea
+                ></textarea>
+              </div>
+            </div>
 
+            <div className="mb-3 row">
+              <label htmlFor="expectations" className="col-sm-4 col-form-label">Expectations (Optional)</label>
+              <div className="col-sm-8">
+                <textarea
+                  className="form-control"
+                  id="expectations"
+                  name="zoomSessionClientExpectations"
+                  value={formData.zoomSessionClientExpectations}
+                  onChange={handleChange}
+                  placeholder="Enter your expectations"
+                  rows="3"
+                ></textarea>
+              </div>
+            </div>
+
+   {/* Session Duration Selection */}
+            <div className="mb-3 row">
+            <label className="col-sm-4 col-form-label">Session Duration</label>
+            <div className="col-sm-8">
+              <div className="btn-group">
+                <button
+                  type="button"
+                  className={`btn btn-outline-primary ${formData.zoomSessionDurationInMin === '15' ? 'active' : ''}`}
+                  onClick={() => handleDurationSelect('15')}
+                >
+                  15 min
+                </button>
+                <button
+                  type="button"
+                  className={`btn btn-outline-primary ${formData.zoomSessionDurationInMin === '30' ? 'active' : ''}`}
+                  onClick={() => handleDurationSelect('30')}
+                >
+                  30 min
+                </button>
+              </div>
+            </div>
+          </div>
+
+   {/* NEW FIELDS OVER */}
+   {/* OTP SECTION */}
             {(messageCode === 1 || messageCode === -1) && (
               <div className="mb-3 row">
                 <label htmlFor="otp" className="col-sm-4 col-form-label">Enter OTP</label>
@@ -335,7 +403,7 @@ const ZoomSessionForm = () => {
               ) : <></>}
               
             </div>
-
+ {/* Submit/OTP Buttons */}
             <div className="mb-3 row">
               <div className="col-sm-12 text-center">
                 {messageCode === 1 || messageCode === -1 ? (
@@ -363,7 +431,7 @@ const ZoomSessionForm = () => {
           {message && <div className="alert alert-info mt-3">{message}</div>}
         </div>
       </div>
-
+{/* TERMS MODEL */}
       <Modal show={showTermsModal} onHide={handleCloseTerms}>
         <Modal.Header closeButton>
           <Modal.Title>Terms and Conditions</Modal.Title>
