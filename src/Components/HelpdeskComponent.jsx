@@ -18,6 +18,9 @@ const HelpdeskComponent = () => {
                 Bhavesh Kapure: 7038334230<br/>
                 Ajay Karhade: 9699567046
               </p>
+              <p>
+                Address: COEP Hostel, Shivajinagar, Pune - 411005
+              </p>
             </p>
           </div>
         </div>
