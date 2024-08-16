@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import { createOrder, checkDummyAccount } from '../../Services/userAccountApiService';
+import { createOrder, checkDummyAccount,checkLoginStatus } from '../../Services/userAccountApiService';
 // import {activateSessionBooking} from '../../Services/paymentApiService'
 import { RAZORPAY_KEY_ID } from '../../Services/razorpayUtil';
 import auth from '../../auth';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const PaymentPageComponent = () => {
+    const navigate = useNavigate();
     const [selectedSession, setSelectedSession] = useState(null);
     const [amount, setAmount] = useState(null);
     const [dummyAcc, setDummyAcc] = useState(null);
@@ -41,6 +43,34 @@ const PaymentPageComponent = () => {
         };
         checkDummyAccountStatus();
     }, []);
+
+
+    useEffect(() => {
+        const checkLoginStatusResponse = async () => {
+            try {
+                const token = auth.getToken();
+                const response = await checkLoginStatus(token);
+                if (response === true || response === 'true') {
+                    return;
+                } else {
+                    const redirectUrl = window.location.pathname; // Get the current URL
+                    navigate(`/login`, { state: { redirectUrl } }); // Pass object with redirectUrl
+                }
+            } catch (error) {
+                console.error('Please login first', error);
+                const redirectUrl = window.location.pathname;
+                navigate(`/login`, { state: { redirectUrl } });
+            }
+        };
+    
+        const delayCheck = setTimeout(() => {
+            checkLoginStatusResponse();
+        }, 2000); // 2 second delay
+    
+        return () => clearTimeout(delayCheck); // Clean up the timeout if the component unmounts
+    }, [navigate]);
+    
+    
 
     const handleSelectSession = (session) => {
         setSelectedSession(session);

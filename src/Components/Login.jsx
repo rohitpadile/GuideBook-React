@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { loginUser } from "../Services/userAccountApiService";
 import auth from "../auth";
 import { toast, ToastContainer } from 'react-toastify';
@@ -9,7 +9,17 @@ import "../css/LoginCss.css"; // Import the CSS file
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [redirectUrl, setRedirectUrl] = useState("/home"); // Default redirect to /home
   const navigate = useNavigate();
+  const location = useLocation(); // Hook to get location state
+
+  useEffect(() => {
+    // Destructure the object passed through location.state
+    const { redirectUrl: passedUrl } = location.state || {}; // Get redirectUrl from the object passed
+    if (passedUrl) {
+      setRedirectUrl(passedUrl); // Set the redirectUrl if it's passed
+    }
+  }, [location.state]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -17,9 +27,14 @@ function Login() {
       const response = await loginUser(username, password);
       auth.setToken(response.data);
       auth.setAuthHeader();
-      toast.success("Login successful! Redirecting to home...");
+      toast.success("Login successful! Redirecting...");
       setTimeout(() => {
-        navigate("/home");
+        if(redirectUrl){
+          navigate(redirectUrl); // Redirect to the URL set in state
+        } else {
+          navigate("/home");
+        }
+        
         window.location.reload();
       }, 1000); // Redirect after 1 second
     } catch (error) {

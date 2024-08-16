@@ -194,9 +194,9 @@ const ZoomSessionForm = () => {
     }
   };
 
-  return(
-      <p className='text-center mt-5'>"Session booking has been paused for now due to maintainance reasons"</p>
-  );
+  // return(
+  //     <p className='text-center mt-5'>"Session booking has been paused for now due to maintainance reasons"</p>
+  // );
 
 
   return (
