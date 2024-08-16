@@ -18,7 +18,7 @@ const BlogListComponent = ({ studentId }) => {
 
   return (
     <div className="blog-list" align="center">
-      <h2>Student Blogs : Coming Soon</h2>
+      {/* <h2>Student Blogs : Coming Soon</h2> */}
       {blogs.map(blog => (
         <div key={blog.id} className="blog-card">
           <h3>{blog.title}</h3>

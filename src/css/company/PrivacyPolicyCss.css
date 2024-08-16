@@ -1,0 +1,32 @@
+.policy-container {
+    margin-top: 5rem;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 50px;
+  }
+  
+  .policy-card {
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+  }
+  
+  .policy-card-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .policy-card-body {
+    padding: 1rem;
+    
+  }
+  
+  .policy-paragraph {
+    margin-top: 1rem;
+    line-height: 1.6;
+  }
+  .no-bullets {
+    list-style-type: none;
+    padding-left: 0; /* Aligns the list items with the rest of the text */
+  }
+  
+  

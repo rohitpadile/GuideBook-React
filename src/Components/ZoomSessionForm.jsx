@@ -194,6 +194,11 @@ const ZoomSessionForm = () => {
     }
   };
 
+  return(
+      <p className='text-center mt-5'>"Session booking has been paused for now due to maintainance reasons"</p>
+  );
+
+
   return (
     <div className="container mt-5">
       <div className="card book-session-card mx-auto" style={{ maxWidth: '600px' }}>

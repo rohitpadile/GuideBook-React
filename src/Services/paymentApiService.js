@@ -15,13 +15,4 @@ const api = axios.create({
   },
 });
 
-export const addStudent = async (studentDetails) => {
-    try {
-      const response = await api.post('/addStudent', studentDetails);
-      return response.data; // Assuming response.data contains any required data
-    } catch (error) {
-      throw new Error(`Error adding student: ${error.message}`);
-    }
-  };
-
   export default api; 
