@@ -15,6 +15,21 @@ const api = axios.create({
   },
 });
 
+export const createPaymentOrderZoomSession = async (sessionBooking, token) => {
+  try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await api.post('/createPaymentOrderZoomSession', sessionBooking, config);
+      return response.data;
+  } catch (error) {
+      // console.error("Error creating order", error);
+      throw error;
+  }
+};
 
 export const verifyUserWithTransaction = async (transactionId, token) => {
   try {
@@ -24,12 +39,18 @@ export const verifyUserWithTransaction = async (transactionId, token) => {
       },
     });
 
-    return response.status === 200;
+    if (response.status === 200) {
+      // Return the data from the response
+      return response.data;  // This should include zoomSessionDurationInMin, zoomSessionBookStatus, and studentMentorName
+    } else {
+      return null;
+    }
   } catch (error) {
     console.error('Error verifying user with transaction:', error);
-    return false;
+    return null;
   }
 };
+
 
 //methods
   export default api; 

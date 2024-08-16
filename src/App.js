@@ -37,7 +37,7 @@ import ProfileAccount from './Components/profileAccount/ProfileAccount';
 import SubscriptionComponent from './Components/profileAccount/SubscriptionComponent';
 import PrivacyPolicy from './Components/company/PrivacyPolicy';
 import CancellationRefundPolicy from './Components/company/CancellationRefundPolicy';
-import PaymentPageComponent from './Components/profileAccount/PaymentPageComponent';
+import PaymentPageComponentZoomSession from './Components/profileAccount/PaymentPageComponentZoomSession.jsx';
 // FOR TEAM RECRUITERS
 // import TRStudentDetailsComponent from './Components/teamRecruiters/TRStudentDetailsComponent';
 function App() {
@@ -82,7 +82,7 @@ function App() {
             <Route path="/subscription" element={<SubscriptionComponent />} />
             <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
             <Route path="/cancellationRefundPolicy" element={<CancellationRefundPolicy />} />
-            <Route path="/confirmZoomSession/:transactionId" element={<PaymentPageComponent />} />
+            <Route path="/confirmZoomSession/:transactionId" element={<PaymentPageComponentZoomSession />} />
           </Routes>
         </BranchProvider>
       </div>
