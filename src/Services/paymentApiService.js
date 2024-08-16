@@ -15,4 +15,21 @@ const api = axios.create({
   },
 });
 
+
+export const verifyUserWithTransaction = async (transactionId, token) => {
+  try {
+    const response = await api.get(`/verifyUserWithTransaction/${transactionId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    return response.status === 200;
+  } catch (error) {
+    console.error('Error verifying user with transaction:', error);
+    return false;
+  }
+};
+
+//methods
   export default api; 

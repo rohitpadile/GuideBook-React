@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { createOrder, checkDummyAccount,checkLoginStatus } from '../../Services/userAccountApiService';
+import { verifyUserWithTransaction } from '../../Services/paymentApiService';
 // import {activateSessionBooking} from '../../Services/paymentApiService'
 import { RAZORPAY_KEY_ID } from '../../Services/razorpayUtil';
 import auth from '../../auth';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const PaymentPageComponent = () => {
     const navigate = useNavigate();
@@ -12,6 +13,8 @@ const PaymentPageComponent = () => {
     const [amount, setAmount] = useState(null);
     const [dummyAcc, setDummyAcc] = useState(null);
     const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
+    const { transactionId } = useParams(); // Get transactionId from URL params
+    const [accessDenied, setAccessDenied] = useState(false);
 
     // Load Razorpay script
     useEffect(() => {
@@ -70,6 +73,29 @@ const PaymentPageComponent = () => {
         return () => clearTimeout(delayCheck); // Clean up the timeout if the component unmounts
     }, [navigate]);
     
+    // CHECK IF THE SAME USER IS PAYING
+
+    useEffect(() => {
+        const verifyUser = async () => {
+            try {
+                const token = auth.getToken();
+                const isVerified = await verifyUserWithTransaction(transactionId, token);
+
+                if (!isVerified) {
+                    setAccessDenied(true);
+                }
+            } catch (error) {
+                console.error('Error verifying user:', error);
+                setAccessDenied(true);
+            }
+        };
+
+        verifyUser();
+    }, [transactionId]);
+
+    if (accessDenied) {
+        return <div className='text-center'>You do not have access</div>;
+    }
     
 
     const handleSelectSession = (session) => {
