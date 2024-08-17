@@ -40,7 +40,7 @@ export const sendFinalConfirmationEmails = async (transactionId, token) => {
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await api.get(`/sendFinalConfirmationMailsZoomSession/${transactionId}`, config);
+    const response = await api.get(`/SubscriptionPaymentForZoomSession/${transactionId}`, config);
     return response;
   } catch (error) {
     throw error;
