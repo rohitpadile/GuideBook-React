@@ -1,48 +1,106 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/CancelZoomSessionComponentCss.css';
-import { cancelZoomSession,checkCancellationStatus } from '../Services/zoomSessionService';
+import { cancelZoomSession, checkCancellationStatus } from '../Services/zoomSessionService';
+import { verifyUserWithZoomSessionFormId } from '../Services/paymentApiService';
+import { checkLoginStatus } from '../Services/userAccountApiService';
 import { decrypt } from '../Services/encryptionForZoomSessionCancel';
+import auth from '../auth';
 
 const CancelZoomSessionComponent = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [isCancelDisabled, setIsCancelDisabled] = useState(false);
+  const [zoomSessionFormId, setZoomSessionFormId] = useState(null);
+
+  useEffect(() => {
+    const checkLoginStatusResponse = async () => {
+      try {
+        const token = auth.getToken();
+        const response = await checkLoginStatus(token);
+        if (response !== true && response !== 'true') {
+          const redirectUrl = window.location.pathname;
+          navigate(`/login`, { state: { redirectUrl } });
+        }
+      } catch (error) {
+        console.error('Please login first', error);
+        const redirectUrl = window.location.pathname;
+        navigate(`/login`, { state: { redirectUrl } });
+      }
+    };
+
+    const delayCheck = setTimeout(() => {
+      checkLoginStatusResponse();
+    }, 2000);
+
+    return () => clearTimeout(delayCheck);
+  }, [navigate]);
 
   useEffect(() => {
     const encryptedData = location.pathname.split('/').pop();
-    const { zoomSessionFormId } = decrypt(encryptedData);
+    const decryptedData = decrypt(encryptedData);
 
-    if (zoomSessionFormId) {
-      checkCancellationStatus(zoomSessionFormId).then((response) => {
-        // console.log(response.status);
-        if (response.status === 1) {
-          setIsCancelDisabled(true);
-          setMessage('This session has already been cancelled.');
-        } else if(response.status == 2){
-          setIsCancelDisabled(true);
-          setMessage('This session has completed.');
-        }
-      });
+    if (decryptedData) {
+      const { zoomSessionFormId } = decryptedData;
+      setZoomSessionFormId(zoomSessionFormId);
     }
   }, [location.pathname]);
 
-  const handleCancelSession = () => {
+  useEffect(() => {
+    const verifyUserAndCheckStatus = async () => {
+      if (zoomSessionFormId) {
+        try {
+          // Verify user access
+          const token = auth.getToken();
+          const isUserVerified = await verifyUserWithZoomSessionFormId(zoomSessionFormId, token);
+
+          if (isUserVerified === false) {
+            setMessage('You do not have access to cancel this session.');
+            setIsCancelDisabled(true);
+            return;
+          } else if (isUserVerified === null) {
+            setMessage('An error occurred during verification. Please try again later.');
+            setIsCancelDisabled(true);
+            return;
+          }
+
+          // Check session cancellation status if user is verified
+          const response = await checkCancellationStatus(zoomSessionFormId);
+          if (response.status === 1) {
+            setIsCancelDisabled(true);
+            setMessage('This session has already been cancelled.');
+          } else if (response.status === 2) {
+            setIsCancelDisabled(true);
+            setMessage('This session has already been booked.\nPlease note that we do not have refund policies for booked sessions.\nWe have twice confirmed the session from your side already. Thank you.');
+          }
+
+        } catch (error) {
+          console.error('Error in verification or cancellation check:', error);
+          setMessage('An error occurred while verifying the session or checking the status.');
+          setIsCancelDisabled(true);
+        }
+      }
+    };
+
+    verifyUserAndCheckStatus();
+  }, [zoomSessionFormId]);
+
+  const handleCancelSession = async () => {
     const encryptedData = location.pathname.split('/').pop();
     const { zoomSessionFormId, studentWorkEmail } = decrypt(encryptedData);
 
-    // console.log('Form ID:', zoomSessionFormId);
-    // console.log('Student Work Email:', studentWorkEmail);
-
     if (zoomSessionFormId && studentWorkEmail) {
       setIsCancelDisabled(true);
-      cancelZoomSession({ zoomSessionFormId, studentWorkEmail })
-        .then(() => setMessage('Your session has been successfully cancelled.'))
-        .catch(() => {
-          setMessage('Failed to cancel the session. Please try again later.');
-          setIsCancelDisabled(false); // Re-enable button if cancel fails
-        });
+      try {
+        await cancelZoomSession({ zoomSessionFormId, studentWorkEmail });
+        setMessage('Your session has been successfully cancelled.');
+      } catch (error) {
+        console.error('Error cancelling the session:', error);
+        setMessage('Failed to cancel the session. Please try again later.');
+        setIsCancelDisabled(false); // Re-enable button if cancel fails
+      }
     } else {
       setMessage('Invalid cancellation link.');
     }

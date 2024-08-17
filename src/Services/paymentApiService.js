@@ -67,6 +67,20 @@ export const verifyUserWithTransaction = async (transactionId, token) => {
   }
 };
 
+export const verifyUserWithZoomSessionFormId = async (zoomSessionFormId, token) => {
+  try {
+    const response = await api.get(`/verifyUserWithZoomSessionFormId/${zoomSessionFormId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+      return response.status === 200;
+      
+  } catch (error) {
+    console.error('Error verifying user with zoomSessionFormId:', error);
+    return null;
+  }
+};
 
 //methods
   export default api; 

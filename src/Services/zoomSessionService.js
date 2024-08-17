@@ -79,6 +79,16 @@ export const checkCancellationStatus = async (formId) => {
   }
 };
 
+export const checkCancellationStatusViaTransactionId = async (transactionId) => {
+  try {
+    const response = await api.post('/cancelZoomSessionCheckStatusViaTransactionId', { zoomSessionTransactionId: transactionId });
+    return response.data;
+  } catch (error) {
+    console.error('Failed to check cancellation status:', error);
+     // Default to not cancelled if there's an error
+  }
+};
+
 
 export const fetchFormDetails = async (formId) => {
   try {

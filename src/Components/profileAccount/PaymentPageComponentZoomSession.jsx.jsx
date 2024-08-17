@@ -6,6 +6,7 @@ import { RAZORPAY_KEY_ID } from '../../Services/razorpayUtil';
 import auth from '../../auth';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../../css/profileAccount/PaymentPageComponentZoomSessionCss.css';
+import { checkCancellationStatusViaTransactionId } from '../../Services/zoomSessionService';
 
 const PaymentPageComponentZoomSession = () => {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ const PaymentPageComponentZoomSession = () => {
     const { transactionId } = useParams();  // Get transactionId from URL params
     const [accessDenied, setAccessDenied] = useState(false);
     const [sessionDetails, setSessionDetails] = useState(null);
-
+    
     // Load Razorpay script
     useEffect(() => {
         const script = document.createElement('script');
@@ -66,6 +67,21 @@ const PaymentPageComponentZoomSession = () => {
         return () => clearTimeout(delayCheck);
     }, [navigate]);
 
+    // Check cancellation status via transaction ID
+    useEffect(() => {
+        const checkStatus = async () => {
+            console.log('Checking cancellation status for transactionId:', transactionId);
+            const response = await checkCancellationStatusViaTransactionId(transactionId);
+            console.log('Cancellation status response:', response);
+            if (response.status === 1 || response.status === 2) {
+                setAccessDenied(true);
+            }
+        };
+    
+        checkStatus();
+    }, [transactionId]);
+    
+
     // Verify user with transaction and fetch session details
     useEffect(() => {
         const verifyUser = async () => {
@@ -85,6 +101,8 @@ const PaymentPageComponentZoomSession = () => {
         };
         verifyUser();
     }, [transactionId]);
+
+    
 
     if (accessDenied) {
         return <div className='text-center'>You do not have access</div>;
