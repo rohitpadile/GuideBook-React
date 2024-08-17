@@ -162,6 +162,7 @@ button:hover {
 .big-number {
   font-size: 2rem;
   font-weight: bold;
+  color: #333;
 }
 
 /*  */

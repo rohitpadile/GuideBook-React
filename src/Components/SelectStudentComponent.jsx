@@ -191,7 +191,7 @@ const SelectStudentComponent = () => {
                       className="card-img-top"
                       alt="Student Profile"
                     />
-                    <div className="card-body text-center">
+                    <div className="card-body ">
                       <h6 className="card-title">{student.studentName}</h6>
                     </div>
                   </div>
