@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { createOrder, checkDummyAccount, checkLoginStatus } from '../../Services/userAccountApiService';
-import { verifyUserWithTransaction, createPaymentOrderZoomSession } from '../../Services/paymentApiService';
+import { verifyUserWithTransaction, createPaymentOrderZoomSession , paymentSuccessForZoomSession} from '../../Services/paymentApiService';
 import { RAZORPAY_KEY_ID } from '../../Services/razorpayUtil';
 import auth from '../../auth';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../../css/profileAccount/PaymentPageComponentZoomSessionCss.css';
 const PaymentPageComponentZoomSession = () => {
     const navigate = useNavigate();
-    const [amount, setAmount] = useState(200);  // Set a default amount if needed
     const [dummyAcc, setDummyAcc] = useState(null);
     const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
     const { transactionId } = useParams();  // Get transactionId from URL params
@@ -112,12 +111,13 @@ const PaymentPageComponentZoomSession = () => {
                         handler: async function (response) {
                             try {
                                 const paymentDetails = {
-                                    sessionPaymentId: response.razorpay_payment_id,
-                                    sessionRzpOrderId: response.razorpay_order_id
+                                    paymentId: response.razorpay_payment_id,
+                                    zoomSessionTransactionId: transactionId
                                 };
+                                await paymentSuccessForZoomSession(paymentDetails, token);
                                 Swal.fire('Success', 'Payment successful. Your session is booked!', 'success');
                             } catch (error) {
-                                Swal.fire('Success', 'Payment was successful, but we could not capture your booking details. We will contact you soon.', 'warning');
+                                Swal.fire('Success', 'Payment was successful, but we could not capture your booking details. Please contact us at Helpdesk urgently.', 'warning');
                             }
                         },
                         prefill: {

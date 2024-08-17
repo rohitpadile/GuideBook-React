@@ -15,6 +15,22 @@ const api = axios.create({
   },
 });
 
+export const paymentSuccessForZoomSession = async (paymentDetails, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await api.post('paymentSuccessForZoomSession', paymentDetails, config);
+    return response.data;
+  } catch (error) {
+    // console.error("Error sending payment success", error);
+    throw error;
+  }
+};
+
 export const createPaymentOrderZoomSession = async (sessionBooking, token) => {
   try {
       const config = {
