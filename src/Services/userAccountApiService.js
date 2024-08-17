@@ -32,6 +32,38 @@ export const createOrder = async (subscriptionOrder, token) => {
   }
 };
 
+// Function to send final confirmation emails
+export const sendFinalConfirmationEmails = async (transactionId, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await api.get(`/sendFinalConfirmationMailsZoomSession/${transactionId}`, config);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+export const checkIsSubscriptionActive = async (token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await api.get('/checkIsSubscriptionActive', config);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
 // Method to check if the account is dummy or not
 export const checkDummyAccount = async (token) => {
   try {

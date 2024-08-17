@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom'; // Import useLocation
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
-import axios from 'axios';
+import Swal from 'sweetalert2';
 import { Modal, Button } from 'react-bootstrap'; // Importing Modal and Button from react-bootstrap
 import { sendOtp, verifyOtp, resendOtp, bookSession, getClientAccountDetails  } from '../Services/zoomSessionService'; // Importing the API service functions
 import {checkLoginAndSubscriptionStatus, checkLoginStatus} from '../Services/userAccountApiService';
@@ -149,9 +149,19 @@ const ZoomSessionForm = () => {
       zoomSessionFormId: formId,
     };
     try {
+      Swal.fire({
+        title: 'Processing',
+        text: 'Please do not refresh the page while we process your confirmation.',
+        icon: 'info',
+        showConfirmButton: false,
+        allowOutsideClick: false,
+    });
+
       const data = await bookSession(zoomSessionConfirmationRequest);
       // console.log('Booking response:', data);
+      // Swal.fire('Success', 'Recorded!', 'success');
       navigate('/zoomSessionFormSuccess', { state: { student, formId } });
+      window.location.reload();
     } catch (error) {
       console.error('Error booking session:', error);
       

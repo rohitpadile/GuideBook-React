@@ -54,8 +54,28 @@ h2 {
     cursor: not-allowed;
 }
 
-/* .text-center {
-    font-size: 1.5rem;
-    color: #e74c3c;
-    margin-top: 50px;
-} */
+.confirmation-button {
+    background-color: #00a6ff;
+    color: white;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px; /* Space between buttons */
+}
+
+.confirmation-button:hover {
+    background-color: #ff6600;
+}
+
+.confirmation-button:active {
+    background-color: #993d00;
+}
+
+.confirmation-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}

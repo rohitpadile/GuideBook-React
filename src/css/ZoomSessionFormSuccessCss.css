@@ -1,53 +1,78 @@
 .zoom-session-success-container {
-  margin-top: 50px;
-  text-align: center;
   display: flex;
   justify-content: center;
-  padding: 0 20px;
-  
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  background: radial-gradient(circle, #c6d8ff 10%, #ffffff 50%);
+
+
+  margin-top: 0px;
 }
 
 .zoom-session-success-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 800px; /* Increased max-width for better text fitting */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  border: 1px solid #6f64ef;
-  background: #fcfcfc;
+  max-width: 350px;
+  border: 2px dashed #6f64ef;
+  padding: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.zoom-session-success-card::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 50px;
+  height: 50px;
+  /* background: url('/bow.png') no-repeat center/cover; */
 }
 
 .zoom-session-success-card-body {
-  padding: 20px;
+  padding: 0;
 }
 
 .zoom-session-success-card-title {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
+  color: #6f64ef;
   margin-bottom: 20px;
 }
 
 .zoom-session-success-card-text {
   font-size: 16px;
-  margin-bottom: 15px;
   color: #555;
+  margin-bottom: 15px;
+}
+
+.celebration-gif-container {
+  margin-top: 20px;
+}
+
+.celebration-gif {
+  width: 100%;
+  max-width: 200px;
 }
 
 @media (max-width: 768px) {
-  .zoom-session-success-container {
-      margin-top: 20px;
-      padding: 10px;
-  }
-
   .zoom-session-success-card {
-      padding: 15px;
+    padding: 20px;
+    max-width: 90%;
   }
 
   .zoom-session-success-card-title {
-      font-size: 20px;
+    font-size: 20px;
   }
 
   .zoom-session-success-card-text {
-      font-size: 14px;
+    font-size: 14px;
+  }
+
+  .celebration-gif {
+    max-width: 150px;
   }
 }
