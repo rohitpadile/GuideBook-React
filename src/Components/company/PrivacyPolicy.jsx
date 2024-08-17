@@ -8,7 +8,7 @@ const PrivacyPolicy = () => {
       <div className="row justify-content-center">
         <div className="col-12 col-md-8 col-lg-6">
           <div className="policy-card card shadow-lg p-4">
-            <h1 className="policy-card-title card-title text-center mb-4">Privacy Policy</h1>
+            <h1 className="policy-card-title card-title policyName mb-4">Privacy Policy</h1>
             <div className="policy-card-body card-body">
               <p>
                 This privacy policy sets out how GuidebookX uses and protects any information that you give GuidebookX when you visit their website and/or agree to purchase from them.

@@ -5,7 +5,7 @@ import '../../css/company/CancellationRefundPolicyCss.css';
 const CancellationRefundPolicy = () => {
   return (
     <div className="cancellation-refund-container">
-      <h1 className="text-center mt-5">Cancellation and Refund Policy</h1>
+      <h1 className="policyName mt-5">Cancellation and Refund Policy</h1>
       <div className="cancellation-refund-card">
         <p>
           GuidebookX believes in helping its customers as far as possible and has therefore a liberal cancellation policy. Under this policy:

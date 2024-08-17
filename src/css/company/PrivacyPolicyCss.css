@@ -29,4 +29,7 @@
     padding-left: 0; /* Aligns the list items with the rest of the text */
   }
   
-  
+  .policyName{
+    text-align: center;
+    margin: auto;
+  }

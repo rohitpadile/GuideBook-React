@@ -202,7 +202,7 @@ const ZoomSessionForm = () => {
   return (
     <div className="container mt-5">
       <div className="card book-session-card mx-auto" style={{ maxWidth: '600px' }}>
-        <div className="card-header book-session-header text-center">
+        <div className="card-header book-session-header">
           <h4>Book a 1:1 Zoom Session</h4>
           <h4>{student.studentName}</h4>
         </div>
