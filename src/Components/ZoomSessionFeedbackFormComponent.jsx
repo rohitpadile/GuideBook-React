@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { decodeTransactionId } from '../Services/encryptionForFeedbackForm'; // Adjust the path as necessary
 import '../css/FeedbackFormCss.css';
 import { getSubmissionStatusForFeedbackForm, submitZoomSessionFeedbackForm } from '../Services/zoomSessionService';
+import { verifyUserWithTransaction } from '../Services/paymentApiService';
+import auth from '../auth';
 
 const ZoomSessionFeedbackFormComponent = () => {
   const [overallFeedback, setOverallFeedback] = useState('');
@@ -17,6 +19,7 @@ const ZoomSessionFeedbackFormComponent = () => {
   const { encryptedTransactionId } = useParams();
   const [transactionId, setTransactionId] = useState(null);
 
+  // Decode transaction ID and set state
   useEffect(() => {
     if (encryptedTransactionId) {
       try {
@@ -24,44 +27,52 @@ const ZoomSessionFeedbackFormComponent = () => {
         setTransactionId(uuid);
         setStudentName(studentName.replace(/\+/g, ' ')); // Replace '+' with space
       } catch (error) {
-        // console.error('Error decoding transaction ID:', error);
-        console.log("");
+        console.error('Error decoding transaction ID:', error);
       }
     }
   }, [encryptedTransactionId]);
 
+  // Verify user and update submission status
+  useEffect(() => {
+    const verifyUser = async () => {
+      if (transactionId) {
+        try {
+          const token = auth.getToken();
+          const response = await verifyUserWithTransaction(transactionId, token);
+          if (response === null) {
+            setIsSubmitted(1);
+          }
+        } catch (error) {
+          console.error('Error verifying user:', error);
+          setIsSubmitted(1);
+        }
+      }
+    };
+    verifyUser();
+  }, [transactionId]);
+
+  // Fetch submission status
   useEffect(() => {
     const fetchSubmissionStatus = async () => {
       if (transactionId && isSubmitted === null) {
         try {
           const data = await getSubmissionStatusForFeedbackForm(transactionId);
           setIsSubmitted(data.isSubmitted);
-          // console.log("Submission status: " + data.isSubmitted);
         } catch (error) {
           console.error('Error fetching submission status:', error);
         }
       }
     };
-
     fetchSubmissionStatus();
   }, [transactionId, isSubmitted]);
 
-  const handleOverallFeedbackChange = (e) => {
-    setOverallFeedback(e.target.value);
-  };
+  // Handle form changes
+  const handleOverallFeedbackChange = (e) => setOverallFeedback(e.target.value);
+  const handlePurposeFulfilledChange = (e) => setPurposeFulfilled(e.target.value);
+  const handleMoreFeedbackAboutStudentChange = (e) => setMoreFeedbackAboutStudent(e.target.value);
+  const handleFeedbackForCompanyChange = (e) => setFeedbackForCompany(e.target.value);
 
-  const handlePurposeFulfilledChange = (e) => {
-    setPurposeFulfilled(e.target.value);
-  };
-
-  const handleMoreFeedbackAboutStudentChange = (e) => {
-    setMoreFeedbackAboutStudent(e.target.value);
-  };
-
-  const handleFeedbackForCompanyChange = (e) => {
-    setFeedbackForCompany(e.target.value);
-  };
-
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -79,7 +90,7 @@ const ZoomSessionFeedbackFormComponent = () => {
       await submitZoomSessionFeedbackForm(feedbackData);
       setMessage('Feedback submitted successfully!');
     } catch (error) {
-      // console.error('Error submitting feedback:', error);
+      console.error('Error submitting feedback:', error);
       setMessage('There was an error submitting your feedback. Please try again.');
       setIsSubmitted(null);
     } finally {
@@ -118,7 +129,7 @@ const ZoomSessionFeedbackFormComponent = () => {
               rows="4"
               value={purposeFulfilled}
               onChange={handlePurposeFulfilledChange}
-              required
+              // required
               disabled={isSubmitted === 1}
             />
           </div>

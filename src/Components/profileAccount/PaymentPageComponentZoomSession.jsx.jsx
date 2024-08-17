@@ -75,6 +75,7 @@ const PaymentPageComponentZoomSession = () => {
             console.log('Cancellation status response:', response);
             if (response.status === 1 || response.status === 2) {
                 setAccessDenied(true);
+                navigate("/home")
             }
         };
     
@@ -135,6 +136,7 @@ const PaymentPageComponentZoomSession = () => {
                                 };
                                 await paymentSuccessForZoomSession(paymentDetails, token);
                                 Swal.fire('Success', 'Payment successful. Your session is booked!', 'success');
+                                // navigate("/home"); set a timer of 2 seconds
                             } catch (error) {
                                 Swal.fire('Success', 'Payment was successful, but we could not capture your booking details. Please contact us at Helpdesk urgently.', 'warning');
                             }
@@ -187,7 +189,7 @@ const PaymentPageComponentZoomSession = () => {
                     
                 </div>
             ) : (
-                <p>Loading session details...</p>
+                    <img src={`${BASE_URL}logoblack.jpg`} alt="GuidebookX" className="loading-logo" />
             )}
                 <button 
                     id="rzp-button1" 
@@ -197,6 +199,7 @@ const PaymentPageComponentZoomSession = () => {
                     Checkout
                 </button>
         </div>
+        
     );
 };
 
