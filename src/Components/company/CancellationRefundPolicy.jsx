@@ -1,6 +1,5 @@
 import React from 'react';
 import '../../css/company/CancellationRefundPolicyCss.css'; // Import the CSS file for styling
-
 const CancellationRefundPolicy = () => {
   return (
     <div className="cancellation-refund-container">
