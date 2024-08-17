@@ -6,6 +6,7 @@ import { RAZORPAY_KEY_ID } from '../../Services/razorpayUtil';
 import auth from '../../auth';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../../css/profileAccount/PaymentPageComponentZoomSessionCss.css';
+
 const PaymentPageComponentZoomSession = () => {
     const navigate = useNavigate();
     const [dummyAcc, setDummyAcc] = useState(null);
