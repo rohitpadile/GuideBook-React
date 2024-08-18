@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../../css/profileAccount/SubscriptionComponentCss.css';
 import { createOrder, getSubscriptionAmount, activateSubscription,checkDummyAccount } from '../../Services/userAccountApiService';
-import { RAZORPAY_KEY_ID } from '../../Services/razorpayUtil';
+import { RAZORPAY_KEY_ID_LIVE } from '../../Services/razorpayUtil';
 import auth from '../../auth';
 import Swal from 'sweetalert2';
 
@@ -74,7 +74,7 @@ const SubscriptionComponent = () => {
 
                 if (status === "created") {
                     let options = {
-                        key: RAZORPAY_KEY_ID,
+                        key: RAZORPAY_KEY_ID_LIVE,
                         amount: amount, // Ensure the amount is in paise
                         currency: 'INR',
                         name: 'GuidebookX',
