@@ -105,6 +105,24 @@ export const getBranchesForCollege = async (collegeName) => {
 //   }
 // }
 // Fetch student profile by Work Email
+export const getStudentProfileForEdit = async (token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await api.get('/studentProfile',config);
+    console.log(response);
+    return response.data; // Assuming response.data contains the student profile object
+  } catch (error) {
+    // console.error(`Error fetching student profile for Work Email ${studentWorkEmail}:`, error);
+    console.log("");
+    return null;
+  }
+};
+
 export const getStudentProfile = async (studentWorkEmail) => {
   try {
     const response = await api.get(`/studentProfile/${studentWorkEmail}`);

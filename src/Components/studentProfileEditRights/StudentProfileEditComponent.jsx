@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../../css/StudentProfileEditComponentCss.css'; // Import CSS
-import { getStudentProfile, getStudentBasicDetails, updateStudentProfile } from '../../Services/apiServiceAdmin'; // Adjust import path as necessary
+import { getStudentProfileForEdit, getStudentBasicDetails, updateStudentProfile } from '../../Services/apiServiceAdmin'; // Adjust import path as necessary
 import { S3_PROFILE_PHOTO_BASE_URL } from '../../constants/s3url'; // Import the constant
-import { decrypt } from '../../Services/encryptionForStudentProfileEdit'; // Ensure proper import
-
+// import { decrypt } from '../../Services/encryptionForStudentProfileEdit'; // Ensure proper import
+import Swal from 'sweetalert2';
+import auth from '../../auth';
 const StudentProfileEditComponent = () => {
   const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
   const location = useLocation();
@@ -25,32 +26,38 @@ const StudentProfileEditComponent = () => {
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
-        const decryptedEmail = decrypt(encryptedEmail);
-        setStudentWorkEmail(decryptedEmail);
-
-        const profileData = await getStudentProfile(decryptedEmail);
-        setStudentProfile(profileData);
-        setFormValues({
-          about: profileData.studentProfileAboutSection.map(item => item.about) || [''],
-          cityOfCoaching: profileData.studentProfileCityOfCoaching.map(item => item.cityOfCoaching) || [''],
-          scoreDetails: profileData.studentProfileExamScoreDetails.map(item => item.scoreDetail) || [''],
-          otherExamScores: profileData.studentProfileOtherExamScoreDetails.map(item => item.otherScoreDetail) || [''],
-          activityAndAchievements: profileData.studentProfileActivityAndAchievements.map(item => item.activity) || [''],
-          tutoringExperience: profileData.studentProfileTutoringExperience.map(item => item.experience) || [''],
-          externalLinks: profileData.studentProfileExternalLinks.map(item => ({ linkName: item.linkName, linkAddress: item.linkAddress })) || [{ linkName: '', linkAddress: '' }],
-        });
-
-        const basicDetails = await getStudentBasicDetails(decryptedEmail);
-        setStudentBasicDetails(basicDetails);
+        const token = auth.getToken();
+        const profileData = await getStudentProfileForEdit(token);
+        setStudentWorkEmail(profileData.studentWorkEmail);
+  
+        // Fetch basic details only if studentWorkEmail is not empty
+        if (profileData.studentWorkEmail) {
+          const basicDetailsPromise = getStudentBasicDetails(profileData.studentWorkEmail);
+  
+          // Set profile data and await the basic details
+          setStudentProfile(profileData);
+          const basicDetails = await basicDetailsPromise;
+          setStudentBasicDetails(basicDetails);
+  
+          // Populate form values
+          setFormValues({
+            about: profileData.studentProfileAboutSection.map(item => item.about) || [''],
+            cityOfCoaching: profileData.studentProfileCityOfCoaching.map(item => item.cityOfCoaching) || [''],
+            scoreDetails: profileData.studentProfileExamScoreDetails.map(item => item.scoreDetail) || [''],
+            otherExamScores: profileData.studentProfileOtherExamScoreDetails.map(item => item.otherScoreDetail) || [''],
+            activityAndAchievements: profileData.studentProfileActivityAndAchievements.map(item => item.activity) || [''],
+            tutoringExperience: profileData.studentProfileTutoringExperience.map(item => item.experience) || [''],
+            externalLinks: profileData.studentProfileExternalLinks.map(item => ({ linkName: item.linkName, linkAddress: item.linkAddress })) || [{ linkName: '', linkAddress: '' }],
+          });
+        }
+        
       } catch (error) {
         console.error('Error fetching student data:', error);
       }
     };
-
-    if (encryptedEmail) {
       fetchStudentData();
-    }
-  }, [encryptedEmail]);
+  }, []);
+  
 
   const handleInputChange = (section, index, event) => {
     const { name, value } = event.target;
@@ -99,10 +106,9 @@ const StudentProfileEditComponent = () => {
         studentProfileExternalLinks: formValues.externalLinks.map(item => ({ linkName: item.linkName, linkAddress: item.linkAddress })),
       };
       await updateStudentProfile(studentWorkEmail, updateRequest);
-      alert('Profile updated successfully');
+      Swal.fire('Success', 'Profile updated successfully!', 'success');
     } catch (error) {
-      console.error('Error updating profile:', error);
-      alert('Error updating profile');
+      Swal.fire('Error', 'Please try again', 'error');
     }
   };
 

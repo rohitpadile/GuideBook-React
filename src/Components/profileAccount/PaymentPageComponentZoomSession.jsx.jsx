@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { createOrder, checkDummyAccount, checkLoginStatus ,sendFinalConfirmationEmails,checkIsSubscriptionActive} from '../../Services/userAccountApiService';
 import { verifyUserWithTransaction, createPaymentOrderZoomSession , paymentSuccessForZoomSession} from '../../Services/paymentApiService';
-import { RAZORPAY_KEY_ID } from '../../Services/razorpayUtil';
+import { RAZORPAY_KEY_ID_LIVE } from '../../Services/razorpayUtil';
 import auth from '../../auth';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../../css/profileAccount/PaymentPageComponentZoomSessionCss.css';
@@ -177,7 +177,7 @@ const PaymentPageComponentZoomSession = () => {
 
                 if (status === 'created') {
                     let options = {
-                        key: RAZORPAY_KEY_ID,
+                        key: RAZORPAY_KEY_ID_LIVE,
                         amount: amount,  // Ensure the amount is in paise
                         currency: 'INR',
                         name: 'GuidebookX',
