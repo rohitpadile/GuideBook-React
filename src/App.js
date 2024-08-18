@@ -40,6 +40,7 @@ import CancellationRefundPolicy from './Components/company/CancellationRefundPol
 import PaymentPageComponentZoomSession from './Components/profileAccount/PaymentPageComponentZoomSession.jsx';
 import ForgotPassword from './Components/ForgotPassword.jsx';
 import ResetPassword from './Components/ResetPassword.jsx';
+import ShippingAndDelivery from './Components/company/ShippingAndDelivery.jsx';
 // FOR TEAM RECRUITERS
 // import TRStudentDetailsComponent from './Components/teamRecruiters/TRStudentDetailsComponent';
 function App() {
@@ -72,7 +73,7 @@ function App() {
             {/* ROUTES FOR TEAM RECRUITERS */}
             <Route path="/TRStudentApplicationForm" element={<TRStudentApplicationForm />} />
             <Route path="/TRUpdateStudentApplicationForm" element={<TRUpdateStudentApplicationForm />} />
-            <Route path="/StudentProfileEdit/:encryptedStudentWorkEmail" element={<StudentProfileEditComponent />} />
+            <Route path="/StudentProfileEdit" element={<StudentProfileEditComponent />} />
             <Route path="/aboutUs" element={<AboutUs />} />
 
             {/* <Route path="/" element={<Navigate to="/login" />} /> */}
@@ -88,6 +89,7 @@ function App() {
             
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/shippingAndDeliveryPolicy" element={<ShippingAndDelivery />} />
           </Routes>
         </BranchProvider>
       </div>

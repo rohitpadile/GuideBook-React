@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getAccountTypeAndProfileData, editProfileData, checkDummyAccount } from '../../Services/userAccountApiService';
 import auth from '../../auth'; // Assuming auth.js is in the parent directory
 import '../../css/profileAccount/ProfileAccountCss.css'; // Importing the CSS file
@@ -253,7 +254,10 @@ const ProfileAccount = () => {
           <p className="profile-account-info"><strong>Zoom Sessions Attended:</strong> {profileData.studentMentorAccountZoomSessionCount}</p>
           <p className="profile-account-info"><strong>Offline Sessions Attended:</strong> {profileData.studentMentorAccountOfflineSessionCount}</p>
           <p>You can edit your public profile now</p>
-          <a className="profile-account-edit-link" href={profileData.editStudentProfileLink}>Edit Public Profile</a>
+          <Link className="profile-account-edit-link" to="/StudentProfileEdit">
+            Edit Public Profile
+          </Link>
+          
         </div>
       ) : (
         <div className="profile-account-client">

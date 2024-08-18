@@ -8,8 +8,6 @@ import Swal from 'sweetalert2';
 import auth from '../../auth';
 const StudentProfileEditComponent = () => {
   const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
-  const location = useLocation();
-  const encryptedEmail = location.pathname.split('/').pop();
   const [studentWorkEmail, setStudentWorkEmail] = useState('');
   const [studentProfile, setStudentProfile] = useState(null);
   const [studentBasicDetails, setStudentBasicDetails] = useState(null);

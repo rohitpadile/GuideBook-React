@@ -31,7 +31,11 @@ const Footer = () => {
             Privacy Policy
           </Link>
           <Link to="/cancellationRefundPolicy" className="text-decoration-none footer-link">
-            Cancellation/ Refund Policy
+            Cancellation/Refund Policy
+          </Link>
+          <br />
+          <Link to="/shippingAndDeliveryPolicy" className="text-decoration-none footer-link mx-3">
+            Shipping and Delivery
           </Link>
         </div>
       </div>
