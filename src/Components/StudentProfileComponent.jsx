@@ -20,20 +20,24 @@ const StudentProfileComponent = () => {
   const [isUserStudentMentor, setIsUserStudentMentor] = useState(null);
   // Check login status 
   // Function to check if user is a student mentor
-  const checkIfUserIsStudentMentorStatus = async () => {
-    try {
-      const token = auth.getToken();
-      const isMentor = await checkIfUserIsStudentMentor(student?.studentWorkEmail, token);
-      if (isMentor) {
+  useEffect(() => {
+    const checkIfUserIsStudentMentorStatus = async () => {
+      try {
+        const token = auth.getToken();
+        const isMentor = await checkIfUserIsStudentMentor(student?.studentWorkEmail, token);
+        if (isMentor.isUserAStudentMentor === 1) {
+          setIsUserStudentMentor(1);
+        } else {
+          setIsUserStudentMentor(null);
+        }
+      } catch (error) {
+        // console.error('Error checking if user is a student mentor:', error);
         setIsUserStudentMentor(1);
-      } else {
-        setIsUserStudentMentor(null);
       }
-    } catch (error) {
-      // console.error('Error checking if user is a student mentor:', error);
-      setIsUserStudentMentor(1);
-    }
-  };
+    };
+    checkIfUserIsStudentMentorStatus();
+  },[student?.studentWorkEmail]);
+  
 
     // Check login status
   useEffect(() => {
@@ -54,7 +58,7 @@ const StudentProfileComponent = () => {
     
     const delayCheck = setTimeout(() => {
       checkLoginStatusResponse();
-      checkIfUserIsStudentMentorStatus();
+      
     }, 100);
 
     return () => clearTimeout(delayCheck);

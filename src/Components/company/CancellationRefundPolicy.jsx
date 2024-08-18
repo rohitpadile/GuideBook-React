@@ -18,9 +18,9 @@ const CancellationRefundPolicy = () => {
           <li>For products with a warranty from manufacturers, please refer the issue directly to them.</li>
           <li>If any refunds are approved by GuidebookX, it will take 16-30 days for the refund to be processed to the end customer.</li>
         </ul>
-        <p className="text-muted">
+        {/* <p className="text-muted">
           <strong>Disclaimer:</strong> The above content is created at ROHIT AMOL PADILE's sole discretion. Razorpay shall not be liable for any content provided here and shall not be responsible for any claims and liability that may arise due to the merchant’s non-adherence to it.
-        </p>
+        </p> */}
       </div>
     </div>
   );

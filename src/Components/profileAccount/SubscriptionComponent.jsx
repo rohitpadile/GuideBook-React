@@ -135,15 +135,15 @@ const SubscriptionComponent = () => {
 
     return (
         <div className="subscription-container">
-            <h2 >Subscription Plan</h2>
+            <h2 style={{ color: 'white' }}>Subscription Plan</h2>
             <div className="subscription-cards">
                 <div 
                     className={`subscription-card ${selectedPlan === 'monthly' ? 'selected' : ''}`} 
                     onClick={() => handleSelectPlan('monthly')}
                 >
                     <h3>Monthly Subscription</h3>
-                    <p>₹20/month</p>
-                    <p className="availability">Available</p>
+                    {/* <p>₹20/month</p> */}
+                    <p className="availability">Not Available</p>
                 </div>
                 <div 
                     className={`subscription-card unavailable ${selectedPlan === 'yearly' ? 'selected' : ''}`} 

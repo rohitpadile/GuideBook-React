@@ -74,9 +74,9 @@ const PrivacyPolicy = () => {
   <p>
     If you believe that any information we are holding on you is incorrect or incomplete, please write to COEP Hostel, Shivajinagar, Pune, Maharashtra Pune MAHARASHTRA 411005, or contact us as soon as possible. We will promptly correct any information found to be incorrect.
   </p>
-  <p className="text-muted">
+  {/* <p className="text-muted">
     <strong>Disclaimer:</strong> The above content is created at ROHIT AMOL PADILE's sole discretion. Razorpay shall not be liable for any content provided here and shall not be responsible for any claims and liability that may arise due to the merchant’s non-adherence to it.
-  </p>
+  </p> */}
 
             </div>
           </div>
