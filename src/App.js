@@ -38,6 +38,8 @@ import SubscriptionComponent from './Components/profileAccount/SubscriptionCompo
 import PrivacyPolicy from './Components/company/PrivacyPolicy';
 import CancellationRefundPolicy from './Components/company/CancellationRefundPolicy';
 import PaymentPageComponentZoomSession from './Components/profileAccount/PaymentPageComponentZoomSession.jsx';
+import ForgotPassword from './Components/ForgotPassword.jsx';
+import ResetPassword from './Components/ResetPassword.jsx';
 // FOR TEAM RECRUITERS
 // import TRStudentDetailsComponent from './Components/teamRecruiters/TRStudentDetailsComponent';
 function App() {
@@ -83,6 +85,9 @@ function App() {
             <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
             <Route path="/cancellationRefundPolicy" element={<CancellationRefundPolicy />} />
             <Route path="/confirmZoomSession/:transactionId" element={<PaymentPageComponentZoomSession />} />
+            
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
           </Routes>
         </BranchProvider>
       </div>

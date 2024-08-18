@@ -16,6 +16,26 @@ const api = axios.create({
   withCredentials: true
 });
 
+// Reset Password API
+export const resetPassword = async (token, newPassword) => {
+  try {
+    const response = await api.post(`reset-password?token=${token}`, {newPassword: newPassword});
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+// Forgot Password API
+export const forgotPassword = async (email) => {
+  try {
+    const response = await api.post('forgot-password', { userEmail:  email });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 export const createOrder = async (subscriptionOrder, token) => {
   try {
       const config = {

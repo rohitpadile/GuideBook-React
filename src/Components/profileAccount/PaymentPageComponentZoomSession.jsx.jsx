@@ -182,7 +182,7 @@ const PaymentPageComponentZoomSession = () => {
                         currency: 'INR',
                         name: 'GuidebookX',
                         description: 'Booking session payment',
-                        image: `${BASE_URL}logowhitetransparent.jpg`,
+                        image: `${BASE_URL}logoblack.jpg`,
                         order_id: id,
                         handler: async function (response) {
                             try {

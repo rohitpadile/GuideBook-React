@@ -5,7 +5,7 @@ import auth from "../auth";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "../css/LoginCss.css"; // Import the CSS file
-
+import Swal from "sweetalert2";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +27,7 @@ function Login() {
       const response = await loginUser(username, password);
       auth.setToken(response.data);
       auth.setAuthHeader();
-      toast.success("Login successful! Redirecting...");
+      Swal.fire('Success', 'Login successful! Redirecting...', 'success');
       setTimeout(() => {
         if(redirectUrl){
           navigate(redirectUrl); // Redirect to the URL set in state
@@ -79,6 +79,12 @@ function Login() {
               Signup
             </button>
           </div>
+          <div className="text-center mt-3">
+            <button className="btn btn-link" onClick={() => navigate("/forgot-password")}>
+              Forgot Password?
+            </button>
+          </div>
+
         </form>
       </div>
       <ToastContainer />
