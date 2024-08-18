@@ -111,6 +111,47 @@ const ProfileAccount = () => {
           <p className="profile-account-info"><strong>Languages Spoken:</strong> {profileData.languagesSpoken.join(', ')}</p>
           <p className="profile-account-info"><strong>Public Email:</strong> {profileData.publicEmail}</p>
           <p className="profile-account-info"><strong>Sessions Conducted:</strong> {profileData.studentProfileSessionsConducted}</p>
+          {/*  */}
+          {editMode ? (
+            <>
+              {/* Editable Sessions Per Week */}
+              <input
+                className="profile-account-edit-input"
+                type="number"
+                name="zoomSessionsPerWeek"
+                value={editData.zoomSessionsPerWeek}
+                onChange={handleChange}
+                placeholder="Sessions per week (Effective from next week)"
+              />
+
+              {/* Editable Sessions Remaining Per Week */}
+              <input
+                className="profile-account-edit-input"
+                type="number"
+                name="zoomSessionsRemainingPerWeek"
+                value={editData.zoomSessionsRemainingPerWeek}
+                onChange={handleChange}
+                placeholder="Sessions remaining this week (adjust for current week)"
+              />
+              <p>Keep sessions per week one more than what you prefer because we assume that the last session will be payed and booked to handle unnecessary booking of many sessions in the last count.</p>
+              <button className="profile-account-edit-link" onClick={handleSave}>Save</button>
+            </>
+            
+          ) : (
+            <>
+              {/* Display when not in edit mode */}
+              <p className="profile-account-info">
+                <strong>Sessions per week:</strong> {profileData.zoomSessionsPerWeek}
+              </p>
+              <p className="profile-account-info">
+                <strong>Sessions remaining per week:</strong> {profileData.zoomSessionsRemainingPerWeek}
+              </p>
+              <button className="profile-account-edit-link" onClick={handleEdit}>Edit sessions limit</button>
+            </>
+          )}
+
+          
+          {/*  */}
           <h2 className="profile-account-title">Subscription Plans</h2>
           <p className="profile-account-info">
             <strong>Monthly Subscription:</strong>{' '}

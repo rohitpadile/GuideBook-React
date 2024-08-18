@@ -165,4 +165,10 @@ button:hover {
   color: #333;
 }
 
-/*  */
+/*css for sessions remaining this week  */
+/* Add styling for zoom-sessions class */
+.zoom-sessions {
+  text-align: center;
+  margin-top: 20px;
+}
+

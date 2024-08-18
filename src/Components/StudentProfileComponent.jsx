@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../css/StudentProfileComponentCss.css'; //separately add css to avoid confusion
 import { getStudentProfile, getStudentBasicDetails } from '../Services/apiServiceAdmin'; // Adjust the import path as per your file structure
+import { checkLoginStatus,checkIfUserIsStudentMentor } from '../Services/userAccountApiService';
 import BookSessionComponent from './BookSessionComponent'; // Import the BookSessionComponent
 import { S3_PROFILE_PHOTO_BASE_URL } from '../constants/s3url'; // Import the constant
+import auth from '../auth';
 
 const StudentProfileComponent = () => {
   const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
@@ -15,6 +17,48 @@ const StudentProfileComponent = () => {
   const [studentProfile, setStudentProfile] = useState(null);
   const [studentBasicDetails, setStudentBasicDetails] = useState(null);
   const [showBookSession, setShowBookSession] = useState(false); // State to manage popup visibility
+  const [isUserStudentMentor, setIsUserStudentMentor] = useState(null);
+  // Check login status 
+  // Function to check if user is a student mentor
+  const checkIfUserIsStudentMentorStatus = async () => {
+    try {
+      const token = auth.getToken();
+      const isMentor = await checkIfUserIsStudentMentor(student?.studentWorkEmail, token);
+      if (isMentor) {
+        setIsUserStudentMentor(1);
+      } else {
+        setIsUserStudentMentor(null);
+      }
+    } catch (error) {
+      // console.error('Error checking if user is a student mentor:', error);
+      setIsUserStudentMentor(1);
+    }
+  };
+
+    // Check login status
+  useEffect(() => {
+    const checkLoginStatusResponse = async () => {
+      try {
+        const token = auth.getToken();
+        const response = await checkLoginStatus(token);
+        if (response !== true && response !== 'true') {
+          const redirectUrl = window.location.pathname;  // Get the current URL
+          navigate(`/login`, { state: { redirectUrl } });
+        }
+      } catch (error) {
+        console.error('Please login first', error);
+        const redirectUrl = window.location.pathname;
+        navigate(`/login`, { state: { redirectUrl } });
+      }
+    };
+    
+    const delayCheck = setTimeout(() => {
+      checkLoginStatusResponse();
+      checkIfUserIsStudentMentorStatus();
+    }, 100);
+
+    return () => clearTimeout(delayCheck);
+  }, [navigate, student?.studentWorkEmail]);
 
   useEffect(() => {
     const fetchStudentProfile = async () => {
@@ -54,12 +98,13 @@ const StudentProfileComponent = () => {
       <div className="card student-profile-card mx-auto" style={{ maxWidth: '800px' }}>
         <div className="card-header student-profile-header d-flex justify-content-between align-items-center">
           <h4>Student Profile</h4>
+          { (studentProfile?.zoomSessionsRemainingPerWeek !== 0) && (isUserStudentMentor === null) && 
           <button 
             className="btn btn-primary book-session-button"
             onClick={handleBookSessionClick}
           >
             Book Session
-          </button>
+          </button>}
         </div>
         <div className="card-body student-profile-body">
           <div className="row">
@@ -76,6 +121,14 @@ const StudentProfileComponent = () => {
                   <h5>Sessions Conducted</h5>
                   <p className="big-number">{studentProfile?.studentProfileSessionsConducted}</p>
                 </div>
+
+                {/* Zoom sessions remaining */}
+                  {(
+                    <div className="zoom-sessions mt-4">
+                      <h5>Seats Remaining this week: </h5>
+                      <p className="big-number">{studentProfile?.zoomSessionsRemainingPerWeek}</p>
+                    </div>
+                    )}
               </div>
             </div>
             <div className="col-md-8">

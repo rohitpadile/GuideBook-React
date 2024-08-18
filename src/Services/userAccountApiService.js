@@ -187,6 +187,26 @@ export const getAccountTypeAndProfileData = async (token) => {
       // return false;
     }
   };
+  // Method to check if the user is a student mentor
+  export const checkIfUserIsStudentMentor = async (studentWorkEmail, token) => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await api.post(`isUserAStudentMentor`,
+        {
+          studentWorkEmail: studentWorkEmail
+        }
+        ,config);
+      return response.status === 200; // Status OK indicates the user is not a mentor
+    } catch (error) {
+      // console.error('Error checking if user is a student mentor:', error);
+      return false; // Default to false in case of an error
+    }
+};
   
   export const logoutUser = async (token) => {
     try {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom'; // Import useLocation
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useEffect } from 'react';
 import '../App.css';
 import Swal from 'sweetalert2';
 import { Modal, Button } from 'react-bootstrap'; // Importing Modal and Button from react-bootstrap
@@ -29,6 +30,29 @@ const ZoomSessionForm = () => {
     zoomSessionClientExpectations: '',
     zoomSessionDurationInMin: '15',
   });
+  // Check login status
+  useEffect(() => {
+    const checkLoginStatusResponse = async () => {
+        try {
+            const token = auth.getToken();
+            const response = await checkLoginStatus(token);
+            if (response !== true && response !== 'true') {
+                const redirectUrl = window.location.pathname;  // Get the current URL
+                navigate(`/login`, { state: { redirectUrl } });
+            }
+        } catch (error) {
+            console.error('Please login first', error);
+            const redirectUrl = window.location.pathname;
+            navigate(`/login`, { state: { redirectUrl } });
+        }
+    };
+
+    const delayCheck = setTimeout(() => {
+        checkLoginStatusResponse();
+    }, 2000);
+
+    return () => clearTimeout(delayCheck);
+}, [navigate]);
 
   const [message, setMessage] = useState('');
   const [messageCode, setMessageCode] = useState(null); // State for message code
@@ -57,7 +81,7 @@ const ZoomSessionForm = () => {
       const token = auth.getToken();
       if (token) {
         const loginAndSubscriptionStatus = await checkLoginStatus(token); 
-        //Later change this to checkLoginAndSubscriptionStatus() to check subscription also
+      
         if(!loginAndSubscriptionStatus){
           setMessage('Subscription Inactive');
           return;
