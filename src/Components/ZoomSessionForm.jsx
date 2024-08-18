@@ -401,14 +401,14 @@ const ZoomSessionForm = () => {
                   className={`btn btn-outline-primary ${formData.zoomSessionDurationInMin === '15' ? 'active' : ''}`}
                   onClick={() => handleDurationSelect('15')}
                 >
-                  15 min
+                  15 min (Rs. 50)
                 </button>
                 <button
                   type="button"
                   className={`btn btn-outline-primary ${formData.zoomSessionDurationInMin === '30' ? 'active' : ''}`}
                   onClick={() => handleDurationSelect('30')}
                 >
-                  30 min
+                  30 min (Rs. 100)
                 </button>
               </div>
             </div>
