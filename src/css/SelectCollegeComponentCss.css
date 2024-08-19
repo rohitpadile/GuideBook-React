@@ -57,3 +57,12 @@
   object-fit: cover;
   border-radius: 8px 8px 0 0;
 }
+
+/* Media Query for smaller screens (e.g., mobile devices) */
+@media (max-width: 768px) {
+  .college-card {
+    flex: 1 0 100%; /* Make cards take up full width of the container on small screens */
+    max-width: 83%;
+    margin-left: 40px;
+  }
+}

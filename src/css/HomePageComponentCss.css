@@ -1,11 +1,115 @@
-.carousel-caption-below {
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 50px;
-}
-/* .d-block w-100{
+/* Flexbox container for side-by-side alignment */
+.home-page-side-by-side-container {
+  display: flex;
+  justify-content: space-between; /* Add space between the two containers */
+  align-items: center; /* Align items vertically in the center */
   margin-top: 30px;
-} */
+}
+
+/* Adjust content poster styling */
+.home-page-content-poster {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 0px;
+  box-shadow: 100 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 45%; /* Adjust width to allow both containers to fit side by side */
+  text-align: center;
+  margin: auto;
+}
+
+/* Adjust image poster container */
+.home-page-poster-container {
+  max-width: 45%; /* Adjust width to allow both containers to fit side by side */
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  
+}
+
+.home-page-poster {
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px;
+}
+/* Container for new posters */
+.home-page-new-posters {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: center; Center align all posters */
+  /* margin-top: 30px; */
+
+  /* display: flex; */
+  justify-content: space-between; /* Add space between the two containers */
+  /* align-items: center;  */
+  margin-top: 30px;
+}
+/* Carousel Section */
+.home-page-carousel-section {
+  margin-top: 30px;
+}
+
+.home-page-carousel-image {
+  border-radius: 15px;
+}
+/* Container for fullscreen posters */
+.home-page-fullscreen-posters {
+  margin-top: 30px;
+}
+.home-page-poster-container-full {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.home-page-poster-full {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+}
+
+/* Media Query for screens smaller than 768px (e.g., mobile devices) */
+@media (max-width: 768px) {
+  .home-page-side-by-side-container {
+    flex-direction: column; /* Stack the items vertically */
+    align-items: center; /* Center align them */
+  }
+
+  .home-page-content-poster,
+  .home-page-poster-container {
+    max-width: 100%; /* Make both divs take full width on mobile */
+    margin-bottom: 20px; /* Add some space between the two divs */
+  }
+  .home-page-fullscreen-posters .home-page-poster-container-full {
+    margin-bottom: 10px; /* Adjust spacing on mobile */
+  }
+  
+  /* Adjust carousel captions for mobile */
+/* Adjust carousel captions for mobile */
+.carousel-caption {
+  position: static; /* Reset position to default */
+  bottom: auto; /* Remove bottom positioning */
+  padding: 10px; /* Reduced padding for a more compact look */
+  background: rgba(0, 0, 0, 0.4); /* Semi-transparent background for integration */
+  color: #f8f9fa; /* Light color text for better contrast */
+  text-align: center; /* Center align text */
+  border-radius: 8px; /* Slightly smaller border radius for a tighter look */
+  font-size: 0.9rem; /* Smaller font size for a more compact appearance */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Lighter shadow for a more subtle effect */
+}
+
+.carousel-caption h3 {
+  font-size: 1.4rem; /* Slightly smaller heading font size */
+  font-weight: lighter; /* Lighter font weight for a more delicate appearance */
+  margin-bottom: 8px; /* Reduced space below the heading */
+}
+
+.carousel-caption p {
+  font-size: 0.8rem; /* Smaller paragraph font size */
+  margin-bottom: 0; /* Remove bottom margin */
+}
+
+
+}
 .carousel-caption-below h3 {
   font-size: 2rem;
   font-weight: bold;
@@ -40,19 +144,20 @@
 }
 
 .mentor-apply-link {
-  font-size: 1.5rem; /* Increased font size */
-  font-weight: bold; /* Made the text bold */
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .mentor-apply-link a {
   color: #007bff;
-  text-decoration: none; /* Removed underline */
-  border-bottom: 2px solid transparent; /* Added bottom border */
-  transition: all 0.3s ease; /* Added transition for smooth effect */
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
 }
 
 .mentor-apply-link a:hover {
   color: #0056b3;
-  border-bottom: 2px solid #0056b3; /* Changed bottom border on hover */
-  text-decoration: none; /* Ensured no underline on hover */
+  border-bottom: 2px solid #0056b3;
 }
+
+

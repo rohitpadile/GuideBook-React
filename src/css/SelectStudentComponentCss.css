@@ -85,6 +85,19 @@
   padding-left: 15px;
 }
 
+@media (max-width: 576px) {
+  .filter-options {
+    flex-direction: column;
+    gap: 0px; /* Reduced gap between filter items */
+  }
+  
+  .filter-item {
+    flex: 1 1 100%; /* Make each filter item full width on mobile screens */
+    margin-bottom: 7px;
+
+  }
+}
+
 @media (max-width: 1200px) {
   .col-md-3 {
     flex: 0 0 20%;

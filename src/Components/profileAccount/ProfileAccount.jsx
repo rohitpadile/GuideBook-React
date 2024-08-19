@@ -116,14 +116,14 @@ const ProfileAccount = () => {
           {editMode ? (
             <>
               {/* Editable Sessions Per Week */}
-              <input
+              {/* <input
                 className="profile-account-edit-input"
                 type="number"
                 name="zoomSessionsPerWeek"
                 value={editData.zoomSessionsPerWeek}
                 onChange={handleChange}
                 placeholder="Sessions per week (Effective from next week)"
-              />
+              /> */}
 
               {/* Editable Sessions Remaining Per Week */}
               <input
@@ -141,11 +141,11 @@ const ProfileAccount = () => {
           ) : (
             <>
               {/* Display when not in edit mode */}
-              <p className="profile-account-info">
+              {/* <p className="profile-account-info">
                 <strong>Sessions per week:</strong> {profileData.zoomSessionsPerWeek}
-              </p>
+              </p> */}
               <p className="profile-account-info">
-                <strong>Sessions remaining per week:</strong> {profileData.zoomSessionsRemainingPerWeek}
+                <strong>Sessions remaining this week(adjust):</strong> {profileData.zoomSessionsRemainingPerWeek}
               </p>
               <button className="profile-account-edit-link" onClick={handleEdit}>Edit sessions limit</button>
             </>
@@ -244,6 +244,7 @@ const ProfileAccount = () => {
               <p className="profile-account-info"><strong>Age:</strong> {profileData.clientAge}</p>
               <p className="profile-account-info"><strong>College:</strong> {profileData.college}</p>
               <p className="profile-account-info"><strong>Valid Proof:</strong> {profileData.clientValidProof}</p>
+              <p>For mentors, we will soon provide a verified mark and a valid proof link from the company.</p>
               <p className="profile-account-info"><strong>Zoom Email:</strong> {profileData.clientZoomEmail}</p>
               <button className="profile-account-edit-link" onClick={handleEdit}>Edit Profile</button>
 
