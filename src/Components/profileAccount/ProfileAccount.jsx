@@ -113,19 +113,19 @@ const ProfileAccount = () => {
           <p className="profile-account-info"><strong>Public Email:</strong> {profileData.publicEmail}</p>
           <p className="profile-account-info"><strong>Sessions Conducted:</strong> {profileData.studentProfileSessionsConducted}</p>
           {/*  */}
-          {editMode ? (
+          {/* {editMode ? (
             <>
-              {/* Editable Sessions Per Week */}
-              {/* <input
+              Editable Sessions Per Week
+              <input
                 className="profile-account-edit-input"
                 type="number"
                 name="zoomSessionsPerWeek"
                 value={editData.zoomSessionsPerWeek}
                 onChange={handleChange}
                 placeholder="Sessions per week (Effective from next week)"
-              /> */}
+              />
 
-              {/* Editable Sessions Remaining Per Week */}
+              Editable Sessions Remaining Per Week
               <input
                 className="profile-account-edit-input"
                 type="number"
@@ -140,16 +140,16 @@ const ProfileAccount = () => {
             
           ) : (
             <>
-              {/* Display when not in edit mode */}
-              {/* <p className="profile-account-info">
+              Display when not in edit mode
+              <p className="profile-account-info">
                 <strong>Sessions per week:</strong> {profileData.zoomSessionsPerWeek}
-              </p> */}
+              </p>
               <p className="profile-account-info">
                 <strong>Sessions remaining this week(adjust):</strong> {profileData.zoomSessionsRemainingPerWeek}
               </p>
               <button className="profile-account-edit-link" onClick={handleEdit}>Edit sessions limit</button>
             </>
-          )}
+          )} 
 
           
           {/*  */}

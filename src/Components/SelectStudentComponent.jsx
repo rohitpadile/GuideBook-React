@@ -178,28 +178,48 @@ const SelectStudentComponent = () => {
         </div>
       </div>
       {students.length > 0 && (
-        <div className="students-list mt-4">
-          <h5>Students</h5>
-          <div className="row">
-            {students.map((student, index) => {
-              const profilePhotoUrl = `${S3_PROFILE_PHOTO_BASE_URL}${student.studentWorkEmail}.jpg`;
-              return (
-                <div key={index} className="col-md-3 mb-4">
-                  <div className="card" onClick={() => handleStudentClick(student)}>
-                    <img
-                      src={profilePhotoUrl}
-                      className="card-img-top"
-                      alt="Student Profile"
-                    />
-                    <div className="card-body ">
-                      <h6 className="card-title">{student.studentName}</h6>
+          <div className="studentProfileList-container mt-4">
+            <h5>Students</h5>
+            <div className="row">
+              {students.map((student, index) => {
+                const profilePhotoUrl = `${S3_PROFILE_PHOTO_BASE_URL}${student.studentWorkEmail}.jpg`;
+
+                // Helper function to truncate text to 30 characters
+                const truncateText = (text, maxLength = 30) => {
+                  return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+                };
+
+                return (
+                  <div key={index} className="col-md-4 mb-4">
+                    <div className="studentProfileList-card" onClick={() => handleStudentClick(student)}>
+                      <div className="studentProfileList-cardBody d-flex align-items-center">
+                        <img
+                          src={profilePhotoUrl}
+                          className="studentProfileList-img mr-3"
+                          alt="Student Profile"
+                        />
+                        <div className="studentProfileList-details">
+                          <h6 className="studentProfileList-cardTitle">
+                            {truncateText(student.studentName)}
+                          </h6>
+                          <p className="studentProfileList-cardTextCollege">
+                            {truncateText(student.studentCollegeName)}
+                          </p>
+                          <p className="studentProfileList-cardTextCollege">
+                            Branch: {truncateText(student.studentBranch)}
+                          </p>
+                          <p className="studentProfileList-cardTextScore">
+                            Exam score: {student.cetPercentile}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
+
       )}
     </div>
   );

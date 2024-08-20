@@ -102,7 +102,7 @@ const StudentProfileComponent = () => {
       <div className="card student-profile-card mx-auto" style={{ maxWidth: '800px' }}>
         <div className="card-header student-profile-header d-flex justify-content-between align-items-center">
           <h4>Student Profile</h4>
-          { (studentProfile?.zoomSessionsRemainingPerWeek !== 0) && (isUserStudentMentor === null) && 
+          {isUserStudentMentor === null && 
           <button 
             className="btn btn-primary book-session-button"
             onClick={handleBookSessionClick}
@@ -127,12 +127,12 @@ const StudentProfileComponent = () => {
                 </div>
 
                 {/* Zoom sessions remaining */}
-                  {(
+                  {/* {(
                     <div className="zoom-sessions mt-4">
                       <h5>Seats Remaining this week: </h5>
                       <p className="big-number">{studentProfile?.zoomSessionsRemainingPerWeek}</p>
                     </div>
-                    )}
+                    )} */}
               </div>
             </div>
             <div className="col-md-8">
