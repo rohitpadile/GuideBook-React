@@ -86,6 +86,8 @@ const StudentProfileComponent = () => {
     if (student?.studentWorkEmail) {
       fetchStudentProfile();
       fetchStudentBasicDetails();
+    } else {
+      navigate("/colleges");
     }
   }, [student?.studentWorkEmail]);
 
