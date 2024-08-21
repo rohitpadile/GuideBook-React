@@ -20,16 +20,16 @@ const HomePageComponent = () => {
         <div className="home-page-content-poster">
           <div className="carousel-caption-below">
             <h3>Welcome to GuidebookX</h3>
-            <p>Ultimate platform for college students to interact and take the insights</p>
-            <Button variant="primary" className="get-started-button" onClick={handleGetStartedClick}>
-              Get Started
-            </Button>
-            <p className="or-separator">OR</p>
-            <p className="mentor-apply-link">
-              <a href="https://forms.gle/nXcJj9qbZaUBYSVy8" target="_blank" rel="noopener noreferrer">
-                Apply For Student Mentor
+            <p>Connecting India's student community through 1:1 sessions!</p>
+            <div className="button-group">
+              <a className="mentor-apply-link" onClick={handleGetStartedClick}>
+                Get Started
               </a>
-            </p>
+              {/* <p className="or-separator">OR</p> */}
+              
+            </div>
+
+           
           </div>
         </div>
         
@@ -70,6 +70,14 @@ const HomePageComponent = () => {
           </Carousel.Item>
         </Carousel>
       </div>
+      <div className="home-page-content-poster">
+              <br/><br/>
+              <p className="mentor-apply-link-1">
+                <a className="mentor-apply-link-1" href="https://forms.gle/nXcJj9qbZaUBYSVy8" target="_blank" >
+                  Apply For Mentor
+                </a>
+              </p>
+        </div>
 
       {/* Additional posters section */}
       <div className="home-page-fullscreen-posters">

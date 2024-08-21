@@ -119,11 +119,16 @@
   font-size: 1.2rem;
   color: #555;
 }
+.button-group {
+  display: flex;
+  align-items: center; 
+  margin: auto;
+}
 
 .get-started-button {
-  margin-top: 20px;
+  margin: auto; /* Remove margin to align with other elements */
   font-size: 18px;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border-radius: 25px;
   background-color: #007bff;
   border: none;
@@ -137,15 +142,18 @@
 }
 
 .or-separator {
-  margin: 20px 0;
+  margin: auto; /* Remove margin to align with other elements */
   font-size: 1.5rem;
   font-weight: bold;
   color: #555;
 }
 
 .mentor-apply-link {
-  font-size: 1.5rem;
+  margin: auto; /* Remove margin to align with other elements */
+  font-size: 2.3rem;
   font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .mentor-apply-link a {
@@ -160,4 +168,21 @@
   border-bottom: 2px solid #0056b3;
 }
 
+.mentor-apply-link-1 {
+  font-size: 3.0rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  align-items: center;
+}
+.mentor-apply-link-1 a {
+  color: #007bff;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
 
+.mentor-apply-link-1 a:hover {
+  color: #0056b3;
+  border-bottom: 2px solid #0056b3;
+}

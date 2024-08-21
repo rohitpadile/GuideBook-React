@@ -137,12 +137,14 @@
 /* Student card styling with fixed height and text truncation with ellipsis */
 .studentProfileList-container {
   font-size: 14px;
+  /* background-color: rgb(255, 255, 255); */
 }
 
 .studentProfileList-card {
-  height: 105px; /* Set a fixed height */
+  height: 100px; /* Set a fixed height */
   display: flex;
   border: 1px solid #dee2e6;
+  /* border-color: #acacac; */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
