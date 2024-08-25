@@ -14,23 +14,47 @@ const HomePageComponent = () => {
 
   return (
     <div className="home-page">
+
+      {/* Problems and Confusion */}
+      <div className="home-page-problems-section">
+        <h2>Facing Problems with Stream Selection?</h2>
+        <p>
+          Are you a 10th or 12th class student confused about what to pursue? Struggling between your interests and your parents' expectations to take up PCM or PCB? 
+          You’re not alone. The transition from school to college can be overwhelming, but our experienced guides are here to help. They’ve been through the same journey and can provide clarity on your options.
+        </p>
+        <h2>College and Branch Selection Dilemma?</h2>
+        <p>
+          For 12th class students, selecting the right college and branch can be daunting. Get insights from students who’ve already made these decisions and are thriving in their chosen fields. 
+          Don’t let confusion stop you—book a session today and get personalized advice on choosing the right path for your future.
+        </p>
+        <Button className="get-started-button" onClick={handleGetStartedClick}>
+          Book a Session Now
+        </Button>
+      </div>
+
       {/* Flex container to align content and poster side by side */}
       <div className="home-page-side-by-side-container">
         {/* Poster-like container for content */}
         <div className="home-page-content-poster">
           <div className="carousel-caption-below">
-            <h3>Welcome to GuidebookX</h3>
-            <p>Connecting India's student community through 1:1 sessions!</p>
+            <h3>GuidebookX</h3>
+            <p>Connecting India's student community through 1:1 guided sessions!</p>
             <div className="button-group">
-              <a className="mentor-apply-link" onClick={handleGetStartedClick}>
+            <button className="mentor-apply-link" onClick={handleGetStartedClick}>
                 Get Started
-              </a>
-              {/* <p className="or-separator">OR</p> */}
-              
+              </button>
             </div>
-
-           
           </div>
+          <p className="mentor-apply-link-1">
+            <a 
+              className="mentor-apply-link-1" 
+              href="https://forms.gle/nXcJj9qbZaUBYSVy8" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              OR Apply For Guide
+            </a>
+          </p>
         </div>
         
         {/* Poster image */}
@@ -46,17 +70,16 @@ const HomePageComponent = () => {
       {/* Carousels for new posters */}
       <div className="home-page-carousel-section">
         <Carousel interval={3000}> {/* Set the interval for auto-sliding */}
-          <Carousel.Item>
+          {/* <Carousel.Item>
             <img
               className="d-block w-100 home-page-carousel-image"
               src={`${BASE_URL}howItWorks-booking.png`}
               alt="How It Works - Booking Poster"
             />
             <Carousel.Caption>
-              {/* <h3>How It Works</h3> */}
               <p>Swipe to learn more about how our platform works.</p>
             </Carousel.Caption>
-          </Carousel.Item>
+          </Carousel.Item> */}
           <Carousel.Item>
             <img
               className="d-block w-100 home-page-carousel-image"
@@ -64,30 +87,42 @@ const HomePageComponent = () => {
               alt="3 Step Process Poster"
             />
             <Carousel.Caption>
-              {/* <h3>3 Step Process</h3> */}
               <p>Understand these 3 simple steps to get started.</p>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
       </div>
-      <div className="home-page-content-poster">
-              <br/><br/>
-              <p className="mentor-apply-link-1">
-                <a className="mentor-apply-link-1" href="https://forms.gle/nXcJj9qbZaUBYSVy8" target="_blank" >
-                  Apply For Mentor
-                </a>
-              </p>
+
+      
+
+      {/* Feedback Section */}
+      <div className="home-page-feedback-section">
+        <h2>What Students are Saying</h2>
+        <div className="home-page-feedback-card">
+          <p>
+            "I was completely lost after 10th class. GuidebookX connected me with a student who went through the same confusion, 
+            and they helped me figure out the best stream for me. Now, I’m confidently pursuing my dream career."
+          </p>
+          <p>- Arpit, class 10th student</p>
         </div>
+        <div className="home-page-feedback-card">
+          <p>
+            "Choosing the right college felt impossible. GuidebookX introduced me to a guide who shared their experience in my dream branch, 
+            and it gave me the confidence to make my decision."
+          </p>
+          <p>- Yash, class 12th student</p>
+        </div>
+      </div>
 
       {/* Additional posters section */}
       <div className="home-page-fullscreen-posters">
-        <div className="home-page-poster-container-full">
+        {/* <div className="home-page-poster-container-full">
           <img
             className="home-page-poster-full"
             src={`${BASE_URL}aboutOurService.png`}
             alt="About Our Service Poster"
           />
-        </div>
+        </div> */}
         <div className="home-page-poster-container-full">
           <img
             className="home-page-poster-full"
@@ -102,7 +137,6 @@ const HomePageComponent = () => {
             alt="Contact Poster"
           />
         </div>
-      
       </div>
     </div>
   );

@@ -61,7 +61,7 @@ const SelectCollegeComponent = () => {
       <div className="row">
         <div className="col-md-4">
           <div className="sc-card">
-            <h5 className="sc-card-header">Select Entrance Exam</h5>
+            <h5 className="sc-card-header">Select Entrance Exam and click on college</h5>
             <ul className="sc-list-group">
               {entranceExams.map(examName => (
                 <li

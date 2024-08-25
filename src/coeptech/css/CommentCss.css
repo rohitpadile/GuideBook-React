@@ -1,0 +1,53 @@
+/* Comment Component CSS
+
+.comment-container {
+    margin-bottom: 15px;
+  }
+  
+  .comment-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  .comment-replyButton {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  .comment-replyButton:hover {
+    text-decoration: underline;
+  }
+  
+  .comment-replyBox {
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+  
+  .comment-replyBox textarea {
+    width: 100%;
+    height: 60px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .comment-replyBox button {
+    margin-top: 5px;
+    padding: 8px 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .comment-replyBox button:hover {
+    background-color: #218838;
+  }
+   */
