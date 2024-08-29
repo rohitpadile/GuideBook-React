@@ -55,11 +55,19 @@
   font-size: 16px;
   font-weight: 500; /* Less bold */
   text-decoration: none;
-  padding: 10px 20px; /* Added padding for rectangular box */
+  padding: 10px 20px; /* Adjust padding to fit the box size */
   border: 2px solid #893fff; /* Neon pink border */
   border-radius: 4px; /* Slightly rounded corners */
   background-color: transparent; /* Transparent background */
   transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+
+  width: auto; /* Fixed width */
+  height: auto; /* Fixed height */
+  /* box-sizing: border-box;  */
+}
+.header-links .header-link + .header-link,
+.header-links .header-link + button {
+  margin-left: 5px; /* Adjust this value as needed */
 }
 
 .header-link:hover {

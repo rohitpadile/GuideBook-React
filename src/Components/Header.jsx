@@ -51,10 +51,22 @@ const Header = () => {
             <div className="header-logo-text">GuidebookX</div>
           </Link>
           <div className="header-links">
-            {isLoggedIn ? (
+            {/* {isLoggedIn ? (
               <div>
                 <span className="header-link" onClick={() => navigate('/profile')}>Profile</span>
                 <span className="header-link" onClick={handleLogout}>Logout</span>
+              </div>
+              
+            ) : (
+              <>
+                <Link to="/login" className="header-link">Login</Link>
+                <Link to="/signup" className="header-link">Signup</Link>
+              </>
+            )} */}
+            {isLoggedIn ? (
+              <div>
+                <Link to="/profile" className="header-link">Profile</Link>
+                <button className="header-link" onClick={handleLogout}>Logout</button>
               </div>
             ) : (
               <>
