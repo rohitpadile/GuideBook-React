@@ -86,9 +86,9 @@ const HomePageComponent = () => {
               src={`${BASE_URL}3StepProcess.png`}
               alt="3 Step Process Poster"
             />
-            <Carousel.Caption>
+            {/* <Carousel.Caption>
               <p>Understand these 3 simple steps to get started.</p>
-            </Carousel.Caption>
+            </Carousel.Caption> */}
           </Carousel.Item>
         </Carousel>
       </div>

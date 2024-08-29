@@ -44,10 +44,10 @@ const AboutUs = () => {
     <div className="about-us-container">
       <h1>About Us</h1>
       <p>
-        Welcome to GuidebookX, a platform created by students for students. At GuidebookX, our mission is to connect students from prestigious engineering colleges with aspiring students who are preparing for entrance exams or seeking academic guidance. Through 1:1 Zoom sessions, our experienced student mentors provide valuable insights, tips, and strategies tailored to the unique needs of each client.
+        Welcome to GuidebookX, a platform created by students for students. At GuidebookX, our mission is to connect students from prestigious engineering colleges with aspiring students who are preparing for entrance exams or seeking academic guidance. Through 1:1 Zoom sessions, our experienced guides provide valuable insights, tips, and strategies tailored to the unique needs of each client.
       </p>
       <p>
-        Clients can filter mentors by their college, branch, entrance scores, grades, and more, ensuring they find the right mentor for their specific needs. Whether it's guidance on entrance exams, study strategies, or navigating the complexities of academic life, GuidebookX aims to provide access to the right tools and support for students across India.
+        Clients can filter guides by their college, branch, entrance scores, grades, and more, ensuring they find the right guide for their specific needs. Whether it's guidance on entrance exams, study strategies, or navigating the complexities of academic life, GuidebookX aims to provide access to the right tools and support for students across India.
       </p>
       <p>
         This platform was born out of a personal desire to solve a critical issue in our education system: the lack of access to proper guidance and resources for many students. We believe that every student deserves the right direction, and through GuidebookX, we hope to democratize access to quality education and mentorship.

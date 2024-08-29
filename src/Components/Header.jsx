@@ -71,11 +71,11 @@ const Header = () => {
         <div className="container">
           <ul className="secondary-navbar-nav navbar-nav mr-auto">
             <li className="secondary-navbar-nav-item nav-item" onClick={() => navigate('/entrance-exams')}>
-              <span className="secondary-navbar-nav-link nav-link">Search Mentor</span>
+              <span className="secondary-navbar-nav-link nav-link">Search Guide</span>
             </li>
-            <li className="secondary-navbar-nav-item nav-item" onClick={() => navigate('/blogs')}>
+            {/* <li className="secondary-navbar-nav-item nav-item" onClick={() => navigate('/blogs')}>
               <span className="secondary-navbar-nav-link nav-link">Blogs</span>
-            </li>
+            </li> */}
           </ul>
         </div>
       </nav>
