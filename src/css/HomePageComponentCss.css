@@ -110,7 +110,7 @@
 
 .mentor-apply-link,
 .mentor-apply-link-1 {
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: bold;
   cursor: pointer;
   text-decoration: none;
@@ -118,7 +118,9 @@
   /* color: #0911a9; */
   margin: auto;
 }
-
+.mentor-apply-link{
+  font-size: large;
+}
 .mentor-apply-link a,
 .mentor-apply-link-1 a {
   color: inherit;

@@ -41,10 +41,11 @@ const HomePageComponent = () => {
             <p>Connecting India's student community through 1:1 guided sessions!</p>
             <div className="button-group">
             <button className="mentor-apply-link" onClick={handleGetStartedClick}>
-                Get Started
+                Click here to book step by step
               </button>
             </div>
           </div>
+          <br/>
           <p className="mentor-apply-link-1">
             <a 
               className="mentor-apply-link-1" 
@@ -52,7 +53,7 @@ const HomePageComponent = () => {
               target="_blank" 
               rel="noopener noreferrer"
             >
-              OR Apply For Guide
+              Click here to Apply For Guide
             </a>
           </p>
         </div>
