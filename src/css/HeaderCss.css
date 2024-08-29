@@ -1,10 +1,12 @@
 /* HeaderCss.css */
 
+/* Main Navbar */
 .header-navbar {
-  height: 50px;
-  background-color: #000; /* Black background */
+  height: 60px;
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a); /* Gradient for a dynamic look */
   display: flex;
   align-items: center;
+  border-bottom: 2px solid #893fff; /* Neon-like border */
 }
 
 .header-navbar-brand {
@@ -13,8 +15,29 @@
   padding: 0;
   color: #fff; /* White text color */
   font-size: 28px;
-  font-weight: 500; /* Less bold */
+  font-weight: 600; /* Slightly bolder */
   text-decoration: none;
+}
+
+.header-logo {
+  max-width: 55px;
+  height: auto;
+  transition: transform 0.3s ease; /* Smooth transform on hover */
+}
+
+.header-logo:hover {
+  transform: scale(1.1); /* Slight zoom on hover */
+}
+
+.header-logo-text {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: middle;
+  font-size: 1.7rem; /* Increased font size */
+  font-weight: bold; /* Bolder font */
+  /* color: #ff3f6c;  */
+  color: #893fff;
+  text-shadow: 0px 0px 8px 893fff(255, 63, 108, 0.8); /* Neon glow effect */
 }
 
 .header-links {
@@ -22,6 +45,8 @@
   gap: 20px;
   align-items: center;
   margin-right: 0; /* Adjust this value as needed */
+  margin-left: auto; /* Pushes the links to the left when wrapping */
+  flex-wrap: wrap; /* Allows the links to wrap onto the next line */
 }
 
 .header-link {
@@ -30,12 +55,17 @@
   font-size: 16px;
   font-weight: 500; /* Less bold */
   text-decoration: none;
-  padding: 10px;
-  border-bottom: 2px solid transparent;
+  padding: 10px 20px; /* Added padding for rectangular box */
+  border: 2px solid #893fff; /* Neon pink border */
+  border-radius: 4px; /* Slightly rounded corners */
+  background-color: transparent; /* Transparent background */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
 .header-link:hover {
-  border-bottom: 2px solid #fff; /* White border on hover */
+  color: #fff; /* Keep text color white on hover */
+  background-color: #893fff; /* Neon pink background on hover */
+  border: 2px solid #893fff; /* Border color remains same */
 }
 
 /* Ensure elements are contained within the header when resized */
@@ -45,40 +75,23 @@
   align-items: center;
   width: 100%;
   max-width: 1200px; /* Adjust as needed */
-  /* margin-left: 110px; */
   margin: auto;
   padding: 0 15px;
+  flex-wrap: wrap; /* Allows wrapping of content */
 }
 
-@media (max-width: 768px) {
-  .header-links {
-    gap: 10px;
-  }
 
-  .header-link {
-    font-size: 14px;
-  }
-}
 
-.header-logo {
-  max-width: 55px;
-  height: auto;
-}
-
-.header-logo-text {
-  display: inline-block;
-  margin-left: 10px;
-  vertical-align: middle;
-  font-size: 1.5rem;
-  font-weight: lighter;
-  color: #fff; /* White text color */
-}
-
-/* New styles */
+/* Secondary Navbar */
+/* Secondary Navbar */
 .secondary-navbar {
-  background-color: #111; /* Close to black color */
-  padding: 0px 0; /* Reduced padding for thinner navbar */
+  background-color: #121212; 
+  padding: 0; /* Remove vertical padding */
+  border-top: 0px solid #893fff; /* Neon-like top border */
   display: flex;
+  justify-content: center; /* Center the entire navbar content */
+  align-items: center; /* Center items vertically */
+  height: 40px; /* Control navbar thickness */
 }
 
 .secondary-navbar-nav {
@@ -86,12 +99,12 @@
   padding: 0;
   list-style: none;
   display: flex;
-  /* margin-left: 60px; */
-  justify-content: center; 
+  justify-content: center; /* Center the list of items */
+  width: 100%; /* Ensure the nav takes up full width for proper centering */
 }
 
 .secondary-navbar-nav-item {
-  margin-right: 20px;
+  margin: 0 15px; /* Add some spacing between the items */
 }
 
 .secondary-navbar-nav-link {
@@ -99,27 +112,54 @@
   cursor: pointer;
   font-size: 16px;
   text-decoration: none;
+  position: relative;
+  padding: 5px 0;
+  transition: color 0.3s ease; /* Smooth transition */
+  margin: 0 15px;
+}
+
+/* Hover effect for navbar links */
+.secondary-navbar-nav-link:hover:before {
+  visibility: visible;
+  width: 100%;
 }
 
 .secondary-navbar-nav-link:hover {
-  text-decoration: underline;
+  color: #893fff; 
 }
-.secondary-navbar-nav-link:hover {
-  color: #fff; /* Maintain white text color on hover */
-  text-decoration: none; /* Ensure no underline or other decoration on hover */
-  /* You can add more styles here if needed, but leaving it empty will keep the default appearance */
+.secondary-navbar-nav-link {
+  color: #ffffff; 
+}
+.secondary-navbar-nav-link:active {
+  color: #893fff; /* Maintain the hover color when active */
+}
+.secondary-navbar-nav-link:focus {
+  color: #893fff; /* Match hover color for focus state */
+  outline: none; /* Remove default focus outline if needed */
 }
 
-/* Responsive adjustments */
+.secondary-navbar-nav-link:before {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  /* background-color: #ff3f6c;  */
+  /* visibility: hidden; */
+  /* transition: all 0.3s ease-in-out; */
+}
+
+
+
 @media (max-width: 768px) {
   .header-navbar .container {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0 15px;
+    justify-content: flex-start; /* Align content to the start */
   }
 
   .header-links {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: flex-end;
     gap: 10px;
   }
 
@@ -129,15 +169,28 @@
   }
 
   .header-logo-text {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+  }
+
+  /* Secondary Navbar Adjustments for Mobile */
+  .secondary-navbar {
+    height: auto; /* Allow the height to adjust based on content */
+    padding: 10px 0; /* Add some vertical padding */
   }
 
   .secondary-navbar-nav {
-    flex-direction: column;
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start; /* Align items to the start */
+    padding-left: 20px; /* Indent items a bit for better readability */
   }
 
   .secondary-navbar-nav-item {
     margin-right: 0;
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* Space between items vertically */
+  }
+
+  .secondary-navbar-nav-link {
+    font-size: 14px; /* Adjust font size for smaller screens */
+    padding: 5px 0; /* Adjust padding to maintain touch targets */
   }
 }

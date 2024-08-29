@@ -58,7 +58,7 @@ const Header = () => {
               </div>
             ) : (
               <>
-                <Link to="/login" className="header-link" >Login</Link>
+                <Link to="/login" className="header-link">Login</Link>
                 <Link to="/signup" className="header-link">Signup</Link>
               </>
             )}
@@ -70,11 +70,14 @@ const Header = () => {
       <nav className="secondary-navbar navbar-expand-lg">
         <div className="container">
           <ul className="secondary-navbar-nav navbar-nav mr-auto">
-            <li className="secondary-navbar-nav-item nav-item" onClick={() => navigate('/entrance-exams')}>
-              <span className="secondary-navbar-nav-link nav-link">Search Guide</span>
-            </li>
-            {/* <li className="secondary-navbar-nav-item nav-item" onClick={() => navigate('/blogs')}>
-              <span className="secondary-navbar-nav-link nav-link">Blogs</span>
+            {/* <li className="secondary-navbar-nav-item nav-item"> */}
+              <Link to="/colleges" className="secondary-navbar-nav-link nav-link">Search Guide</Link>
+            {/* </li> */}
+            {/* <li className="secondary-navbar-nav-item nav-item"> */}
+              <Link to="/placement-guidance" className="secondary-navbar-nav-link nav-link">Placement Guidance</Link>
+            {/* </li> */}
+            {/* <li className="secondary-navbar-nav-item nav-item">
+              <Link to="/blogs" className="secondary-navbar-nav-link nav-link">Blogs</Link>
             </li> */}
           </ul>
         </div>

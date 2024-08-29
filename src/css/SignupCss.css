@@ -4,6 +4,8 @@
     align-items: center;
     height: 100vh;
     background-color: #ffffff;
+    margin-top: 50px;
+    margin-bottom: 50px;
   }
   
   .signup-form {
