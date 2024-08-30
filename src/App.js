@@ -93,7 +93,7 @@ function App() {
             <Route path="/shippingAndDeliveryPolicy" element={<ShippingAndDelivery />} />
             {/* COEP TECH */}
 
-            <Route path="/coeptech/discussions/:topicname" element={<TopicDiscussionPage />} />
+            <Route path="/coeptech/discussions/:topicId" element={<TopicDiscussionPage />} />
           </Routes>
         </BranchProvider>
       </div>

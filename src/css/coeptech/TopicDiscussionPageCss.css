@@ -1,54 +1,76 @@
 /* TopicDiscussionPage.css */
 
-.discussion-container {
+.topic-discussion-container {
     padding: 20px;
 }
 
-.comment-box {
+.topic-discussion-comment-box {
+    display: flex;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
-.comment-box input[type="text"] {
-    width: 80%;
-    padding: 8px;
-    margin-right: 10px;
-}
-
-.comment-box button {
-    padding: 8px 16px;
-}
-
-.comments-section {
-    margin-top: 20px;
-}
-
-.comment {
-    margin-bottom: 15px;
+.topic-discussion-comment-box input {
+    flex: 1;
     padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
-.reply {
-    margin-left: 20px;
-    padding: 5px;
-    background-color: #e9e9e9;
-    border-radius: 5px;
-}
-
-.reply input[type="text"] {
-    width: 70%;
-    padding: 5px;
-    margin-top: 5px;
-}
-
-.loading-more {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.load-more-btn {
-    display: block;
-    margin: 0 auto;
+.topic-discussion-post-btn {
     padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.topic-discussion-comments-section {
+    margin-bottom: 20px;
+}
+
+.topic-discussion-comment {
+    margin-bottom: 20px;
+}
+
+.topic-discussion-reply-box {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.topic-discussion-reply-box input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.topic-discussion-reply-btn {
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.topic-discussion-loading-more {
+    text-align: center;
+}
+
+.topic-discussion-load-more-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.topic-discussion-reply {
+    margin-left: 20px;
 }
