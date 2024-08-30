@@ -41,7 +41,7 @@ import PaymentPageComponentZoomSession from './Components/profileAccount/Payment
 import ForgotPassword from './Components/ForgotPassword.jsx';
 import ResetPassword from './Components/ResetPassword.jsx';
 import ShippingAndDelivery from './Components/company/ShippingAndDelivery.jsx';
-import DiscussionPage from './coeptech/Components/DiscussionPage.jsx';
+import TopicDiscussionPage from './coeptech/Components/TopicDiscussionPage.jsx';
 // FOR TEAM RECRUITERS
 // import TRStudentDetailsComponent from './Components/teamRecruiters/TRStudentDetailsComponent';
 function App() {
@@ -93,7 +93,7 @@ function App() {
             <Route path="/shippingAndDeliveryPolicy" element={<ShippingAndDelivery />} />
             {/* COEP TECH */}
 
-            {/* <Route path="/coeptech/discussions/:topicname" element={<DiscussionPage />} /> */}
+            <Route path="/coeptech/discussions/:topicname" element={<TopicDiscussionPage />} />
           </Routes>
         </BranchProvider>
       </div>
