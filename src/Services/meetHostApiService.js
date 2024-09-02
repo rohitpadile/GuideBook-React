@@ -34,13 +34,21 @@ export const fetchHomePageEvents = async () => {
     }
   };
 
-export const bookSeat = async (eventCode, userId) => {
-  try {
-    await api.post(`bookSeat/${eventCode}`, { userId });
-  } catch (error) {
-    throw error;
-  }
-};
+  export const checkIfEventBookedByUser = async (eventCode, token) => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      
+      const response = await api.get(`/checkIfEventBookedByUser/${eventCode}`, config);
+      return response.data.isBooked;
+    } catch (error) {
+      throw error;
+    }
+  };
+  
 
 export default api;
 

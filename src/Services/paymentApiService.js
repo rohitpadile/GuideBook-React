@@ -82,5 +82,37 @@ export const verifyUserWithZoomSessionFormId = async (zoomSessionFormId, token) 
   }
 };
 
-//methods
+
+export const paymentSuccessForEventBooking = async (paymentDetails, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await api.post('/paymentSuccessForEventBooking', paymentDetails, config);
+    return response.data;
+  } catch (error) {
+    // console.error("Error sending payment success", error);
+    throw error;
+  }
+};
+
+export const createPaymentOrderEventBooking = async (eventCode, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await api.get(`/createPaymentOrderEventBooking/${eventCode}`, config);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
   export default api; 
