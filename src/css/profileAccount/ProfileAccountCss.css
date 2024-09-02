@@ -1,9 +1,9 @@
 /* General Container Styling */
 .profile-account-container {
   display: flex;
-  justify-content: space-between;
-  gap: 4px; /* Adds space between the two cards */
-  margin: 50px 0;
+  /* justify-content: space-between; */
+  gap: 0px;
+  margin:10px 0;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
