@@ -48,6 +48,22 @@ export const fetchHomePageEvents = async () => {
       throw error;
     }
   };
+
+  export const getUserBookedTickets = async () => {
+    try {
+        const token = auth.getToken();
+        const response = await api.get('/getUserBookedTickets', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching open tickets:', error);
+        return [];
+    }
+};
   
 
 export default api;

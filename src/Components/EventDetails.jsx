@@ -195,25 +195,6 @@ const EventDetails = () => {
 
         </div>
     );
-
-    return (
-        <div className="event-details-container">
-            <header className="event-details-header">
-                <img src={event.bannerUrl} alt={event.eventName} className="event-details-banner" />
-                <h1>{event.eventName}</h1>
-                <p>{event.eventDescription}</p>
-            </header>
-
-            <div className="event-details-info">
-                <p><strong>Location:</strong> {event.eventLocation}</p>
-                <p><strong>Organizer:</strong> {event.organizer}</p>
-                <p><strong>Date & Time:</strong> {new Date(event.dateAndTime).toLocaleString()}</p>
-                <p><strong>Zoom Link:</strong> <a href={event.zoomLink} target="_blank" rel="noopener noreferrer">Join Zoom Meeting</a></p>
-            </div>
-
-            
-        </div>
-    );
 };
 
 export default EventDetails;

@@ -1,4 +1,14 @@
 /* General Container Styling */
+.profile-account-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px; /* Adds space between the two cards */
+  margin: 50px 0;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .profile-account {
   max-width: 600px;
   margin: 0 auto;
@@ -105,4 +115,37 @@
 .profile-account-edit-input:focus {
   border-color: #007bff;
   outline: none;
+}
+
+/* Responsive Design: Stacking Cards on Small Screens */
+@media (max-width: 768px) {
+  .profile-account-container {
+    flex-direction: column;
+  }
+
+  .profile-account {
+    max-width: 100%; /* Make sure cards take full width on small screens */
+  }
+}
+
+/* ticket styling */
+/* Ticket List Styling */
+.ticket-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ticket-card {
+  background-color: #efec5b;
+  border: 1px solid #3917d3;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 15px;
+  transition: box-shadow 0.3s ease;
+}
+
+.ticket-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getAccountTypeAndProfileData, editProfileData, checkDummyAccount } from '../../Services/userAccountApiService';
 import auth from '../../auth'; // Assuming auth.js is in the parent directory
 import '../../css/profileAccount/ProfileAccountCss.css'; // Importing the CSS file
+import { getUserBookedTickets } from '../../Services/meetHostApiService';
 import { useNavigate } from 'react-router-dom';
 const ProfileAccount = () => {
   const BASE_URL = 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/homepage/';
@@ -11,6 +12,7 @@ const ProfileAccount = () => {
   const [editMode, setEditMode] = useState(false); // For toggling edit mode
   const [editData, setEditData] = useState({}); // For holding the edited data
   const [dummyAcc, setDummyAcc] = useState(null);
+  const [bookedTickets, setBookedTickets] = useState([]); // State to store open tickets
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,9 +50,15 @@ const ProfileAccount = () => {
       }
     };
     
+    const fetchTickets = async () => {
+      const tickets = await getUserBookedTickets();
+      console.log(tickets);
+      setBookedTickets(tickets);
+    };
 
     fetchAccountData();
     checkDummyAccountStatus();
+    fetchTickets();
   }, []);
 
   
@@ -98,7 +106,8 @@ const ProfileAccount = () => {
   }
 
   return (
-    <div className="profile-account">
+    <div className='profile-account-container'>
+        <div className="profile-account">
       {accountType === 'student' ? (
         <div className="profile-account-student">
           <h2 className="profile-account-title">Student Mentor Profile</h2>
@@ -364,6 +373,26 @@ const ProfileAccount = () => {
         </div>
       )}
     </div>
+    <div className="profile-account">
+      <h2 className="profile-account-title">Booked Tickets</h2>
+      {bookedTickets.length > 0 ? (
+        <ul className="ticket-list">
+          {bookedTickets.map((ticket, index) => (
+            <li key={index} className="ticket-card">
+              <p><strong>Event:</strong> {ticket.title}</p>
+              <p><strong>Time:</strong> {ticket.dateAndTime}</p>
+              <p><strong>Location:</strong> {ticket.eventLocation}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No active booked tickets found.</p>
+      )}
+    </div>
+
+
+    </div>
+  
   );
 };
 
