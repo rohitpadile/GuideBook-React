@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { createPaymentOrderEventBooking, paymentSuccessForEventBooking } from '../Services/paymentApiService';
 import { useParams } from 'react-router-dom'; // To get the event code from URL
-import { fetchEventDetails,checkIfEventBookedByUser } from '../Services/meetHostApiService';
+import { fetchEventDetails, checkIfEventBookedByUser } from '../Services/meetHostApiService';
 import { checkLoginStatus } from '../Services/userAccountApiService';
 import { RAZORPAY_KEY_ID_LIVE, RAZORPAY_KEY_ID_TEST } from '../Services/razorpayUtil'; // Import Razorpay Key
-import '../css/EventDetailsCss.css'; // Create this CSS file for styling
+import '../css/EventDetailsCss.css'; // Ensure this CSS file includes the updated styles
 import Swal from 'sweetalert2';
 import auth from '../auth';
 
@@ -15,9 +15,9 @@ const EventDetails = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [bookingStatus, setBookingStatus] = useState(null);
-    const [userId, setUserId] = useState(''); // Adjust this to your user identification mechanism
     const navigate = useNavigate();
     const [isBooked, setIsBooked] = useState(false);
+
     // Load Razorpay script
     useEffect(() => {
         const script = document.createElement('script');
@@ -98,7 +98,7 @@ const EventDetails = () => {
 
                 if (status === 'created') {
                     let options = {
-                        key: RAZORPAY_KEY_ID_TEST,
+                        key: RAZORPAY_KEY_ID_TEST, //replace this with RAZORPAY_KEY_ID_LIVE key
                         amount: amount,  // Ensure the amount is in paise
                         currency: 'INR',
                         name: 'GuidebookX',
@@ -112,7 +112,6 @@ const EventDetails = () => {
                                     eventCode
                                 };
 
-                                // alert(response.razorpay_payment_id);
                                 Swal.fire({
                                     title: 'Processing',
                                     text: 'Please do not refresh the page while we process your booking.',
@@ -120,8 +119,8 @@ const EventDetails = () => {
                                     showConfirmButton: false,
                                     allowOutsideClick: false,
                                 });
-                                //write after payment success
-                                await paymentSuccessForEventBooking(paymentDetails,token);
+
+                                await paymentSuccessForEventBooking(paymentDetails, token);
                                 Swal.fire('Success', 'Payment successful. Your seat is booked!', 'success');
                                 setTimeout(() => {
                                     window.location.reload();
@@ -172,27 +171,36 @@ const EventDetails = () => {
         <div className="event-details-container">
             <header className="event-details-header">
                 <img src={event.bannerUrl} alt={event.eventName} className="event-details-banner" />
-                <h1>{event.eventName}</h1>
-                <p>{event.eventDescription}</p>
+                <h1 className="event-details-title">{event.eventName}</h1>
+                <p className="event-details-description">{event.eventDescription}</p>
             </header>
 
             <div className="event-details-info">
-                <p><strong>Location:</strong> {event.eventLocation}</p>
-                <p><strong>Organizer:</strong> {event.organizer}</p>
-                <p><strong>Date & Time:</strong> {new Date(event.dateAndTime).toLocaleString()}</p>
-                <p><strong>Zoom Link:</strong> <a href={event.zoomLink} target="_blank" rel="noopener noreferrer">Join Zoom Meeting</a></p>
+                <div className="event-details-info-item">
+                    <strong>Location:</strong> {event.eventLocation}
+                </div>
+                <div className="event-details-info-item">
+                    <strong>Organizer:</strong> {event.organizer}
+                </div>
+                <div className="event-details-info-item">
+                    <strong>Date & Time:</strong> {new Date(event.dateAndTime).toLocaleString()}
+                </div>
+                <div className="event-details-info-item">
+                    <strong>Zoom Link:</strong> <a href={event.zoomLink} target="_blank" rel="noopener noreferrer" className="event-details-zoom-link">Join Zoom Meeting</a>
+                </div>
             </div>
 
-            <button
-                id="book-seat-button"
-                className="book-seat-button"
-                onClick={paymentStart}
-                disabled={isBooked}
-            >
-                {isBooked ? 'Already Booked' : 'Book Seat'}
-            </button>
-            {bookingStatus && <p className="booking-status">{bookingStatus}</p>}
-
+            <div className="event-details-actions">
+                <button
+                    id="book-seat-button"
+                    className={`book-seat-button ${isBooked ? 'booked' : ''}`}
+                    onClick={paymentStart}
+                    disabled={isBooked}
+                >
+                    {isBooked ? 'Already Booked' : 'Book Seat'}
+                </button>
+                {bookingStatus && <p className="booking-status">{bookingStatus}</p>}
+            </div>
         </div>
     );
 };
