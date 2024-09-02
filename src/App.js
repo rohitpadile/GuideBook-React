@@ -42,6 +42,8 @@ import ForgotPassword from './Components/ForgotPassword.jsx';
 import ResetPassword from './Components/ResetPassword.jsx';
 import ShippingAndDelivery from './Components/company/ShippingAndDelivery.jsx';
 import DiscussionPage from './coeptech/Components/DiscussionPage.jsx';
+import Home2 from './Components/Home2.jsx';
+import EventDetails from './Components/EventDetails.jsx';
 // FOR TEAM RECRUITERS
 // import TRStudentDetailsComponent from './Components/teamRecruiters/TRStudentDetailsComponent';
 function App() {
@@ -52,7 +54,7 @@ function App() {
       <div className="container">
         <BranchProvider>
           <Routes>
-            <Route path="/" element={<HomePageComponent />} />
+            <Route path="/" element={<Home2 />} />
             <Route path="/home" element={<HomePageComponent />} />
             <Route path="/colleges/:examName" element={<SelectCollegeComponent />} />
             <Route path="/colleges" element={<SelectCollegeComponent />} />
@@ -92,8 +94,11 @@ function App() {
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/shippingAndDeliveryPolicy" element={<ShippingAndDelivery />} />
             {/* COEP TECH */}
-
             {/* <Route path="/coeptech/discussions/:topicname" element={<DiscussionPage />} /> */}
+
+            {/* MEET HOSTING PLATFORM */}
+
+            <Route path="/events/:eventCode" element={<EventDetails />} />
           </Routes>
         </BranchProvider>
       </div>
