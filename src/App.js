@@ -44,6 +44,7 @@ import ShippingAndDelivery from './Components/company/ShippingAndDelivery.jsx';
 import DiscussionPage from './coeptech/Components/DiscussionPage.jsx';
 import Home2 from './Components/Home2.jsx';
 import EventDetails from './Components/EventDetails.jsx';
+import PhotoUpload from './Components/PhotoUpload.jsx';
 // FOR TEAM RECRUITERS
 // import TRStudentDetailsComponent from './Components/teamRecruiters/TRStudentDetailsComponent';
 function App() {
@@ -99,6 +100,8 @@ function App() {
             {/* MEET HOSTING PLATFORM */}
 
             <Route path="/events/:eventCode" element={<EventDetails />} />
+            
+            <Route path="/pu" element={<PhotoUpload />} />
           </Routes>
         </BranchProvider>
       </div>
