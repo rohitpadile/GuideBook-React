@@ -83,6 +83,10 @@ const ProfileAccount = () => {
     }
   };
 
+  const handleAddDiscussion = () => {
+    navigate("/addDiscussion");
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditData((prevData) => ({
@@ -108,26 +112,35 @@ const ProfileAccount = () => {
   return (
     <div className='profile-account-container'>
       <div className="profile-account">
-      <h2 className="profile-account-title">Booked Tickets</h2>
-      {bookedTickets.length > 0 ? (
-        <ul className="ticket-list">
-          {bookedTickets.map((ticket, index) => (
-            <li key={index} className="ticket-card">
-              <p><strong>Event:</strong> {ticket.title}</p>
-              <p><strong>Time:</strong> {ticket.dateAndTime}</p>
-              <p><strong>Location:</strong> {ticket.eventLocation}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No active booked tickets found.</p>
-      )}
-    </div>
+        <h2 className="profile-account-title">Booked Tickets</h2>
+        {bookedTickets.length > 0 ? (
+          <ul className="ticket-list">
+            {bookedTickets.map((ticket, index) => (
+              <li key={index} className="ticket-card">
+                <p><strong>Event:</strong> {ticket.title}</p>
+                <p><strong>Time:</strong> {ticket.dateAndTime}</p>
+                <p><strong>Location:</strong> {ticket.eventLocation}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No active booked tickets found.</p>
+        )}
+      </div>
+
+      <div className="profile-account">
+      <h2 className="profile-account-title">Create a discussion page</h2>
+        {/* New Button for Adding Discussion */}
+        <button onClick={handleAddDiscussion} className="add-discussion-btn">
+          Add New Discussion
+        </button>
+      </div>
+
     
         <div className="profile-account">
       {accountType === 'student' ? (
         <div className="profile-account-student">
-          <h2 className="profile-account-title">Student Mentor Profile</h2>
+          <h2 className="profile-account-title">Student Guide Profile</h2>
           <p className="profile-account-info"><strong>Student Name:</strong> {profileData.studentName}</p>
           <p className="profile-account-info"><strong>Email:</strong> {profileData.studentMentorAccountWorkEmail}</p>
           <p className="profile-account-info"><strong>College:</strong> {profileData.college}</p>
@@ -192,7 +205,7 @@ const ProfileAccount = () => {
             
           </div>
           
-          <h2 className="profile-account-title">Client Profile</h2>
+          <h2 className="profile-account-title">Profile</h2>
           {editMode ? (
             <>
               <input
@@ -270,7 +283,7 @@ const ProfileAccount = () => {
               <p className="profile-account-info"><strong>Age:</strong> {profileData.clientAge}</p>
               <p className="profile-account-info"><strong>College:</strong> {profileData.college}</p>
               <p className="profile-account-info"><strong>Valid Proof:</strong> {profileData.clientValidProof}</p>
-              <p>For mentors, we will soon provide a verified mark and a valid proof link from the company.</p>
+              <p>For Guides, we will soon provide a verified mark and a valid proof link from the company.</p>
               <p className="profile-account-info"><strong>Zoom Email:</strong> {profileData.clientZoomEmail}</p>
               <button className="profile-account-edit-link" onClick={handleEdit}>Edit Profile</button>
 
@@ -288,7 +301,7 @@ const ProfileAccount = () => {
         </div>
       ) : (
         <div className="profile-account-client">
-          <h2 className="profile-account-title">Client Profile</h2>
+          <h2 className="profile-account-title">Profile</h2>
           {editMode ? (
             <>
               <input

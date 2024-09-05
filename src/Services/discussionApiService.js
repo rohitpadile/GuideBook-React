@@ -69,6 +69,24 @@ export const fetchDiscussionTopics = async () => {
     throw error;
   }
 };
+
+export const createDiscussion = async ( addDiscussionRequest) => {
+  
+  try {
+    const token = auth.getToken();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    };
+    await api.post('/createDiscussionPageFromUser', addDiscussionRequest, config);
+  } catch (error) {
+    console.error('Error creating new discussion page:', error);
+    throw error;
+  }
+};
+
 // export const deleteComment = async (commentId) => {
 //   try {
 //     const response = await fetch(`/deleteComment/${commentId}`, {

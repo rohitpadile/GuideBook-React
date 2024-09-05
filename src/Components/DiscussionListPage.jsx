@@ -34,6 +34,7 @@ const DiscussionListPage = () => {
             <a href={`/discussion/${discussion.discussionId}`} className="discussionListPage-link">
               {discussion.discussionTitle}
             </a>
+            <p>Creator: {discussion.discussionOwner}</p>
           </li>
         ))}
       </ul>

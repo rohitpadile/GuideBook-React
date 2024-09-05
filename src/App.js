@@ -48,6 +48,7 @@ import PhotoUpload from './Components/PhotoUpload.jsx';
 import DiscussionPage from './Components/DiscussionPage.jsx';
 import DiscussionListPage from './Components/DiscussionListPage.jsx';
 import OtherFooterLinks from './Components/OtherFooterLinks.jsx';
+import AddDiscussion from './Components/AddDiscussion.jsx';
 // FOR TEAM RECRUITERS
 // import TRStudentDetailsComponent from './Components/teamRecruiters/TRStudentDetailsComponent';
 function App() {
@@ -58,7 +59,7 @@ function App() {
       <div className="container">
         <BranchProvider>
           <Routes>
-            <Route path="/" element={<Home2 />} />
+            <Route path="/" element={<HomePageComponent />} />
             <Route path="/home" element={<HomePageComponent />} />
             <Route path="/colleges/:examName" element={<SelectCollegeComponent />} />
             <Route path="/colleges" element={<SelectCollegeComponent />} />
@@ -108,6 +109,7 @@ function App() {
             <Route path="/discussion/:id" element={<DiscussionPage />} />
             <Route path="/discussions" element={<DiscussionListPage />} />
             <Route path="/otherLinks" element={<OtherFooterLinks />} />
+            <Route path="/addDiscussion" element={<AddDiscussion />} />
           </Routes>
         </BranchProvider>
       </div>
