@@ -1,42 +1,82 @@
-/* DiscussionListPageCss.css */
-
 .discussionListPage-container {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .discussionListPage-title {
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: #333;
-    text-align: center;
-  }
-  
-  .discussionListPage-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .discussionListPage-listItem {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-  }
-  
-  .discussionListPage-link {
-    text-decoration: none;
-    color: #007bff;
-    font-size: 1.2em;
-  }
-  
-  .discussionListPage-link:hover {
-    text-decoration: underline;
-  }
-  
-  .discussionListPage-loading,
-  .discussionListPage-error {
-    text-align: center;
-    font-size: 1.2em;
-    color: #d9534f;
-  }
-  
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.discussionListPage-title {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  text-align: center;
+  font-weight: bold;
+}
+
+.discussionListPage-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.discussionListPage-listItem {
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.discussionListPage-listItem:last-child {
+  border-bottom: none;
+}
+
+.discussionListPage-link {
+  text-decoration: none;
+  color: #3498db;
+  font-size: 1.4em;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.discussionListPage-link:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+.discussionListPage-link:active {
+  color: #1a5276;
+}
+
+.discussionListPage-creator {
+  font-size: 0.9em;
+  color: #7f8c8d;
+  margin-top: 5px;
+}
+
+.discussionListPage-loading,
+.discussionListPage-error {
+  text-align: center;
+  font-size: 1.2em;
+  color: #e74c3c;
+}
+
+.discussionListPage-button {
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1.1em;
+  margin: 20px auto;
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.discussionListPage-button:hover {
+  background-color: #2980b9;
+}

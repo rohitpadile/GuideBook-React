@@ -66,13 +66,15 @@ const DiscussionPage = () => {
 
   return (
     <div className="discussionPage-container">
-      <h2 className="discussionPage-title">Presenting Official Unofficial Group Discussion.</h2>
+      <h2 className="discussionPage-title">Welcome to the Unofficial College Discussion Forum!</h2>
       <h2 className="discussionPage-title">Topic: {discussionTitle}</h2>
       
-      <p className=''> Discuss what happened in class today.</p>
+      <p className=''> Share your thoughts on the topic.</p>
       <ul>
-        <li>Consider this a reddit for your college! Speak your opinion</li>
+        <li>Consider this a subreddit for your college! Speak your opinion.</li>
         <li>Read what others has to say.</li>
+        {/* <li>Think of this as your own college subreddit. Express yourself freely!</li>
+        <li>See what others are saying and join the conversation.</li> */}
         {/* <li>Discuss on n number of topics we would be adding soon.</li> */}
         {/* <li>Signup to add your first comment.</li> */}
       </ul>

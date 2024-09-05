@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createDiscussion } from '../Services/discussionApiService'; // Assuming this service handles API calls
+import Swal from 'sweetalert2'; // Importing swal
 
 const AddDiscussion = () => {
   const [discussionTitle, setDiscussionTitle] = useState('');
@@ -11,8 +12,25 @@ const AddDiscussion = () => {
     try {
       const addDiscussionRequest = { discussionTitle };
       await createDiscussion(addDiscussionRequest); // Call API service to add discussion
-      navigate('/profile'); // Redirect back to the profile or wherever you want
+
+      // Show success alert
+      Swal.fire({
+        icon: 'success',
+        title: 'Discussion Created!',
+        text: 'Your discussion has been successfully created.',
+        confirmButtonText: 'OK',
+      }).then(() => {
+        navigate('/discussions'); // Redirect after alert confirmation
+      });
+      
     } catch (error) {
+      // Show error alert
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops!',
+        text: 'Failed to create discussion. Please try again.',
+        confirmButtonText: 'OK',
+      });
       console.error('Error creating discussion:', error);
     }
   };

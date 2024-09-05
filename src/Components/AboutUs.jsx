@@ -5,7 +5,7 @@ const AboutUs = () => {
   const teamMembers = [
     {
       name: 'Rohit Padile',
-      role: 'Founder & CEO',
+      role: 'Founder',
       imageUrl: 'https://guidebookx-store.s3.ap-south-1.amazonaws.com/team/rohitp22.elec@coeptech.ac.in.jpg',
     },
     {

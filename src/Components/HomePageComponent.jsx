@@ -16,7 +16,7 @@ const HomePageComponent = () => {
     <div className="home-page">
 
       {/* Problems and Confusion */}
-      <div className="home-page-problems-section">
+      {/* <div className="home-page-problems-section">
         <h2>Facing Problems with Stream Selection?</h2>
         <p>
           Are you a 10th or 12th class student confused about what to pursue? Struggling between your interests and your parents' expectations to take up PCM or PCB? 
@@ -30,7 +30,7 @@ const HomePageComponent = () => {
         <Button className="get-started-button" onClick={handleGetStartedClick}>
           Book a Session Now
         </Button>
-      </div>
+      </div> */}
 
       {/* Flex container to align content and poster side by side */}
       <div className="home-page-side-by-side-container">

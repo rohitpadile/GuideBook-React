@@ -3,8 +3,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0px;
+  margin-top: 20px;
   flex-wrap: wrap; /* Ensure it wraps on smaller screens */
+  border-color: #0056b3;
 }
 
 /* Adjust content poster styling */
