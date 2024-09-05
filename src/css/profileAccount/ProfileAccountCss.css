@@ -1,6 +1,6 @@
 /* General Container Styling */
 .profile-account-container {
-  display: flex;
+  /* display: flex; */
   /* justify-content: space-between; */
   gap: 0px;
   margin:10px 0;

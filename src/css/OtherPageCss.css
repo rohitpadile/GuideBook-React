@@ -1,0 +1,39 @@
+/* OtherPageCss.css */
+
+.otherPage-container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .otherPage-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .otherPage-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .otherPage-listItem {
+    margin-bottom: 10px;
+  }
+  
+  .otherPage-link {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 18px;
+  }
+  
+  .otherPage-link:hover {
+    text-decoration: underline;
+  }
+  

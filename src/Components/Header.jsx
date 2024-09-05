@@ -74,7 +74,7 @@ const Header = () => {
               <Link to="/colleges" className="secondary-navbar-nav-link nav-link">Search Guide</Link>
             {/* </li> */}
             {/* <li className="secondary-navbar-nav-item nav-item"> */}
-              <Link to="/placement-guidance" className="secondary-navbar-nav-link nav-link">Placement Guidance</Link>
+              <Link to="/discussions" className="secondary-navbar-nav-link nav-link">Discussions</Link>
             {/* </li> */}
             {/* <li className="secondary-navbar-nav-item nav-item">
               <Link to="/blogs" className="secondary-navbar-nav-link nav-link">Blogs</Link>

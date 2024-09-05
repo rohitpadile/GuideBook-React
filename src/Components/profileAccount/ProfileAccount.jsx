@@ -107,6 +107,23 @@ const ProfileAccount = () => {
 
   return (
     <div className='profile-account-container'>
+      <div className="profile-account">
+      <h2 className="profile-account-title">Booked Tickets</h2>
+      {bookedTickets.length > 0 ? (
+        <ul className="ticket-list">
+          {bookedTickets.map((ticket, index) => (
+            <li key={index} className="ticket-card">
+              <p><strong>Event:</strong> {ticket.title}</p>
+              <p><strong>Time:</strong> {ticket.dateAndTime}</p>
+              <p><strong>Location:</strong> {ticket.eventLocation}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No active booked tickets found.</p>
+      )}
+    </div>
+    
         <div className="profile-account">
       {accountType === 'student' ? (
         <div className="profile-account-student">
@@ -373,22 +390,7 @@ const ProfileAccount = () => {
         </div>
       )}
     </div>
-    <div className="profile-account">
-      <h2 className="profile-account-title">Booked Tickets</h2>
-      {bookedTickets.length > 0 ? (
-        <ul className="ticket-list">
-          {bookedTickets.map((ticket, index) => (
-            <li key={index} className="ticket-card">
-              <p><strong>Event:</strong> {ticket.title}</p>
-              <p><strong>Time:</strong> {ticket.dateAndTime}</p>
-              <p><strong>Location:</strong> {ticket.eventLocation}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No active booked tickets found.</p>
-      )}
-    </div>
+    
 
 
     </div>

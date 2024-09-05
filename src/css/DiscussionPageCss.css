@@ -1,0 +1,80 @@
+/* Base container for the discussion page */
+.discussionPage-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #e6daff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+/* Title of the discussion */
+.discussionPage-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Comment form styling */
+.discussionPage-commentForm {
+  margin-bottom: 20px;
+}
+
+/* Textarea for new comments */
+.discussionPage-textarea {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+  resize: vertical;
+}
+
+/* Submit button for adding comments */
+.discussionPage-submitButton {
+  background-color: #007bff;
+  color: #5b2020;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.discussionPage-submitButton:hover {
+  background-color: #0056b3;
+}
+
+/* Section containing comments */
+.discussionPage-commentsSection {
+  margin-top: 20px;
+}
+
+/* Individual comment styling */
+.discussionPage-comment {
+  padding: 15px;
+  border-bottom: 1px solid #2b9c0c;
+}
+
+.discussionPage-commentUsername {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 7px;
+}
+
+.discussionPage-commentText {
+  font-size: 16px;
+  margin: 5px 0;
+  color: #000000;
+}
+
+.discussionPage-timestamp {
+  font-size: 12px;
+  color: #0044ff;
+}

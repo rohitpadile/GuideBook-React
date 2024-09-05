@@ -1,0 +1,42 @@
+/* DiscussionListPageCss.css */
+
+.discussionListPage-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .discussionListPage-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .discussionListPage-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .discussionListPage-listItem {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+  
+  .discussionListPage-link {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 1.2em;
+  }
+  
+  .discussionListPage-link:hover {
+    text-decoration: underline;
+  }
+  
+  .discussionListPage-loading,
+  .discussionListPage-error {
+    text-align: center;
+    font-size: 1.2em;
+    color: #d9534f;
+  }
+  

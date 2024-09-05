@@ -1,5 +1,6 @@
 // userAccountApiService.js
 import axios from 'axios';
+import auth from '../auth';
 // const BASE_URL = 'https://guidebookx.com/api/v1/user/';
 // const BASE_URL = 'https://guidebookX-alb-1586257955.ap-south-1.elb.amazonaws.com/api/v1/user/'; // Ensure the URL has the trailing slash
 // const BASE_URL = 'http://guidebookX-alb-1586257955.ap-south-1.elb.amazonaws.com/api/v1/user/'; // Ensure the URL has the trailing slash
@@ -15,6 +16,23 @@ const api = axios.create({
   },
   withCredentials: true
 });
+
+  // Fetch the user email for the comment
+  export const getUserEmail = async () => {
+    try {
+      const token = auth.getToken();
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const response = await api.get('/getUserEmailForComponentUse',config);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
 
 // Reset Password API
 export const resetPassword = async (token, newPassword) => {

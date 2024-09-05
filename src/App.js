@@ -41,10 +41,13 @@ import PaymentPageComponentZoomSession from './Components/profileAccount/Payment
 import ForgotPassword from './Components/ForgotPassword.jsx';
 import ResetPassword from './Components/ResetPassword.jsx';
 import ShippingAndDelivery from './Components/company/ShippingAndDelivery.jsx';
-import DiscussionPage from './coeptech/Components/DiscussionPage.jsx';
+// import DiscussionPage from './coeptech/Components/DiscussionPage.jsx';
 import Home2 from './Components/Home2.jsx';
 import EventDetails from './Components/EventDetails.jsx';
 import PhotoUpload from './Components/PhotoUpload.jsx';
+import DiscussionPage from './Components/DiscussionPage.jsx';
+import DiscussionListPage from './Components/DiscussionListPage.jsx';
+import OtherFooterLinks from './Components/OtherFooterLinks.jsx';
 // FOR TEAM RECRUITERS
 // import TRStudentDetailsComponent from './Components/teamRecruiters/TRStudentDetailsComponent';
 function App() {
@@ -102,6 +105,9 @@ function App() {
             <Route path="/events/:eventCode" element={<EventDetails />} />
             
             <Route path="/pu" element={<PhotoUpload />} />
+            <Route path="/discussion/:id" element={<DiscussionPage />} />
+            <Route path="/discussions" element={<DiscussionListPage />} />
+            <Route path="/otherLinks" element={<OtherFooterLinks />} />
           </Routes>
         </BranchProvider>
       </div>
