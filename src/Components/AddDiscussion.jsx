@@ -28,7 +28,7 @@ const AddDiscussion = () => {
       Swal.fire({
         icon: 'error',
         title: 'Oops!',
-        text: 'Failed to create discussion. Please try again.',
+        text: 'Please login and try again.',
         confirmButtonText: 'OK',
       });
       console.error('Error creating discussion:', error);

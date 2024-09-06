@@ -13,8 +13,12 @@ const HomePageComponent = () => {
   };
 
   return (
+    
     <div className="home-page">
-
+      <div>
+      <h3>Notice: The site will shut temporarily due to low funds</h3>
+      </div>
+      
       {/* Problems and Confusion */}
       {/* <div className="home-page-problems-section">
         <h2>Facing Problems with Stream Selection?</h2>
@@ -33,10 +37,12 @@ const HomePageComponent = () => {
       </div> */}
 
       {/* Flex container to align content and poster side by side */}
+      
       <div className="home-page-side-by-side-container">
         {/* Poster-like container for content */}
         <div className="home-page-content-poster">
           <div className="carousel-caption-below">
+            
             <h3>GuidebookX</h3>
             <p>Connecting India's student community through 1:1 guided sessions!</p>
             <div className="button-group">
@@ -56,6 +62,7 @@ const HomePageComponent = () => {
               Click here to Apply For Guide
             </a>
           </p>
+          
         </div>
         
         {/* Poster image */}

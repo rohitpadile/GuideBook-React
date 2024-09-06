@@ -50,6 +50,7 @@ const Header = () => {
             <img src={`${BASE_URL}logo white.jpg`} alt="GuidebookX" className="header-logo" />
             <div className="header-logo-text">GuidebookX</div>
           </Link>
+          
           <div className="header-links">
             {isLoggedIn ? (
               <div>
