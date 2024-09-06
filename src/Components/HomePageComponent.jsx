@@ -16,7 +16,7 @@ const HomePageComponent = () => {
     
     <div className="home-page">
       <div>
-      <h3>Notice: The site will shut temporarily due to low funds</h3>
+      {/* <h3 className='text-center mt-2'>Notice: The site will shut temporarily due to low funds</h3> */}
       </div>
       
       {/* Problems and Confusion */}
