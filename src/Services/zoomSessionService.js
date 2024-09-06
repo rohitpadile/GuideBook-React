@@ -5,9 +5,9 @@ import auth from '../auth';
 // const BASE_URL = 'http://guidebookX-alb-1586257955.ap-south-1.elb.amazonaws.com/api/v1/admin/'; // Ensure the URL has the trailing slash
 // const BASE_URL = 'http://localhost:8080/api/v1/admin/'; // Ensure the URL has the trailing slash
 // const BASE_URL = "https://www.guidebookx.com/api/v1/admin";
-// const BASE_URL = "https://api.guidebookx.com/api/v1/admin/";
+const BASE_URL = "https://api.guidebookx.com/api/v1/admin/";
 // const BASE_URL = "https://a.guidebookx.com/api/v1/admin/";
-const BASE_URL = "http://13.235.131.222/api/v1/admin/";
+// const BASE_URL = "https://13.235.131.222/api/v1/admin/";
 
 const api = axios.create({
   baseURL: BASE_URL,
