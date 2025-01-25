@@ -16,7 +16,9 @@ const HomePageComponent = () => {
     
     <div className="home-page">
       <div>
-      {/* <h3 className='text-center mt-2'>Notice: The site will shut temporarily due to low funds</h3> */}
+      <h4 className='text-center mt-4'>Our services are temporarily offline due to unforeseen operational challenges. 
+        We're working diligently to resolve the issue and will restore access as soon as possible. 
+        Thank you for your patience and understanding.</h4>
       </div>
       
       {/* Problems and Confusion */}

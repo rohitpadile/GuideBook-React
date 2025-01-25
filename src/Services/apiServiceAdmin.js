@@ -4,11 +4,12 @@ import axios from 'axios';
 // const BASE_URL = 'http://guidebookX-alb-1586257955.ap-south-1.elb.amazonaws.com/api/v1/admin/'; // Ensure the URL has the trailing slash
 // const BASE_URL = 'http://localhost:8080/api/v1/admin/'; // Ensure the URL has the trailing slash
 // const BASE_URL = "https://www.guidebookx.com/api/v1/admin";
-const BASE_URL = "https://api.guidebookx.com/api/v1/admin/";
+// const BASE_URL = "https://api.guidebookx.com/api/v1/admin/";
 // const BASE_URL = "https://a.guidebookx.com/api/v1/admin/";
 // const BASE_URL = "https://13.235.131.222/api/v1/admin/";
 // https://chatgpt.com/c/5d78c49f-e2be-44f4-8334-b033d2e06b60
 // const BASE_URL = process.env.REACT_APP_BASE_URL; // for production purpose
+const BASE_URL = "https://guidebook-rosy.vercel.app/";
 const api = axios.create({
   baseURL: BASE_URL,
   headers: {
